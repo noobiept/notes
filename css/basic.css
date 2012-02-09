@@ -1,0 +1,63 @@
+    
+
+#mainContainer 
+    {
+    height: 100%;
+    clear: both;
+    }
+    
+
+body
+    {
+    background-color: black;
+    color: white;
+    }
+
+
+.noteEntry, .dummyNote
+    {
+    cursor: pointer;
+    float: left;
+    width: 100px;
+    height: 100px;
+    
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+    }
+
+
+.noteEntry:hover, .noteEntry:focus, .dummyNote:hover, .dummyNote:focus
+    {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    }
+
+
+.dummyNote
+    {
+    background-color: rgb(40, 40, 40);
+    }
+
+
+
+    /* :::: Menu :::: */
+
+#menu 
+    {           
+    list-style-type: none;
+    text-align: center;
+    margin: 5px 0;
+    padding: 0;
+    z-index: 100;
+    overflow: visible;
+    width: 100%;
+    }
+
+
+#menu li 
+    {
+    float: left; 
+    min-width: 120px;
+    font-size: 1.125em;
+    cursor: pointer;
+    }
