@@ -1,4 +1,4 @@
-/*global DragDrop, MAIN_CONTAINER*/
+/*global DragDrop, MAIN_CONTAINER, Draw*/
 
 'use strict';
 
@@ -29,6 +29,19 @@ noteEntry.innerHTML = text;
 noteEntry.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
 //noteEntry.style.color = 
 
+
+
+var delNote = Draw( 'delNote' );
+
+
+
+var noteContainer = document.createElement( 'div' );
+
+noteContainer.className = "noteContainer";
+
+noteContainer.appendChild( noteEntry );
+noteContainer.appendChild( delNote );
+
 /*
 if (Options.spellCheck === false)
     {
@@ -42,6 +55,8 @@ else
 */
 
 
+    // :: Events :: //
+
 var noteKeyEvents = function(event) { noteObject.keyboardShortcuts( event ); };
 
 noteEntry.addEventListener( 'keydown' , noteKeyEvents, false );
@@ -49,7 +64,12 @@ noteEntry.addEventListener( 'keyup'   , noteKeyEvents, false );
 noteEntry.addEventListener( 'keypress', noteKeyEvents, false );
 
 
-noteEntry.noteObject = this;
+delNote.addEventListener( 'click', function() { noteObject.remove(); }, false );
+
+
+    // :: Other :: //
+
+noteContainer.noteObject = this;
 
 
     // make notes draggable
@@ -59,6 +79,7 @@ this.dragDrop_obj = new DragDrop( noteEntry, null, this );
 this.position_int = position;
 this.parentObject = containerObject;
 this.noteEntry_obj = noteEntry;
+this.noteContainer_ui = noteContainer;
 
 
 
@@ -74,6 +95,30 @@ return this;
 Note.generateColor = function()
 {
     //HERE
+};
+
+
+
+
+
+/*
+ * remove the note
+ */
+
+Note.prototype.remove = function()
+{
+var position = this.getPosition();
+    
+
+    //remove from the array
+MAIN_CONTAINER.childrenObjects_array.splice( position, 1 );
+
+
+    //remove the html element
+MAIN_CONTAINER.getHtmlElement().removeChild( this.getHtmlElement() );
+
+
+MAIN_CONTAINER.updateOrder( position );  
 };
 
 
@@ -280,5 +325,5 @@ return null;
 
 Note.prototype.getHtmlElement = function()
 {
-return this.noteEntry_obj;
+return this.noteContainer_ui;
 };

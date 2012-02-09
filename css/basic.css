@@ -14,8 +14,9 @@ body
     }
 
 
-.noteEntry, .dummyNote
+.noteContainer, .dummyNote, .noteEntry
     {
+    position: relative;
     cursor: pointer;
     float: left;
     width: 100px;
@@ -26,7 +27,7 @@ body
     }
 
 
-.noteEntry:hover, .noteEntry:focus, .dummyNote:hover, .dummyNote:focus
+.noteContainer:hover, .noteContainer:focus, .dummyNote:hover, .dummyNote:focus
     {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
@@ -38,6 +39,41 @@ body
     background-color: rgb(40, 40, 40);
     }
 
+
+    /* :::: Side buttons :::: */
+
+.delNote
+    {
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+    
+    cursor: pointer;
+    position: absolute;
+    
+
+    z-index: 10;
+    opacity: 0;
+    }
+
+.delNote
+    {
+    top: 5px;
+    right: 10px;
+    }
+
+
+.noteContainer:hover .delNote
+    {
+    opacity: 0.2;
+    }
+
+
+.noteContainer:hover .delNote:hover
+    {
+    opacity: 1;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    }
 
 
     /* :::: Menu :::: */
