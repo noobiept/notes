@@ -44,6 +44,9 @@
 	- poder dividir as entradas em grupos (com uma barra no meio.. ter um titulo para o grupo?...)
 	
 	- ser draggable entre os grupos
+	
+	
+	- se fazer drag das notas, ele gravar tb o background color?..
  */
 
 

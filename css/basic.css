@@ -97,3 +97,58 @@ body
     font-size: 1.125em;
     cursor: pointer;
     }
+    
+
+/* ************************************
+ *
+ *        Popup window
+ * 
+ * ************************************/
+
+
+.windowOverlay
+    {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: none; /* its going to be shown later with javascript */
+    width: 100%;
+    /*z-index: 100; is set with javascript*/
+    }
+
+
+.windowContainer
+    {
+    -webkit-transition-property: top, left;
+    -webkit-transition-duration: 0.2s;
+    -webkit-transition-timing-function: linear;
+    
+    -moz-transition-property: top, left;
+    -moz-transition-duration: 0.2s;
+    -moz-transition-timing-function: linear;
+    
+    position: fixed;
+    box-shadow: 1px 1px 10px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    overflow: auto;
+    max-width: 90%;
+    max-height: 85%;
+    /*background-color: #fff;*/
+    
+    /*resize: both; //HERE hmmmm */
+    /*z-index: 200; set with javascript as well (because of having several windows)*/
+    }
+
+.windowContent
+    {
+    padding: 10px;
+    border-radius: 15px;   /* same as in .windowContainer */
+    }
+    
+
+.NoteWindow-text
+    {
+    min-height: 100px;
+    min-width: 100px;
+    }

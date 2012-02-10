@@ -1,4 +1,4 @@
-/*global DragDrop, MAIN_CONTAINER, Draw*/
+/*global DragDrop, MAIN_CONTAINER, Draw, NoteWindow*/
 
 'use strict';
 
@@ -63,6 +63,8 @@ noteEntry.addEventListener( 'keydown' , noteKeyEvents, false );
 noteEntry.addEventListener( 'keyup'   , noteKeyEvents, false );
 noteEntry.addEventListener( 'keypress', noteKeyEvents, false );
 
+
+noteEntry.addEventListener( 'click', function() { NoteWindow( noteObject ); }, false );
 
 delNote.addEventListener( 'click', function() { noteObject.remove(); }, false );
 
@@ -160,6 +162,22 @@ if (text === null || typeof text == 'undefined')    //HERE eh assim?
     }
 
 return text;
+};
+
+
+
+/*
+ * 
+ */
+
+Note.prototype.setText = function( text )
+{
+if (typeof text == 'undefined' || text === null)
+    {
+    text = "<br>";
+    }
+
+this.noteEntry_obj.innerHTML = text;
 };
 
 
