@@ -45,8 +45,19 @@
 	
 	- ser draggable entre os grupos
 	
+	- qd está em edit mode (com a popup window), poder mudar entre as notas com home/end key -- e ter tb umas setas de lado.. para fazer com o rato
 	
 	- se fazer drag das notas, ele gravar tb o background color?..
+ */
+
+/*
+
+    - Retirar o overlay?...
+
+ 
+    - ter k ser possivel escrever logo na note
+        e se for preciso, abrir a popup window para editar com mais opções
+ 
  */
 
 

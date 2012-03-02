@@ -1,4 +1,4 @@
-/*global */
+/*global $*/
 
 'use strict';
 
@@ -28,8 +28,8 @@ element.addEventListener( 'dragleave', function(event) { dragObject.onDragLeave(
 
 
     //the drag handler
-//$( dragElement ).attr( 'draggable', 'true' );
-element.setAttribute( 'draggable', 'true' );
+$( dragElement ).attr( 'draggable', 'true' );
+//element.setAttribute( 'draggable', 'true' );
 
 
 this.dragElement_ui = dragElement;

@@ -18,7 +18,12 @@ switch (className)
         
         break;
         
-
+    case 'openWindow':
+    
+        element.title = 'open window';
+        Draw.openWindow(  element );
+    
+        break;
     }
 
 return element;
@@ -26,6 +31,36 @@ return element;
 
 
 
+
+/*
+ * 
+ */
+
+Draw.openWindow = function( canvas )
+{
+canvas.width  = 15;
+canvas.height = 15;
+
+var ctx = canvas.getContext('2d');
+
+var width = canvas.width;
+var height = canvas.height;
+
+ctx.beginPath();
+
+ctx.lineWidth = 2;
+ctx.strokeStyle = 'rgb(245, 230, 235)';
+
+var step = 4;
+
+for (var i = 2 ; i < height ; i += step)
+    {
+    ctx.moveTo( 2, i );
+    ctx.lineTo( width - 2, i );
+    }
+
+ctx.stroke();
+};
 
 
 /*

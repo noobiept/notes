@@ -1,4 +1,4 @@
-/*global $, window*/
+/*global $, window, EVENT_KEY, MAIN_CONTAINER*/
 
 
 'use strict';
@@ -124,7 +124,13 @@ var container = this.getContainer();
 var overlay = this.getOverlay();
 
 
-this.setContent(contentElement);
+    // set content
+
+this.windowContent_obj = contentElement;
+
+contentElement.classList.add( 'windowContent' );
+
+this.windowContainer_obj.appendChild( contentElement );
     
 
 
@@ -333,19 +339,24 @@ return this.windowContainer_obj;
 
 
 /*
- * set the content of the window
+ * 
  */
 
-PopupWindow.prototype.setContent = function (contentElement)
+PopupWindow.prototype.updateContent = function( elementObject )
 {
-this.windowContent_obj = contentElement;
+var windowContent = this.windowContent_obj;
 
-contentElement.classList.add( 'windowContent' );
+    // remove all the previous content  //HERE preciso disto?.. tou a usar o innerHTML a seguir
+while ( windowContent.childNodes.length > 0 )
+    {
+    windowContent.removeChild( windowContent.lastChild );
+    }
 
-this.windowContainer_obj.appendChild(contentElement);
+windowContent.innerHTML = elementObject.getText();
+
+
+this.elementObject_obj = elementObject;
 };
-
-
 
 
 
@@ -411,24 +422,66 @@ for (var i = 0 ; i < all.length ; i++)
 /*
  * popup window 'global' shortcuts
  * 
- *      - ESC key : closes the window
+ *      - esc  : closes the window
+ *      - home : move to the note to the left (or if this is the first one, go to the last)
+ *      - end  : move to the note to the right (or if this is the last one, go to the first)
+ * 
  */
 
 PopupWindow.prototype.shortcuts = function (event)
 {
 var key = event.which;
-var escKey = 27;
+var elementObject = this.elementObject_obj;
+var otherElement = null;
 
 
 if (event.type == 'keyup')
     {
         //close the window
-    if (key == escKey)
+    if (key == EVENT_KEY.esc)
         {
         this.hide();
     
         event.stopPropagation();
         } 
+    
+        // move to the note to the left (or if this is the first one, go to the last)
+    else if (key == EVENT_KEY.home)
+        {
+            // if there's only one, do nothing
+        if ( MAIN_CONTAINER.childrenCount() > 1 )
+            {
+            otherElement = elementObject.previous();
+            
+                // this is the first one
+            if ( otherElement === null )
+                {
+                otherElement = MAIN_CONTAINER.getLastChild();
+                }     
+            
+            this.updateContent( otherElement );
+            //HERE ter k por focus?...
+            }
+        }
+        
+        // move to the note to the right (or if this is the last one, go to the first)
+    else if (key == EVENT_KEY.end)
+        {
+            // if there's only one, do nothing
+        if ( MAIN_CONTAINER.childrenCount() > 1 )
+            {
+            otherElement = elementObject.next();
+            
+                // this is the first one
+            if ( otherElement === null )
+                {
+                otherElement = MAIN_CONTAINER.getFirstChild();
+                }     
+            
+            this.updateContent( otherElement );
+            //HERE ter k por focus?...
+            } 
+        }
     }
 };
 

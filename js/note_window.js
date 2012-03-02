@@ -23,9 +23,10 @@ container.appendChild( text );
 NoteWindow.text_ui = text;
 NoteWindow.noteObject = noteObject;
 
+
 var popup = new PopupWindow();
 
-popup.show( container, text, null/*noteObject*/, NoteWindow.onHide  );  //HERE n esta a fazer o focus dps para a Note...
+popup.show( container, text, noteObject, NoteWindow.onHide  );  //HERE n esta a fazer o focus dps para a Note...
 }
 
 

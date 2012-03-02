@@ -13,6 +13,8 @@ if ( typeof position == 'undefined' || isNaN( position ) === true )
     position = containerObject.childrenCount();
     }
 
+
+    // :: Note entry -- where you write the text :: //
     
 var noteEntry = document.createElement( 'div' );
 
@@ -25,22 +27,40 @@ if (typeof text == 'undefined' || text === "" )
     }
 
 noteEntry.innerHTML = text;
-//noteEntry.setAttribute( 'contenteditable', 'true' );
-noteEntry.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
-//noteEntry.style.color = 
+noteEntry.setAttribute( 'contenteditable', 'true' );
+//noteEntry.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
 
 
+    // :: Open the popup window :: //
+    
+var openWindow = Draw( 'openWindow' );
+
+    
+    // :: Remove the entry :: //
 
 var delNote = Draw( 'delNote' );
 
 
+    // :: note controls :: //
+    
+var noteControls = document.createElement( 'div' );
+noteControls.className = "noteControls";
+
+noteControls.appendChild( delNote );
+noteControls.appendChild( openWindow );
+
+
+    // :: container :: //
 
 var noteContainer = document.createElement( 'div' );
 
 noteContainer.className = "noteContainer";
 
+noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
-noteContainer.appendChild( delNote );
+
+
+noteContainer.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
 
 /*
 if (Options.spellCheck === false)
@@ -64,7 +84,7 @@ noteEntry.addEventListener( 'keyup'   , noteKeyEvents, false );
 noteEntry.addEventListener( 'keypress', noteKeyEvents, false );
 
 
-noteEntry.addEventListener( 'click', function() { NoteWindow( noteObject ); }, false );
+openWindow.addEventListener( 'click', function() { NoteWindow( noteObject ); }, false );
 
 delNote.addEventListener( 'click', function() { noteObject.remove(); }, false );
 
@@ -75,7 +95,7 @@ noteContainer.noteObject = this;
 
 
     // make notes draggable
-this.dragDrop_obj = new DragDrop( noteEntry, null, this );
+this.dragDrop_obj = new DragDrop( noteContainer , noteControls, this );
 
 
 this.position_int = position;

@@ -14,18 +14,46 @@ body
     }
 
 
+    /* :: Containers :: */
+
+
 .noteContainer, .dummyNote, .noteEntry
     {
     position: relative;
-    cursor: pointer;
     float: left;
-    width: 100px;
-    height: 100px;
-    
+   
     -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
     }
 
+
+.noteContainer, .dummyNote
+    {
+    width: 100px;   /* the sum of .noteEntry with .noteControls has to have these limits */
+    height: 100px;        
+    }
+
+
+.noteEntry
+    {
+    width: 100px;
+    height: 80px;
+    }
+
+.noteControls
+    {
+    height: 20px;
+    width: 100px;
+    cursor: pointer;
+    }
+    
+.dummyNote
+    {
+    cursor: pointer;
+    }
+    
+
+    
 
 .noteContainer:hover, .noteContainer:focus, .dummyNote:hover, .dummyNote:focus
     {
@@ -40,9 +68,10 @@ body
     }
 
 
+
     /* :::: Side buttons :::: */
 
-.delNote
+.delNote, .openWindow
     {
     -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
@@ -61,14 +90,21 @@ body
     right: 10px;
     }
 
+.openWindow
+    {
+    top: 5px; /* same as .delNote */
+   left: 10px;
+    }
 
-.noteContainer:hover .delNote
+
+.noteContainer:hover .delNote, .noteContainer:hover .openWindow,
+.noteContainer:focus .delNote, .noteContainer:focus .openWindow
     {
     opacity: 0.2;
     }
 
 
-.noteContainer:hover .delNote:hover
+.noteContainer:hover .delNote:hover, .noteContainer:hover .openWindow:hover
     {
     opacity: 1;
     -webkit-transform: scale(1.1);
@@ -132,9 +168,16 @@ body
     box-shadow: 1px 1px 10px 5px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
     overflow: auto;
+    
+    min-width: 200px;
+    min-height: 100px;
+    
     max-width: 90%;
     max-height: 85%;
-    /*background-color: #fff;*/
+    
+    
+    background-color: #000;
+    color: #fff;
     
     /*resize: both; //HERE hmmmm */
     /*z-index: 200; set with javascript as well (because of having several windows)*/

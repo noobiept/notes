@@ -8,6 +8,7 @@ var EVENT_KEY = {
 
     backspace  : 8,
     newLine    : 13,
+    esc        : 27,
     end        : 35,
     home       : 36,
     leftArrow  : 37,
