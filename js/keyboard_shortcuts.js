@@ -15,7 +15,7 @@ var EVENT_KEY = {
     upArrow    : 38,
     rightArrow : 39,
     downArrow  : 40,
-    delKey     : 46,
+    del        : 46,
    
     c : 67,
     l : 76,

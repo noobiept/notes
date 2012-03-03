@@ -58,6 +58,8 @@
     - ter k ser possivel escrever logo na note
         e se for preciso, abrir a popup window para editar com mais opções
  
+ 
+    - no undo/redo aparecer o k vai acontecer caso se clique (tipo Undo: removed note)
  */
 
 

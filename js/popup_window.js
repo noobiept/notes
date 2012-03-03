@@ -5,9 +5,17 @@
 
 /*
  * the popup window constructor
+ * 
+ *  
+ * Arguments:
+ *      - contentElement    : an html element with the content to add to the window
+ *      - onStartFunction   : to be called when the window is created
+ *      - onHideFunction    : to be called when the window is closed
+ *      - shortcutsFunction : to be called when keys are pressed
+ * 
  */
 
-function PopupWindow ()
+function PopupWindow (ontentElement, onStartFunction, onHideFunction, shortcutsFunction)
 {
 var popupWindowObject = this;
 
@@ -44,6 +52,8 @@ windowOverlay.addEventListener('click', function () { popupWindowObject.hide(); 
 this.shortcut_obj = function (event)
     {
     popupWindowObject.shortcuts(event);
+    
+    shortcutsFunction(event);
     };
 
 
@@ -61,16 +71,18 @@ $(windowOverlay).css('display', 'none');
 windowContainer.popupWindowObject = this;
 
 
+this.onHide_f = onHideFunction;
+
 
 this.windowOverlay_obj = windowOverlay;
 this.windowContainer_obj = windowContainer;
 this.windowContent_obj = null;
 
-this.elementObject_obj = null;
 
 this.isOpened_obj = false;
 
-this.previousContent_obj = null;
+
+this.show( ontentElement, onStartFunction, onHideFunction );
 
 return this;
 }
@@ -106,14 +118,11 @@ return true;
  * show the popup window
  * 
  * Arguments:
- *      - contentElement : an html element with the content to add to the window
- *      - elementOnFocus : which html element to call .focus() (if any)
- *      - elementObject  : when opening a window related to a entry/list/tab, 
- *                          give the object so that when the window is closed that element gains focus
- *      - onHideFunction : to be called when the window is closed
+ *      - contentElement    : an html element with the content to add to the window
+ *      - onStartFunction   : to be called when the window is created
  */
 
-PopupWindow.prototype.show = function (contentElement, elementOnFocus, elementObject, onHideFunction)
+PopupWindow.prototype.show = function (contentElement, onStartFunction)
 {
     //when opening from the menu, the sub-menu still stays opened //HERE
 $('#subMenu ul').css('display', 'none');
@@ -183,18 +192,10 @@ $(container).css('opacity', 1);
 
 
     //see if it was provided an element to set focus
-if (typeof elementOnFocus != 'undefined')
+if (typeof onStartFunction != 'undefined')
     {
         //the setTimeout is because of the .show() above
-    setTimeout(function () { elementOnFocus.focus(); }, 120);
-    }
-
-
-    //means its an ElementWindow
-    //save the element object - its going to be used later to put that element on focus when the window is closed
-if (typeof elementObject != 'undefined')
-    {
-    this.elementObject_obj = elementObject;
+    setTimeout(function () { onStartFunction(); }, 120);
     }
 
 
@@ -212,8 +213,6 @@ if (allWindows.length !== 0)
 document.addEventListener('keyup', this.shortcut_obj, false);
 
 
-
-this.onHide_f = onHideFunction;
 
 
     //one more opened window
@@ -266,16 +265,6 @@ this.windowContent_obj = null;
 
 this.isOpened_obj = false;
 
-
-
-    //put the element that this description belongs to on focus
-if (this.elementObject_obj !== null)
-    {
-    this.elementObject_obj.gainFocus();
-    
-        //clear the variable, so that it doesn't interfer with the next call
-    this.elementObject_obj = null;      
-    }
 
     
     //remove from body
@@ -335,28 +324,6 @@ PopupWindow.prototype.getContainer = function ()
 return this.windowContainer_obj;
 };
 
-
-
-
-/*
- * 
- */
-
-PopupWindow.prototype.updateContent = function( elementObject )
-{
-var windowContent = this.windowContent_obj;
-
-    // remove all the previous content  //HERE preciso disto?.. tou a usar o innerHTML a seguir
-while ( windowContent.childNodes.length > 0 )
-    {
-    windowContent.removeChild( windowContent.lastChild );
-    }
-
-windowContent.innerHTML = elementObject.getText();  //HERE
-
-
-this.elementObject_obj = elementObject;
-};
 
 
 
@@ -423,15 +390,12 @@ for (var i = 0 ; i < all.length ; i++)
  * popup window 'global' shortcuts
  * 
  *      - esc  : closes the window
- *      - home : move to the note to the left (or if this is the first one, go to the last)
- *      - end  : move to the note to the right (or if this is the last one, go to the first)
  * 
  */
 
 PopupWindow.prototype.shortcuts = function (event)
 {
 var key = event.which;
-var elementObject = this.elementObject_obj;
 var otherElement = null;
 
 
@@ -444,44 +408,6 @@ if (event.type == 'keyup')
     
         event.stopPropagation();
         } 
-    
-        // move to the note to the left (or if this is the first one, go to the last)
-    else if (key == EVENT_KEY.home)
-        {
-            // if there's only one, do nothing
-        if ( MAIN_CONTAINER.childrenCount() > 1 )
-            {
-            otherElement = elementObject.previous();
-            
-                // this is the first one
-            if ( otherElement === null )
-                {
-                otherElement = MAIN_CONTAINER.getLastChild();
-                }     
-            
-            this.updateContent( otherElement );
-            //HERE ter k por focus?...
-            }
-        }
-        
-        // move to the note to the right (or if this is the last one, go to the first)
-    else if (key == EVENT_KEY.end)
-        {
-            // if there's only one, do nothing
-        if ( MAIN_CONTAINER.childrenCount() > 1 )
-            {
-            otherElement = elementObject.next();
-            
-                // this is the first one
-            if ( otherElement === null )
-                {
-                otherElement = MAIN_CONTAINER.getFirstChild();
-                }     
-            
-            this.updateContent( otherElement );
-            //HERE ter k por focus?...
-            } 
-        }
     }
 };
 
