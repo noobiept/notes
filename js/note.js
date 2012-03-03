@@ -3,7 +3,7 @@
 'use strict';
 
 
-function Note( containerObject, text, position )
+function Note( containerObject, title, text, position )
 {
 var noteObject = this;
     
@@ -14,19 +14,19 @@ if ( typeof position == 'undefined' || isNaN( position ) === true )
     }
 
 
-    // :: Note entry -- where you write the text :: //
+    // :: Note entry -- where you write the title :: //
     
 var noteEntry = document.createElement( 'div' );
 
 noteEntry.className = "noteEntry";
 
 
-if (typeof text == 'undefined' || text === "" )
+if (typeof title == 'undefined' || title === "" )
     {
-    text = "<br>";
+    title = "<br>";
     }
 
-noteEntry.innerHTML = text;
+noteEntry.innerHTML = title;
 noteEntry.setAttribute( 'contenteditable', 'true' );
 //noteEntry.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
 
@@ -75,6 +75,12 @@ else
 */
 
 
+if (typeof text == 'undefined' || text === "" )
+    {
+    text = "<br>";
+    }
+
+
     // :: Events :: //
 
 var noteKeyEvents = function(event) { noteObject.keyboardShortcuts( event ); };
@@ -102,7 +108,7 @@ this.position_int = position;
 this.parentObject = containerObject;
 this.noteEntry_obj = noteEntry;
 this.noteContainer_ui = noteContainer;
-
+this.text_str = text;
 
 
 return this;
@@ -167,12 +173,37 @@ return this.position_int;
 
 
 
-
 /*
- * get the text of the note
+ * 
  */
 
-Note.prototype.getText = function ()
+Note.prototype.getText = function()
+{
+return this.text_str;
+};
+
+
+/*
+ * 
+ */
+
+Note.prototype.setText = function( text )
+{
+if (typeof text == 'undefined' || text === null)
+    {
+    text = "<br>";
+    }
+    
+this.text_str = text;
+};
+
+
+
+/*
+ * get the title of the note
+ */
+
+Note.prototype.getTitle = function ()
 {
 var text = this.noteEntry_obj.innerHTML;
 
@@ -190,7 +221,7 @@ return text;
  * 
  */
 
-Note.prototype.setText = function( text )
+Note.prototype.setTitle = function( text )
 {
 if (typeof text == 'undefined' || text === null)
     {

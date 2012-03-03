@@ -38,6 +38,8 @@ body
     {
     width: 100px;
     height: 80px;
+    text-overflow: ellipsis;    /* //HERE n esta a por a ellipsis */
+    overflow: hidden;
     }
 
 .noteControls
@@ -54,7 +56,7 @@ body
     
 
     
-
+    /* //HERE qd a .noteEntry on focus, por o transform... n sei se da com css */
 .noteContainer:hover, .noteContainer:focus, .dummyNote:hover, .dummyNote:focus
     {
     -webkit-transform: scale(1.1);
@@ -189,6 +191,13 @@ body
     border-radius: 15px;   /* same as in .windowContainer */
     }
     
+
+.NoteWindow-title
+    {
+    min-height: 100px;
+    min-width: 100px;
+    }
+
 
 .NoteWindow-text
     {

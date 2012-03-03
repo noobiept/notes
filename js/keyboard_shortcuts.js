@@ -37,6 +37,15 @@ Note.prototype.keyboardShortcuts = function( event )
 var noteObject = this;
 var key = event.which;
     
+var noteHtml = noteObject.getHtmlElement();
+//console.log(noteHtml.offsetHeight, noteHtml.scrollHeight);
+/*
+if (noteHtml.scrollHeight > noteHtml.offsetHeight)
+    {
+    event.preventDefault();
+    return false;
+    }*/
+
     // used when we're selecting another element than this
 var otherNoteObject;
     

@@ -14,8 +14,9 @@ if (notes === null)
 MAIN_CONTAINER.addDummyNote();
 
 
+
 for (var i = 0 ; i < notes.length ; i++)
     {
-    MAIN_CONTAINER.add( notes[ i ] );
+    MAIN_CONTAINER.add( notes[ i ].title, notes[ i ].text );
     }
 }

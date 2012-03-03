@@ -352,7 +352,7 @@ while ( windowContent.childNodes.length > 0 )
     windowContent.removeChild( windowContent.lastChild );
     }
 
-windowContent.innerHTML = elementObject.getText();
+windowContent.innerHTML = elementObject.getText();  //HERE
 
 
 this.elementObject_obj = elementObject;

@@ -26,9 +26,9 @@ return this;
  * Add a note
  */
 
-MainContainer.prototype.add = function( text, position )
+MainContainer.prototype.add = function( title, text, position )
 {
-var noteObject = new Note( this, text, position );
+var noteObject = new Note( this, title, text, position );
 
 var notePosition = noteObject.getPosition();
     

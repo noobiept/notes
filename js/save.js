@@ -38,7 +38,10 @@ var noteObject = MAIN_CONTAINER.getFirstChild();
 
 for ( ; noteObject !== null ; noteObject = noteObject.next() )
     {
-    notes.push( noteObject.getText() );
+    notes.push({
+        title : noteObject.getTitle(),
+        text  : noteObject.getText() 
+        });
     }
 
 localStorage.setObject( 'notes', notes );
