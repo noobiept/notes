@@ -15,11 +15,9 @@ body
 
 
 
-
 ::-webkit-scrollbar
     {
     width: 15px;
-    height: 100%;
     background-color: rgba(255, 255, 255, 0.9);
     }
 
@@ -221,14 +219,6 @@ body
  *        Note Window
  * 
  * ************************************/
-
-
-
-.NoteWindow-title
-    {
-    min-height: 100px;
-    min-width: 100px;
-    }
 
 
 .NoteWindow-text

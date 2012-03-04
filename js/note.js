@@ -7,7 +7,7 @@
  * 
  */
 
-function Note( containerObject, title, text, position )
+function Note( containerObject, text, position )
 {
 var noteObject = this;
     
@@ -25,12 +25,7 @@ var noteEntry = document.createElement( 'div' );
 noteEntry.className = "noteEntry";
 
 
-if (typeof title == 'undefined' || title === "" )
-    {
-    title = "<br>";
-    }
-
-noteEntry.innerHTML = title;
+noteEntry.innerHTML = text;
 noteEntry.setAttribute( 'contenteditable', 'true' );
 //noteEntry.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
 
@@ -88,11 +83,6 @@ else
 */
 
 
-if (typeof text == 'undefined' || text === "" )
-    {
-    text = "<br>";
-    }
-
 
     // :: Events :: //
 
@@ -119,7 +109,6 @@ this.position_int = position;
 this.parentObject = containerObject;
 this.noteEntry_obj = noteEntry;
 this.noteContainer_ui = noteContainer;
-this.text_str = text;
 this.backgroundColor_str = backgroundColor;
 
 
@@ -201,36 +190,10 @@ return this.position_int;
 
 
 /*
- * 
+ * get the text of the note
  */
 
-Note.prototype.getText = function()
-{
-return this.text_str;
-};
-
-
-/*
- * 
- */
-
-Note.prototype.setText = function( text )
-{
-if (typeof text == 'undefined' || text === null)
-    {
-    text = "<br>";
-    }
-    
-this.text_str = text;
-};
-
-
-
-/*
- * get the title of the note
- */
-
-Note.prototype.getTitle = function ()
+Note.prototype.getText = function ()
 {
 var text = this.noteEntry_obj.innerHTML;
 
@@ -248,7 +211,7 @@ return text;
  * 
  */
 
-Note.prototype.setTitle = function( text )
+Note.prototype.setText = function( text )
 {
 if (typeof text == 'undefined' || text === null)
     {

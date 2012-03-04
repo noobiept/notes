@@ -8,16 +8,6 @@
 
 function NoteWindow( noteObject )
 {
-    // :: Title :: //
-    
-var title = document.createElement( 'div' );
-
-title.setAttribute( 'contenteditable', 'true' );
-title.className = "NoteWindow-title";
-
-title.innerHTML = noteObject.getTitle();
-
-
     // :: Text :: //
 
 var text = document.createElement( 'div' );
@@ -33,13 +23,11 @@ var container = document.createElement( 'div' );
 
 container.style.backgroundColor = noteObject.getBackgroundColor();
 
-container.appendChild( title );
 container.appendChild( text );
 
 
     // :: Other :: //
 
-NoteWindow.title_ui = title;
 NoteWindow.text_ui = text;
 NoteWindow.container_ui = container;
 NoteWindow.noteObject_obj = noteObject;
@@ -59,7 +47,7 @@ new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.sh
 
 NoteWindow.onStart = function()
 {
-NoteWindow.title_ui.focus();
+NoteWindow.text_ui.focus();
 };
 
 
@@ -74,7 +62,6 @@ NoteWindow.onHide = function()
 {
 var noteObject = NoteWindow.noteObject_obj;
 
-noteObject.setTitle( NoteWindow.title_ui.innerHTML );
 noteObject.setText( NoteWindow.text_ui.innerHTML );
 
 noteObject.gainFocus();
@@ -88,7 +75,6 @@ noteObject.gainFocus();
 
 NoteWindow.updateContent = function( noteObject )
 {
-NoteWindow.title_ui.innerHTML = noteObject.getTitle();
 NoteWindow.text_ui.innerHTML = noteObject.getText();
 
 
@@ -151,22 +137,6 @@ if (event.type == 'keyup')
             NoteWindow.updateContent( otherElement );
             //HERE ter k por focus?...
             } 
-        }
-    
-
-        // ctrl + up/down arrow --> go to the element above/below
-        // since we only have two elements, they both to the same thing (toggle between title and text)    
-    else if (event.ctrlKey && (key == EVENT_KEY.upArrow || key == EVENT_KEY.downArrow ))
-        {
-        if (document.activeElement == NoteWindow.title_ui)
-            {
-            NoteWindow.text_ui.focus();
-            }
-        
-        else
-            {
-            NoteWindow.title_ui.focus();
-            }
         }
     }
 };
