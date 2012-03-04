@@ -1,4 +1,4 @@
-/*global Note*/
+/*global Note, MAIN_CONTAINER*/
 
 /*
  * Keys code for the keyboard events
@@ -51,7 +51,7 @@ var otherNoteObject;
     
 if (event.type == 'keydown')
     {
-    if ( key == EVENT_KEY.home )
+    if ( event.ctrlKey && key == EVENT_KEY.leftArrow )
         {
         otherNoteObject = noteObject.previous();
         
@@ -59,9 +59,15 @@ if (event.type == 'keydown')
             {
             otherNoteObject.gainFocus();
             }
+        
+            // means this is the first note, go to the .dummyNote
+        else
+            {
+            MAIN_CONTAINER.getDummy().gainFocus();
+            }
         }
     
-    else if ( key == EVENT_KEY.end )
+    else if ( event.ctrlKey && key == EVENT_KEY.rightArrow )
         {
         otherNoteObject = noteObject.next();
         
@@ -69,7 +75,58 @@ if (event.type == 'keydown')
             {
             otherNoteObject.gainFocus();
             }
+        
+            // means this is the last element, go to .dummyNote
+        else
+            {
+            MAIN_CONTAINER.getDummy().gainFocus();
+            }
         }
+        
+        // remove the note
+    else if ( event.ctrlKey && key == EVENT_KEY.del )
+        {
+            // we'll try to give focus to the next note, or the previous if this is the last note
+            // if this is the only note left, focus goes to the dummy note
+        otherNoteObject = this.next();
+        
+        var isDummy = false;    //HERE preciso por causa do bug do .gainFocus()
+         
+        if (otherNoteObject === null)
+            {
+            otherNoteObject = this.previous();
+            
+            if (otherNoteObject === null)
+                {
+                otherNoteObject = MAIN_CONTAINER.getDummy();
+                isDummy = true;
+                }
+            }
+        
+      
+        this.remove();
+        
+        
+        if (isDummy === false)
+            {
+            var title = otherNoteObject.getTitle();
+        
+            otherNoteObject.gainFocus();
+
+                //HERE weird behaviour, by calling .gainFocus(), it clears the otherNoteObject's first line        
+            setTimeout( function() { otherNoteObject.setTitle(title); }, 20 );                
+            }
+
+        else
+            {
+            otherNoteObject.gainFocus();
+            
+            //HERE same 
+            setTimeout( function() { otherNoteObject.getHtmlElement().innerHTML = "New Note"; }, 20 );
+            }
+        } 
+    
+    event.stopPropagation();
     }
 };
 

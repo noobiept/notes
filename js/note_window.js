@@ -31,6 +31,8 @@ text.innerHTML = noteObject.getText();
 
 var container = document.createElement( 'div' );
 
+container.style.backgroundColor = noteObject.getBackgroundColor();
+
 container.appendChild( title );
 container.appendChild( text );
 
@@ -39,11 +41,12 @@ container.appendChild( text );
 
 NoteWindow.title_ui = title;
 NoteWindow.text_ui = text;
+NoteWindow.container_ui = container;
 NoteWindow.noteObject_obj = noteObject;
 
 
-  //HERE n esta a fazer o focus dps para a Note...
-NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts );
+
+new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts );
 }
 
 
@@ -89,6 +92,7 @@ NoteWindow.title_ui.innerHTML = noteObject.getTitle();
 NoteWindow.text_ui.innerHTML = noteObject.getText();
 
 
+NoteWindow.container_ui = noteObject.getBackgroundColor();
 
 NoteWindow.noteObject_obj = noteObject;
 };

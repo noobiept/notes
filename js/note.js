@@ -3,6 +3,10 @@
 'use strict';
 
 
+/*
+ * 
+ */
+
 function Note( containerObject, title, text, position )
 {
 var noteObject = this;
@@ -60,7 +64,8 @@ noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
 
 
-noteContainer.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
+var backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
+noteContainer.style.backgroundColor = backgroundColor;
 
 /*
 if (Options.spellCheck === false)
@@ -86,8 +91,6 @@ if (typeof text == 'undefined' || text === "" )
 var noteKeyEvents = function(event) { noteObject.keyboardShortcuts( event ); };
 
 noteEntry.addEventListener( 'keydown' , noteKeyEvents, false );
-noteEntry.addEventListener( 'keyup'   , noteKeyEvents, false );
-noteEntry.addEventListener( 'keypress', noteKeyEvents, false );
 
 
 openWindow.addEventListener( 'click', function() { NoteWindow( noteObject ); }, false );
@@ -109,6 +112,7 @@ this.parentObject = containerObject;
 this.noteEntry_obj = noteEntry;
 this.noteContainer_ui = noteContainer;
 this.text_str = text;
+this.backgroundColor_str = backgroundColor;
 
 
 return this;
@@ -230,6 +234,19 @@ if (typeof text == 'undefined' || text === null)
 
 this.noteEntry_obj.innerHTML = text;
 };
+
+
+
+/*
+ * Returns the background color (a string)
+ */
+
+Note.prototype.getBackgroundColor = function()
+{
+return this.backgroundColor_str;
+};
+
+
 
 
 

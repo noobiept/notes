@@ -45,6 +45,29 @@ for ( ; noteObject !== null ; noteObject = noteObject.next() )
     }
 
 localStorage.setObject( 'notes', notes );
+
+    
+    // :: Options :: //
+
+var activeNote = document.activeElement;
+    
+var activePosition = -1;    // -1 means no focus
+
+    // find if there is a note on focus, to save its position
+if (activeNote.classList.contains('noteEntry'))
+    {
+    noteObject = activeNote.parentNode.noteObject;
+    
+    activePosition = noteObject.getPosition();
+    }
+
+var options = {
+    
+    activeNotePosition : activePosition
+    
+    };
+    
+localStorage.setObject( 'options', options );
 }
 
 

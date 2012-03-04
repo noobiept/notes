@@ -15,7 +15,7 @@
  * 
  */
 
-function PopupWindow (ontentElement, onStartFunction, onHideFunction, shortcutsFunction)
+function PopupWindow (contentElement, onStartFunction, onHideFunction, shortcutsFunction)
 {
 var popupWindowObject = this;
 
@@ -53,7 +53,10 @@ this.shortcut_obj = function (event)
     {
     popupWindowObject.shortcuts(event);
     
-    shortcutsFunction(event);
+    if (typeof shortcutsFunction != 'undefined')
+        {
+        shortcutsFunction(event);        
+        }
     };
 
 
@@ -82,7 +85,7 @@ this.windowContent_obj = null;
 this.isOpened_obj = false;
 
 
-this.show( ontentElement, onStartFunction, onHideFunction );
+this.show( contentElement, onStartFunction );
 
 return this;
 }
@@ -231,7 +234,7 @@ PopupWindow.allWindows_class.push( this );
 
 PopupWindow.prototype.hide = function (effectTime)
 {
-if (this.onHide_f !== null)
+if (typeof this.onHide_f != 'undefined' && this.onHide_f !== null)
     {
     this.onHide_f();
     }
