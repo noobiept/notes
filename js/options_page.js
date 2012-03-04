@@ -16,13 +16,14 @@ $( container ).load( '../options.html',
     var slider = document.createElement( 'div' );   //HERE n funciona com o k esta na options.html
 
     var showValue = container.querySelector( '#Options-noteDimension' );
-
+    
+    showValue.innerHTML = OPTIONS.noteDimension;
 
     $( slider ).slider({
-        value : 100,
+        value : OPTIONS.noteDimension,
         min   : 50,
-        max   : 300,
-        step  : 50,
+        max   : 200,
+        step  : 25,
         slide : function(event, ui)
             {
             showValue.innerHTML = ui.value;

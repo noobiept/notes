@@ -341,8 +341,8 @@ var container = this.getContainer();
 
 
     //get the document measures
-var documentWidth = $(document).width();
-var documentHeight = $(document).height();
+var documentWidth = $(window).width();
+var documentHeight = $(window).height();
 
     //and the window we're appending
 var windowWidth = $(container).outerWidth();

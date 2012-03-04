@@ -1,4 +1,4 @@
-/*global MAIN_CONTAINER, EVENT_KEY*/
+/*global MAIN_CONTAINER, EVENT_KEY, OPTIONS*/
 
 
 
@@ -11,6 +11,11 @@ var dummy = document.createElement( 'div' );
 dummy.setAttribute( 'contenteditable', 'true' );
 dummy.className = "dummyNote";
 dummy.innerHTML = "New Note";
+
+var dimension = OPTIONS.noteDimension + 'px';
+
+dummy.style.width = dimension;  //HERE
+dummy.style.height = dimension;
 
 
 dummy.onclick = function()

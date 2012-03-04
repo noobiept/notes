@@ -58,10 +58,11 @@
     - ter k ser possivel escrever logo na note
         e se for preciso, abrir a popup window para editar com mais opções
  
- 
     - ao escrever na note, ele esta a 'continuar'.. so deixar escrever no espaco da note (tem ter k fazer scroll)
  
     - no undo/redo aparecer o k vai acontecer caso se clique (tipo Undo: removed note)
+    
+    - ver Note.generateColor()
  */
 
 

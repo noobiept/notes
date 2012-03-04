@@ -1,4 +1,4 @@
-/*global DragDrop, MAIN_CONTAINER, Draw, NoteWindow*/
+/*global DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS*/
 
 'use strict';
 
@@ -71,8 +71,9 @@ noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
 
 
-var backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
+var backgroundColor = Note.generateColor();
 noteContainer.style.backgroundColor = backgroundColor;
+
 
 /*
 if (Options.spellCheck === false)
@@ -129,11 +130,26 @@ return this;
 
 /*
  * Generates randomly a background color and a text color for each entry
+ * 
+ * rgba(red, green, blue, alpha)
+ * 
+ * With red/green/blue going from 0 to 255
+ * and alpha from 0 to 1
+ * 
+ * Math.random() --> returns a random number from 0 to 1 (not including 1) 
  */
 
 Note.generateColor = function()
 {
-    //HERE
+    //var backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
+    //HERE ter uma opcao, para trocar entre random cores, ou tipo gradiente
+    // dar para definir as cores pelo utilizador, e essas nao sao afectadas por o Note.generateColor()
+    
+var red   = Math.round( Math.random() * (255) );
+var green = Math.round( Math.random() * (255) );    //HERE tenho k dps mudar tb a cor da letra, para nao calhar por exemplo backgroundColor branco com letra branca
+var blue  = Math.round( Math.random() * (255) );        // e tb da scrollbar
+
+return "rgba(" + red + ", "+green + ", " + blue + ", 0.5)";
 };
 
 
