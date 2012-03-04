@@ -59,8 +59,16 @@
         e se for preciso, abrir a popup window para editar com mais opções
  
  
+    - ao escrever na note, ele esta a 'continuar'.. so deixar escrever no espaco da note (tem ter k fazer scroll)
+ 
     - no undo/redo aparecer o k vai acontecer caso se clique (tipo Undo: removed note)
  */
+
+
+var OPTIONS = {
+    noteDimension      : 100,   // the width/height of each note
+    activeNotePosition : -1     // which note to get focus on the beginning of the program (-1 means no one)
+    };
 
 
 var MAIN_CONTAINER = null;
@@ -69,10 +77,6 @@ window.onload = function()
 {
 MAIN_CONTAINER = new MainContainer();
     
-var newNote = document.querySelector( '#newNote' );
-
-newNote.addEventListener( 'click', function(event) { MAIN_CONTAINER.add(); }, false );
-
 
 Load();
 };

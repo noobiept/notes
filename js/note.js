@@ -34,7 +34,6 @@ noteEntry.innerHTML = title;
 noteEntry.setAttribute( 'contenteditable', 'true' );
 //noteEntry.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
 
-
     // :: Open the popup window :: //
     
 var openWindow = Draw( 'openWindow' );
@@ -59,6 +58,14 @@ noteControls.appendChild( openWindow );
 var noteContainer = document.createElement( 'div' );
 
 noteContainer.className = "noteContainer";
+
+noteContainer.style.width = OPTIONS.noteDimension + 'px';
+noteContainer.style.height = OPTIONS.noteDimension + 'px'; //HERE -- dps se mudar nas opcoes e adicionar uma nota vai ter dimensoes diferentes...
+
+var aa = OPTIONS.noteDimension - 20;
+
+noteEntry.style.width = OPTIONS.noteDimension + 'px';   //HERE evil
+noteEntry.style.height = aa + 'px';
 
 noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );

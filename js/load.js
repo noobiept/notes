@@ -1,9 +1,16 @@
-/*global localStorage, MAIN_CONTAINER*/
+/*global localStorage, MAIN_CONTAINER, Menu, OPTIONS: true*/
 
 
 
 function Load()
 {
+Menu();
+ 
+Load.options();
+
+
+    // :: load the notes :: //
+    
 var notes = localStorage.getObject( 'notes' );
 
 if (notes === null)
@@ -21,6 +28,26 @@ for (var i = 0 ; i < notes.length ; i++)
     }
 
 
+    // set focus on the element that was active last time
+if (OPTIONS.activeNotePosition >= 0)
+    {
+    var noteObject = MAIN_CONTAINER.getChild( OPTIONS.activeNotePosition );
+    
+    if (noteObject !== null)
+        {
+        noteObject.gainFocus();
+        }
+    }
+}
+
+
+
+/*
+ * 
+ */
+
+Load.options = function()
+{
     // :: Load Options :: //
 
 var options = localStorage.getObject( 'options' );
@@ -30,14 +57,6 @@ if (options === null)
     return;
     }
 
-if (options.activeNotePosition >= 0)
-    {
-    var noteObject = MAIN_CONTAINER.getChild( options.activeNotePosition );
-    
-    if (noteObject !== null)
-        {
-        noteObject.gainFocus();
-        }
-    }
 
-}
+OPTIONS = options;
+};

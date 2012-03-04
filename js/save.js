@@ -1,4 +1,4 @@
-/*global Storage, localStorage, MAIN_CONTAINER*/
+/*global Storage, localStorage, MAIN_CONTAINER, OPTIONS*/
 
 
 /*
@@ -61,13 +61,14 @@ if (activeNote.classList.contains('noteEntry'))
     activePosition = noteObject.getPosition();
     }
 
-var options = {
-    
-    activeNotePosition : activePosition
-    
-    };
-    
-localStorage.setObject( 'options', options );
+
+
+
+    // update the active note
+OPTIONS.activeNotePosition = activePosition;
+
+   
+localStorage.setObject( 'options', OPTIONS );
 }
 
 

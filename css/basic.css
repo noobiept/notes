@@ -36,7 +36,7 @@ body
 
 .noteEntry
     {
-    width: 100px;
+    /*width: 100px;*/
     height: 80px;
     text-overflow: ellipsis;    /* //HERE n esta a por a ellipsis */
     overflow: hidden;
@@ -45,7 +45,7 @@ body
 .noteControls
     {
     height: 20px;
-    width: 100px;
+    /*width: 100px;*/
     cursor: pointer;
     }
     
@@ -192,6 +192,15 @@ body
     }
     
 
+
+/* ************************************
+ *
+ *        Note Window
+ * 
+ * ************************************/
+
+
+
 .NoteWindow-title
     {
     min-height: 100px;
@@ -203,4 +212,18 @@ body
     {
     min-height: 100px;
     min-width: 100px;
+    }
+    
+
+
+/* ************************************
+ *
+ *        Options Page
+ * 
+ * ************************************/
+
+
+#Options-noteDimension
+    {
+    /*color: white;*/
     }
