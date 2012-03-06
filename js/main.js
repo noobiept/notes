@@ -24,8 +24,6 @@
 		
 	    - o background-color mudar automaticamente (ficar colorido) ou num pattern (tipo alternar entre 2 cores)
 	
-	    - ctrl + enter cria uma entrada na posicao seguinte
-	
 	    - fazer um video a mostrar o programa logo desde o inicio
 
         - o simbolo pode ser algo relacionado com os rectangulos coloridos
@@ -39,6 +37,7 @@
     
         - ver Note.generateColor()
             
+        - o width ser maior k o height para as notas
     
     a pensar:
     

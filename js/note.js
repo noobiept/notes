@@ -25,6 +25,11 @@ var noteEntry = document.createElement( 'div' );
 noteEntry.className = "noteEntry";
 
 
+if ( typeof text == 'undefined' || text === "" )
+    {
+    text = "<br>";
+    }
+
 noteEntry.innerHTML = text;
 noteEntry.setAttribute( 'contenteditable', 'true' );
 //noteEntry.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
@@ -138,7 +143,7 @@ var red   = Math.round( Math.random() * (255) );
 var green = Math.round( Math.random() * (255) );    //HERE tenho k dps mudar tb a cor da letra, para nao calhar por exemplo backgroundColor branco com letra branca
 var blue  = Math.round( Math.random() * (255) );        // e tb da scrollbar
 
-return "rgba(" + red + ", "+green + ", " + blue + ", 0.5)";
+return "rgba(" + red + ", "+green + ", " + blue + ", 0.7)";
 };
 
 

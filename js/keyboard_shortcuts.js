@@ -32,25 +32,28 @@ var EVENT_KEY = {
 
 
 
+/*
+    - ctrl + left arrow  : focus to the note to the left (or the dummy note, if its the first note)
+    - ctrl + right arrow : focus to the note to the right (or dummy note, if its the last one)
+    - ctrl + delete      : delete the note
+    - ctrl + enter       : create a new note in the next position
+    
+ 
+ */
+
 Note.prototype.keyboardShortcuts = function( event )
 {
 var noteObject = this;
 var key = event.which;
     
 var noteHtml = noteObject.getHtmlElement();
-//console.log(noteHtml.offsetHeight, noteHtml.scrollHeight);
-/*
-if (noteHtml.scrollHeight > noteHtml.offsetHeight)
-    {
-    event.preventDefault();
-    return false;
-    }*/
 
     // used when we're selecting another element than this
 var otherNoteObject;
     
 if (event.type == 'keydown')
     {
+        // focus to the note to the left (or the dummy note, if its the first note)
     if ( event.ctrlKey && key == EVENT_KEY.leftArrow )
         {
         otherNoteObject = noteObject.previous();
@@ -67,6 +70,7 @@ if (event.type == 'keydown')
             }
         }
     
+        // focus to the note to the right (or dummy note, if its the last one)
     else if ( event.ctrlKey && key == EVENT_KEY.rightArrow )
         {
         otherNoteObject = noteObject.next();
@@ -109,12 +113,12 @@ if (event.type == 'keydown')
         
         if (isDummy === false)
             {
-            var title = otherNoteObject.getTitle();
+            var title = otherNoteObject.getText();
         
             otherNoteObject.gainFocus();
 
                 //HERE weird behaviour, by calling .gainFocus(), it clears the otherNoteObject's first line        
-            setTimeout( function() { otherNoteObject.setTitle(title); }, 20 );                
+            setTimeout( function() { otherNoteObject.setText(title); }, 20 );                
             }
 
         else
@@ -125,6 +129,14 @@ if (event.type == 'keydown')
             setTimeout( function() { otherNoteObject.getHtmlElement().innerHTML = "New Note"; }, 20 );
             }
         } 
+       
+        // create a new note in the next position    
+    else if ( event.ctrlKey && key == EVENT_KEY.newLine )
+        {
+        otherNoteObject = MAIN_CONTAINER.newNote( "", this.getPosition() + 1 );
+        
+        otherNoteObject.gainFocus();
+        }
     
     event.stopPropagation();
     }

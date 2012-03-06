@@ -1,4 +1,4 @@
-/*global PopupWindow, EVENT_KEY, MAIN_CONTAINER*/
+/*global $, window, PopupWindow, EVENT_KEY, MAIN_CONTAINER, Draw*/
 
 
 
@@ -17,13 +17,40 @@ text.className = "NoteWindow-text";
 text.innerHTML = noteObject.getText();
 
 
+    // :: Left arrow -- change to the note to the left :: //
+
+var left = Draw( 'NoteWindow-leftArrow' );
+
+var width = $(window).width();
+var height = $(window).height();
+
+var halfHeight = height / 2;
+
+
+$( left ).css( 'left', '100px' );  //HERE  -- por a ficar a uma certa distancia sempre da NoteWindow
+$( left ).css( 'top', halfHeight + 'px' );
+
+
+    // :: Right arrow -- change to the note to the right :: //
+
+var right = Draw( 'NoteWindow-rightArrow' );
+
+
+$( right ).css( 'right', '100px' );//HERE
+$( right ).css( 'top', halfHeight + 'px' );
+
     // :: Container :: //
 
 var container = document.createElement( 'div' );
 
 container.style.backgroundColor = noteObject.getBackgroundColor();
+//$(container).css('position', 'relative');
 
 container.appendChild( text );
+
+document.body.appendChild( left );
+document.body.appendChild( right );
+
 
 
     // :: Other :: //
@@ -32,6 +59,8 @@ NoteWindow.text_ui = text;
 NoteWindow.container_ui = container;
 NoteWindow.noteObject_obj = noteObject;
 
+NoteWindow.leftArrow_ui = left;
+NoteWindow.rightArrow_ui = right;
 
 
 new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts );
@@ -65,6 +94,12 @@ var noteObject = NoteWindow.noteObject_obj;
 noteObject.setText( NoteWindow.text_ui.innerHTML );
 
 noteObject.gainFocus();
+
+
+    // remove the left/right arrow
+    
+document.body.removeChild( NoteWindow.leftArrow_ui );
+document.body.removeChild( NoteWindow.rightArrow_ui );
 };
 
 
@@ -78,7 +113,7 @@ NoteWindow.updateContent = function( noteObject )
 NoteWindow.text_ui.innerHTML = noteObject.getText();
 
 
-NoteWindow.container_ui = noteObject.getBackgroundColor();
+NoteWindow.container_ui.style.backgroundColor = noteObject.getBackgroundColor();
 
 NoteWindow.noteObject_obj = noteObject;
 };

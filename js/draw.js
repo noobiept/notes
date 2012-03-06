@@ -21,13 +21,65 @@ switch (className)
     case 'openWindow':
     
         element.title = 'open window';
-        Draw.openWindow(  element );
+        Draw.openWindow( element );
     
+        break;
+        
+    case 'NoteWindow-leftArrow':
+    
+        element.title = 'Previous Note';
+        Draw.arrow( element, 'left' );
+        
+        break;
+        
+    case 'NoteWindow-rightArrow':
+    
+        element.title = 'Next Note';
+        Draw.arrow( element, 'right' );
+        
         break;
     }
 
 return element;
 }
+
+
+/*
+ * 
+ */
+
+Draw.arrow = function( canvas, orientation )
+{
+canvas.width  = 15;
+canvas.height = 15;
+
+var ctx = canvas.getContext('2d');
+
+var width = canvas.width;
+var height = canvas.height;
+
+ctx.beginPath();
+
+ctx.lineWidth = 1;
+ctx.strokeStyle = 'rgb(255, 255, 255)';
+
+if (orientation == 'left')
+    {
+    ctx.moveTo( width - 2, 2 );
+    ctx.lineTo( 2, height / 2 );
+    ctx.lineTo( width - 2, height - 2 );
+    }
+
+else
+    {
+    ctx.moveTo( 2, 2 );
+    ctx.lineTo( width - 2, height / 2 );
+    ctx.lineTo( 2, height - 2 );
+    }
+
+
+ctx.stroke();
+};
 
 
 
@@ -144,3 +196,6 @@ else
     ctx.stroke();
     //}
 };
+
+
+

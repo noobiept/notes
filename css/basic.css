@@ -94,7 +94,7 @@ body
 
     /* :::: Side buttons :::: */
 
-.delNote, .openWindow
+.delNote, .openWindow, .NoteWindow-leftArrow, .NoteWindow-rightArrow
     {
     -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
@@ -102,7 +102,6 @@ body
     cursor: pointer;
     position: absolute;
     
-
     z-index: 10;
     opacity: 0;
     }
@@ -116,7 +115,14 @@ body
 .openWindow
     {
     top: 5px; /* same as .delNote */
-   left: 10px;
+    left: 10px;
+    }
+
+
+.NoteWindow-leftArrow, .NoteWindow-rightArrow
+    {
+    opacity: 0.8;
+    z-index: 200;   /* has to be higher than the one used for popup window */
     }
 
 
@@ -127,7 +133,7 @@ body
     }
 
 
-.noteContainer:hover .delNote:hover, .noteContainer:hover .openWindow:hover
+.noteContainer:hover .delNote:hover, .noteContainer:hover .openWindow:hover, .NoteWindow-leftArrow:hover, .NoteWindow-rightArrow:hover
     {
     opacity: 1;
     -webkit-transform: scale(1.1);
@@ -198,7 +204,7 @@ body
     max-width: 90%;
     max-height: 85%;
     
-    
+   
     background-color: #000;
     color: #fff;
     

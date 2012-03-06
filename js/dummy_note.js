@@ -20,7 +20,7 @@ dummy.style.height = dimension;
 
 dummy.onclick = function()
     {
-    var tempNote = MAIN_CONTAINER.add();
+    var tempNote = MAIN_CONTAINER.newNote();
     
     tempNote.gainFocus();  
     };
@@ -56,7 +56,7 @@ if (event.type == 'keydown')
         // add a new note
     if (key == EVENT_KEY.newLine)
         {
-        noteObject = MAIN_CONTAINER.add();
+        noteObject = MAIN_CONTAINER.newNote();
         
         noteObject.gainFocus();
         }

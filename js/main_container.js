@@ -24,12 +24,23 @@ return this;
 
 /*
  * Add a note
+ * 
+ * Arguments :
+ * 
+ *      - text (string)  : the text of the note
+ *      - position (int) : where we add a new note
+ * 
+ * Default :
+ * 
+ *      text     : ""
+ *      position : last position
  */
 
-MainContainer.prototype.add = function( text, position )
+MainContainer.prototype.newNote = function( text, position )
 {
 var noteObject = new Note( this, text, position );
 
+    // we're getting the position from the object and not from the argument, because the argument may not have an acceptable value
 var notePosition = noteObject.getPosition();
     
 var container = this.htmlElement_obj;
@@ -39,6 +50,14 @@ container.insertBefore( noteObject.getHtmlElement(), container.childNodes[ noteP
 
     //add to the array
 this.childrenObjects_array.splice( notePosition, 0, noteObject );
+
+
+    // only need to update when its not added at the end
+if ( this.childrenCount() != notePosition + 1 )
+    {
+    this.updateOrder( notePosition );    
+    }
+
 
 return noteObject;
 };
@@ -152,7 +171,9 @@ return this.childrenObjects_array.length;
 
 
 /*
- * 
+ * Arguments:
+ *      
+ *      lessPosition (int) : from what position we start updating the order, as in, where did the change occur (the elements before have the right order)
  */
 
 MainContainer.prototype.updateOrder = function( lessPosition )
@@ -166,7 +187,7 @@ var notes = this.getHtmlElement().childNodes;
 
 for (var i = lessPosition ; i < notes.length ; i++)
     {
-        //apply only to lists
+        //apply only to notes
     if ( notes[i].classList.contains( 'dummyNote' ) === false )
         {
         notes[i].noteObject.position_int = i;   

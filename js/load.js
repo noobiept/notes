@@ -24,7 +24,7 @@ MAIN_CONTAINER.addDummyNote();
 
 for (var i = 0 ; i < notes.length ; i++)
     {
-    MAIN_CONTAINER.add( notes[ i ].text );
+    MAIN_CONTAINER.newNote( notes[ i ].text );
     }
 
 
