@@ -50,8 +50,8 @@ return element;
 
 Draw.arrow = function( canvas, orientation )
 {
-canvas.width  = 15;
-canvas.height = 15;
+canvas.width  = 50;
+canvas.height = 50;
 
 var ctx = canvas.getContext('2d');
 
@@ -63,18 +63,21 @@ ctx.beginPath();
 ctx.lineWidth = 1;
 ctx.strokeStyle = 'rgb(255, 255, 255)';
 
+    // 'margin' from the dimensions of the canvas (as in, don't start drawing at (0, 0), but (4, 4) for example)
+var margin = 4;
+
 if (orientation == 'left')
     {
-    ctx.moveTo( width - 2, 2 );
-    ctx.lineTo( 2, height / 2 );
-    ctx.lineTo( width - 2, height - 2 );
+    ctx.moveTo( width - margin, margin          );
+    ctx.lineTo( margin        , height / 2      );
+    ctx.lineTo( width - margin, height - margin );
     }
 
 else
     {
-    ctx.moveTo( 2, 2 );
-    ctx.lineTo( width - 2, height / 2 );
-    ctx.lineTo( 2, height - 2 );
+    ctx.moveTo( margin        , margin          );
+    ctx.lineTo( width - margin, height / 2      );
+    ctx.lineTo( margin        , height - margin );
     }
 
 

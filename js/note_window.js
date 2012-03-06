@@ -31,6 +31,9 @@ $( left ).css( 'left', '100px' );  //HERE  -- por a ficar a uma certa distancia 
 $( left ).css( 'top', halfHeight + 'px' );
 
 
+left.addEventListener( 'click', function() { NoteWindow.goLeftNote(); }, false );
+
+
     // :: Right arrow -- change to the note to the right :: //
 
 var right = Draw( 'NoteWindow-rightArrow' );
@@ -38,6 +41,9 @@ var right = Draw( 'NoteWindow-rightArrow' );
 
 $( right ).css( 'right', '100px' );//HERE
 $( right ).css( 'top', halfHeight + 'px' );
+
+
+right.addEventListener( 'click', function() { NoteWindow.goRightNote(); }, false );
 
     // :: Container :: //
 
@@ -120,6 +126,62 @@ NoteWindow.noteObject_obj = noteObject;
 
 
 
+/*
+ * Update the content of the NoteWindow with the note to the left 
+ * 
+ *      if there's only one, does nothing
+ *      if first note, it goes to the last one
+ * 
+ */
+
+NoteWindow.goLeftNote = function()
+{
+var noteObject = NoteWindow.noteObject_obj;
+    
+    // if there's only one, do nothing
+if ( MAIN_CONTAINER.childrenCount() > 1 )
+    {
+    var otherElement = noteObject.previous();
+            
+        // this is the first one
+    if ( otherElement === null )
+        {
+        otherElement = MAIN_CONTAINER.getLastChild();
+        }     
+            
+    NoteWindow.updateContent( otherElement );
+    //HERE ter k por focus?...
+    }
+};
+
+
+/*
+ * Update the content of the NoteWindow with the note to the right
+ * 
+ *      if there's only one, do nothing
+ *      if its the last note, go to the first
+ */
+
+NoteWindow.goRightNote = function()
+{
+var noteObject = NoteWindow.noteObject_obj;
+    
+     // if there's only one, do nothing
+if ( MAIN_CONTAINER.childrenCount() > 1 )
+    {
+    var otherElement = noteObject.next();
+    
+        // this is the first one
+    if ( otherElement === null )
+        {
+        otherElement = MAIN_CONTAINER.getFirstChild();
+        }     
+    
+    NoteWindow.updateContent( otherElement );
+    //HERE ter k por focus?...
+    } 
+};
+
 
 
 /*
@@ -130,48 +192,19 @@ NoteWindow.noteObject_obj = noteObject;
 NoteWindow.shortcuts = function( event )
 {
 var key = event.which;
-var elementObject = NoteWindow.noteObject_obj;
-var otherElement = null;
-
 
 if (event.type == 'keyup')
     {
         // move to the note to the left (or if this is the first one, go to the last)
     if (event.ctrlKey && key == EVENT_KEY.leftArrow)
         {
-            // if there's only one, do nothing
-        if ( MAIN_CONTAINER.childrenCount() > 1 )
-            {
-            otherElement = elementObject.previous();
-            
-                // this is the first one
-            if ( otherElement === null )
-                {
-                otherElement = MAIN_CONTAINER.getLastChild();
-                }     
-            
-            NoteWindow.updateContent( otherElement );
-            //HERE ter k por focus?...
-            }
+        NoteWindow.goLeftNote();
         }
         
         // move to the note to the right (or if this is the last one, go to the first)
     else if (event.ctrlKey && key == EVENT_KEY.rightArrow)
         {
-            // if there's only one, do nothing
-        if ( MAIN_CONTAINER.childrenCount() > 1 )
-            {
-            otherElement = elementObject.next();
-            
-                // this is the first one
-            if ( otherElement === null )
-                {
-                otherElement = MAIN_CONTAINER.getFirstChild();
-                }     
-            
-            NoteWindow.updateContent( otherElement );
-            //HERE ter k por focus?...
-            } 
+        NoteWindow.goRightNote();
         }
     }
 };

@@ -28,17 +28,13 @@
 
         - o simbolo pode ser algo relacionado com os rectangulos coloridos
    
-        - qd está em edit mode (com a popup window), ter tb umas setas de lado para mudar de nota
-
         - se fazer drag das notas, ele gravar tb o background color?..
             (depende do modo de cores...)
             
         - no undo/redo aparecer o k vai acontecer caso se clique (tipo Undo: removed note)
     
         - ver Note.generateColor()
-            
-        - o width ser maior k o height para as notas
-    
+              
     a pensar:
     
         - ter tb os alarmes tipo todolist
@@ -52,7 +48,8 @@
 
 
 var OPTIONS = {
-    noteDimension      : 100,   // the width/height of each note
+    noteWidth  : 200,   // the width/height of each note
+    noteHeight : 100,
     activeNotePosition : -1     // which note to get focus on the beginning of the program (-1 means no one)
     };
 

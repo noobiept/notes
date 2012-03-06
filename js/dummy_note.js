@@ -12,10 +12,9 @@ dummy.setAttribute( 'contenteditable', 'true' );
 dummy.className = "dummyNote";
 dummy.innerHTML = "New Note";
 
-var dimension = OPTIONS.noteDimension + 'px';
 
-dummy.style.width = dimension;  //HERE
-dummy.style.height = dimension;
+dummy.style.width  = OPTIONS.noteWidth + 'px';  //HERE
+dummy.style.height = OPTIONS.noteHeight + 'px';
 
 
 dummy.onclick = function()

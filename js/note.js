@@ -59,13 +59,15 @@ var noteContainer = document.createElement( 'div' );
 
 noteContainer.className = "noteContainer";
 
-noteContainer.style.width = OPTIONS.noteDimension + 'px';
-noteContainer.style.height = OPTIONS.noteDimension + 'px'; //HERE -- dps se mudar nas opcoes e adicionar uma nota vai ter dimensoes diferentes...
+noteContainer.style.width = OPTIONS.noteWidth + 'px';
+noteContainer.style.height = OPTIONS.noteHeight + 'px'; //HERE -- dps se mudar nas opcoes e adicionar uma nota vai ter dimensoes diferentes...
 
-var aa = OPTIONS.noteDimension - 20;
+var noteControlsHeight = 20;
 
-noteEntry.style.width = OPTIONS.noteDimension + 'px';   //HERE evil
-noteEntry.style.height = aa + 'px';
+var bb = OPTIONS.noteHeight - noteControlsHeight;
+
+noteEntry.style.width  = OPTIONS.noteWidth + 'px';   //HERE evil
+noteEntry.style.height = bb + 'px';
 
 noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
