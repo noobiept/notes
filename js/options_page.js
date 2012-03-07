@@ -13,20 +13,20 @@ $( container ).load( '../options.html',
     function()
     {
     //var slider = container.querySelector( 'Options-noteSlider' );
-    var slider = document.createElement( 'div' );   //HERE n funciona com o k esta na options.html
+    var widthSlider = document.createElement( 'div' );   //HERE n funciona com o k esta na options.html
 
-    var showValue = container.querySelector( '#Options-noteWidth' );
+    var widthValue = container.querySelector( '#Options-noteWidth' );
     
-    showValue.innerHTML = OPTIONS.noteWidth;
+    widthValue.innerHTML = OPTIONS.noteWidth;
 
-    $( slider ).slider({
+    $( widthSlider ).slider({
         value : OPTIONS.noteWidth,
         min   : 50,
         max   : 300,
         step  : 25,
         slide : function(event, ui)
             {
-            showValue.innerHTML = ui.value;
+            widthValue.innerHTML = ui.value;
             OPTIONS.noteWidth = ui.value;
             }
         });
@@ -51,9 +51,51 @@ $( container ).load( '../options.html',
         });
     
     
-    container.appendChild( slider );    //HERE
-    container.appendChild( heightSlider );
+    $( widthSlider  ).insertAfter( widthValue );  //HERE se desse para usar o k ja esta nas opções...
+    $( heightSlider ).insertAfter( heightValue );
+    
+    
+        // :: Generate background-color :: //
+        
+    var backgroundColor = container.querySelector( '#Options-backgroundColor' );
+    var backgroundColorValue = container.querySelector( '#Options-backgroundColorValue' );
+    
+    backgroundColorValue.innerHTML = OPTIONS.generateBackgroundColor;
+    
+    backgroundColor.addEventListener( 'click', function() { OptionsPage.switchBackgroundColor( backgroundColorValue ); }, false );
+    
     
     new PopupWindow( container );    
     });
 }
+
+
+
+/*
+ * 
+ */
+
+OptionsPage.switchBackgroundColor = function( backgroundColorValue )
+{  
+switch( OPTIONS.generateBackgroundColor )
+    {
+    case 'fixed_order':
+
+        OPTIONS.generateBackgroundColor = 'random';
+        backgroundColorValue.innerHTML = 'random';
+        break;
+    
+    case 'random':
+
+        OPTIONS.generateBackgroundColor = 'red_gradient';
+        backgroundColorValue.innerHTML = 'red_gradient';
+        break;
+    
+    case 'red_gradient':        
+
+        OPTIONS.generateBackgroundColor = 'fixed_order';
+        backgroundColorValue.innerHTML = 'fixed_order';
+        break;
+
+    }
+};

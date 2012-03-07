@@ -11,11 +11,16 @@ function Note( containerObject, text, position )
 {
 var noteObject = this;
     
+    
+    // :: Deal with the note's position :: //
+    
     // add at the end (its not -1, since we still didn't add to the array)
 if ( typeof position == 'undefined' || isNaN( position ) === true )
     {
     position = containerObject.childrenCount();
     }
+
+this.position_int = position;
 
 
     // :: Note entry -- where you write the title :: //
@@ -73,7 +78,7 @@ noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
 
 
-var backgroundColor = Note.generateColor();
+var backgroundColor = noteObject.generateColor();
 noteContainer.style.backgroundColor = backgroundColor;
 
 
@@ -112,7 +117,7 @@ noteContainer.noteObject = this;
 this.dragDrop_obj = new DragDrop( noteContainer , noteControls, this );
 
 
-this.position_int = position;
+
 this.parentObject = containerObject;
 this.noteEntry_obj = noteEntry;
 this.noteContainer_ui = noteContainer;
@@ -132,20 +137,76 @@ return this;
  * With red/green/blue going from 0 to 255
  * and alpha from 0 to 1
  * 
- * Math.random() --> returns a random number from 0 to 1 (not including 1) 
+ * Math.random() --> returns a random number from 0 to 1 (not including 1)
+ * 
+ * reads OPTIONS.generateBackgroundColor, to see in what way to generate the background colors
+ * 
+ * Possible values:
+ * 
+ *      "fixed_order"  : switch between a number of known colors
+ *      "random"       : generate a random color every time
+ *      "red_gradient" : a gradient, starting at a darker color, then moving to a red color, then back to the darker color...  
  */
 
-Note.generateColor = function()
+Note.prototype.generateColor = function()
 {
-    //var backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
-    //HERE ter uma opcao, para trocar entre random cores, ou tipo gradiente
-    // dar para definir as cores pelo utilizador, e essas nao sao afectadas por o Note.generateColor()
+var red = 0, green = 0, blue = 0, alpha = 1;
     
-var red   = Math.round( Math.random() * (255) );
-var green = Math.round( Math.random() * (255) );    //HERE tenho k dps mudar tb a cor da letra, para nao calhar por exemplo backgroundColor branco com letra branca
-var blue  = Math.round( Math.random() * (255) );        // e tb da scrollbar
+if (OPTIONS.generateBackgroundColor == 'fixed_order')
+    {
+    var color = this.getPosition() % 3;
+    
+    switch( color )
+        {
+        case 0:
+        
+            red = 255;
+            green = 0;
+            blue = 0;
+            alpha = 0.6;
+            break; 
+            
+        case 1:
+        
+            red = 0;
+            green = 255;
+            blue = 0;
+            alpha = 0.6;
+            break;
+        
+        case 2:
+        
+            red = 0;
+            green = 0;
+            blue = 255;
+            alpha = 0.6;
+            break;
+            
+        }
+    }
+    
+else if (OPTIONS.generateBackgroundColor == 'random')
+    {
+    red   = Math.round( Math.random() * 255 );
+    green = Math.round( Math.random() * 255 );    //HERE tenho k dps mudar tb a cor da letra, para nao calhar por exemplo backgroundColor branco com letra branca
+    blue  = Math.round( Math.random() * 255 );        // e tb da scrollbar
+    alpha = 0.7;
+    }
+    
+    // "red_gradient"
+else
+    {
+    red   = this.getPosition() * 10;    //HERE se calhar comecar com uma cor mais clara --- dps falta por o ciclo (descer a cor/crescer outra vez)
+    green = 40;
+    blue  = 40; 
+    alpha = 0.7;
+    }
 
-return "rgba(" + red + ", "+green + ", " + blue + ", 0.7)";
+
+    //HERE dar para definir as cores pelo utilizador, e essas nao sao afectadas por o Note.generateColor()
+    
+
+return "rgba(" + red + ", "+green + ", " + blue + ", " + alpha  + ")";     // ou entao nao deixar ter cores brancas
 };
 
 

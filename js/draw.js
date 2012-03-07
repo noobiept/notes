@@ -50,7 +50,7 @@ return element;
 
 Draw.arrow = function( canvas, orientation )
 {
-canvas.width  = 50;
+canvas.width  = 60;
 canvas.height = 50;
 
 var ctx = canvas.getContext('2d');
@@ -75,9 +75,19 @@ if (orientation == 'left')
 
 else
     {
-    ctx.moveTo( margin        , margin          );
+    /*ctx.moveTo( margin        , margin          );
     ctx.lineTo( width - margin, height / 2      );
-    ctx.lineTo( margin        , height - margin );
+    ctx.lineTo( margin        , height - margin );*/
+    ctx.moveTo( margin, margin );
+    ctx.lineTo( margin, height - margin );
+    
+    ctx.moveTo( 2 * margin, margin );
+    ctx.lineTo( 2 * margin, height - margin );
+    
+    ctx.moveTo( 4 * margin, margin );
+    ctx.lineTo( 4 * margin, height - margin );
+    ctx.lineTo( width - margin, height / 2 );
+    ctx.lineTo( 4 * margin, margin );
     }
 
 

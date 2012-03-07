@@ -50,7 +50,8 @@
 var OPTIONS = {
     noteWidth  : 200,   // the width/height of each note
     noteHeight : 100,
-    activeNotePosition : -1     // which note to get focus on the beginning of the program (-1 means no one)
+    activeNotePosition      : -1,            // which note to get focus on the beginning of the program (-1 means no one)
+    generateBackgroundColor : 'red_gradient' // how to generate the background-color of the notes
     };
 
 
