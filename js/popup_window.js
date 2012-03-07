@@ -184,7 +184,7 @@ $(container).resize(function ()
 //if ( PopupWindow.allWindows_class.length === 0 )
     //{//HERE .. uns erros...
         //show the window and overlay
-    $(overlay).show('blind', 100);    
+    $(overlay).show('fade', 100);    
     //}
 
 
@@ -262,7 +262,7 @@ this.windowContent_obj = null;
     //if this is the only opened window, then hide the overlay ( //HERE o overlay nao eh global.. eh de cada objecto )
 //if ( PopupWindow.allWindows_class.length === 1 )
     //{ //HERE
-    $(overlay).hide('blind', effectTime, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );        
+    $(overlay).hide('fade', effectTime, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );        
     //}
 
 

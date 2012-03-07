@@ -3,6 +3,19 @@
 
 'use strict';
 
+/*
+
+    Dependencies:
+    
+        jquery
+        jqueryui
+            start theme
+            slider
+            blind effect
+            fade effect
+
+ */
+
 
 /*
     - As notas estão todas juntas (e têm todas o mesmo tamanho)  
@@ -18,12 +31,8 @@
     
         - poder formatar o texto (tamanho das letras / cor / bold)    
 
-		- mas tb ter uma forma generica, em k ele vai dando cores ah sorte para cada entrada
-	
         - on hover, aumentar o rectangulo para aum tamanho maior?.. ou ter outro efeito
 		
-	    - o background-color mudar automaticamente (ficar colorido) ou num pattern (tipo alternar entre 2 cores)
-	
 	    - fazer um video a mostrar o programa logo desde o inicio
 
         - o simbolo pode ser algo relacionado com os rectangulos coloridos

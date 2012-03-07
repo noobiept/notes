@@ -148,6 +148,17 @@ return this;
  *      "red_gradient" : a gradient, starting at a darker color, then moving to a red color, then back to the darker color...  
  */
 
+
+    // only used with the gradient option, to tell if the color we're generating is brighter (as in, closer to red -- going up)
+    // or darker (going down)
+Note.gradientGoingUp_bool = true;    
+
+    // gradient only, the lower limit of the red component (the high limit is 255 -- red color)
+Note.gradientLowerLimit_int = 100;
+
+    // for the gradient only, has previous red component of the background color
+Note.gradientRedColor_int = Note.gradientLowerLimit_int;                           
+
 Note.prototype.generateColor = function()
 {
 var red = 0, green = 0, blue = 0, alpha = 1;
@@ -196,9 +207,40 @@ else if (OPTIONS.generateBackgroundColor == 'random')
     // "red_gradient"
 else
     {
-    red   = this.getPosition() * 10;    //HERE se calhar comecar com uma cor mais clara --- dps falta por o ciclo (descer a cor/crescer outra vez)
-    green = 40;
-    blue  = 40; 
+    var colorStep = 10;
+
+        // get the previous red component
+    red = Note.gradientRedColor_int;
+
+        // the gradient is going from the darker color to red
+    if (Note.gradientGoingUp_bool === true)
+        {
+            // add the step
+        red += colorStep;        
+        
+            // reached the limit (the red color), going down
+        if (red >= 255)
+            {
+            Note.gradientGoingUp_bool = false;
+            }
+        }
+        
+    else
+        {
+        red -= colorStep;
+        
+            // reached the lower limit
+        if (red <= Note.gradientLowerLimit_int)
+            {
+            Note.gradientGoingUp_bool = true;
+            }
+        }
+    
+        // save the current red component, for the next time this is called
+    Note.gradientRedColor_int = red;
+    
+    green = 0;
+    blue  = 0; 
     alpha = 0.7;
     }
 
