@@ -12,6 +12,8 @@ var container = document.createElement( 'div' );
 $( container ).load( '../options.html',
     function()
     {
+        // :: Width :: //
+        
     //var slider = container.querySelector( 'Options-noteSlider' );
     var widthSlider = document.createElement( 'div' );   //HERE n funciona com o k esta na options.html
 
@@ -32,6 +34,8 @@ $( container ).load( '../options.html',
         });
     
     
+        // :: Height :: //
+    
     var heightValue  = container.querySelector( '#Options-noteHeight' );
     //var heightSlider = container.querySelector( 'Options-noteHeightSlider' );     //HERE
     var heightSlider = document.createElement( 'div' );
@@ -50,9 +54,32 @@ $( container ).load( '../options.html',
             }
         });
     
+            // :: Margin :: //
+    
+    var marginValue = container.querySelector( '#Options-margin' );
+    
+    var marginSlider = document.createElement( 'div' );
+    
+    marginValue.innerHTML = OPTIONS.noteMargin;
+    
+    $( marginSlider ).slider({
+        value : OPTIONS.noteMargin,
+        min   : 0,
+        max   : 20,
+        step  : 1,
+        slide : function(event, ui)
+            {
+            marginValue.innerHTML = ui.value;
+            OPTIONS.noteMargin = ui.value;
+            }
+        });
+    
+    
+    
     
     $( widthSlider  ).insertAfter( widthValue );  //HERE se desse para usar o k ja esta nas opções...
     $( heightSlider ).insertAfter( heightValue );
+    $( marginSlider ).insertAfter( marginValue );
     
     
         // :: Generate background-color :: //
@@ -63,6 +90,9 @@ $( container ).load( '../options.html',
     backgroundColorValue.innerHTML = OPTIONS.generateBackgroundColor;
     
     backgroundColor.addEventListener( 'click', function() { OptionsPage.switchBackgroundColor( backgroundColorValue ); }, false );
+    
+    
+ 
     
     
     new PopupWindow( container );    

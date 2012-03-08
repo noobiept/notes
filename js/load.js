@@ -58,5 +58,12 @@ if (options === null)
     }
 
 
-OPTIONS = options;
+    // i have to change each option, and not do something like OPTIONS = options, because otherwise when adding new 
+    // options (to the OPTIONS object), it won't matter, since it will be overwritten with the old options
+    // by changing each one, if I add later another option, it will keep its default value
+OPTIONS.noteWidth               = options.noteWidth;
+OPTIONS.noteHeight              = options.noteHeight;
+OPTIONS.noteMargin              = options.noteMargin;
+OPTIONS.activeNotePosition      = options.activeNotePosition;
+OPTIONS.generateBackgroundColor = options.generateBackgroundColor;
 };

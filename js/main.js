@@ -1,5 +1,5 @@
 /*jslint browser:true*/
-/*global MainContainer, window, Save, Load*/
+/*global MainContainer, window, Save, Load, PopupWindow*/
 
 'use strict';
 
@@ -28,6 +28,9 @@
     to doo:
     
         - poder definir as cores das notas (na NoteWindow -- color e background-color)
+            dar para definir as cores pelo utilizador, e essas nao sao afectadas por o Note.generateColor()
+    
+        - o fixed_order -- dar para escolher as cores
     
         - poder formatar o texto (tamanho das letras / cor / bold)    
 
@@ -42,7 +45,7 @@
             
         - no undo/redo aparecer o k vai acontecer caso se clique (tipo Undo: removed note)
     
-        - ver Note.generateColor()
+        - melhorar o estilo da scroll bar
               
     a pensar:
     
@@ -59,6 +62,7 @@
 var OPTIONS = {
     noteWidth  : 200,   // the width/height of each note
     noteHeight : 100,
+    noteMargin : 5,
     activeNotePosition      : -1,            // which note to get focus on the beginning of the program (-1 means no one)
     generateBackgroundColor : 'red_gradient' // how to generate the background-color of the notes
     };
@@ -72,6 +76,19 @@ MAIN_CONTAINER = new MainContainer();
     
 
 Load();
+
+    // resize/reposition the popup windows, according to the space available
+window.addEventListener( 'resize', 
+    function() 
+    {
+    if (PopupWindow.hasOpenedWindows() === true)
+        {
+        PopupWindow.resize();            
+        }    
+    }, 
+    true );    
+    
+
 };
 
 

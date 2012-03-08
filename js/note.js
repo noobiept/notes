@@ -66,6 +66,8 @@ noteContainer.className = "noteContainer";
 
 noteContainer.style.width = OPTIONS.noteWidth + 'px';
 noteContainer.style.height = OPTIONS.noteHeight + 'px'; //HERE -- dps se mudar nas opcoes e adicionar uma nota vai ter dimensoes diferentes...
+noteContainer.style.margin = OPTIONS.noteMargin + 'px'; //HERE o mesmo, se mudar e dps adicionar notas
+
 
 var noteControlsHeight = 20;
 
@@ -130,18 +132,15 @@ return this;
 
 
 /*
- * Generates randomly a background color and a text color for each entry
+ * Generates a color and returns a string ( rgba( red, green, blue, alpha ) )
  * 
- * rgba(red, green, blue, alpha)
+ *      With red/green/blue going from 0 to 255
+ *          and alpha from 0 to 1
  * 
- * With red/green/blue going from 0 to 255
- * and alpha from 0 to 1
- * 
- * Math.random() --> returns a random number from 0 to 1 (not including 1)
  * 
  * reads OPTIONS.generateBackgroundColor, to see in what way to generate the background colors
  * 
- * Possible values:
+ * There's 3 ways to generate the color:
  * 
  *      "fixed_order"  : switch between a number of known colors
  *      "random"       : generate a random color every time
@@ -198,10 +197,22 @@ if (OPTIONS.generateBackgroundColor == 'fixed_order')
     
 else if (OPTIONS.generateBackgroundColor == 'random')
     {
+        // Math.random() --> returns a random number from 0 to 1 (not including 1)
+        // Math.round()  --> to get an integer
     red   = Math.round( Math.random() * 255 );
-    green = Math.round( Math.random() * 255 );    //HERE tenho k dps mudar tb a cor da letra, para nao calhar por exemplo backgroundColor branco com letra branca
-    blue  = Math.round( Math.random() * 255 );        // e tb da scrollbar
-    alpha = 0.7;
+    green = Math.round( Math.random() * 255 );
+    blue  = Math.round( Math.random() * 255 );
+    
+        // means its a bright color -- choose another to get a darker color
+    if ( red > 200 && green > 200 && blue && 200 )
+        {
+            // change two of them
+        red   = Math.round( Math.random() * 100 );
+        green = Math.round( Math.random() * 100 );
+        }
+    
+        // get a value between 1 and 0.5
+    alpha = Math.random() * 0.5 + 0.5;
     }
     
     // "red_gradient"
@@ -245,10 +256,7 @@ else
     }
 
 
-    //HERE dar para definir as cores pelo utilizador, e essas nao sao afectadas por o Note.generateColor()
-    
-
-return "rgba(" + red + ", "+green + ", " + blue + ", " + alpha  + ")";     // ou entao nao deixar ter cores brancas
+return "rgba(" + red + ", "+green + ", " + blue + ", " + alpha  + ")";
 };
 
 
