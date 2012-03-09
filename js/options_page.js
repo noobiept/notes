@@ -24,7 +24,7 @@ $( container ).load( '../options.html',
     $( widthSlider ).slider({
         value : OPTIONS.noteWidth,
         min   : 50,
-        max   : 300,
+        max   : 350,
         step  : 25,
         slide : function(event, ui)
             {

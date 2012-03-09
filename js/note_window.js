@@ -8,6 +8,22 @@
 
 function NoteWindow( noteObject )
 {
+    // :: Menu :: //
+    
+var removeNote = Draw( 'delNote' );
+
+removeNote.classList.add( 'NoteWindow-delNote' );
+
+removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
+
+var menu = document.createElement( 'div' );
+
+menu.className = "NoteWindow-menu";
+
+menu.appendChild( removeNote );
+
+
+
     // :: Text :: //
 
 var text = document.createElement( 'div' );
@@ -50,8 +66,8 @@ right.addEventListener( 'click', function() { NoteWindow.goRightNote(); }, false
 var container = document.createElement( 'div' );
 
 container.style.backgroundColor = noteObject.getBackgroundColor();
-//$(container).css('position', 'relative');
 
+container.appendChild( menu );
 container.appendChild( text );
 
 document.body.appendChild( left );
@@ -69,7 +85,7 @@ NoteWindow.leftArrow_ui = left;
 NoteWindow.rightArrow_ui = right;
 
 
-new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts );
+NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts );
 }
 
 
@@ -180,6 +196,44 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
     NoteWindow.updateContent( otherElement );
     //HERE ter k por focus?...
     } 
+};
+
+
+
+/*
+ * Removes the note, and updates the window with the next/previous note (or just closes the window, if this is the last one)
+ */
+
+NoteWindow.removeNote = function()
+{
+var noteObject = NoteWindow.noteObject_obj;
+
+    // the one that will get the focus
+var otherNoteObject;
+
+otherNoteObject = noteObject.next();
+
+    // get the previous
+if (otherNoteObject === null)
+    {
+    otherNoteObject = noteObject.previous();
+    }
+
+    // there's nothing left, hide the window
+if (otherNoteObject === null)
+    {
+    var popupWindow = NoteWindow.popupWindow_ui;
+        
+    popupWindow.hide();
+    }
+
+    // update the content with other note
+else
+    {
+    NoteWindow.updateContent( otherNoteObject );
+    }
+
+noteObject.remove();
 };
 
 

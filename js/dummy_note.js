@@ -15,6 +15,7 @@ dummy.innerHTML = "New Note";
 
 dummy.style.width  = OPTIONS.noteWidth + 'px';  //HERE
 dummy.style.height = OPTIONS.noteHeight + 'px';
+dummy.style.margin = OPTIONS.noteMargin + 'px';
 
 
 dummy.onclick = function()
