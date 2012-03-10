@@ -1,6 +1,7 @@
 /*global $, window, PopupWindow, EVENT_KEY, MAIN_CONTAINER, Draw*/
 
 
+'use strict';
 
 /*
  * Open a popup window for a note
@@ -15,6 +16,8 @@ var removeNote = Draw( 'delNote' );
 removeNote.classList.add( 'NoteWindow-delNote' );
 
 removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
+
+ 
 
 var menu = document.createElement( 'div' );
 
@@ -83,6 +86,7 @@ NoteWindow.noteObject_obj = noteObject;
 
 NoteWindow.leftArrow_ui = left;
 NoteWindow.rightArrow_ui = right;
+
 
 
 NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts );
@@ -262,3 +266,4 @@ if (event.type == 'keyup')
         }
     }
 };
+

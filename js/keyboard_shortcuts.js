@@ -133,7 +133,7 @@ if (event.type == 'keydown')
         // create a new note in the next position    
     else if ( event.ctrlKey && key == EVENT_KEY.newLine )
         {
-        otherNoteObject = MAIN_CONTAINER.newNote( "", this.getPosition() + 1 );
+        otherNoteObject = MAIN_CONTAINER.newNote( "", true, this.getPosition() + 1 );
         
         otherNoteObject.gainFocus();
         }

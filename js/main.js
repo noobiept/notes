@@ -61,6 +61,10 @@
         - Retirar o overlay?...	
         
         - poder formatar o texto (tamanho das letras / cor / bold) -- ter um menu na NoteWindow
+        
+        - quando abre a NoteWindow, ter em baixo as notas k foram abertas (tipo os programas k tao abertos no panel/task_bar)
+                funciona estilo historico, onde dps basta clicar ai para abrir a respectiva nota
+            tar limitado a um numero de notas...
 
  */
 

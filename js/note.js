@@ -1,13 +1,13 @@
-/*global DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS*/
+/*global DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS, UndoRedo*/
 
 'use strict';
 
 
 /*
- * 
+ * Note's class -- its called from a MainContainer object (not directly)
  */
 
-function Note( containerObject, text, position )
+function Note( containerObject, text, saveToUndo, position )
 {
 var noteObject = this;
     
@@ -124,6 +124,12 @@ this.parentObject = containerObject;
 this.noteEntry_obj = noteEntry;
 this.noteContainer_ui = noteContainer;
 this.backgroundColor_str = backgroundColor;
+
+
+if (saveToUndo !== false)
+    {
+    UndoRedo.add( 'addedNote', this );
+    }
 
 
 return this;
@@ -267,10 +273,17 @@ return "rgba(" + red + ", "+green + ", " + blue + ", " + alpha  + ")";
  * remove the note
  */
 
-Note.prototype.remove = function()
+Note.prototype.remove = function( saveToUndo )
 {
 var position = this.getPosition();
     
+
+if (saveToUndo !== false)
+    {
+    UndoRedo.add( 'removedNote', this );
+    }
+
+
 
     //remove from the array
 MAIN_CONTAINER.childrenObjects_array.splice( position, 1 );
@@ -392,7 +405,7 @@ return false;
  * 
  */
 
-Note.prototype.moveTo = function( position )
+Note.prototype.moveTo = function( position, saveToUndo )
 {
     //if there's an active element (with focus), we need to remove the focus before starting moving stuff around
     //since there are events (blur) attached to the elements, which are triggered when we move the html elements
@@ -456,11 +469,11 @@ else
     //update the order, from the lesser position that was affected
 MAIN_CONTAINER.updateOrder( lessPosition );
 
-/*
+
 if ( saveToUndo !== false )
     {
-    UndoRedo.add( 'draggedTab', this, previousPosition );
-    }*/
+    UndoRedo.add( 'draggedNote', this, previousPosition );
+    }
 
 
     //focus on the element that was dragged
