@@ -18,29 +18,37 @@ body
     }
 
 
+a   
+    {
+    color: rgb( 97, 164, 240 );
+    }
+
 
 ::-webkit-scrollbar
     {
     width: 15px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.8);
     }
 
 
 ::-webkit-scrollbar:hover
     {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9);
     }
 
     
 ::-webkit-scrollbar-thumb
     {
-    background-color: rgba(0, 0, 0, 0.7);   /* //HERE outras cores */
+    background-color: rgba(0, 0, 0, 0.5);
     }
     
 ::-webkit-scrollbar-thumb:hover
     {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.7);
     }
+    
+      
+    
     /* :: Containers :: */
 
 
@@ -173,10 +181,10 @@ body
     
 #menu #message
     {
-    -webkit-transition: opacity 1s ease-in-out;
-    -moz-transition: opacity 1s ease-in-out;
-    -o-transition: opacity 1s ease-in-out;
-    transition: opacity 1s ease-in-out;
+    -webkit-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
+    -moz-transition: opacity 1s ecubic-bezier(0.1, 1, 0.1, 1);
+    -o-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
+    transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     
     /*min-width: //HERE */ 
         
@@ -269,8 +277,31 @@ body
  * 
  * ************************************/
 
+#Options-documentation
+    {
+    margin-top: 30px;
+    clear: both;
+    }
 
 #Options-backgroundColor
     {
     cursor: pointer;
+    }
+    
+.Options-container
+    {
+    clear: both;
+    min-height: 50px;
+    }
+    
+.Options-container > *
+    {
+    float: left;
+    }
+    
+.ui-slider
+    {
+    width: 60%;
+    margin: 20px;
+    float: right;
     }

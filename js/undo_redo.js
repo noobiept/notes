@@ -241,8 +241,9 @@ else if (element.what == 'draggedNote')
    }
    
 
+    // what is in the form: likeThis
+    // separate the words with a space, and make the first letter lower case  
+var what = element.what.replace(/[A-Z]/, function(match) { return " " + match.toLowerCase(); });
 
-
-    //HERE hmm same message for undo and redo
-Menu.showMessage('Restored');
+Menu.showMessage( whichOne + ": " + what );
 };

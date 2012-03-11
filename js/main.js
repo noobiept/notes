@@ -37,13 +37,7 @@
 	    - fazer um video a mostrar o programa logo desde o inicio
 
         - o simbolo pode ser algo relacionado com os rectangulos coloridos
-              
-        - no undo/redo aparecer o k vai acontecer caso se clique (tipo Undo: removed note)
-    
-        - melhorar o estilo da scroll bar
-        
-        - Puff and Size come bundled with scale -- experimentar o puff para o overlay
-                 
+                      
         - posso por na documentacao uns atalhos:
             ctrl + b --> bold
             ctrl + i --> italic

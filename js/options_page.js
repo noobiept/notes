@@ -75,11 +75,14 @@ $( container ).load( '../options.html',
         });
     
     
+
+    widthValue.parentNode.parentNode.appendChild( widthSlider );
+    heightValue.parentNode.parentNode.appendChild( heightSlider );
+    marginValue.parentNode.parentNode.appendChild( marginSlider );    
     
-    
-    $( widthSlider  ).insertAfter( widthValue );  //HERE se desse para usar o k ja esta nas opções...
-    $( heightSlider ).insertAfter( heightValue );
-    $( marginSlider ).insertAfter( marginValue );
+    //$( widthSlider  ).insertAfter( widthValue );  //HERE se desse para usar o k ja esta nas opções...
+    //$( heightSlider ).insertAfter( heightValue );
+    //$( marginSlider ).insertAfter( marginValue );
     
     
         // :: Generate background-color :: //

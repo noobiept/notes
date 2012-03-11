@@ -1,4 +1,4 @@
-/*global MAIN_CONTAINER, OptionsPage, UndoRedo*/
+/*global MAIN_CONTAINER, OptionsPage, UndoRedo, window*/
 
 
 'use strict';
@@ -41,22 +41,31 @@ redo.addEventListener( 'click', function() { UndoRedo.stuff( 'redo' ); }, false 
 /* ******************* Deals with messages **************** */
 /*
  * Arguments:
- *      - content -> the stuff to be written
+ *      - content (string) -> the stuff to be written
  * 
  */
+
+Menu.messageTimeout_f = null;
 
 Menu.showMessage = function (content)
 {
 Menu.message.innerHTML = content;
 
-
+    // show the message
 Menu.message.style.opacity = 1;
 
-    //adds a fade style
-setTimeout(
+    // if there was a previous message being displayed before, we need to cancel its timeout (otherwise, this message will end sooner)
+if ( Menu.messageTimeout_f !== null)
+    {
+    window.clearTimeout( Menu.messageTimeout_f );
+    }
+
+    // adds a fade style
+Menu.messageTimeout_f = setTimeout(
     function() 
         {
-        Menu.message.style.opacity = 0; //HERE would be cool if we set display: 'none'; so that the #message doesn't occupy space 
-        },                              //i've tried it but when sending multiple messages it creates some problems..
+        Menu.message.style.opacity = 0; 
+        Menu.messageTimeout_f = null;
+        },
     1000);
 };
