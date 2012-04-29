@@ -8,24 +8,32 @@ Menu();
  
 Load.options();
 
+Load.notes();
 
-    // :: load the notes :: //
-    
+MAIN_CONTAINER.addDummyNote();
+}
+
+
+
+/*
+ * load the notes
+ */
+
+Load.notes = function()
+{   
 var notes = localStorage.getObject( 'notes' );
 
 if (notes === null)
     {
     return;
     }
-    
-MAIN_CONTAINER.addDummyNote();
-
 
 
 for (var i = 0 ; i < notes.length ; i++)
     {
     MAIN_CONTAINER.newNote( notes[ i ].text, false );
     }
+
 
 
     // set focus on the element that was active last time
@@ -38,7 +46,7 @@ if (OPTIONS.activeNotePosition >= 0)
         noteObject.gainFocus();
         }
     }
-}
+};
 
 
 

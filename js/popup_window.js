@@ -20,6 +20,16 @@ function PopupWindow (contentElement, onStartFunction, onHideFunction, shortcuts
 var popupWindowObject = this;
 
 
+    // remove the focus from an element that could be on focus (otherwise, you could edit it)
+    // happens when you use a keyboard shortcut to open a window, or when some window is opened automatically
+if (document.activeElement)
+    {
+        //this will probably be always called, since there's always an element on focus, even if it is just the <body>
+    document.activeElement.blur();        
+    }
+
+
+
     // :: creating the elements :: //
 
 var windowOverlay = document.createElement('div');

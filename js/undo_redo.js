@@ -242,8 +242,20 @@ else if (element.what == 'draggedNote')
    
 
     // what is in the form: likeThis
-    // separate the words with a space, and make the first letter lower case  
-var what = element.what.replace(/[A-Z]/, function(match) { return " " + match.toLowerCase(); });
+    // separate the words with a space
+var what = element.what.replace(/[A-Z]/, function(match) { return " " + match; });
+
+
+    // capitalize everything (first letter upper case)
+var capitalize = function(theString)
+    {
+    return theString.replace(/\b[a-z]/i, function(match) { return match.toUpperCase(); });
+    };
+
+
+what = capitalize( what );
+whichOne = capitalize( whichOne );
+
 
 Menu.showMessage( whichOne + ": " + what );
 };
