@@ -1,4 +1,4 @@
-/*global $, window, PopupWindow, EVENT_KEY, MAIN_CONTAINER, Draw*/
+/*global $, window, PopupWindow, EVENT_KEY, MAIN_CONTAINER, Draw, ColorPicker*/
 
 
 'use strict';
@@ -18,8 +18,10 @@ removeNote.classList.add( 'NoteWindow-delNote' );   //HERE -- class redundante
 removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
 
 
-var colorPicker = new ColorPicker();
+var colorPicker = document.createElement( 'div' );
 
+colorPicker.className = "NoteWindow-colorPicker";
+colorPicker.innerHTML = "Color Picker"; 
 
 
 var menu = document.createElement( 'div' );
@@ -30,6 +32,7 @@ menu.appendChild( colorPicker );
 menu.appendChild( removeNote );
 
 
+$( colorPicker ).bind( 'click', function() { new PopupWindow( new ColorPicker() ); } );
 
 
 

@@ -1,7 +1,7 @@
 /*global $*/
 
 /*
- * 
+ *
  */
 
 function ColorPicker()
@@ -22,25 +22,25 @@ this.alpha_int = 1;
 var redText = document.createElement( 'div' );
 
 redText.className = "ColorPicker-text";
-redText.innerHTML = "R";
+redText.innerHTML = "Red";
 
 
 var greenText = document.createElement( 'div' );
 
 greenText.className = "ColorPicker-text";
-greenText.innerHTML = "G";
+greenText.innerHTML = "Green";
 
 
 var blueText = document.createElement( 'div' );
 
 blueText.className = "ColorPicker-text";
-blueText.innerHTML = "B";
+blueText.innerHTML = "Blue";
 
 
 var alphaText = document.createElement( 'div' );
 
 alphaText.className = "ColorPicker-text";
-alphaText.innerHTML = "A";
+alphaText.innerHTML = "Alpha";
 
     
     // :: The current value of each color :: //
@@ -68,6 +68,32 @@ var alphaValue = document.createElement( 'div' );
 alphaValue.className = "ColorPicker-value";
 alphaValue.innerHTML = "0";   //HERE vem do load
 
+
+    // :: A container for the text/value so that they appear next to each other :: //
+    
+var redTextValueContainer = document.createElement( 'div' );
+
+redTextValueContainer.className = "ColorPicker-textValueContainer";
+redTextValueContainer.appendChild( redText );
+redTextValueContainer.appendChild( redValue );
+
+var greenTextValueContainer = document.createElement( 'div' );
+
+greenTextValueContainer.className = "ColorPicker-textValueContainer";
+greenTextValueContainer.appendChild( greenText );
+greenTextValueContainer.appendChild( greenValue );
+
+var blueTextValueContainer = document.createElement( 'div' );
+
+blueTextValueContainer.className = "ColorPicker-textValueContainer";
+blueTextValueContainer.appendChild( blueText );
+blueTextValueContainer.appendChild( blueValue );
+
+var alphaTextValueContainer = document.createElement( 'div' );
+
+alphaTextValueContainer.className = "ColorPicker-textValueContainer";
+alphaTextValueContainer.appendChild( alphaText );
+alphaTextValueContainer.appendChild( alphaValue );
 
     // :: The sliders to change the color value :: //
     
@@ -161,29 +187,29 @@ $( alphaSlider ).slider({
     
 var redContainer = document.createElement( 'div' );
 
-redContainer.appendChild( redText );
-redContainer.appendChild( redValue );
+redContainer.className = "ColorPicker-colorContainer";
+redContainer.appendChild( redTextValueContainer );
 redContainer.appendChild( redSlider );
 
 
 var greenContainer = document.createElement( 'div' );
 
-greenContainer.appendChild( greenText );
-greenContainer.appendChild( greenValue );
+greenContainer.className = "ColorPicker-colorContainer";
+greenContainer.appendChild( greenTextValueContainer );
 greenContainer.appendChild( greenSlider );
 
 
 var blueContainer = document.createElement( 'div' );
 
-blueContainer.appendChild( blueText );
-blueContainer.appendChild( blueValue );
+blueContainer.className = "ColorPicker-colorContainer";
+blueContainer.appendChild( blueTextValueContainer );
 blueContainer.appendChild( blueSlider );
 
 
 var alphaContainer = document.createElement( 'div' );
 
-alphaContainer.appendChild( alphaText );
-alphaContainer.appendChild( alphaValue );
+alphaContainer.className = "ColorPicker-colorContainer";
+alphaContainer.appendChild( alphaTextValueContainer );
 alphaContainer.appendChild( alphaSlider );
 
 
@@ -219,3 +245,6 @@ var color = 'rgba(' + this.red_int + "," + this.green_int + "," + this.blue_int 
     
 $( this.mainContainer_ui ).css( 'background-color', color );
 };
+
+
+

@@ -38,6 +38,7 @@ switch (className)
         Draw.arrow( element, 'right' );
         
         break;
+        
     }
 
 return element;
@@ -98,18 +99,18 @@ ctx.stroke();
 
 
 /*
- * 
+ * Draws the button in the note that opens the note's window
  */
 
 Draw.openWindow = function( canvas )
 {
-canvas.width  = 15;
-canvas.height = 15;
+var width = 15;
+var height = 15;
+    
+canvas.width  = width;
+canvas.height = height;
 
 var ctx = canvas.getContext('2d');
-
-var width = canvas.width;
-var height = canvas.height;
 
 ctx.beginPath();
 
@@ -209,6 +210,4 @@ else
     ctx.stroke();
     //}
 };
-
-
 

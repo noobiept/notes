@@ -141,7 +141,7 @@ a
     }
 
 
-.delNote:hover, .openWindow:hover, .NoteWindow-leftArrow:hover, .NoteWindow-rightArrow:hover
+.noteContainer .delNote:hover, .noteContainer .openWindow:hover, .noteContainer .NoteWindow-leftArrow:hover, .noteContainer .NoteWindow-rightArrow:hover
     {
     opacity: 1;
     -webkit-transform: scale(1.1);
@@ -272,6 +272,57 @@ a
     right: 10px;
     }
 
+
+/* ************************************
+ *
+ *        Options Page
+ * 
+ * ************************************/
+
+    /* reduce the space occupied by the slider */
+   
+.ColorPicker-slider.ui-slider .ui-slider-handle
+    {
+    height: 0.8em;
+    top: -0.2em;
+    }
+
+
+.ColorPicker-slider.ui-slider-horizontal
+    {
+    height: 0.6em;
+    } 
+
+.ColorPicker-slider.ui-slider
+    {
+    margin: 0;
+    }
+
+
+   /* force the container to occupy some space */
+
+.ColorPicker-colorContainer
+    {
+    min-height: 20px;
+    padding: 0 10px;
+    }
+
+    /* so that the value appears next to (to the left) the text */
+
+.ColorPicker-textValueContainer > *
+    {
+    float: left;
+    }
+    
+.ColorPicker-textValueContainer
+    {
+    clear: both;
+    }
+
+.ColorPicker-text
+    {
+    margin-right: 3px;
+    }
 
 /* ************************************
  *
