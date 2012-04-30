@@ -118,11 +118,7 @@ a
     opacity: 0;
     }
 
-.delNote
-    {
-    top: 5px;
-    right: 10px;
-    }
+
 
 .openWindow
     {
@@ -269,6 +265,12 @@ a
     min-height: 150px;
     }
    
+
+.delNote
+    {
+    top: 5px;
+    right: 10px;
+    }
 
 
 /* ************************************

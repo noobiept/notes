@@ -13,17 +13,23 @@ function NoteWindow( noteObject )
     
 var removeNote = Draw( 'delNote' );
 
-removeNote.classList.add( 'NoteWindow-delNote' );
+removeNote.classList.add( 'NoteWindow-delNote' );   //HERE -- class redundante
 
 removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
 
- 
+
+var colorPicker = new ColorPicker();
+
+
 
 var menu = document.createElement( 'div' );
 
 menu.className = "NoteWindow-menu";
 
+menu.appendChild( colorPicker );
 menu.appendChild( removeNote );
+
+
 
 
 
