@@ -205,7 +205,7 @@ $(container).css('opacity', 1);
 
 
     //see if it was provided an element to set focus
-if (typeof onStartFunction != 'undefined')
+if (typeof onStartFunction != 'undefined' && onStartFunction !== null)
     {
         //the setTimeout is because of the .show() above
     setTimeout(function () { onStartFunction(); }, 120);

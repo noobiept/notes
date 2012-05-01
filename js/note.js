@@ -1,4 +1,4 @@
-/*global DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS, UndoRedo*/
+/*global DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS, UndoRedo, Color*/
 
 'use strict';
 
@@ -80,7 +80,9 @@ noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
 
 
-var backgroundColor = noteObject.generateColor();
+var colorObject = noteObject.generateColor();
+
+var backgroundColor = colorObject.getCssRepresentation();
 noteContainer.style.backgroundColor = backgroundColor;
 
 
@@ -123,7 +125,7 @@ this.dragDrop_obj = new DragDrop( noteContainer , noteControls, this );
 this.parentObject = containerObject;
 this.noteEntry_obj = noteEntry;
 this.noteContainer_ui = noteContainer;
-this.backgroundColor_str = backgroundColor;
+this.backgroundColor_obj = colorObject;
 
 
 if (saveToUndo !== false)
@@ -138,7 +140,7 @@ return this;
 
 
 /*
- * Generates a color and returns a string ( rgba( red, green, blue, alpha ) )
+ * Generates a color and returns a Color object
  * 
  *      With red/green/blue going from 0 to 255
  *          and alpha from 0 to 1
@@ -262,7 +264,7 @@ else
     }
 
 
-return "rgba(" + red + ", "+green + ", " + blue + ", " + alpha  + ")";
+return new Color( red, green, blue, alpha ); 
 };
 
 
@@ -355,14 +357,20 @@ this.noteEntry_obj.innerHTML = text;
 
 
 /*
- * Returns the background color (a string)
+ * Returns a Color object, representing the background color
  */
 
 Note.prototype.getBackgroundColor = function()
 {
-return this.backgroundColor_str;
+return this.backgroundColor_obj;
 };
 
+
+
+Note.prototype.updateBackgroundColor = function()
+{
+this.noteContainer_ui.style.backgroundColor = this.backgroundColor_obj.getCssRepresentation();
+};
 
 
 

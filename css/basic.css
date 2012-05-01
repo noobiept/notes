@@ -49,7 +49,11 @@ a
     
       
     
-    /* :: Containers :: */
+/* ************************************
+ *
+ *              Containers
+ * 
+ * ************************************/
 
 
 .noteContainer, .dummyNote, .noteEntry
@@ -104,9 +108,13 @@ a
 
 
 
-    /* :::: Side buttons :::: */
+/* ************************************
+ *
+ *              Side buttons
+ * 
+ * ************************************/
 
-.delNote, .openWindow, .NoteWindow-leftArrow, .NoteWindow-rightArrow
+.delNote, .openWindow, .NoteWindow-leftArrow, .NoteWindow-rightArrow, .NoteWindow-colorPicker
     {
     -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
@@ -141,7 +149,7 @@ a
     }
 
 
-.noteContainer .delNote:hover, .noteContainer .openWindow:hover, .noteContainer .NoteWindow-leftArrow:hover, .noteContainer .NoteWindow-rightArrow:hover
+.noteContainer .delNote:hover, .NoteWindow-delNote:hover, .noteContainer .openWindow:hover, .NoteWindow-leftArrow:hover, .NoteWindow-rightArrow:hover
     {
     opacity: 1;
     -webkit-transform: scale(1.1);
@@ -252,7 +260,7 @@ a
 
 .NoteWindow-menu
     {
-    height: 10px;   
+    min-height: 15px;   
     }
 
 .NoteWindow-delNote
@@ -272,6 +280,16 @@ a
     right: 10px;
     }
 
+
+.NoteWindow-colorPicker
+    {
+    top: 3px;
+    left: 10px;
+    opacity: 1;
+    /*cursor: pointer;
+    font-size: 80%;*/
+    }
+    
 
 /* ************************************
  *

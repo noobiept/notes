@@ -32,7 +32,17 @@ menu.appendChild( colorPicker );
 menu.appendChild( removeNote );
 
 
-$( colorPicker ).bind( 'click', function() { new PopupWindow( new ColorPicker() ); } );
+var colorPickerOnHide = function() {
+    
+    NoteWindow.container_ui.style.backgroundColor = noteObject.getBackgroundColor().getCssRepresentation();
+    
+    noteObject.updateBackgroundColor();
+    };
+
+$( colorPicker ).bind( 'click', function() 
+    { 
+    new PopupWindow( new ColorPicker( noteObject.getBackgroundColor() ), null, colorPickerOnHide ); 
+    });
 
 
 
@@ -77,7 +87,7 @@ right.addEventListener( 'click', function() { NoteWindow.goRightNote(); }, false
 
 var container = document.createElement( 'div' );
 
-container.style.backgroundColor = noteObject.getBackgroundColor();
+container.style.backgroundColor = noteObject.getBackgroundColor().getCssRepresentation();
 
 container.appendChild( menu );
 container.appendChild( text );
@@ -148,7 +158,7 @@ NoteWindow.updateContent = function( noteObject )
 NoteWindow.text_ui.innerHTML = noteObject.getText();
 
 
-NoteWindow.container_ui.style.backgroundColor = noteObject.getBackgroundColor();
+NoteWindow.container_ui.style.backgroundColor = noteObject.getBackgroundColor().getCssRepresentation();
 
 NoteWindow.noteObject_obj = noteObject;
 };

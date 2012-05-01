@@ -103,25 +103,3 @@ Save();
 };
 
 
-    // :: Random functions :: //
-    
-/*
- * Returns the string to be used for css (rgb(red, green, blue))
- */
-
-function rgbString( red, green, blue )
-{
-return 'rgb(' + red + ',' + green + ',' + blue + ')';
-}
-
-
-/*
- * Returns the string to be used for css (rgba(red, green, blue, alpha))
- */
-
-function rgbaString( red, green, blue, alpha )
-{
-return 'rgba(' + red + ',' + green + ',' + blue + ',' + alpha + ')';
-}
-
-

@@ -1,20 +1,29 @@
 /*global $*/
 
+
 /*
- *
+ * Arguments:
+ * 
+
+ * 
+ * 
  */
 
-function ColorPicker()
+function ColorPicker( colorObject )
 {
     // :: Init of variables required below :: //
-    
-var colorObject = this;
+
+var color = colorObject.getColor();
+
+var red = color.red;
+var green = color.green;
+var blue = color.blue;
+var alpha = ColorPicker.alpha;
+
+var colorPickerObject = this;
     
 
-this.red_int = 0;
-this.green_int = 0;
-this.blue_int = 0;  //HERE do load
-this.alpha_int = 1;
+this.color_obj = colorObject;
 
     
     // :: The letter indicating the base color :: //
@@ -48,25 +57,25 @@ alphaText.innerHTML = "Alpha";
 var redValue = document.createElement( 'div' );
 
 redValue.className = "ColorPicker-value";
-redValue.innerHTML = "0";   //HERE vem do load
+redValue.innerHTML = red;
     
 
 var greenValue = document.createElement( 'div' );
 
 greenValue.className = "ColorPicker-value";
-greenValue.innerHTML = "0";   //HERE vem do load
+greenValue.innerHTML = green;
 
 
 var blueValue = document.createElement( 'div' );
 
 blueValue.className = "ColorPicker-value";
-blueValue.innerHTML = "0";   //HERE vem do load
+blueValue.innerHTML = blue;
 
 
 var alphaValue = document.createElement( 'div' );
 
 alphaValue.className = "ColorPicker-value";
-alphaValue.innerHTML = "0";   //HERE vem do load
+alphaValue.innerHTML = alpha;
 
 
     // :: A container for the text/value so that they appear next to each other :: //
@@ -103,7 +112,7 @@ var redSlider = document.createElement( 'div' );
 redSlider.className = "ColorPicker-slider";
 
 $( redSlider ).slider({
-    value : 0,  //HERE do load
+    value : red,
     min   : 0,
     max   : 255,
     step  : 1,
@@ -111,9 +120,9 @@ $( redSlider ).slider({
         {
         redValue.innerHTML = ui.value;
         
-        colorObject.red_int = ui.value;
+        colorObject.setRed( ui.value );
         
-        colorObject.updateBackground();
+        colorPickerObject.updateBackground();
         //OPTIONS.noteWidth = ui.value;   //HERE
         }
     });
@@ -124,7 +133,7 @@ var greenSlider = document.createElement( 'div' );
 greenSlider.className = "ColorPicker-slider";
 
 $( greenSlider ).slider({
-    value : 0,  //HERE do load
+    value : green,
     min   : 0,
     max   : 255,
     step  : 1,
@@ -132,9 +141,9 @@ $( greenSlider ).slider({
         {
         greenValue.innerHTML = ui.value;
         
-        colorObject.green_int = ui.value;
+        colorObject.setGreen( ui.value );
         
-        colorObject.updateBackground();
+        colorPickerObject.updateBackground();
         //OPTIONS.noteWidth = ui.value;   //HERE
         }
     });
@@ -145,7 +154,7 @@ var blueSlider = document.createElement( 'div' );
 blueSlider.className = "ColorPicker-slider";
 
 $( blueSlider ).slider({
-    value : 0,  //HERE do load
+    value : blue,
     min   : 0,
     max   : 255,
     step  : 1,
@@ -154,9 +163,9 @@ $( blueSlider ).slider({
         blueValue.innerHTML = ui.value;
         
         
-        colorObject.blue_int = ui.value;
+        colorObject.setBlue( ui.value );
         
-        colorObject.updateBackground();
+        colorPickerObject.updateBackground();
         //OPTIONS.noteWidth = ui.value;   //HERE
         }
     });
@@ -167,7 +176,7 @@ var alphaSlider = document.createElement( 'div' );
 alphaSlider.className = "ColorPicker-slider";
 
 $( alphaSlider ).slider({
-    value : 1,  //HERE do load
+    value : alpha,
     min   : 0,
     max   : 1,
     step  : 0.05,
@@ -175,9 +184,9 @@ $( alphaSlider ).slider({
         {
         alphaValue.innerHTML = ui.value;
         
-        colorObject.alpha_int = ui.value;
+        colorObject.setAlpha( ui.value );
         
-        colorObject.updateBackground();
+        colorPickerObject.updateBackground();
         //OPTIONS.noteWidth = ui.value;   //HERE
         }
     });
@@ -225,7 +234,7 @@ mainContainer.appendChild( blueContainer );
 mainContainer.appendChild( alphaContainer );
 
 
-colorObject.updateBackground();
+colorPickerObject.updateBackground();
 
 
 return mainContainer;
@@ -241,9 +250,7 @@ return mainContainer;
 
 ColorPicker.prototype.updateBackground = function()
 {
-var color = 'rgba(' + this.red_int + "," + this.green_int + "," + this.blue_int + "," + this.alpha_int + ')';
-    
-$( this.mainContainer_ui ).css( 'background-color', color );
+$( this.mainContainer_ui ).css( 'background-color', this.color_obj.getCssRepresentation() );
 };
 
 
