@@ -114,7 +114,7 @@ a
  * 
  * ************************************/
 
-.delNote, .openWindow, .NoteWindow-leftArrow, .NoteWindow-rightArrow, .NoteWindow-colorPicker
+.delNote, .openWindow, .NoteWindow-leftArrow, .NoteWindow-rightArrow, .NoteWindow-options
     {
     -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
@@ -281,7 +281,7 @@ a
     }
 
 
-.NoteWindow-colorPicker
+.NoteWindow-options
     {
     top: 3px;
     left: 10px;
@@ -290,6 +290,28 @@ a
     font-size: 80%;*/
     }
     
+    
+.NoteWindow-selectBackgroundTypeContainer > *
+    {
+    float: left;
+    margin-right: 5px;
+    }
+    
+.NoteWindow-selectBackgroundTypeContainer
+    {
+    min-height: 30px;
+    }
+    
+.NoteWindow-selected
+    {
+    background-color: red;  /* #HERE */
+    }
+
+.NoteWindow-fixed, .NoteWindow-generated
+    {
+    cursor: pointer;
+    }
+
 
 /* ************************************
  *

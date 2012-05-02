@@ -36,9 +36,9 @@ return this;
  *      position : last position
  */
 
-MainContainer.prototype.newNote = function( text, saveToUndo, position )
+MainContainer.prototype.newNote = function( text, noteComponents, saveToUndo, position )
 {
-var noteObject = new Note( this, text, saveToUndo, position );
+var noteObject = new Note( this, text, noteComponents, saveToUndo, position );
 
     // we're getting the position from the object and not from the argument, because the argument may not have an acceptable value
 var notePosition = noteObject.getPosition();

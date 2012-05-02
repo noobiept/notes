@@ -189,7 +189,7 @@ if (element.what == 'removedNote')
     {
     if (whichOne == 'undo')
         {
-        MAIN_CONTAINER.newNote( element.text, false, element.position );
+        MAIN_CONTAINER.newNote( element.text, null, false, element.position );  //HERE falta o colorObject
         }
         
         //redo - we remove the previously added entry (by the undo)
@@ -221,7 +221,7 @@ else if (element.what == 'addedNote')
     
     else    // same as 'removedNote' and 'undo'
         {
-        MAIN_CONTAINER.newNote( element.text, false, element.position );
+        MAIN_CONTAINER.newNote( element.text, null, false, element.position );  //HERE falta o colorObject
         }       
     }
 

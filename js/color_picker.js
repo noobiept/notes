@@ -4,12 +4,13 @@
 /*
  * Arguments:
  * 
-
- * 
+ *      colorObject : an object of type Color that corresponds to a noteObject
+ *      container   : the element that will get its background-color updated
+ *      onColorChange (function) : is executed when a color changes
  * 
  */
 
-function ColorPicker( colorObject )
+function ColorPicker( colorObject, container, onColorChange )
 {
     // :: Init of variables required below :: //
 
@@ -18,13 +19,20 @@ var color = colorObject.getColor();
 var red = color.red;
 var green = color.green;
 var blue = color.blue;
-var alpha = ColorPicker.alpha;
+var alpha = color.alpha;
 
 var colorPickerObject = this;
     
 
 this.color_obj = colorObject;
 
+
+if (typeof onColorChange == 'undefined')
+    {
+    onColorChange = null;
+    }
+
+this.onColorChange_f = onColorChange;
     
     // :: The letter indicating the base color :: //
     
@@ -121,9 +129,8 @@ $( redSlider ).slider({
         redValue.innerHTML = ui.value;
         
         colorObject.setRed( ui.value );
-        
-        colorPickerObject.updateBackground();
-        //OPTIONS.noteWidth = ui.value;   //HERE
+
+        colorPickerObject.onColorChange();
         }
     });
 
@@ -142,9 +149,8 @@ $( greenSlider ).slider({
         greenValue.innerHTML = ui.value;
         
         colorObject.setGreen( ui.value );
-        
-        colorPickerObject.updateBackground();
-        //OPTIONS.noteWidth = ui.value;   //HERE
+
+        colorPickerObject.onColorChange();
         }
     });
 
@@ -165,8 +171,7 @@ $( blueSlider ).slider({
         
         colorObject.setBlue( ui.value );
         
-        colorPickerObject.updateBackground();
-        //OPTIONS.noteWidth = ui.value;   //HERE
+        colorPickerObject.onColorChange();
         }
     });
 
@@ -186,8 +191,7 @@ $( alphaSlider ).slider({
         
         colorObject.setAlpha( ui.value );
         
-        colorPickerObject.updateBackground();
-        //OPTIONS.noteWidth = ui.value;   //HERE
+        colorPickerObject.onColorChange();
         }
     });
     
@@ -226,7 +230,17 @@ var mainContainer = document.createElement( 'div' );
 
 mainContainer.className = "ColorPicker-container";
 
-this.mainContainer_ui = mainContainer;
+
+if (typeof container == 'undefined' || container === null)
+    {
+    this.elementToUpdateColor_ui = mainContainer;    
+    }
+
+else
+    {
+    this.elementToUpdateColor_ui = container;    
+    }
+
 
 mainContainer.appendChild( redContainer );
 mainContainer.appendChild( greenContainer );
@@ -250,8 +264,21 @@ return mainContainer;
 
 ColorPicker.prototype.updateBackground = function()
 {
-$( this.mainContainer_ui ).css( 'background-color', this.color_obj.getCssRepresentation() );
+$( this.elementToUpdateColor_ui ).css( 'background-color', this.color_obj.getCssRepresentation() );
 };
 
 
 
+/*
+ * 
+ */
+
+ColorPicker.prototype.onColorChange = function()
+{
+if (this.onColorChange_f !== null)
+    {
+    this.onColorChange_f();
+    }
+    
+this.updateBackground();
+};

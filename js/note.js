@@ -5,9 +5,19 @@
 
 /*
  * Note's class -- its called from a MainContainer object (not directly)
+ * 
+ * colorComponents:
+ *      {
+ *      red: (int),
+ *      green: (int),
+ *      blue: (int),
+ *      alpha: (float),
+ *      wasSetByUser: (bool)
+ *      }
+ *  
  */
 
-function Note( containerObject, text, saveToUndo, position )
+function Note( containerObject, text, colorComponents, saveToUndo, position )
 {
 var noteObject = this;
     
@@ -79,8 +89,21 @@ noteEntry.style.height = bb + 'px';
 noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
 
+var colorObject;
 
-var colorObject = noteObject.generateColor();
+
+    // if a color is not given, we generate one
+if (typeof colorComponents == 'undefined' || colorComponents === null || colorComponents.wasSetByUser === false || colorComponents.red < 0)
+    {
+    colorObject = noteObject.generateColor();            
+    }
+
+    // otherwise, use the color that is set
+else
+    {
+    colorObject = new Color( colorComponents.red, colorComponents.green, colorComponents.blue, colorComponents.alpha, colorComponents.wasSetByUser );
+    }
+
 
 var backgroundColor = colorObject.getCssRepresentation();
 noteContainer.style.backgroundColor = backgroundColor;

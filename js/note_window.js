@@ -18,30 +18,23 @@ removeNote.classList.add( 'NoteWindow-delNote' );   //HERE -- class redundante
 removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
 
 
-var colorPicker = document.createElement( 'div' );
+var options = document.createElement( 'div' );
 
-colorPicker.className = "NoteWindow-colorPicker";
-colorPicker.innerHTML = "Color Picker"; 
+options.className = "NoteWindow-options";
+options.innerHTML = "Options"; 
 
 
 var menu = document.createElement( 'div' );
 
 menu.className = "NoteWindow-menu";
 
-menu.appendChild( colorPicker );
+menu.appendChild( options );
 menu.appendChild( removeNote );
 
 
-var colorPickerOnHide = function() {
-    
-    NoteWindow.container_ui.style.backgroundColor = noteObject.getBackgroundColor().getCssRepresentation();
-    
-    noteObject.updateBackgroundColor();
-    };
-
-$( colorPicker ).bind( 'click', function() 
-    { 
-    new PopupWindow( new ColorPicker( noteObject.getBackgroundColor() ), null, colorPickerOnHide ); 
+$( options ).bind( 'click', function() 
+    {
+    NoteWindow.openOptions( noteObject );  
     });
 
 
@@ -258,6 +251,97 @@ else
 
 noteObject.remove();
 };
+
+
+
+
+/*
+ * The options of the individual note (to change the background color)
+ */
+
+NoteWindow.openOptions = function( noteObject )
+{
+var colorObject = noteObject.getBackgroundColor();
+    
+    
+var backgroundColorText = document.createElement( 'div' );
+
+backgroundColorText.innerHTML = "Background color:";
+
+
+var generatedType = document.createElement( 'div' );
+
+generatedType.className = "NoteWindow-generated";
+generatedType.innerHTML = "is generated";
+    
+
+
+var fixedType = document.createElement( 'div' );
+    
+fixedType.className = "NoteWindow-fixed";
+fixedType.innerHTML = "is fixed";
+    
+    
+if (colorObject.wasSetByUser() === true)
+    {
+    fixedType.classList.add( "NoteWindow-selected" );
+    }
+    
+else
+    {
+    generatedType.classList.add( "NoteWindow-selected" );
+    }
+    
+var selectTypeContainer = document.createElement( 'div' ); 
+
+selectTypeContainer.className = "NoteWindow-selectBackgroundTypeContainer";
+
+selectTypeContainer.appendChild( backgroundColorText );
+selectTypeContainer.appendChild( generatedType );
+selectTypeContainer.appendChild( fixedType );
+
+
+    // :: Events :: //
+    
+    // color stops being fixed, and can have a different color next time the program runs (can be generated)
+$( generatedType ).bind( 'click', function()
+    {
+    generatedType.classList.add( "NoteWindow-selected" );
+    fixedType.classList.remove( "NoteWindow-selected" ); 
+    
+    colorObject.canBeGenerated( true );
+    });   
+
+
+
+    // :: Other :: //
+
+var optionsContainer = document.createElement( 'div' );
+
+
+var onColorChange = function()
+    {
+    generatedType.classList.remove( "NoteWindow-selected" );
+    fixedType.classList.add( "NoteWindow-selected" );  
+    };
+
+var colorPicker = new ColorPicker( colorObject, optionsContainer, onColorChange );
+
+
+optionsContainer.appendChild( selectTypeContainer );
+optionsContainer.appendChild( colorPicker ); 
+
+
+var colorPickerOnHide = function() {
+    
+    NoteWindow.container_ui.style.backgroundColor = colorObject.getCssRepresentation();
+    
+    noteObject.updateBackgroundColor();
+    };
+    
+new PopupWindow( optionsContainer, null, colorPickerOnHide );
+};
+
 
 
 

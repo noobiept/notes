@@ -39,7 +39,8 @@ var noteObject = MAIN_CONTAINER.getFirstChild();
 for ( ; noteObject !== null ; noteObject = noteObject.next() )
     {
     notes.push({
-        text  : noteObject.getText() 
+        text  : noteObject.getText(),
+        backgroundColorComponents : noteObject.getBackgroundColor().getColor() 
         });
     }
 
