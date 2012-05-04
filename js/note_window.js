@@ -313,6 +313,16 @@ $( generatedType ).bind( 'click', function()
     });   
 
 
+    // the current color becomes fixed
+$( fixedType ).bind( 'click', function()
+    {
+    fixedType.classList.add( "NoteWindow-selected" );
+    generatedType.classList.remove( "NoteWindow-selected" ); 
+    
+    colorObject.canBeGenerated( false );    
+    });
+
+
 
     // :: Other :: //
 

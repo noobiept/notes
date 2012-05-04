@@ -116,7 +116,7 @@ return this.alpha_float;
 
 Color.prototype.setAlpha = function( alpha )
 {
-this.alpha_int = alpha;
+this.alpha_float = alpha;
 
 this.wasSetByUser_bool = true;
 };
