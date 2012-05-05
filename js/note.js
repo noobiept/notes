@@ -129,6 +129,28 @@ var noteKeyEvents = function(event) { noteObject.keyboardShortcuts( event ); };
 
 noteEntry.addEventListener( 'keydown' , noteKeyEvents, false );
 
+$( noteEntry ).bind( 'focus',
+    function()
+    {
+    $( noteContainer ).addClass( 'NoteOnFocus' );
+    
+        // the background-color will be white (which is the color of the note's elements)
+    //Draw.changeNoteElementsColor( noteObject );
+    });
+
+
+$( noteEntry ).bind( 'blur',
+    function()
+    {
+    $( noteContainer ).removeClass( 'NoteOnFocus' );
+
+        // back to the normal colors
+    //Draw.changeNoteElementsBack( noteObject );
+    });
+
+
+
+
 
 openWindow.addEventListener( 'click', function() { NoteWindow( noteObject ); }, false );
 

@@ -80,6 +80,7 @@ right.addEventListener( 'click', function() { NoteWindow.goRightNote(); }, false
 
 var container = document.createElement( 'div' );
 
+container.className = "NoteWindow";
 container.style.backgroundColor = noteObject.getBackgroundColor().getCssRepresentation();
 
 container.appendChild( menu );
@@ -129,7 +130,8 @@ NoteWindow.onHide = function()
 {
 var noteObject = NoteWindow.noteObject_obj;
 
-noteObject.setText( NoteWindow.text_ui.innerHTML );
+
+NoteWindow.saveNote();
 
 noteObject.gainFocus();
 
@@ -138,6 +140,20 @@ noteObject.gainFocus();
     
 document.body.removeChild( NoteWindow.leftArrow_ui );
 document.body.removeChild( NoteWindow.rightArrow_ui );
+};
+
+
+
+
+/*
+ * saves the text in the NoteWindow back to the noteObject
+ */
+
+NoteWindow.saveNote = function()
+{
+var noteObject = NoteWindow.noteObject_obj;
+    
+noteObject.setText( NoteWindow.text_ui.innerHTML );    
 };
 
 
@@ -154,6 +170,9 @@ NoteWindow.text_ui.innerHTML = noteObject.getText();
 NoteWindow.container_ui.style.backgroundColor = noteObject.getBackgroundColor().getCssRepresentation();
 
 NoteWindow.noteObject_obj = noteObject;
+
+
+NoteWindow.text_ui.focus();
 };
 
 
@@ -180,6 +199,10 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
         {
         otherElement = MAIN_CONTAINER.getLastChild();
         }     
+            
+    
+        // the content of the note might have be changed (its only saved onHide())
+    NoteWindow.saveNote();
             
     NoteWindow.updateContent( otherElement );
     //HERE ter k por focus?...
@@ -208,6 +231,9 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
         {
         otherElement = MAIN_CONTAINER.getFirstChild();
         }     
+    
+        // the content of the note might have be changed (its only saved onHide())
+    NoteWindow.saveNote();
     
     NoteWindow.updateContent( otherElement );
     //HERE ter k por focus?...

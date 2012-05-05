@@ -13,6 +13,8 @@
             slider
             blind effect
             fade effect
+            
+        ba-resize
 
  */
 
@@ -60,6 +62,11 @@
                 funciona estilo historico, onde dps basta clicar ai para abrir a respectiva nota
             tar limitado a um numero de notas...
 
+
+    - fazer o scroll do texto numa nota, as vezes nao faz o update do texto
+            - quando esta em foco, o scroll nao actualiza o texto
+            - se for fazer o scroll antes de por em foco, funciona
+
  */
 
 
@@ -74,6 +81,8 @@ var OPTIONS = {
 
 var MAIN_CONTAINER = null;
 
+
+
 window.onload = function()
 {
 MAIN_CONTAINER = new MainContainer();
@@ -81,16 +90,20 @@ MAIN_CONTAINER = new MainContainer();
 
 Load();
 
-    // resize/reposition the popup windows, according to the space available
-window.addEventListener( 'resize', 
-    function() 
+
+var resize = function() 
     {
     if (PopupWindow.hasOpenedWindows() === true)
         {
         PopupWindow.resize();            
         }    
-    }, 
-    true );    
+    };
+
+
+resize();
+
+    // resize/reposition the popup windows, according to the space available
+window.addEventListener( 'resize', resize, true );    
     
 
 };

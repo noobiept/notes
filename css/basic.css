@@ -78,6 +78,16 @@ a
     height: 80px;
     overflow: auto; 
     }
+    
+.noteEntry:focus
+    {
+    /*background-image: -webkit-linear-gradient(top, transparent 50%, rgba(130, 50, 0, 1));*/
+    /*background-color: white;
+    color: black;*/
+    outline:none;
+    }
+
+
 
 .noteControls
     {
@@ -91,9 +101,19 @@ a
     }
     
 
+    /* The .noteEntry is the element that can be in focus, but we want to apply to the .noteContainer, so we add this
+            class with javascript somewhere */
+.noteContainer.NoteOnFocus
+    {
+    /*background-color: white !important;*/ /* the background-color is set with javascript on the element, so we need the !important to be able to overwrite it */
+    /*color: black;*/
+   
+    outline: 4px dashed white;
+    }
+
     
     /* //HERE qd a .noteEntry on focus, por o transform... n sei se da com css */
-.noteContainer:hover, .noteContainer:focus, .dummyNote:hover, .dummyNote:focus
+.noteContainer:hover, .noteContainer:focus, .dummyNote:hover, .dummyNote:focus, .NoteOnFocus
     {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
@@ -127,11 +147,16 @@ a
     }
 
 
+.noteContainer .delNote
+    {
+    top: 3px;
+    right: 8px;
+    }
 
 .openWindow
     {
-    top: 5px; /* same as .delNote */
-    left: 10px;
+    top: 3px; /* same as .delNote */
+    left: 8px;
     }
 
 
@@ -142,8 +167,12 @@ a
     }
 
 
+
+
 .noteContainer:hover .delNote, .noteContainer:hover .openWindow,
-.noteContainer:focus .delNote, .noteContainer:focus .openWindow
+.noteContainer:focus .delNote, .noteContainer:focus .openWindow,
+.NoteOnFocus .delNote, .NoteOnFocus .openWindow
+
     {
     opacity: 0.2;
     }
@@ -282,17 +311,17 @@ a
     }
    
 
-.delNote
+.NoteWindow .delNote
     {
-    top: 5px;
-    right: 10px;
+    top: 8px;
+    right: 15px;
     }
 
 
 .NoteWindow-options
     {
-    top: 3px;
-    left: 10px;
+    top: 5px;
+    left: 13px;
     opacity: 1;
     /*cursor: pointer;
     font-size: 80%;*/
