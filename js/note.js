@@ -47,7 +47,7 @@ if ( typeof text == 'undefined' || text === "" )
 
 noteEntry.innerHTML = text;
 noteEntry.setAttribute( 'contenteditable', 'true' );
-//noteEntry.style.backgroundColor = "rgb(" + position * 10 + ",40,40)";       //HERE Note.generateColor();
+
 
     // :: Open the popup window :: //
     
@@ -405,7 +405,7 @@ this.noteEntry_obj.innerHTML = text;
  * Returns a Color object, representing the background color
  */
 
-Note.prototype.getBackgroundColor = function()
+Note.prototype.getColorObject = function()
 {
 return this.backgroundColor_obj;
 };

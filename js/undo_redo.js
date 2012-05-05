@@ -48,6 +48,7 @@ switch( what )
 };
 
 
+
 /*
  * 
  */
@@ -56,9 +57,10 @@ UndoRedo.saveAddedNote = function( what, noteObject )
 {
 UndoRedo.undo_list.push({
     
-    what     : what,
-    position : noteObject.getPosition(),
-    text     : ""
+    what        : what,
+    position    : noteObject.getPosition(),
+    text        : "",
+    colorObject : noteObject.getColorObject()
     
     });
 
@@ -66,6 +68,8 @@ UndoRedo.undo_list.push({
     //on a new change, clean the REDO, so that it doesn't create conflicts
 UndoRedo.cleanRedo();
 };
+
+
 
 /*
  * 
@@ -75,9 +79,10 @@ UndoRedo.saveRemovedNote = function( what, noteObject )
 {
 UndoRedo.undo_list.push({
     
-    what     : what,
-    position : noteObject.getPosition(),
-    text     : noteObject.getText()
+    what        : what,
+    position    : noteObject.getPosition(),
+    text        : noteObject.getText(),
+    colorObject : noteObject.getColorObject()
     
     });
 
@@ -85,6 +90,8 @@ UndoRedo.undo_list.push({
     //on a new change, clean the REDO, so that it doesn't create conflicts
 UndoRedo.cleanRedo();
 };
+
+
 
 /*
  * 
@@ -96,7 +103,6 @@ UndoRedo.undo_list.push({
     
     what             : what,
     position         : noteObject.getPosition(),
-    text             : noteObject.getText(),
     previousPosition : previousPosition
     
     });
@@ -104,6 +110,7 @@ UndoRedo.undo_list.push({
     //on a new change, clean the REDO, so that it doesn't create conflicts
 UndoRedo.cleanRedo();
 };
+
 
 
 /*
@@ -122,20 +129,21 @@ if (UndoRedo.redo_list.length !== 0)
 
 
 /*
- * Say an element was removed. We saved to UndoRedo its text, description and clockAlarm (among other things)
+ * Say an element was removed. We saved to UndoRedo its text, background-color (among other things)
  * 
  * Then we undo it, and change the text, and we redo and undo.
  * 
- * Since the text changes (plus description and clockAlarm changes) aren't being saved to UndoRedo, those changes
+ * Since the text changes (plus other stuff that could have been changed) aren't being saved to UndoRedo, those changes
  * are lost.
  * 
- * So, before we undo/redo, we need to update the text/description/clockAlarm
+ * So, before we undo/redo, we need to update the text/background-color
  */
 
-UndoRedo.updateNote = function(element, entryObject)
+UndoRedo.updateNote = function(element, noteObject)
 {
     //update the text (since it could have been changed)
-element.text = entryObject.getText(); 
+element.text = noteObject.getText(); 
+element.colorObject = noteObject.getColorObject();
 };
 
 
@@ -189,7 +197,16 @@ if (element.what == 'removedNote')
     {
     if (whichOne == 'undo')
         {
-        MAIN_CONTAINER.newNote( element.text, null, false, element.position );  //HERE falta o colorObject
+        var colorComponents = {
+            
+                red          : element.colorObject.red_int,
+                green        : element.colorObject.green_int,
+                blue         : element.colorObject.blue_int,
+                alpha        : element.colorObject.alpha_float,
+                wasSetByUser : element.colorObject.wasSetByUser_bool
+            };
+            
+        MAIN_CONTAINER.newNote( element.text, colorComponents, false, element.position );
         }
         
         //redo - we remove the previously added entry (by the undo)
@@ -221,7 +238,16 @@ else if (element.what == 'addedNote')
     
     else    // same as 'removedNote' and 'undo'
         {
-        MAIN_CONTAINER.newNote( element.text, null, false, element.position );  //HERE falta o colorObject
+        var colorComponents2 = {
+            
+                red          : element.colorObject.red_int,
+                green        : element.colorObject.green_int,
+                blue         : element.colorObject.blue_int,
+                alpha        : element.colorObject.alpha_float,
+                wasSetByUser : element.colorObject.wasSetByUser_bool
+            };
+            
+        MAIN_CONTAINER.newNote( element.text, colorComponents2, false, element.position );
         }       
     }
 

@@ -81,7 +81,7 @@ right.addEventListener( 'click', function() { NoteWindow.goRightNote(); }, false
 var container = document.createElement( 'div' );
 
 container.className = "NoteWindow";
-container.style.backgroundColor = noteObject.getBackgroundColor().getCssRepresentation();
+container.style.backgroundColor = noteObject.getColorObject().getCssRepresentation();
 
 container.appendChild( menu );
 container.appendChild( text );
@@ -167,7 +167,7 @@ NoteWindow.updateContent = function( noteObject )
 NoteWindow.text_ui.innerHTML = noteObject.getText();
 
 
-NoteWindow.container_ui.style.backgroundColor = noteObject.getBackgroundColor().getCssRepresentation();
+NoteWindow.container_ui.style.backgroundColor = noteObject.getColorObject().getCssRepresentation();
 
 NoteWindow.noteObject_obj = noteObject;
 
@@ -287,7 +287,7 @@ noteObject.remove();
 
 NoteWindow.openOptions = function( noteObject )
 {
-var colorObject = noteObject.getBackgroundColor();
+var colorObject = noteObject.getColorObject();
     
     
 var backgroundColorText = document.createElement( 'div' );

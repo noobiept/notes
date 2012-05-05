@@ -21,6 +21,7 @@ var green = color.green;
 var blue = color.blue;
 var alpha = color.alpha;
 
+
 var colorPickerObject = this;
     
 
@@ -83,7 +84,10 @@ blueValue.innerHTML = blue;
 var alphaValue = document.createElement( 'div' );
 
 alphaValue.className = "ColorPicker-value";
-alphaValue.innerHTML = alpha;
+
+    // limit the number of characters in alpha (its a float)
+    // the .toFixed() returns a string
+alphaValue.innerHTML = alpha.toFixed( 2 );
 
 
     // :: A container for the text/value so that they appear next to each other :: //

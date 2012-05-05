@@ -46,6 +46,10 @@
             
             ctrl + z --> undo
             ctrl + shift + z --> redo
+            
+        - por o spellcheck nas opcoes
+    
+        - por uma border na NoteWindow entre o menu e a entrada de texto (border-bottom: 4px dashed white; no menu)
               
     a pensar:
     
@@ -63,9 +67,13 @@
             tar limitado a um numero de notas...
 
 
+Problemas:
+
     - fazer o scroll do texto numa nota, as vezes nao faz o update do texto
             - quando esta em foco, o scroll nao actualiza o texto
             - se for fazer o scroll antes de por em foco, funciona
+
+    - o UndoRedo de uma nota com o red_gradient no inicio, ele volta com uma cor gerada outra x, mas + clara (pois esta a contar que seja uma nota no fim...)
 
  */
 
@@ -73,7 +81,7 @@
 var OPTIONS = {
     noteWidth  : 250,   // the width/height of each note
     noteHeight : 125,
-    noteMargin : 5,
+    noteMargin : 7,
     activeNotePosition      : -1,            // which note to get focus on the beginning of the program (-1 means no one)
     generateBackgroundColor : 'red_gradient' // how to generate the background-color of the notes
     };

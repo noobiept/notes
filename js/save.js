@@ -40,7 +40,7 @@ for ( ; noteObject !== null ; noteObject = noteObject.next() )
     {
     notes.push({
         text  : noteObject.getText(),
-        backgroundColorComponents : noteObject.getBackgroundColor().getColor() 
+        backgroundColorComponents : noteObject.getColorObject().getColor() 
         });
     }
 
