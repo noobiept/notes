@@ -1,3 +1,4 @@
+/*jslint white: true, vars: true, browser: true, newcap: true*/
 /*global Note, DummyNote*/
 
 'use strict';

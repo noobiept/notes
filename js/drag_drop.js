@@ -1,3 +1,4 @@
+/*jslint white: true, vars: true, browser: true*/
 /*global $*/
 
 'use strict';
@@ -64,7 +65,7 @@ if ( (dragObject != elementObject) )
     {
     return true;
    /*     //and if we're dealing with the same kind of elements
-    if ( dragObject.objectType() == elementObject.objectType() )
+    if ( dragObject.objectType() == elementObject.objectType() )	//HERE
         {
         return true;
         }

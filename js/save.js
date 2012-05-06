@@ -1,5 +1,7 @@
+/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
 /*global Storage, localStorage, MAIN_CONTAINER, OPTIONS*/
 
+'use strict';
 
 /*
  * Converts an object to string, and saves it in storage

@@ -1,4 +1,7 @@
-/*global Note, MAIN_CONTAINER*/
+/*jslint white: true, vars: true, browser: true, newcap: true*/
+/*global Note, MAIN_CONTAINER, NoteWindow*/
+
+'use strict';
 
 /*
  * Keys code for the keyboard events
@@ -37,6 +40,7 @@ var EVENT_KEY = {
     - ctrl + right arrow : focus to the note to the right (or dummy note, if its the last one)
     - ctrl + delete      : delete the note
     - ctrl + enter       : create a new note in the next position
+    - alt + w            : open the NoteWindow
     
  
  */
@@ -46,8 +50,6 @@ Note.prototype.keyboardShortcuts = function( event )
 var noteObject = this;
 var key = event.which;
     
-var noteHtml = noteObject.getHtmlElement();
-
     // used when we're selecting another element than this
 var otherNoteObject;
     
@@ -86,9 +88,22 @@ if (event.type == 'keydown')
             MAIN_CONTAINER.getDummy().gainFocus();
             }
         }
+       
+        // create a new note in the next position    
+    else if ( event.ctrlKey && key == EVENT_KEY.newLine )
+        {
+        otherNoteObject = MAIN_CONTAINER.newNote( "", null, true, this.getPosition() + 1 );
         
-        // remove the note
-    else if ( event.ctrlKey && key == EVENT_KEY.del )
+        otherNoteObject.gainFocus();
+        }
+    
+    event.stopPropagation();
+    }
+    
+else if (event.type == 'keyup')
+    {
+            // remove the note
+    if ( event.ctrlKey && key == EVENT_KEY.del )
         {
             // we'll try to give focus to the next note, or the previous if this is the last note
             // if this is the only note left, focus goes to the dummy note
@@ -129,16 +144,12 @@ if (event.type == 'keydown')
             setTimeout( function() { otherNoteObject.getHtmlElement().innerHTML = "New Note"; }, 20 );
             }
         } 
-       
-        // create a new note in the next position    
-    else if ( event.ctrlKey && key == EVENT_KEY.newLine )
-        {
-        otherNoteObject = MAIN_CONTAINER.newNote( "", null, true, this.getPosition() + 1 );
         
-        otherNoteObject.gainFocus();
+        // open the NoteWindow
+    else if (event.altKey && key == EVENT_KEY.w)
+        {
+        NoteWindow( noteObject );
         }
-    
-    event.stopPropagation();
     }
 };
 

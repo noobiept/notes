@@ -1,4 +1,4 @@
-/*jslint browser:true*/
+/*jslint white: true, vars: true, browser: true, newcap: true*/
 /*global MainContainer, window, Save, Load, PopupWindow, NoteWindow*/
 
 'use strict';
@@ -105,7 +105,7 @@ var resize = function()
     {
     if (PopupWindow.hasOpenedWindows() === true)
         {
-        PopupWindow.resize();            
+        PopupWindow.resizeAll();            
         }    
     };
 

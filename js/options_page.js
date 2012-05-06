@@ -1,5 +1,8 @@
+/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
 /*global $, PopupWindow, OPTIONS*/
 
+
+'use strict';
 
 /*
  * 

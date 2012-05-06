@@ -1,3 +1,4 @@
+/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
 /*global $, window, EVENT_KEY, MAIN_CONTAINER*/
 
 
@@ -270,7 +271,7 @@ var overlay = this.getOverlay();
 
 
     //remove the onresize event, since it uses polling (not a 'real' event)
-$(this.windowContainer_obj).unbind();
+$( windowContainer ).unbind();
 
 this.windowContent_obj = null;
 
@@ -289,7 +290,7 @@ this.isOpened_obj = false;
 
     
     //remove from body
-document.body.removeChild( this.windowContainer_obj );
+document.body.removeChild( windowContainer );
 
 
 var allWindows = PopupWindow.allWindows_class;
@@ -392,22 +393,32 @@ if ( $(content).outerHeight() > $(container).outerHeight() )    //HERE the scrol
 
 
 /*
- * Resizes and reposition the popup windows
+ * Resizes a popup window
  */
 
-PopupWindow.resize = function()
+PopupWindow.prototype.resize = function()
+{
+this.centerWindow();
+
+    // call the resize function of possible 'derived' classes
+if (this.onResize_f !== null)
+    {
+    this.onResize_f();
+    }
+};
+
+
+/*
+ * Resizes and reposition the popup windows (all of them)
+ */
+
+PopupWindow.resizeAll = function()
 {
 var all = PopupWindow.allWindows_class;
-    
+
 for (var i = 0 ; i < all.length ; i++)
     {
-    all[i].centerWindow();
-    
-        // call the resize function of possible 'derived' classes
-    if (all[i].onResize_f !== null)
-        {
-        all[i].onResize_f();
-        }
+    all[i].resize();
     }
 };
 
@@ -423,8 +434,6 @@ for (var i = 0 ; i < all.length ; i++)
 PopupWindow.prototype.shortcuts = function (event)
 {
 var key = event.which;
-var otherElement = null;
-
 
 if (event.type == 'keyup')
     {

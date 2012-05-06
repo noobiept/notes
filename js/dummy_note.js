@@ -1,6 +1,8 @@
+/*jslint white: true, vars: true, browser: true*/
 /*global MAIN_CONTAINER, EVENT_KEY, OPTIONS*/
 
 
+'use strict';
 
 function DummyNote()
 {

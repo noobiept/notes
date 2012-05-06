@@ -1,4 +1,4 @@
-/*jslint newcap: true*/
+/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
 /*global $, DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS, UndoRedo, Color*/
 
 
@@ -130,6 +130,7 @@ else
 var noteKeyEvents = function(event) { noteObject.keyboardShortcuts( event ); };
 
 noteEntry.addEventListener( 'keydown' , noteKeyEvents, false );
+noteEntry.addEventListener( 'keyup' , noteKeyEvents, false );
 
 $( noteEntry ).bind( 'focus',
     function()
@@ -366,7 +367,7 @@ $( this.noteContainer_ui ).addClass( 'NoteOnFocus' );
  * Remove the special styling for the note on focus (when it no longer is (on blur, for example))
  */
 
-Note.prototype.clearFocusStyle = function()
+Note.prototype.removeFocusStyle = function()
 {
 $( this.noteContainer_ui ).removeClass( 'NoteOnFocus' );
 };

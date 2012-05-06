@@ -1,3 +1,6 @@
+/*jslint white: true, vars: true, browser: true*/
+
+'use strict';
 
 /*
  * function that is called throughout the code (its the interface)

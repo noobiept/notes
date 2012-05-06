@@ -1,3 +1,4 @@
+/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
 /*global MAIN_CONTAINER, OptionsPage, UndoRedo, window*/
 
 

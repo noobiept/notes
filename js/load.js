@@ -1,6 +1,8 @@
+/*jslint white: true, vars: true, browser: true, newcap: true*/
 /*global localStorage, MAIN_CONTAINER, Menu, OPTIONS: true*/
 
 
+'use strict';
 
 function Load()
 {

@@ -1,3 +1,4 @@
+/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
 /*global $, window, PopupWindow, EVENT_KEY, MAIN_CONTAINER, Draw, ColorPicker*/
 
 
@@ -50,7 +51,7 @@ text.innerHTML = noteObject.getText();
 
 var left = Draw( 'NoteWindow-leftArrow' );
 
-var width = $(window).width();
+//var width = $(window).width();
 var height = $(window).height();
 
 var halfHeight = height / 2;
@@ -164,10 +165,15 @@ NoteWindow.updateContent = function( noteObject )
 {
 NoteWindow.text_ui.innerHTML = noteObject.getText();
 
+NoteWindow.popupWindow_ui.resize();
+
 
 NoteWindow.container_ui.style.backgroundColor = noteObject.getColorObject().getCssRepresentation();
 
 NoteWindow.noteObject_obj = noteObject;
+
+
+
 
 
 NoteWindow.text_ui.focus();
