@@ -111,17 +111,17 @@ var backgroundColor = colorObject.getCssRepresentation();
 noteContainer.style.backgroundColor = backgroundColor;
 
 
-/*
-if (Options.spellCheck === false)
+
+if (OPTIONS.spellCheck === false)
     {
-    entry.setAttribute('spellcheck', 'false');
+    noteEntry.setAttribute('spellcheck', 'false');
     }
 
 else
     {
-    entry.setAttribute('spellcheck', 'true');
+    noteEntry.setAttribute('spellcheck', 'true');
     }
-*/
+
 
 
 
@@ -188,7 +188,7 @@ return this;
  *          and alpha from 0 to 1
  * 
  * 
- * reads OPTIONS.generateBackgroundColor, to see in what way to generate the background colors
+ * reads OPTIONS.generateColorType, to see in what way to generate the background colors
  * 
  * There's 3 ways to generate the color:
  * 
@@ -212,7 +212,7 @@ Note.prototype.generateColor = function()
 {
 var red = 0, green = 0, blue = 0, alpha = 1;
     
-if (OPTIONS.generateBackgroundColor == 'fixed_order')
+if (OPTIONS.generateColorType == 'fixed_order')
     {
     var color = this.getPosition() % 3;
     
@@ -245,7 +245,7 @@ if (OPTIONS.generateBackgroundColor == 'fixed_order')
         }
     }
     
-else if (OPTIONS.generateBackgroundColor == 'random')
+else if (OPTIONS.generateColorType == 'random')
     {
         // Math.random() --> returns a random number from 0 to 1 (not including 1)
         // Math.round()  --> to get an integer
@@ -393,9 +393,9 @@ return this.position_int;
 
 Note.prototype.getText = function ()
 {
-var text = this.noteEntry_obj.innerHTML;
+var text = this.noteEntry_obj.innerHTML;    //always returns a string?..    //HERE
 
-if (text === null || typeof text == 'undefined')    //HERE eh assim?
+if (text === null)
     {
     return "";
     }

@@ -47,6 +47,18 @@ text.className = "NoteWindow-text";
 text.innerHTML = noteObject.getText();
 
 
+
+if (OPTIONS.spellCheck === false)
+    {
+    text.setAttribute('spellcheck', 'false');
+    }
+
+else
+    {
+    text.setAttribute('spellcheck', 'true');
+    }
+
+
     // :: Left arrow -- change to the note to the left :: //
 
 var left = Draw( 'NoteWindow-leftArrow' );

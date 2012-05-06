@@ -5,7 +5,7 @@
 'use strict';
 
 /*
- * 
+ * The page where you change the options of the program
  */
 
 function OptionsPage()
@@ -93,12 +93,32 @@ $( container ).load( '../options.html',
     var backgroundColor = container.querySelector( '#Options-backgroundColor' );
     var backgroundColorValue = container.querySelector( '#Options-backgroundColorValue' );
     
-    backgroundColorValue.innerHTML = OPTIONS.generateBackgroundColor;
+    backgroundColorValue.innerHTML = OPTIONS.generateColorType;
     
-    backgroundColor.addEventListener( 'click', function() { OptionsPage.switchBackgroundColor( backgroundColorValue ); }, false );
+    $( backgroundColor ).bind('click', function(event) { OptionsPage.switchBackgroundColor( event, backgroundColorValue ); });
     
+    
+        // :: SpellCheck :: //
+        
+    var spellCheck = container.querySelector( '#Options-spellCheck' );
+    var spellCheckValue = container.querySelector( '#Options-spellCheckValue' );
+    
+    spellCheckValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.spellCheck );
     
  
+    $( spellCheck ).bind('click', function(event) { OptionsPage.switchSpellCheck( event, spellCheckValue ) });
+    
+    
+    
+        // :: Analytics :: //
+        
+    var analytics = container.querySelector( '#Options-analytics' );
+	var analyticsValue = container.querySelector( '#Options-analyticsValue' );
+	
+	analyticsValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.analytics );
+	
+	$( analytics ).bind('click', function(event) { OptionsPage.switchAnalytics( event, analyticsValue ); });
+    
     
     
     new PopupWindow( container );    
@@ -108,28 +128,90 @@ $( container ).load( '../options.html',
 
 
 /*
- * 
+ * true  --> "Yes"
+ * false --> "No"
  */
 
-OptionsPage.switchBackgroundColor = function( backgroundColorValue )
+OptionsPage.boolToYesNo = function( boolVar )
+{
+if ( boolVar === true )
+    {
+    return "Yes";
+    }
+
+return "No";
+};
+
+
+
+/*
+ * Arguments:
+ * 
+ *      event : the on click event object
+ *      spellCheckValue : the html element to update the values (to show the user the new value)
+ */
+
+OptionsPage.switchSpellCheck = function( event, spellCheckValue )
+{
+if (event.type == 'click')
+    {
+        // OPTIONS.spellCheck is a bool variable, so the not operator turns a true to false, or a false to true
+    OPTIONS.spellCheck = !OPTIONS.spellCheck;
+    
+        // update the text, with a "Yes" or "No"
+    spellCheckValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.spellCheck );
+    }
+};
+
+
+/*
+ * Arguments:
+ * 
+ *      event : the on click event object
+ *      analyticsValue : the html element to update the values (to show the user the new value)
+ */
+
+OptionsPage.switchAnalytics = function( event, analyticsValue )
+{
+if (event.type == 'click')
+    {
+        // OPTIONS.analytics is a bool variable, so the not operator turns a true to false, or a false to true
+    OPTIONS.analytics = !OPTIONS.analytics;
+    
+        // update the text, with a "Yes" or "No"
+    analyticsValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.analytics );
+    }
+};
+ 
+ 
+
+
+/*
+ * Arguments:
+ * 
+ *      event : the on click event object
+ *      backgroundColorValue : the html element to update the values (to show the user the new value)
+ */
+
+OptionsPage.switchBackgroundColor = function( event, backgroundColorValue )
 {  
-switch( OPTIONS.generateBackgroundColor )
+switch( OPTIONS.generateColorType )
     {
     case 'fixed_order':
 
-        OPTIONS.generateBackgroundColor = 'random';
+        OPTIONS.generateColorType = 'random';
         backgroundColorValue.innerHTML = 'random';
         break;
     
     case 'random':
 
-        OPTIONS.generateBackgroundColor = 'red_gradient';
+        OPTIONS.generateColorType = 'red_gradient';
         backgroundColorValue.innerHTML = 'red_gradient';
         break;
     
     case 'red_gradient':        
 
-        OPTIONS.generateBackgroundColor = 'fixed_order';
+        OPTIONS.generateColorType = 'fixed_order';
         backgroundColorValue.innerHTML = 'fixed_order';
         break;
 

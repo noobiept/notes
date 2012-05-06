@@ -418,7 +418,7 @@ a
     clear: both;
     }
 
-#Options-backgroundColor
+#Options-backgroundColor, #Options-spellCheck, #Options-analytics
     {
     cursor: pointer;
     }

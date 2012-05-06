@@ -27,27 +27,16 @@
     - dá para abrir uma janela onde aparece o mesmo texto que na nota, juntamente com a opção de formatar o texto
     - a cor de fundo da nota pode ser gerada (de diversas maneiras, consoante a opção escolhida), ou definida pelo utilizador 
     
-    to doo:
-   
+    
+    a pensar:
     
         - o fixed_order -- dar para escolher as cores 
 		
 	    - fazer um video a mostrar o programa logo desde o inicio
 
         - o simbolo pode ser algo relacionado com os rectangulos coloridos
-                      
-        - posso por na documentacao uns atalhos:
-            ctrl + b --> bold
-            ctrl + i --> italic
-            
-            ctrl + z --> undo
-            ctrl + shift + z --> redo
-            
-        - por o spellcheck nas opcoes
     
         - por uma border na NoteWindow entre o menu e a entrada de texto (border-bottom: 4px dashed white; no menu)
-              
-    a pensar:
     
         - ter tb os alarmes tipo todolist
 	
@@ -75,7 +64,7 @@ Problemas:
     
     - ao selecionar as notas na NoteWindow, por o outline correspondente na nota
     
-    - ver o problema no .getText() e comparar com o jquery .html() (dps actualizar na todolist tb)
+    - abrir a janela das opcoes, e clicar tab, ele vai selecionar as notas
     
  */
 
@@ -84,12 +73,27 @@ var OPTIONS = {
     noteWidth  : 250,   // the width/height of each note
     noteHeight : 125,
     noteMargin : 7,
-    activeNotePosition      : -1,            // which note to get focus on the beginning of the program (-1 means no one)
-    generateBackgroundColor : 'red_gradient' // how to generate the background-color of the notes
+    activeNotePosition : -1,               // which note to get focus on the beginning of the program (-1 means no one)
+    generateColorType  : 'red_gradient',   // how to generate the background-color of the notes
+    analyticsTimer     : -1,
+    spellCheck : true,
+    analytics  : true
     };
 
 
 var MAIN_CONTAINER = null;
+
+var TYPE = 'app';
+var VERSION = '1.0';
+
+
+if (OPTIONS.analytics !== false)
+    {
+        //the rest of the tracking code is called on the onload event (below this) (the reason is that otherwise it would increase the startup time of the program)
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31478278-1']);
+    _gaq.push(['_trackPageview']);
+    }
 
 
 
@@ -116,6 +120,10 @@ resize();
 window.addEventListener( 'resize', resize, true );    
     
 
+if (OPTIONS.analytics !== false)
+    {
+    Analytics.start();
+    } 
 };
 
 
