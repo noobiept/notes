@@ -1,4 +1,6 @@
-/*global DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS, UndoRedo, Color*/
+/*jslint newcap: true*/
+/*global $, DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS, UndoRedo, Color*/
+
 
 'use strict';
 
@@ -132,20 +134,14 @@ noteEntry.addEventListener( 'keydown' , noteKeyEvents, false );
 $( noteEntry ).bind( 'focus',
     function()
     {
-    $( noteContainer ).addClass( 'NoteOnFocus' );
-    
-        // the background-color will be white (which is the color of the note's elements)
-    //Draw.changeNoteElementsColor( noteObject );
+    noteObject.setFocusStyle();
     });
 
 
 $( noteEntry ).bind( 'blur',
     function()
     {
-    $( noteContainer ).removeClass( 'NoteOnFocus' );
-
-        // back to the normal colors
-    //Draw.changeNoteElementsBack( noteObject );
+    noteObject.removeFocusStyle();
     });
 
 
@@ -346,13 +342,36 @@ MAIN_CONTAINER.updateOrder( position );
 
 
 /*
- * 
+ * Put (keyboard) focus on a note 
  */
 
 Note.prototype.gainFocus = function()
 {
 this.noteEntry_obj.focus();
 };
+
+
+
+/*
+ * A style for the note that is currently on focus
+ */
+
+Note.prototype.setFocusStyle = function()
+{
+$( this.noteContainer_ui ).addClass( 'NoteOnFocus' );
+};
+
+
+/*
+ * Remove the special styling for the note on focus (when it no longer is (on blur, for example))
+ */
+
+Note.prototype.clearFocusStyle = function()
+{
+$( this.noteContainer_ui ).removeClass( 'NoteOnFocus' );
+};
+
+
 
 
 

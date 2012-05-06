@@ -1,5 +1,5 @@
 /*jslint browser:true*/
-/*global MainContainer, window, Save, Load, PopupWindow*/
+/*global MainContainer, window, Save, Load, PopupWindow, NoteWindow*/
 
 'use strict';
 
@@ -25,16 +25,12 @@
     - dá para eliminar/arrastar as notas directamente
     - Dá para editar directamente as notas (aparece uma barra caso tenha muito texto)
     - dá para abrir uma janela onde aparece o mesmo texto que na nota, juntamente com a opção de formatar o texto
-    
+    - a cor de fundo da nota pode ser gerada (de diversas maneiras, consoante a opção escolhida), ou definida pelo utilizador 
     
     to doo:
-    
-        - poder definir as cores das notas (na NoteWindow -- color e background-color)
-            dar para definir as cores pelo utilizador, e essas nao sao afectadas por o Note.generateColor()
+   
     
         - o fixed_order -- dar para escolher as cores 
-
-        - on hover, aumentar o rectangulo para aum tamanho maior?.. ou ter outro efeito
 		
 	    - fazer um video a mostrar o programa logo desde o inicio
 
@@ -75,6 +71,12 @@ Problemas:
 
     - o UndoRedo de uma nota com o red_gradient no inicio, ele volta com uma cor gerada outra x, mas + clara (pois esta a contar que seja uma nota no fim...)
 
+    - com frases grandes na NoteWindow, a janela vai aumentando, ao ponto das setas ficarem por cima (limitar + a NoteWindow?..)
+    
+    - ao selecionar as notas na NoteWindow, por o outline correspondente na nota
+    
+    - ver o problema no .getText() e comparar com o jquery .html() (dps actualizar na todolist tb)
+    
  */
 
 

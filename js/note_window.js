@@ -13,8 +13,6 @@ function NoteWindow( noteObject )
     
 var removeNote = Draw( 'delNote' );
 
-removeNote.classList.add( 'NoteWindow-delNote' );   //HERE -- class redundante
-
 removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
 
 
@@ -102,7 +100,7 @@ NoteWindow.rightArrow_ui = right;
 
 
 
-NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts );
+NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts, NoteWindow.resize );
 }
 
 
@@ -205,7 +203,6 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
     NoteWindow.saveNote();
             
     NoteWindow.updateContent( otherElement );
-    //HERE ter k por focus?...
     }
 };
 
@@ -236,8 +233,28 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
     NoteWindow.saveNote();
     
     NoteWindow.updateContent( otherElement );
-    //HERE ter k por focus?...
     } 
+};
+
+
+
+/*
+ * re-calculate the position of the left/right arrows
+ */
+
+NoteWindow.resize = function()
+{
+var height = $( window ).height();
+
+var halfHeight = height / 2;
+
+var left = NoteWindow.leftArrow_ui;
+var right = NoteWindow.rightArrow_ui;
+
+var heightPx = halfHeight + 'px';
+
+$( left ).css('top', heightPx);
+$( right ).css('top', heightPx);
 };
 
 

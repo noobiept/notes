@@ -178,7 +178,7 @@ a
     }
 
 
-.noteContainer .delNote:hover, .NoteWindow-delNote:hover, .noteContainer .openWindow:hover, .NoteWindow-leftArrow:hover, .NoteWindow-rightArrow:hover
+.noteContainer .delNote:hover, .NoteWindow .delNote:hover, .noteContainer .openWindow:hover, .NoteWindow-leftArrow:hover, .NoteWindow-rightArrow:hover
     {
     opacity: 1;
     -webkit-transform: scale(1.1);
@@ -300,10 +300,6 @@ a
     min-height: 15px;   
     }
 
-.NoteWindow-delNote
-    {
-    opacity: 0.2;
-    }
 
 .NoteWindow-text
     {
@@ -313,6 +309,7 @@ a
 
 .NoteWindow .delNote
     {
+    opacity: 0.2;
     top: 8px;
     right: 15px;
     }

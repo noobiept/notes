@@ -12,10 +12,11 @@
  *      - onStartFunction   : to be called when the window is created
  *      - onHideFunction    : to be called when the window is closed
  *      - shortcutsFunction : to be called when keys are pressed
+ *      - onResizeFunction  : to be called when the PopupWindow's resize is called
  * 
  */
 
-function PopupWindow (contentElement, onStartFunction, onHideFunction, shortcutsFunction)
+function PopupWindow (contentElement, onStartFunction, onHideFunction, shortcutsFunction, onResizeFunction)
 {
 var popupWindowObject = this;
 
@@ -86,6 +87,13 @@ windowContainer.popupWindowObject = this;
 
 this.onHide_f = onHideFunction;
 
+if (typeof onResizeFunction == 'undefined')
+    {
+    onResizeFunction = null;
+    }
+
+this.onResize_f = onResizeFunction;
+
 
 this.windowOverlay_obj = windowOverlay;
 this.windowContainer_obj = windowContainer;
@@ -138,7 +146,7 @@ return true;
 PopupWindow.prototype.show = function (contentElement, onStartFunction)
 {
     //when opening from the menu, the sub-menu still stays opened //HERE
-$('#subMenu ul').css('display', 'none');
+//$('#subMenu ul').css('display', 'none');  // nao ah submenus por enquanto
 
 this.isOpened_obj = true;
 
@@ -394,6 +402,12 @@ var all = PopupWindow.allWindows_class;
 for (var i = 0 ; i < all.length ; i++)
     {
     all[i].centerWindow();
+    
+        // call the resize function of possible 'derived' classes
+    if (all[i].onResize_f !== null)
+        {
+        all[i].onResize_f();
+        }
     }
 };
 
