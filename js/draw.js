@@ -64,14 +64,27 @@ var height = canvas.height;
 
 ctx.beginPath();
 
+ctx.lineCap = "round";
 ctx.lineWidth = 1;
 ctx.strokeStyle = 'rgb(255, 255, 255)';
+ctx.lineJoin = "bevel";
 
     // 'margin' from the dimensions of the canvas (as in, don't start drawing at (0, 0), but (4, 4) for example)
 var margin = 4;
 
 if (orientation == 'left')
     {
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+    
+    ctx.moveTo( width - margin, margin          );
+    ctx.lineTo( margin        , height / 2      );
+    ctx.lineTo( width - margin, height - margin );
+    ctx.stroke();
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgb(255, 255, 255)';    
+    
     ctx.moveTo( width - margin, margin          );
     ctx.lineTo( margin        , height / 2      );
     ctx.lineTo( width - margin, height - margin );
@@ -79,19 +92,20 @@ if (orientation == 'left')
 
 else
     {
-    /*ctx.moveTo( margin        , margin          );
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+    
+    ctx.moveTo( margin        , margin          );
     ctx.lineTo( width - margin, height / 2      );
-    ctx.lineTo( margin        , height - margin );*/
-    ctx.moveTo( margin, margin );
-    ctx.lineTo( margin, height - margin );
+    ctx.lineTo( margin        , height - margin );
+    ctx.stroke();
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgb(255, 255, 255)';    
     
-    ctx.moveTo( 2 * margin, margin );
-    ctx.lineTo( 2 * margin, height - margin );
-    
-    ctx.moveTo( 4 * margin, margin );
-    ctx.lineTo( 4 * margin, height - margin );
-    ctx.lineTo( width - margin, height / 2 );
-    ctx.lineTo( 4 * margin, margin );
+    ctx.moveTo( margin        , margin          );
+    ctx.lineTo( width - margin, height / 2      );
+    ctx.lineTo( margin        , height - margin );
     }
 
 

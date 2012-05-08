@@ -12,7 +12,11 @@ var dummy = document.createElement( 'div' );
 
 dummy.setAttribute( 'contenteditable', 'true' );
 dummy.className = "dummyNote";
-dummy.innerHTML = "New Note";
+
+var dummyText = document.createElement( 'div' );
+
+dummyText.className = "DummyNote-text";
+dummyText.innerHTML = "New Note";
 
 
 dummy.style.width  = OPTIONS.noteWidth + 'px';  //HERE
@@ -31,7 +35,11 @@ dummy.onclick = function()
 dummy.addEventListener( 'keydown', function(event) { dummyObject.keyboardEvents( event ); }, false );
 
 
+dummy.appendChild( dummyText );
+
 this.dummy_html = dummy;
+this.dummyText_ui = dummyText;
+
 
 return this;
 }
@@ -93,6 +101,36 @@ if (event.type == 'keydown')
     }
 };
 
+
+/*
+    Center the dummy text in the center of the note (the elements have to be already been appended, otherwise the calculations might not give the right results)
+ */
+
+DummyNote.prototype.centerText = function()
+{
+var dummy = this.dummy_html;
+var dummyText = this.dummyText_ui;
+
+
+    //get the dummy note measures
+var dummyWidth = $( dummy ).outerWidth();
+var dummyHeight = $( dummy ).outerHeight();
+
+    //and the dummy text
+var textWidth = $( dummyText ).outerWidth();
+var textHeight = $( dummyText ).outerHeight();
+
+
+    //we want to have the text on the center of the dummy note, so lets calculate the top and left values
+var top = (dummyHeight / 2) - (textHeight / 2);
+var left = (dummyWidth / 2) - (textWidth  / 2);
+
+
+    //position the window at the center of the page
+$( dummyText ).css('top', top + 'px');
+$( dummyText ).css('left', left + 'px');
+};
+ 
 
 
 /*

@@ -66,12 +66,22 @@ a
     }
 
 
+    /* :: Dummy Note :: */
+    
 .noteContainer, .dummyNote
     {
     width: 100px;   /* the sum of .noteEntry with .noteControls has to have these limits */
     height: 100px;        
     }
 
+.DummyNote-text
+    {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    font-size: 150%;
+    opacity: 0.5;
+    }
 
 .noteEntry
     {
@@ -124,6 +134,7 @@ a
 .dummyNote
     {
     background-color: rgb(40, 40, 40);
+    outline: none;
     }
 
 
@@ -310,7 +321,7 @@ a
 .NoteWindow .delNote
     {
     opacity: 0.2;
-    top: 8px;
+    top: 7px;
     right: 15px;
     }
 

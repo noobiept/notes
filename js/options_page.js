@@ -26,7 +26,7 @@ $( container ).load( '../options.html',
 
     $( widthSlider ).slider({
         value : OPTIONS.noteWidth,
-        min   : 50,
+        min   : 150,
         max   : 350,
         step  : 25,
         slide : function(event, ui)
@@ -47,7 +47,7 @@ $( container ).load( '../options.html',
     
     $( heightSlider ).slider({
         value : OPTIONS.noteHeight,
-        min   : 50,
+        min   : 100,
         max   : 200,
         step  : 25,
         slide : function(event, ui)

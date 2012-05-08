@@ -78,6 +78,9 @@ MainContainer.prototype.addDummyNote = function()
 this.dummyNote_obj = new DummyNote();
 
 this.htmlElement_obj.appendChild( this.dummyNote_obj.getHtmlElement() );
+
+    // has to be called after it is appended, otherwise the calculations will give 'wrong' results
+this.dummyNote_obj.centerText();
 };
 
 

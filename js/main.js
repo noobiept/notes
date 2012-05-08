@@ -68,7 +68,13 @@ Problemas:
     
  */
 
-
+/*
+    to doo:
+    
+    - doc images (text explaining what each element is)
+    - write the overview for the documentation
+ */
+ 
 var OPTIONS = {
     noteWidth  : 250,   // the width/height of each note
     noteHeight : 125,
