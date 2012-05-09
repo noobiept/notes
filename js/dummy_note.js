@@ -17,6 +17,7 @@ var dummyText = document.createElement( 'div' );
 
 dummyText.className = "DummyNote-text";
 dummyText.innerHTML = "New Note";
+dummyText.setAttribute( 'spellcheck', 'false' );
 
 
 dummy.style.width  = OPTIONS.noteWidth + 'px';  //HERE

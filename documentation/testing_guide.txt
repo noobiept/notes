@@ -1,0 +1,33 @@
+- Adicionar notas
+- remover notas
+
+- atalhos de teclado
+
+- drag de uma nota:
+    - para o inicio
+    - a meio
+    - para o fim
+    
+- opcoes
+
+- undo/redo
+    - nota eliminada
+    - nota adicionada
+    - drag nota
+    
+    (se mantem o texto, a cor de background e a posicao)
+    
+    
+- NoteWindow
+    - seta para a esquerda
+    - seta para a direita
+        - ao trocar de nota, ele actualiza o texto/cor de fundo
+        - ao mudar o texto e a cor de fundo, ele afecta a nota correspondente? ou a k eh afectada eh a k abrimos inicialmente a NoteWindow
+    - eliminar uma nota 
+        - se passa para a proxima nota
+        - o k acontece quando se elimina a ultima nota
+    - trocar a cor de fundo
+        - mudar entre gerada e fixa
+        - se as componentes da cor funcionam
+    - se ao fazer refresh com a NoteWindow aberta, ele grava alteracoes de texto/cor
+    

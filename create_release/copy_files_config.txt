@@ -1,0 +1,19 @@
+{
+
+"../":
+    [
+    "css/*",
+    "css/start/*",
+    "css/start/images/*",
+
+    "images/icon16.png",
+    "images/icon128.png",
+
+    "libraries/*",
+
+    "background.html",
+    "options.html",
+    
+    "manifest.json"
+    ]
+}

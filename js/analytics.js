@@ -49,11 +49,11 @@ if ( Analytics.hasOneDayPassed() === true )
 Analytics.options = function ()
 {
       //we send the options values to google analytics
-Analytics.send( 'options', 'OPTIONS_noteWidth:  '   + OPTIONS.noteWidth,   'other' );
-Analytics.send( 'options', 'OPTIONS_noteHeight:  '   + OPTIONS.noteHeight,   'other' );
-Analytics.send( 'options', 'OPTIONS_noteMargin:  '   + OPTIONS.noteMargin,   'other' );
-Analytics.send( 'options', 'OPTIONS_generateColorType:  '   + OPTIONS.generateColorType,   'other' );
-Analytics.send( 'options', 'OPTIONS_spellCheck:  '   + OPTIONS.spellCheck,   'other' );
+Analytics.send( 'options', 'OPTIONS_noteWidth:  ' + OPTIONS.noteWidth, 'other' );
+Analytics.send( 'options', 'OPTIONS_noteHeight:  ' + OPTIONS.noteHeight, 'other' );
+Analytics.send( 'options', 'OPTIONS_noteMargin:  ' + OPTIONS.noteMargin, 'other' );
+Analytics.send( 'options', 'OPTIONS_generateColorType:  ' + OPTIONS.generateColorType, 'other' );
+Analytics.send( 'options', 'OPTIONS_spellCheck:  ' + OPTIONS.spellCheck, 'other' );
 };
 
 
@@ -130,7 +130,7 @@ return false;
 
 Analytics.send = function (category, action, label)
 {
-if (Options.analytics !== false)
+if (OPTIONS.analytics !== false)
     {
     if (typeof label == 'undefined')
         {

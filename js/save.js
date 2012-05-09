@@ -34,6 +34,14 @@ return value && JSON.parse( value );
 
 function Save()
 {
+    // a NoteWindow may be opened when the program closes, and since we only save the text of a note when that window is closed, we have to save the text of that note now
+if ( NoteWindow.isOpened() )
+    {
+    NoteWindow.saveNote();
+    }
+
+
+    
 var notes = [];
 
 var noteObject = MAIN_CONTAINER.getFirstChild();

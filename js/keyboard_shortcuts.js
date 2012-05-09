@@ -109,8 +109,6 @@ else if (event.type == 'keyup')
             // if this is the only note left, focus goes to the dummy note
         otherNoteObject = this.next();
         
-        var isDummy = false;    //HERE preciso por causa do bug do .gainFocus()
-         
         if (otherNoteObject === null)
             {
             otherNoteObject = this.previous();
@@ -118,7 +116,6 @@ else if (event.type == 'keyup')
             if (otherNoteObject === null)
                 {
                 otherNoteObject = MAIN_CONTAINER.getDummy();
-                isDummy = true;
                 }
             }
         
@@ -126,23 +123,7 @@ else if (event.type == 'keyup')
         this.remove();
         
         
-        if (isDummy === false)
-            {
-            var title = otherNoteObject.getText();
-        
-            otherNoteObject.gainFocus();
-
-                //HERE weird behaviour, by calling .gainFocus(), it clears the otherNoteObject's first line        
-            setTimeout( function() { otherNoteObject.setText(title); }, 20 );                
-            }
-
-        else
-            {
-            otherNoteObject.gainFocus();
-            
-            //HERE same 
-            setTimeout( function() { otherNoteObject.getHtmlElement().innerHTML = "New Note"; }, 20 );
-            }
+        otherNoteObject.gainFocus();
         } 
         
         // open the NoteWindow

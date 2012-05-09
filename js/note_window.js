@@ -33,7 +33,9 @@ menu.appendChild( removeNote );
 
 $( options ).bind( 'click', function() 
     {
-    NoteWindow.openOptions( noteObject );  
+        // open with the noteObject of the currently displayed note (it can change with the left/right arrows)
+        // don't bind to the initial note
+    NoteWindow.openOptions( NoteWindow.noteObject_obj );  
     });
 
 
@@ -112,6 +114,8 @@ NoteWindow.leftArrow_ui = left;
 NoteWindow.rightArrow_ui = right;
 
 
+NoteWindow.isOpened_bool = false;
+
 
 NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts, NoteWindow.resize );
 }
@@ -127,6 +131,8 @@ NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, Note
 NoteWindow.onStart = function()
 {
 NoteWindow.text_ui.focus();
+
+NoteWindow.isOpened_bool = true;
 };
 
 
@@ -151,6 +157,8 @@ noteObject.gainFocus();
     
 document.body.removeChild( NoteWindow.leftArrow_ui );
 document.body.removeChild( NoteWindow.rightArrow_ui );
+
+NoteWindow.isOpened_bool = false;
 };
 
 
@@ -183,8 +191,6 @@ NoteWindow.popupWindow_ui.resize();
 NoteWindow.container_ui.style.backgroundColor = noteObject.getColorObject().getCssRepresentation();
 
 NoteWindow.noteObject_obj = noteObject;
-
-
 
 
 
@@ -288,9 +294,10 @@ var noteObject = NoteWindow.noteObject_obj;
     // the one that will get the focus
 var otherNoteObject;
 
+    // get the next note
 otherNoteObject = noteObject.next();
 
-    // get the previous
+    // or maybe the previous
 if (otherNoteObject === null)
     {
     otherNoteObject = noteObject.previous();
@@ -441,3 +448,13 @@ if (event.type == 'keyup')
     }
 };
 
+
+
+/*
+ * Tells if the NoteWindow is currently opened
+ */
+
+NoteWindow.isOpened = function()
+{
+return NoteWindow.isOpened_bool;
+};

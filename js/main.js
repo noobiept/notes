@@ -51,6 +51,7 @@
                 funciona estilo historico, onde dps basta clicar ai para abrir a respectiva nota
             tar limitado a um numero de notas...
 
+        - aparecer na NoteWindow algures a dizer a posicao da note (noteObject.getPosition())
 
 Problemas:
 
@@ -66,13 +67,14 @@ Problemas:
     
     - abrir a janela das opcoes, e clicar tab, ele vai selecionar as notas
     
+    - no red_gradient, ao ir removendo notas, e dps adicionar novas, ele gera a cor como se nao tivessemos eliminado nada (ele tem uma variavel k vai somando quando se adiciona + notas, mas nao tem em conta quando se elimina) 
+    
  */
 
 /*
     to doo:
     
-    - doc images (text explaining what each element is)
-    - write the overview for the documentation
+    
  */
  
 var OPTIONS = {

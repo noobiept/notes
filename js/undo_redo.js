@@ -1,5 +1,5 @@
 /*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
-/*global Menu, MAIN_CONTAINER*/
+/*global Menu, MAIN_CONTAINER, Analytics*/
 
 'use strict';
 
@@ -282,6 +282,10 @@ var capitalize = function(theString)
 
 what = capitalize( what );
 whichOne = capitalize( whichOne );
+
+
+    //send which change is being undone
+Analytics.send( whichOne, whichOne + ':_' + what, 'other' );
 
 
 Menu.showMessage( whichOne + ": " + what );
