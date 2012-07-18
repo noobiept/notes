@@ -74,6 +74,7 @@ Problemas:
 /*
     to doo:
     
+        - http://xing.github.com/wysihtml5/
     
  */
  
@@ -91,8 +92,6 @@ var OPTIONS = {
 
 var MAIN_CONTAINER = null;
 
-var TYPE = 'app';
-var VERSION = '1.0';
 
 
 if (OPTIONS.analytics !== false)

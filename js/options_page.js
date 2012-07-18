@@ -106,7 +106,7 @@ $( container ).load( '../options.html',
     spellCheckValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.spellCheck );
     
  
-    $( spellCheck ).bind('click', function(event) { OptionsPage.switchSpellCheck( event, spellCheckValue ) });
+    $( spellCheck ).bind('click', function(event) { OptionsPage.switchSpellCheck( event, spellCheckValue ); });
     
     
     

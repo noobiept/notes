@@ -6,6 +6,8 @@
 
 function Load()
 {
+
+    
 Menu();
  
 Load.options();
@@ -23,7 +25,27 @@ MAIN_CONTAINER.addDummyNote();
 
 Load.notes = function()
 {   
-var notes = localStorage.getObject( 'notes' );
+var notes;
+    
+    // load from the server -- USER_DATA and USER_OPTIONS have the stuff
+if ( TYPE == 'server' )
+    {
+    try 
+        {
+        notes = JSON.parse( USER_DATA );
+        }
+    
+    catch( error )
+        {
+        return;
+        }
+    }
+
+else
+    {
+    notes = localStorage.getObject( 'notes' );        
+    }
+
 
 if (notes === null)
     {
@@ -58,11 +80,29 @@ if (OPTIONS.activeNotePosition >= 0)
 
 Load.options = function()
 {
-    // :: Load Options :: //
+var options;
+    
+if (TYPE == 'server')
+    {
+    try 
+        {
+        options = JSON.parse( USER_OPTIONS );
+        }
+    
+    catch( error )
+        {
+        return;
+        }
+    }
+    
+else
+    {
+    options = localStorage.getObject( 'options' );    
+    }
+    
 
-var options = localStorage.getObject( 'options' );
 
-if (options === null)
+if (options === null || options == "")
     {
     return;
     }

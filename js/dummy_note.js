@@ -1,5 +1,5 @@
 /*jslint white: true, vars: true, browser: true*/
-/*global MAIN_CONTAINER, EVENT_KEY, OPTIONS*/
+/*global $, MAIN_CONTAINER, EVENT_KEY, OPTIONS*/
 
 
 'use strict';
@@ -62,10 +62,10 @@ if ( key >= EVENT_KEY.f1 && key <= EVENT_KEY.f12 )
     return;
     }
 
-if (event.type == 'keydown')
+if (event.type === 'keydown')
     {
         // add a new note
-    if (key == EVENT_KEY.newLine)
+    if (key === EVENT_KEY.newLine || key === EVENT_KEY.tab)
         {
         noteObject = MAIN_CONTAINER.newNote();
         
@@ -73,7 +73,7 @@ if (event.type == 'keydown')
         }
     
         // focus to the last note
-    else if (event.ctrlKey && key == EVENT_KEY.leftArrow)
+    else if (event.ctrlKey && key === EVENT_KEY.leftArrow)
         {
         noteObject = MAIN_CONTAINER.getLastChild();
         

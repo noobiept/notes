@@ -1,4 +1,5 @@
 /*global localStorage, _gaq, OPTIONS, TYPE, VERSION*/
+/*jslint white: true, vars: true*/
 
 'use strict';
 

@@ -212,6 +212,7 @@ a
     z-index: 100;
     overflow: visible;
     min-height: 30px;
+    position: relative;
     }
 
 
@@ -450,4 +451,14 @@ a
     width: 60%;
     margin: 20px;
     float: right;
+    }
+
+
+    /* server only */
+
+#logout
+    {
+    position: absolute;
+    top: 0px;
+    right: 20px;
     }
