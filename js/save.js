@@ -131,16 +131,6 @@ else
 
 
 
-/*
- * Logout the user as well
- */
-
-function Logout()
-{
-Save( true );
-}
-
-
 
 
 
