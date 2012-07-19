@@ -17,7 +17,13 @@ var menu = document.querySelector( '#menu' );
 
 var newNote = menu.querySelector( '#newNote' );
 
-newNote.addEventListener( 'click', function(event) { MAIN_CONTAINER.newNote(); }, false );
+newNote.addEventListener( 'click', function(event) 
+    {
+    var noteObject = MAIN_CONTAINER.newNote(); 
+    
+    noteObject.gainFocus();
+    
+    }, false );
 
 
 var options = menu.querySelector( '#options' );

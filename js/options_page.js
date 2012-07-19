@@ -1,5 +1,5 @@
 /*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
-/*global $, PopupWindow, OPTIONS*/
+/*global $, PopupWindow, OPTIONS, TYPE, STATIC_URL*/
 
 
 'use strict';
@@ -12,7 +12,19 @@ function OptionsPage()
 {
 var container = document.createElement( 'div' );
 
-$( container ).load( '../options.html',
+var url;
+
+if (TYPE === "server")
+    {
+    url = STATIC_URL + "notes/options.html";
+    }
+
+else
+    {
+    url = "/options.html";
+    }
+
+$( container ).load( url,
     function()
     {
         // :: Width :: //
