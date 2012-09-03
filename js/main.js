@@ -78,6 +78,18 @@ Problemas:
     
  */
  
+
+    //HERE in the server template, this is inline on index.html
+var TYPE = 'app';
+var VERSION = '1.0';
+
+    // for 'server' version only
+var USER_DATA = "";
+var USER_OPTIONS = "";
+
+var STATIC_URL = "";
+ 
+ 
 var OPTIONS = {
     noteWidth  : 250,   // the width/height of each note
     noteHeight : 125,

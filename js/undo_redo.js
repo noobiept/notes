@@ -120,10 +120,7 @@ UndoRedo.cleanRedo();
 
 UndoRedo.cleanRedo = function ()
 {
-if (UndoRedo.redo_list.length !== 0)
-    {
-    UndoRedo.redo_list = [];
-    }
+UndoRedo.redo_list.length = 0;
 };
 
 
