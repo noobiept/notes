@@ -1,21 +1,67 @@
 /*jslint white: true, vars: true, browser: true, newcap: true*/
-/*global localStorage, MAIN_CONTAINER, Menu, OPTIONS: true*/
+/*global localStorage, MAIN_CONTAINER, Menu, OPTIONS: true, TYPE*/
 
 
 'use strict';
 
 function Load()
 {
-
-    
 Menu();
- 
-Load.options();
 
+Load.data();
+Load.options();
 Load.notes();
 
 MAIN_CONTAINER.addDummyNote();
 }
+
+
+// will have the stuff loaded (as an object, parsed from json)
+Load.stuff_json = null;
+Load.options_json = null;
+
+
+/*
+    Loads the data from the server or localStorage, and turns it from json text into the object, for later to be used to create the elements etc
+ */
+
+Load.data = function()
+{
+if ( TYPE === 'server' )
+    {
+    $.ajax({
+
+        type: 'POST',
+        async: false, //HERE ter algo a dizer k esta a fazer o load
+        url: '/load_notes',
+
+        success: function(jqXHR, textStatus)
+            {
+            var stuff = jqXHR;
+
+            Load.stuff_json = JSON.parse( stuff.data );
+            Load.options_json = JSON.parse( stuff.options );
+            },
+
+        error: function(jqXHR, textStatus, errorThrown)
+            {
+                //HERE ter uma mensagem
+            console.log(jqXHR, textStatus, errorThrown);
+            }
+
+        });
+    }
+
+    // localStorage
+else
+    {
+    var stuff = localStorage.getObject( 'notes' );
+    var options = localStorage.getObject( 'options' );
+
+    Load.stuff_json = stuff;
+    Load.options_json = options;
+    }
+};
 
 
 
@@ -25,35 +71,18 @@ MAIN_CONTAINER.addDummyNote();
 
 Load.notes = function()
 {   
-var notes;
+var notes = Load.stuff_json;
     
-    // load from the server -- USER_DATA and USER_OPTIONS have the stuff
-if ( TYPE == 'server' )
-    {
-    try 
-        {
-        notes = JSON.parse( USER_DATA );
-        }
-    
-    catch( error )
-        {
-        return;
-        }
-    }
-
-else
-    {
-    notes = localStorage.getObject( 'notes' );        
-    }
-
-
-if (notes === null)
+    // first time the program runs
+if (notes === null || notes === '')
     {
     return;
     }
 
 
-for (var i = 0 ; i < notes.length ; i++)
+var i = 0;
+
+for (i = 0 ; i < notes.length ; i++)
     {
     MAIN_CONTAINER.newNote( notes[ i ].text, notes[ i ].backgroundColorComponents, false );
     }
@@ -80,29 +109,11 @@ if (OPTIONS.activeNotePosition >= 0)
 
 Load.options = function()
 {
-var options;
-    
-if (TYPE == 'server')
-    {
-    try 
-        {
-        options = JSON.parse( USER_OPTIONS );
-        }
-    
-    catch( error )
-        {
-        return;
-        }
-    }
-    
-else
-    {
-    options = localStorage.getObject( 'options' );    
-    }
-    
+var options = Load.options_json;
 
 
-if (options === null || options == "")
+    // first time program runs
+if (options === null || options === "")
     {
     return;
     }
@@ -136,7 +147,7 @@ if ( isNaN( options.activeNotePosition ) === false )
     }
 
 
-if (typeof options.generateColorType != 'undefined' && options.generateColorType != null)
+if (typeof options.generateColorType !== 'undefined' && options.generateColorType !== null)
     {
     OPTIONS.generateColorType  = options.generateColorType;    
     }

@@ -4,7 +4,6 @@
 'use strict';
 
 /*
-
     Dependencies:
     
         jquery
@@ -15,7 +14,6 @@
             fade effect
             
         ba-resize
-
  */
 
 
@@ -79,15 +77,14 @@ Problemas:
  */
  
 
-    //HERE in the server template, this is inline on index.html
-var TYPE = 'app';
+/*
+    In the server version, the index.html (in the server templates) has these variables re-defined
+ */
+
+var TYPE = '';
 var VERSION = '1.0';
 
-    // for 'server' version only
-var USER_DATA = "";
-var USER_OPTIONS = "";
-
-var STATIC_URL = "";
+var STATIC_URL = '';
  
  
 var OPTIONS = {
