@@ -64,9 +64,7 @@ Problemas:
     - ao selecionar as notas na NoteWindow, por o outline correspondente na nota
     
     - abrir a janela das opcoes, e clicar tab, ele vai selecionar as notas
-    
-    - no red_gradient, ao ir removendo notas, e dps adicionar novas, ele gera a cor como se nao tivessemos eliminado nada (ele tem uma variavel k vai somando quando se adiciona + notas, mas nao tem em conta quando se elimina) 
-    
+
  */
 
 /*

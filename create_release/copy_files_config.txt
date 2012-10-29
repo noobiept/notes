@@ -11,7 +11,6 @@
 
     "libraries/*",
 
-    "background.html",
     "options.html",
     
     "manifest.json"

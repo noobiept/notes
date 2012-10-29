@@ -24,22 +24,15 @@ return this;
 
 
 /*
- * Add a note
- * 
- * Arguments :
- * 
- *      - text (string)  : the text of the note
- *      - position (int) : where we add a new note
- * 
- * Default :
- * 
- *      text     : ""
- *      position : last position
+ *
+ * See Note() for the arguments description
+ *
+ * Creates a note and adds it to the main container
  */
 
-MainContainer.prototype.newNote = function( text, noteComponents, saveToUndo, position )
+MainContainer.prototype.newNote = function( text, noteComponents, saveToUndo, position, calledFrom )
 {
-var noteObject = new Note( this, text, noteComponents, saveToUndo, position );
+var noteObject = new Note( this, text, noteComponents, saveToUndo, position, calledFrom );
 
     // we're getting the position from the object and not from the argument, because the argument may not have an acceptable value
 var notePosition = noteObject.getPosition();
@@ -54,7 +47,7 @@ this.childrenObjects_array.splice( notePosition, 0, noteObject );
 
 
     // only need to update when its not added at the end
-if ( this.childrenCount() != notePosition + 1 )
+if ( this.childrenCount() !== notePosition + 1 )
     {
     this.updateOrder( notePosition );    
     }

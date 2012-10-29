@@ -235,11 +235,13 @@ a
 #menu #message
     {
     -webkit-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
-    -moz-transition: opacity 1s ecubic-bezier(0.1, 1, 0.1, 1);
+    -moz-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     -o-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     
-    /*min-width: //HERE */ 
+    /*min-width: //HERE */
+
+    margin-left: 40px;  /* separate a bit from the menu */
         
     opacity: 0;
     }
@@ -315,7 +317,13 @@ a
 
 .NoteWindow-text
     {
+    cursor: text;
     min-height: 150px;
+    }
+
+.NoteWindow-text:focus
+    {
+    outline: 2px solid rgba(229, 151, 0, 0.5);
     }
    
 

@@ -16,10 +16,21 @@
  *      alpha: (float),
  *      wasSetByUser: (bool)
  *      }
- *  
+ *
+ *  Arguments:
+ *
+ *      containerObject (Container)
+ *      text (string): content of the note
+ *      colorComponents (Object) : see type above
+ *      saveToUndo (bool)
+ *      position (number)
+ *      calledFrom (string): tell from where this was called, to address some slight different cases
+ *          Values:
+ *              'UndoRedo': prevents from generating the color when its not set by the user
+ *
  */
 
-function Note( containerObject, text, colorComponents, saveToUndo, position )
+function Note( containerObject, text, colorComponents, saveToUndo, position, calledFrom )
 {
 var noteObject = this;
     
@@ -27,7 +38,7 @@ var noteObject = this;
     // :: Deal with the note's position :: //
     
     // add at the end (its not -1, since we still didn't add to the array)
-if ( typeof position == 'undefined' || isNaN( position ) === true )
+if ( typeof position === 'undefined' || isNaN( position ) === true )
     {
     position = containerObject.childrenCount();
     }
@@ -42,7 +53,7 @@ var noteEntry = document.createElement( 'div' );
 noteEntry.className = "noteEntry";
 
 
-if ( typeof text == 'undefined' || text === "" )
+if ( typeof text === 'undefined' || text === "" )
     {
     text = "<br>";
     }
@@ -95,9 +106,10 @@ var colorObject;
 
 
     // if a color is not given, we generate one
-if (typeof colorComponents == 'undefined' || colorComponents === null || colorComponents.wasSetByUser === false || colorComponents.red < 0)
+    // if this is called from the UndoRedo, we can assume that the colorComponents exists (the note had to be created at some point). The problem is that if the color wasn't set by the user, it would generate the color again, we want to keep the previous one
+if ( (!colorComponents || colorComponents.wasSetByUser === false || colorComponents.red < 0) && calledFrom !== 'UndoRedo' )
     {
-    colorObject = noteObject.generateColor();            
+    colorObject = noteObject.generateColor();
     }
 
     // otherwise, use the color that is set
@@ -213,7 +225,7 @@ Note.prototype.generateColor = function()
 {
 var red = 0, green = 0, blue = 0, alpha = 1;
     
-if (OPTIONS.generateColorType == 'fixed_order')
+if (OPTIONS.generateColorType === 'fixed_order')
     {
     var color = this.getPosition() % 3;
     
@@ -246,7 +258,7 @@ if (OPTIONS.generateColorType == 'fixed_order')
         }
     }
     
-else if (OPTIONS.generateColorType == 'random')
+else if (OPTIONS.generateColorType === 'random')
     {
         // Math.random() --> returns a random number from 0 to 1 (not including 1)
         // Math.round()  --> to get an integer

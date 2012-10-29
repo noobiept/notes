@@ -31,7 +31,7 @@ var colorPickerObject = this;
 this.color_obj = colorObject;
 
 
-if (typeof onColorChange == 'undefined')
+if (typeof onColorChange === 'undefined')
     {
     onColorChange = null;
     }

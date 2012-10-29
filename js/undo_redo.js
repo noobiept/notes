@@ -157,7 +157,7 @@ UndoRedo.stuff = function( whichOne )
 {
 var element;
     
-if (whichOne == 'undo')
+if (whichOne === 'undo')
     {
     if (UndoRedo.undo_list.length === 0)
         {
@@ -191,9 +191,9 @@ else        //redo
 
 var temp;
 
-if (element.what == 'removedNote')
+if (element.what === 'removedNote')
     {
-    if (whichOne == 'undo')
+    if (whichOne === 'undo')
         {
         var colorComponents = {
             
@@ -203,8 +203,8 @@ if (element.what == 'removedNote')
                 alpha        : element.colorObject.alpha_float,
                 wasSetByUser : element.colorObject.wasSetByUser_bool
             };
-            
-        MAIN_CONTAINER.newNote( element.text, colorComponents, false, element.position );
+
+        MAIN_CONTAINER.newNote( element.text, colorComponents, false, element.position, 'UndoRedo' );
         }
         
         //redo - we remove the previously added entry (by the undo)
@@ -221,9 +221,9 @@ if (element.what == 'removedNote')
     }
 
 
-else if (element.what == 'addedNote')
+else if (element.what === 'addedNote')
     {
-    if (whichOne == 'undo') // same as 'removedNote' and 'redo'
+    if (whichOne === 'undo') // same as 'removedNote' and 'redo'
         {
         temp = MAIN_CONTAINER.getChild( element.position ); 
         
@@ -245,13 +245,13 @@ else if (element.what == 'addedNote')
                 wasSetByUser : element.colorObject.wasSetByUser_bool
             };
             
-        MAIN_CONTAINER.newNote( element.text, colorComponents2, false, element.position );
+        MAIN_CONTAINER.newNote( element.text, colorComponents2, false, element.position, 'UndoRedo' );
         }       
     }
 
-else if (element.what == 'draggedNote')
+else if (element.what === 'draggedNote')
    {
-   if (whichOne == 'undo')
+   if (whichOne === 'undo')
        {
           //move without saving it again to undo
        MAIN_CONTAINER.getChild( element.position ).moveTo( element.previousPosition, false );

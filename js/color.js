@@ -8,7 +8,7 @@
 
 function Color(red, green, blue, alpha, wasSetByUser)
 {
-if (typeof wasSetByUser == 'undefined')
+if (typeof wasSetByUser === 'undefined')
     {
     this.wasSetByUser_bool = false;
     }
