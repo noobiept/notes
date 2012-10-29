@@ -8,6 +8,7 @@
     
         jquery
         jqueryui
+            position
             start theme
             slider
             blind effect
@@ -79,7 +80,7 @@ Problemas:
     In the server version, the index.html (in the server templates) has these variables re-defined
  */
 
-var TYPE = '';
+var TYPE = 'app';
 var VERSION = '1.0';
 
 var STATIC_URL = '';

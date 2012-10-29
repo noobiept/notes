@@ -27,10 +27,25 @@ else
 $( container ).load( url,
     function()
     {
+    new PopupWindow( container );
+
+        // :: Set the version of the program :: //
+
+    var optionsVersion = container.querySelector( '#Options-version' );
+
+    optionsVersion.innerText = TYPE + " " + VERSION;
+
+    $( optionsVersion ).position({
+        my: 'right top',
+        at: 'right top',
+        of: container.querySelector('#Options-documentation')
+        });
+
         // :: Width :: //
         
     //var slider = container.querySelector( 'Options-noteSlider' );
     var widthSlider = document.createElement( 'div' );   //HERE n funciona com o k esta na options.html
+
 
     var widthValue = container.querySelector( '#Options-noteWidth' );
     
@@ -130,10 +145,6 @@ $( container ).load( url,
 	analyticsValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.analytics );
 	
 	$( analytics ).bind('click', function(event) { OptionsPage.switchAnalytics( event, analyticsValue ); });
-    
-    
-    
-    new PopupWindow( container );    
     });
 }
 
