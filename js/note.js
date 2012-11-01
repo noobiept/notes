@@ -24,13 +24,10 @@
  *      colorComponents (Object) : see type above
  *      saveToUndo (bool)
  *      position (number)
- *      calledFrom (string): tell from where this was called, to address some slight different cases
- *          Values:
- *              'UndoRedo': prevents from generating the color when its not set by the user
  *
  */
 
-function Note( containerObject, text, colorComponents, saveToUndo, position, calledFrom )
+function Note( containerObject, text, colorComponents, saveToUndo, position )
 {
 var noteObject = this;
     
@@ -106,8 +103,7 @@ var colorObject;
 
 
     // if a color is not given, we generate one
-    // if this is called from the UndoRedo, we can assume that the colorComponents exists (the note had to be created at some point). The problem is that if the color wasn't set by the user, it would generate the color again, we want to keep the previous one
-if ( (!colorComponents || colorComponents.wasSetByUser === false || colorComponents.red < 0) && calledFrom !== 'UndoRedo' )
+if ( !colorComponents || colorComponents.wasSetByUser === false || colorComponents.red < 0 )
     {
     colorObject = noteObject.generateColor();
     }
@@ -210,17 +206,6 @@ return this;
  *      "red_gradient" : a gradient, starting at a darker color, then moving to a red color, then back to the darker color...  
  */
 
-
-    // only used with the gradient option, to tell if the color we're generating is brighter (as in, closer to red -- going up)
-    // or darker (going down)
-Note.gradientGoingUp_bool = true;    
-
-    // gradient only, the lower limit of the red component (the high limit is 255 -- red color)
-Note.gradientLowerLimit_int = 100;
-
-    // for the gradient only, has previous red component of the background color
-Note.gradientRedColor_int = Note.gradientLowerLimit_int;                           
-
 Note.prototype.generateColor = function()
 {
 var red = 0, green = 0, blue = 0, alpha = 1;
@@ -281,37 +266,36 @@ else if (OPTIONS.generateColorType === 'random')
     // "red_gradient"
 else
     {
+        // step of the red component from each note
     var colorStep = 10;
+    var redUpperLimit = 255;
+    var redLowerLimit = 100;
 
-        // get the previous red component
-    red = Note.gradientRedColor_int;
+        // redLowerLimit + numberOfNotesPerCycle * colorStep >= redUpperLimit --- smallest number that gets to 255 (red component upper limit), 100 + 16 * 10 = 260
+    var numberOfNotesPerCycle = 16;
 
-        // the gradient is going from the darker color to red
-    if (Note.gradientGoingUp_bool === true)
+    var position = this.getPosition();
+    var cycles = 0;
+
+        // 'remove' the cycles from the position
+    while (position > numberOfNotesPerCycle)
         {
-            // add the step
-        red += colorStep;        
-        
-            // reached the limit (the red color), going down
-        if (red >= 255)
-            {
-            Note.gradientGoingUp_bool = false;
-            }
+        cycles++;
+        position -= numberOfNotesPerCycle;
         }
-        
+
+        // going up
+    if ( (cycles % 2) === 0 )
+        {
+        red = redLowerLimit + position * colorStep;
+        }
+
+        // going down
     else
         {
-        red -= colorStep;
-        
-            // reached the lower limit
-        if (red <= Note.gradientLowerLimit_int)
-            {
-            Note.gradientGoingUp_bool = true;
-            }
+        red = redUpperLimit - position * colorStep;
         }
-    
-        // save the current red component, for the next time this is called
-    Note.gradientRedColor_int = red;
+
     
     green = 0;
     blue  = 0; 

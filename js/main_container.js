@@ -30,9 +30,9 @@ return this;
  * Creates a note and adds it to the main container
  */
 
-MainContainer.prototype.newNote = function( text, noteComponents, saveToUndo, position, calledFrom )
+MainContainer.prototype.newNote = function( text, noteComponents, saveToUndo, position )
 {
-var noteObject = new Note( this, text, noteComponents, saveToUndo, position, calledFrom );
+var noteObject = new Note( this, text, noteComponents, saveToUndo, position );
 
     // we're getting the position from the object and not from the argument, because the argument may not have an acceptable value
 var notePosition = noteObject.getPosition();

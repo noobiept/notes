@@ -204,7 +204,7 @@ if (element.what === 'removedNote')
                 wasSetByUser : element.colorObject.wasSetByUser_bool
             };
 
-        MAIN_CONTAINER.newNote( element.text, colorComponents, false, element.position, 'UndoRedo' );
+        MAIN_CONTAINER.newNote( element.text, colorComponents, false, element.position );
         }
         
         //redo - we remove the previously added entry (by the undo)
@@ -245,7 +245,7 @@ else if (element.what === 'addedNote')
                 wasSetByUser : element.colorObject.wasSetByUser_bool
             };
             
-        MAIN_CONTAINER.newNote( element.text, colorComponents2, false, element.position, 'UndoRedo' );
+        MAIN_CONTAINER.newNote( element.text, colorComponents2, false, element.position );
         }       
     }
 
