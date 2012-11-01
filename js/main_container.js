@@ -175,14 +175,16 @@ return this.childrenObjects_array.length;
 
 MainContainer.prototype.updateOrder = function( lessPosition )
 {
-if (typeof lessPosition == 'undefined')
+if (typeof lessPosition === 'undefined')
     {
     lessPosition = 0;
     }
     
 var notes = this.getHtmlElement().childNodes;
 
-for (var i = lessPosition ; i < notes.length ; i++)
+var i;
+
+for (i = lessPosition ; i < notes.length ; i++)
     {
         //apply only to notes
     if ( notes[i].classList.contains( 'dummyNote' ) === false )

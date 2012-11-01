@@ -68,13 +68,13 @@ Analytics.send( 'options', 'OPTIONS_spellCheck:  ' + OPTIONS.spellCheck, 'other'
 Analytics.hasOneDayPassed = function()
 {
 /*
-    Get the number of miliseconds of a day
+    Get the number of milliseconds of a day
     
     1 week   -> 7 days
     1 day    -> 24 hours
     1 hour   -> 60 minutes
     1 minute -> 60 seconds
-    1 second -> 1000 miliseconds
+    1 second -> 1000 milliseconds
     
     So a week is: 7 * 24 * 60 * 60 * 1000
     
@@ -87,28 +87,28 @@ var dayTime = 86400000;
 
 var currentDate = new Date();
             
-var currentInMiliseconds = currentDate.getTime();
+var currentInMilliseconds = currentDate.getTime();
 
 
     //if there isn't any date there, we initialize it with the current date
 if (OPTIONS.analyticsTimer < 0)
     {
-    OPTIONS.analyticsTimer = currentInMiliseconds;
+    OPTIONS.analyticsTimer = currentInMilliseconds;
     }
 
 else
     {
-    var lastInMiliseconds = OPTIONS.analyticsTimer;
+    var lastInMilliseconds = OPTIONS.analyticsTimer;
         
          
         //see if we got ourselves a number
-    if (isNaN( lastInMiliseconds ) === false)
+    if (isNaN( lastInMilliseconds ) === false)
         {
             //we add the day time to the last date, and if this is lower than the current time, means a day or more has passed
-        if (( lastInMiliseconds + dayTime ) < currentInMiliseconds)
+        if (( lastInMilliseconds + dayTime ) < currentInMilliseconds)
             { 
                 //reset the value, with the current date
-            OPTIONS.analyticsTimer = currentInMiliseconds;
+            OPTIONS.analyticsTimer = currentInMilliseconds;
             
             return true;
             }
@@ -134,7 +134,7 @@ Analytics.send = function (category, action, label)
 {
 if (OPTIONS.analytics !== false)
     {
-    if (typeof label == 'undefined')
+    if (typeof label === 'undefined')
         {
         label = "other";
         }

@@ -65,7 +65,7 @@ this.shortcut_obj = function (event)
     {
     popupWindowObject.shortcuts(event);
     
-    if (typeof shortcutsFunction != 'undefined')
+    if (typeof shortcutsFunction !== 'undefined')
         {
         shortcutsFunction(event);        
         }
@@ -88,7 +88,7 @@ windowContainer.popupWindowObject = this;
 
 this.onHide_f = onHideFunction;
 
-if (typeof onResizeFunction == 'undefined')
+if (typeof onResizeFunction === 'undefined')
     {
     onResizeFunction = null;
     }
@@ -214,7 +214,7 @@ $(container).css('opacity', 1);
 
 
     //see if it was provided an element to set focus
-if (typeof onStartFunction != 'undefined' && onStartFunction !== null)
+if (typeof onStartFunction !== 'undefined' && onStartFunction !== null)
     {
         //the setTimeout is because of the .show() above
     setTimeout(function () { onStartFunction(); }, 120);
@@ -253,7 +253,7 @@ PopupWindow.allWindows_class.push( this );
 
 PopupWindow.prototype.hide = function (effectTime)
 {
-if (typeof this.onHide_f != 'undefined' && this.onHide_f !== null)
+if (typeof this.onHide_f !== 'undefined' && this.onHide_f !== null)
     {
     this.onHide_f();
     }
@@ -261,7 +261,7 @@ if (typeof this.onHide_f != 'undefined' && this.onHide_f !== null)
     
 var popupWindowObject = this;
     
-if (typeof effectTime == 'undefined')
+if (typeof effectTime === 'undefined')
     {
     effectTime = 100;   //default value
     }
@@ -416,7 +416,9 @@ PopupWindow.resizeAll = function()
 {
 var all = PopupWindow.allWindows_class;
 
-for (var i = 0 ; i < all.length ; i++)
+var i;
+
+for (i = 0 ; i < all.length ; i++)
     {
     all[i].resize();
     }
@@ -435,10 +437,10 @@ PopupWindow.prototype.shortcuts = function (event)
 {
 var key = event.which;
 
-if (event.type == 'keyup')
+if (event.type === 'keyup')
     {
         //close the window
-    if (key == EVENT_KEY.esc)
+    if (key === EVENT_KEY.esc)
         {
         this.hide();
     

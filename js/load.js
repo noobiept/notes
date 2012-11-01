@@ -1,5 +1,5 @@
 /*jslint white: true, vars: true, browser: true, newcap: true*/
-/*global localStorage, MAIN_CONTAINER, Menu, OPTIONS: true, TYPE*/
+/*global $, localStorage, MAIN_CONTAINER, Menu, OPTIONS: true, TYPE*/
 
 
 'use strict';

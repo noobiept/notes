@@ -1,5 +1,5 @@
 /*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
-/*global $, window, PopupWindow, EVENT_KEY, MAIN_CONTAINER, Draw, ColorPicker*/
+/*global $, window, PopupWindow, EVENT_KEY, MAIN_CONTAINER, Draw, ColorPicker, OPTIONS*/
 
 
 'use strict';
@@ -432,16 +432,16 @@ NoteWindow.shortcuts = function( event )
 {
 var key = event.which;
 
-if (event.type == 'keyup')
+if (event.type === 'keyup')
     {
         // move to the note to the left (or if this is the first one, go to the last)
-    if (event.ctrlKey && key == EVENT_KEY.leftArrow)
+    if (event.ctrlKey && key === EVENT_KEY.leftArrow)
         {
         NoteWindow.goLeftNote();
         }
         
         // move to the note to the right (or if this is the last one, go to the first)
-    else if (event.ctrlKey && key == EVENT_KEY.rightArrow)
+    else if (event.ctrlKey && key === EVENT_KEY.rightArrow)
         {
         NoteWindow.goRightNote();
         }

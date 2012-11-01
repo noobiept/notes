@@ -176,7 +176,7 @@ return "No";
 
 OptionsPage.switchSpellCheck = function( event, spellCheckValue )
 {
-if (event.type == 'click')
+if (event.type === 'click')
     {
         // OPTIONS.spellCheck is a bool variable, so the not operator turns a true to false, or a false to true
     OPTIONS.spellCheck = !OPTIONS.spellCheck;
@@ -196,7 +196,7 @@ if (event.type == 'click')
 
 OptionsPage.switchAnalytics = function( event, analyticsValue )
 {
-if (event.type == 'click')
+if (event.type === 'click')
     {
         // OPTIONS.analytics is a bool variable, so the not operator turns a true to false, or a false to true
     OPTIONS.analytics = !OPTIONS.analytics;

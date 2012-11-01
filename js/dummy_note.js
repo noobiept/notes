@@ -65,7 +65,7 @@ if ( key >= EVENT_KEY.f1 && key <= EVENT_KEY.f12 )
 if (event.type === 'keydown')
     {
         // add a new note
-    if (key === EVENT_KEY.newLine || key === EVENT_KEY.tab)
+    if (key === EVENT_KEY.enter || key === EVENT_KEY.tab)
         {
         noteObject = MAIN_CONTAINER.newNote();
         

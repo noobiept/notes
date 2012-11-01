@@ -1,5 +1,5 @@
 /*jslint white: true, vars: true, browser: true, newcap: true*/
-/*global MainContainer, window, Save, Load, PopupWindow, NoteWindow*/
+/*global MainContainer, window, Save, Load, PopupWindow, NoteWindow, Analytics*/
 
 'use strict';
 

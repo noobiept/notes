@@ -424,7 +424,7 @@ return text;
 
 Note.prototype.setText = function( text )
 {
-if (typeof text == 'undefined' || text === null)
+if (typeof text === 'undefined' || text === null)
     {
     text = "<br>";
     }
@@ -526,7 +526,7 @@ else
     
     
     //inserting at the end
-if (position == MAIN_CONTAINER.childrenCount() - 1)
+if (position === MAIN_CONTAINER.childrenCount() - 1)
     {
     MAIN_CONTAINER.getHtmlElement().insertBefore(
         this.getHtmlElement(),
