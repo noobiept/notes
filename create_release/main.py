@@ -51,8 +51,8 @@ def go( htmlFile, concatenateConfig, copyFilesConfig, resultingFolder ):
     createNewIndex( htmlFile, concatenatedFileName, os.path.join( resultingFolder, "index.html" ) )
 
 
-        # create the index of the template too #HERE
-    #createNewIndex( "../templates/index.html", "{{ STATIC_URL }}" + concatenatedFileName, os.path.join( resultingFolder, "templates/index.html" ) )
+        # create the index of the template too #HERE needs to be moved later... in website script I guess
+    createNewIndex( "../../../website/templates/notes/index.html", "{{ STATIC_URL }}notes/" + concatenatedFileName, os.path.join( resultingFolder, "template_index.html" ) )
     
         # zip the folder
     compressFolder( resultingFolder )

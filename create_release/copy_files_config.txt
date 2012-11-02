@@ -3,13 +3,13 @@
 "../":
     [
     "css/*",
-    "css/start/*",
-    "css/start/images/*",
 
     "images/icon16.png",
     "images/icon128.png",
 
     "libraries/*",
+    "libraries/start/*",
+    "libraries/start/images/*",
 
     "options.html",
     

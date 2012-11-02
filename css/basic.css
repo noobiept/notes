@@ -174,7 +174,7 @@ a
 .NoteWindow-leftArrow, .NoteWindow-rightArrow
     {
     opacity: 0.8;
-    z-index: 200;   /* has to be higher than the one used for popup window */
+    z-index: 101;   /* has to be higher than the one used for NoteWindow's overlay (but not higher than the next PopupWindow that can be created (for example the NoteWindow's options)) */
     }
 
 
