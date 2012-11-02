@@ -82,6 +82,8 @@ var EVENT_KEY = {
 
     - alt + u : call Undo
     - alt + r : call Redo
+    - alt + o : open the options
+    - alt + n : create a new note
  */
 
 function globalShortcuts( event )
@@ -109,6 +111,24 @@ if ( event.type === 'keyup' )
     else if ( event.altKey && key === EVENT_KEY.r )
         {
         UndoRedo.stuff( 'redo' );
+
+        event.stopPropagation();
+        }
+
+        // alt + o -- open the (o)ptions
+    else if ( event.altKey && key === EVENT_KEY.o )
+        {
+        new OptionsPage();
+
+        event.stopPropagation();
+        }
+
+        // alt + n -- create a new (n)ote
+    else if ( event.altKey && key === EVENT_KEY.n )
+        {
+        var noteObject = MAIN_CONTAINER.newNote();
+
+        noteObject.gainFocus();
 
         event.stopPropagation();
         }
