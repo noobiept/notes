@@ -133,7 +133,9 @@ resize();
 
     // resize/reposition the popup windows, according to the space available
 window.addEventListener( 'resize', resize, true );    
-    
+
+window.addEventListener( 'keyup', globalShortcuts, true );
+
 
 if (OPTIONS.analytics !== false)
     {

@@ -78,6 +78,47 @@ var EVENT_KEY = {
 
 
 /*
+    Keyboard shortcuts (don't work when a PopupWindow is opened)
+
+    - alt + u : call Undo
+    - alt + r : call Redo
+ */
+
+function globalShortcuts( event )
+{
+    //when the popup window is opened, its best to cancel these events, since they would happen
+    //in the 'background' (from a user point of view)
+if (PopupWindow.hasOpenedWindows() === true)
+    {
+    return;
+    }
+
+var key = event.which;
+
+if ( event.type === 'keyup' )
+    {
+        // alt + u -- (u)ndo
+    if ( event.altKey && key === EVENT_KEY.u )
+        {
+        UndoRedo.stuff( 'undo' );
+
+        event.stopPropagation();
+        }
+
+        // alt + r -- (r)edo
+    else if ( event.altKey && key === EVENT_KEY.r )
+        {
+        UndoRedo.stuff( 'redo' );
+
+        event.stopPropagation();
+        }
+    }
+}
+
+
+
+
+/*
     - ctrl + left arrow  : focus to the note to the left (or the dummy note, if its the first note)
     - ctrl + right arrow : focus to the note to the right (or dummy note, if its the last one)
     - ctrl + delete      : delete the note
