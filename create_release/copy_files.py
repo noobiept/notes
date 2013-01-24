@@ -1,68 +1,145 @@
+# python3
+
 import argparse
 import json
 import shutil
+
+import os
 import os.path
-#import os
 
 
-def copyFiles( configPath, resultingFolder ):
+def copyFiles( config ):
 
-    configFile = open( configPath, 'r' )
-    
-        # is a dictionary with the key the path to the files, and the value a list of the paths to the files
-        # the paths (in the list) will be maintained in the copy
-    configJson = json.loads( configFile.read() )
+    """
+        config:
+            if a string, its the path to the configuration file
+            otherwise is an object/dict
 
-    configFile.close()
-       
-    for path, files in configJson.items():
-    
-        for file in files:
-            
-            sourceFilePath = os.path.join( path, file )
-            
-            sourceFolder = os.path.dirname( sourceFilePath )
-            
-            destinationFolder = os.path.join( resultingFolder, os.path.dirname( file ) )
-            
-            destinationFilePath = os.path.join( resultingFolder, file )
-            
-            fileName = os.path.basename( file )
+        Format of configuration file/object:
+
+        {
+            "resultingFolder": "something",
+            "basePath": "something",
+            "files":
+                [
+                "pathToFile.py",
+                "pathToFolder/",         # copies recursively all the contents of the folder
+                ]
+        }
+    """
+
+        # means its the path to the configuration file
+        # otherwise, its already as an object/dictionary
+    if isinstance( config, str ):
+
+        with open( config, 'r', encoding='utf-8' ) as f:
+                # parse the json file into an object/dictionary
+            config = json.loads( f.read() )
 
 
-            
-                # copy all the files in this folder
-            if fileName == '*':
-                #shutil.copytree( os.path.dirname( filePath ), folder )
-                if destinationFolder and not os.path.isdir( destinationFolder ):
-                    os.makedirs( destinationFolder )
-                    
-                allFiles = os.listdir( sourceFolder )
-                
-                for aFile in allFiles:
-                    
-                    sourceFilePath = os.path.normpath( os.path.join( sourceFolder, aFile ) )
-                    
-                    destinationFilePath = os.path.join( os.path.join( destinationFolder, aFile ) )
-                    
-                        #HERE ser recursivo
-                    if os.path.isdir( sourceFilePath ):
-                        continue
-                    
-                    shutil.copy( sourceFilePath, destinationFilePath )
-                    
-                
-            
+
+    currentDirectory = os.path.dirname( os.path.abspath(__file__) )
+
+        # to where we are going to copy stuff
+    resultingFolder = os.path.join( currentDirectory, config['resultingFolder'] )
+
+        # from where the paths in the configuration are based from (they're relative to this)
+    baseDirectory = os.path.abspath( os.path.join(currentDirectory, config['basePath']) )
+
+
+       # go through all the files in the configuration
+    for fileOrFolder in config['files']:
+
+            # a file or a folder
+        if isinstance( fileOrFolder, str ):
+
+            sourceFileOrFolder = os.path.join( baseDirectory, fileOrFolder )
+
+
+                # a folder, copy all the files there
+            if os.path.isdir( sourceFileOrFolder ):
+
+                copyAllFilesFromFolder( baseDirectory, fileOrFolder, resultingFolder )
+
+                # copy an individual file
             else:
-            
-                if destinationFolder and not os.path.isdir( destinationFolder ):
-                    os.makedirs( destinationFolder )
-                
-                    # copy to the current directory
-                shutil.copy( sourceFilePath, destinationFilePath )
+
+                copyIndividualFile( baseDirectory, fileOrFolder, resultingFolder )
+
+            # an error
+        else:
+            raise Exception( "Wrong type in JSON: Has to be a string: {}.".format( fileOrFolder ) )
+
+
+
+
     
-        
-    
+
+def copyAllFilesFromFolder( baseDirectory, pathToFolder, resultingFolder ):
+
+    """
+        Recursively copies the folder:
+
+            baseDirectory/pathToFolder
+
+        into:
+            resultingFolder/pathToFolder
+    """
+
+    sourceFolder = os.path.join( baseDirectory, pathToFolder )
+
+    destinationFolder = os.path.join( resultingFolder, pathToFolder )
+
+
+
+        # create if doesn't exist
+    if not os.path.isdir( destinationFolder ):
+        os.makedirs( destinationFolder )
+
+    allFiles = os.listdir( sourceFolder )
+
+    for aFile in allFiles:
+
+        sourceFilePath = os.path.join( sourceFolder, aFile )
+
+        destinationFilePath = os.path.join( destinationFolder, aFile )
+
+            # if there's another folder, call this function again (recursively)
+        if os.path.isdir( sourceFilePath ):
+
+            copyAllFilesFromFolder( baseDirectory, os.path.join( pathToFolder, aFile ), resultingFolder )
+            continue
+
+        shutil.copy( sourceFilePath, destinationFilePath )
+
+
+
+
+def copyIndividualFile( baseDirectory, pathToFile, resultingFolder ):
+
+    """
+        Copies a single file from:
+
+            baseDirectory/pathToFile
+
+        into:
+            resultingFolder/pathToFile
+    """
+
+    sourcePath = os.path.join( baseDirectory, pathToFile )
+
+    destinationPath = os.path.join( resultingFolder, pathToFile )
+
+    directory = os.path.dirname( destinationPath )
+
+    if not os.path.exists( directory ):
+        os.makedirs( directory )
+
+
+    shutil.copy( sourcePath, destinationPath )
+
+
+
 
 
 if __name__ == '__main__':    
@@ -70,8 +147,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser( description = 'Copy files according to a configuration file.' )
 
     parser.add_argument( 'configPath', help = "path to the configuration file.", nargs="?", default="copy_files_config.txt" )
-    parser.add_argument( 'resultingFolder', help = "name of the folder that is created in the current path and contains the copies.", nargs="?", default="notes" )
 
     args = parser.parse_args()
 
-    copyFiles( args.configPath, args.resultingFolder )
+
+    copyFiles( args.configPath )

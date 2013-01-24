@@ -1,5 +1,6 @@
 {
     "..": [
+        "js/utilities.js", 
         "js/main.js", 
         "js/main_container.js", 
         "js/note.js", 

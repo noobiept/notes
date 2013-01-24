@@ -48,19 +48,9 @@ if ( NoteWindow.isOpened() )
     }
 
 
-    
-var notes = [];
+var notes = Save.notesToJson();
 
-var noteObject = MAIN_CONTAINER.getFirstChild();
-
-for ( ; noteObject !== null ; noteObject = noteObject.next() )
-    {
-    notes.push({
-        text  : noteObject.getText(),
-        backgroundColorComponents : noteObject.getColorObject().getColor() 
-        });
-    }
-
+var noteObject;
 
     
     // :: Options :: //
@@ -129,6 +119,26 @@ else
 }
 
 
+/*
+    Returns an object with the notes properties
+ */
+
+Save.notesToJson = function()
+{
+var notes = [];
+
+var noteObject = MAIN_CONTAINER.getFirstChild();
+
+for ( ; noteObject !== null ; noteObject = noteObject.next() )
+    {
+    notes.push({
+        text  : noteObject.getText(),
+        backgroundColorComponents : noteObject.getColorObject().getColor()
+    });
+    }
+
+return notes;
+};
 
 
 

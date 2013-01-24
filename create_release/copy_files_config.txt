@@ -1,18 +1,17 @@
 {
+    "resultingFolder": "notes",
+    "basePath": "..",
+    "files":
+        [
+            "css/",
 
-"../":
-    [
-    "css/*",
+            "images/icon16.png",
+            "images/icon128.png",
 
-    "images/icon16.png",
-    "images/icon128.png",
+            "libraries/",
 
-    "libraries/*",
-    "libraries/start/*",
-    "libraries/start/images/*",
-
-    "options.html",
-    
-    "manifest.json"
-    ]
+            "options.html",
+            
+            "manifest.json"
+        ]
 }

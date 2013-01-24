@@ -145,6 +145,19 @@ $( container ).load( url,
 	analyticsValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.analytics );
 	
 	$( analytics ).bind('click', function(event) { OptionsPage.switchAnalytics( event, analyticsValue ); });
+
+        // :: Export notes :: //
+
+    var exportNotes = container.querySelector( '#Options-export' );
+
+    exportNotes.onclick = function()
+        {
+        var notes = Save.notesToJson();
+
+        var notesString = JSON.stringify( notes, null, 4 );
+
+        exportNotes.href = "data:text/plain;base64," + utf8_to_b64( notesString );
+        };
     });
 }
 

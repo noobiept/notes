@@ -26,7 +26,7 @@ def go( htmlFile, concatenateConfig, copyFilesConfig, resultingFolder ):
     removeFolder( resultingFolder + '.zip' )
     
     
-    copy_files.copyFiles( copyFilesConfig, resultingFolder )
+    copy_files.copyFiles( copyFilesConfig )
     
     generate_config.generate( htmlFile, concatenateConfig )
     
