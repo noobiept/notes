@@ -66,6 +66,9 @@ Problemas:
     
     - abrir a janela das opcoes, e clicar tab, ele vai selecionar as notas
 
+
+    - opera nao suporta o onbeforeunload event
+
  */
 
 /*

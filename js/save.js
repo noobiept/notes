@@ -93,18 +93,16 @@ if (TYPE == "server")
         data.logout = 1;
         }
     
-        
+
     $.ajax({
 
         type        : 'POST',
         async       : false,
         url         : '/logout_notes',
-        //crossDomain : false,
         data        : data,
-        contentType : 'text/plain; charset=utf-8',
         complete    : function( jqXHR, textStatus )
             {
-            $(location).attr('href', '/');
+            $( location ).attr( 'href', '/' );
             }
         });
     }

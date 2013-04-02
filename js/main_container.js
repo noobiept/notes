@@ -198,7 +198,7 @@ this.childrenObjects_array.sort(
     function(a, b) 
         {
         return a.position_int - b.position_int; 
-        } 
+        }
     );
 };
 
