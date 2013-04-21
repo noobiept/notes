@@ -96,13 +96,13 @@ if (TYPE == "server")
 
     $.ajax({
 
-        type        : 'POST',
-        async       : false,
-        url         : '/logout_notes',
-        data        : data,
-        complete    : function( jqXHR, textStatus )
+        type    : 'POST',
+        async   : false,
+        url     : '/logout_notes/',
+        data    : data,
+        success : function( data, textStatus, jqXHR )
             {
-            $( location ).attr( 'href', '/' );
+            window.location.replace('/');
             }
         });
     }
