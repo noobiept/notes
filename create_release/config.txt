@@ -1,5 +1,5 @@
 {
-    "C:\\Users\\drk\\Dropbox\\browser_applications\\notes\\create_release\\..": [
+    "C:\\Users\\drk\\Dropbox\\projects\\notes": [
         "js/utilities.js", 
         "js/main.js", 
         "js/main_container.js", 
