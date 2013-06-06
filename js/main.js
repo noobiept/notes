@@ -66,15 +66,12 @@ Problemas:
     
     - abrir a janela das opcoes, e clicar tab, ele vai selecionar as notas
 
-
-    - opera nao suporta o onbeforeunload event
-
  */
 
 /*
     to doo:
     
-        - http://xing.github.com/wysihtml5/
+        - changing the notes dimensions (width/height/margin) affects the next notes that are added (so you end up with notes with different width etc). have 2 separate options (the active ones, and the next ones)
     
  */
  
@@ -86,7 +83,7 @@ Problemas:
 var TYPE = 'app';
 var VERSION = '1.1';
 
-var STATIC_URL = '';
+var BASE_URL = '';
  
  
 var OPTIONS = {

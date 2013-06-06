@@ -98,7 +98,7 @@ if (TYPE == "server")
 
         type    : 'POST',
         async   : false,
-        url     : '/logout_notes/',
+        url     : '/notes/save/',
         data    : data,
         success : function( data, textStatus, jqXHR )
             {

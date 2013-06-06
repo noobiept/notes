@@ -33,7 +33,7 @@ if ( TYPE === 'server' )
 
         type: 'POST',
         async: false, //HERE ter algo a dizer k esta a fazer o load
-        url: '/load_notes',
+        url: '/notes/get_data/',
 
         success: function(jqXHR, textStatus)
             {
