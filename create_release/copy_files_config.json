@@ -1,5 +1,4 @@
 {
-    "resultingFolder": "notes",
     "basePath": "..",
     "files":
         [
@@ -13,5 +12,11 @@
             "options.html",
             
             "manifest.json"
+        ],
+    "extensions":
+        [
+            ".css",
+            ".js",
+            ".png"
         ]
 }
