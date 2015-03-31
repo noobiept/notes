@@ -93,22 +93,11 @@ var OPTIONS = {
     activeNotePosition : -1,               // which note to get focus on the beginning of the program (-1 means no one)
     generateColorType  : 'red_gradient',   // how to generate the background-color of the notes
     analyticsTimer     : -1,
-    spellCheck : true,
-    analytics  : true
+    spellCheck : true
     };
 
 
 var MAIN_CONTAINER = null;
-
-
-
-if (OPTIONS.analytics !== false)
-    {
-        //the rest of the tracking code is called on the onload event (below this) (the reason is that otherwise it would increase the startup time of the program)
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-31478278-1']);
-    _gaq.push(['_trackPageview']);
-    }
 
 
 
@@ -135,12 +124,6 @@ resize();
 window.addEventListener( 'resize', resize, true );    
 
 window.addEventListener( 'keyup', globalShortcuts, true );
-
-
-if (OPTIONS.analytics !== false)
-    {
-    Analytics.start();
-    } 
 };
 
 

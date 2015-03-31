@@ -157,9 +157,4 @@ if ( isNaN( options.spellCheck ) === false )
     {
     OPTIONS.spellCheck = options.spellCheck;
     }
-    
-if ( isNaN( options.analytics ) === false )
-    {
-    OPTIONS.analytics = options.analytics;
-    }    
 };

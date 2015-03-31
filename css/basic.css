@@ -438,7 +438,7 @@ a
     clear: both;
     }
 
-#Options-backgroundColor, #Options-spellCheck, #Options-analytics
+#Options-backgroundColor, #Options-spellCheck
     {
     cursor: pointer;
     }
@@ -453,6 +453,12 @@ a
     {
     float: left;
     }
+
+.windowContent hr
+    {
+    clear: both;
+    }
+
     
 .ui-slider
     {

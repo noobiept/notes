@@ -126,16 +126,6 @@ $( container ).load( url,
  
     $( spellCheck ).bind('click', function(event) { OptionsPage.switchSpellCheck( event, spellCheckValue ); });
     
-    
-    
-        // :: Analytics :: //
-        
-    var analytics = container.querySelector( '#Options-analytics' );
-	var analyticsValue = container.querySelector( '#Options-analyticsValue' );
-	
-	analyticsValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.analytics );
-	
-	$( analytics ).bind('click', function(event) { OptionsPage.switchAnalytics( event, analyticsValue ); });
 
         // :: Export notes :: //
 
@@ -190,27 +180,6 @@ if (event.type === 'click')
     }
 };
 
-
-/*
- * Arguments:
- * 
- *      event : the on click event object
- *      analyticsValue : the html element to update the values (to show the user the new value)
- */
-
-OptionsPage.switchAnalytics = function( event, analyticsValue )
-{
-if (event.type === 'click')
-    {
-        // OPTIONS.analytics is a bool variable, so the not operator turns a true to false, or a false to true
-    OPTIONS.analytics = !OPTIONS.analytics;
-    
-        // update the text, with a "Yes" or "No"
-    analyticsValue.innerHTML = OptionsPage.boolToYesNo( OPTIONS.analytics );
-    }
-};
- 
- 
 
 
 /*

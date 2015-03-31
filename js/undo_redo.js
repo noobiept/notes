@@ -281,9 +281,5 @@ what = capitalize( what );
 whichOne = capitalize( whichOne );
 
 
-    //send which change is being undone
-Analytics.send( whichOne, whichOne + ':_' + what, 'other' );
-
-
 Menu.showMessage( whichOne + ": " + what );
 };

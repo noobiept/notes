@@ -16,7 +16,6 @@
         "js/options_page.js",
         "js/undo_redo.js",
         "js/color.js",
-        "js/color_picker.js",
-        "js/analytics.js"
+        "js/color_picker.js"
     ]
 }
