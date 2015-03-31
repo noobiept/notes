@@ -20,17 +20,6 @@ $( container ).load( url,
     {
     new PopupWindow( container );
 
-        // :: Set the version of the program :: //
-
-    var optionsVersion = container.querySelector( '#Options-version' );
-
-    optionsVersion.innerText = TYPE + " " + VERSION;
-
-    $( optionsVersion ).position({
-        my: 'right top',
-        at: 'right top',
-        of: container.querySelector('#Options-documentation')
-        });
 
         // :: Width :: //
         

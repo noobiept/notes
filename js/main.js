@@ -81,8 +81,6 @@ Problemas:
  */
 
 var TYPE = 'app';
-var VERSION = '1.1';
-
 var BASE_URL = '';
  
  
