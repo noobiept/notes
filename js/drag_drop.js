@@ -77,16 +77,21 @@ return false;
 
 DragDrop.prototype.onDragStart = function (event)
 {
-event.dataTransfer.setData("text/plain", "");   //HERE to work on firefox too
+var dataTransfer = event.dataTransfer;
 
-event.dataTransfer.effectAllowed = 'move';
+dataTransfer.setData("text", "");   // required on some browsers
+dataTransfer.effectAllowed = 'move';
     
     //so that the image that is shown during the drag, is of the element, and not the drag handle
-event.dataTransfer.setDragImage(this.element_ui, 0, 0);
+    // not all browsers support this
+if ( dataTransfer.setDragImage )
+    {
+    dataTransfer.setDragImage(this.element_ui, 0, 0);
+    }
+
 
     //the element that is been dragged
 DragDrop.dragElement_class = this.elementObject_obj;
-
 
 event.stopPropagation();
 };

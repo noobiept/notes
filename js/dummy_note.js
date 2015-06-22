@@ -10,7 +10,6 @@ var dummyObject = this;
     
 var dummy = document.createElement( 'div' );
 
-dummy.setAttribute( 'contenteditable', 'true' );
 dummy.className = "dummyNote";
 
 var dummyText = document.createElement( 'div' );
@@ -18,7 +17,7 @@ var dummyText = document.createElement( 'div' );
 dummyText.className = "DummyNote-text";
 dummyText.innerHTML = "New Note";
 dummyText.setAttribute( 'spellcheck', 'false' );
-
+dummyText.setAttribute( 'contenteditable', 'true' );
 
 dummy.style.width  = OPTIONS.noteWidth + 'px';  //HERE
 dummy.style.height = OPTIONS.noteHeight + 'px';
@@ -151,5 +150,5 @@ return this.dummy_html;
 
 DummyNote.prototype.gainFocus = function()
 {
-this.dummy_html.focus();
+this.dummyText_ui.focus();
 };
