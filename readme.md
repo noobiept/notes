@@ -1,8 +1,8 @@
 Dependencies
 ============
 
-- jquery -- 1.8
-- jqueryui -- 1.9
+- jquery -- 2.1
+- jqueryui -- 1.11
     - position
     - start theme
     - slider
