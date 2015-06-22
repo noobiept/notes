@@ -1,13 +1,7 @@
-/*jslint white: true, vars: true, browser: true, newcap: true*/
-/*global Note, DummyNote*/
-
-'use strict';
-
 /*
  * container of all the notes (there can be only one)
  * 
  */
-
 
 function MainContainer()
 {

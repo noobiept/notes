@@ -1,9 +1,3 @@
-/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
-/*global $, window, PopupWindow, EVENT_KEY, MAIN_CONTAINER, Draw, ColorPicker, OPTIONS*/
-
-
-'use strict';
-
 /*
  * Open a popup window for a note
  */
@@ -50,7 +44,7 @@ text.innerHTML = noteObject.getText();
 
 
 
-if (OPTIONS.spellCheck === false)
+if (Options.get( 'spellCheck' ) === false)
     {
     text.setAttribute('spellcheck', 'false');
     }

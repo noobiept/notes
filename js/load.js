@@ -1,15 +1,9 @@
-/*jslint white: true, vars: true, browser: true, newcap: true*/
-/*global $, localStorage, MAIN_CONTAINER, Menu, OPTIONS: true, TYPE*/
-
-
-'use strict';
-
 function Load()
 {
 Menu();
 
 Load.data();
-Load.options();
+Options.load( Load.options_json );
 Load.notes();
 
 MAIN_CONTAINER.addDummyNote();
@@ -90,9 +84,11 @@ for (i = 0 ; i < notes.length ; i++)
 
 
     // set focus on the element that was active last time
-if (OPTIONS.activeNotePosition >= 0)
+var activeNotPosition = Options.get( 'activeNotePosition' );
+
+if (activeNotPosition >= 0)
     {
-    var noteObject = MAIN_CONTAINER.getChild( OPTIONS.activeNotePosition );
+    var noteObject = MAIN_CONTAINER.getChild( activeNotPosition );
     
     if (noteObject !== null)
         {
@@ -101,60 +97,3 @@ if (OPTIONS.activeNotePosition >= 0)
     }
 };
 
-
-
-/*
- * 
- */
-
-Load.options = function()
-{
-var options = Load.options_json;
-
-
-    // first time program runs
-if (options === null || options === "")
-    {
-    return;
-    }
-    
-
-    // i have to change each option, and not do something like OPTIONS = options, because otherwise when adding new 
-    // options (to the OPTIONS object), it won't matter, since it will be overwritten with the old options
-    // by changing each one, if I add later another option, it will keep its default value
-
-if ( isNaN( options.noteWidth ) === false )
-    {
-    OPTIONS.noteWidth = options.noteWidth;    
-    }
-
-
-if ( isNaN( options.noteHeight ) === false )
-    {
-    OPTIONS.noteHeight = options.noteHeight;    
-    }
-
-
-if ( isNaN( options.noteMargin ) === false )
-    {
-    OPTIONS.noteMargin = options.noteMargin;    
-    }
-
-
-if ( isNaN( options.activeNotePosition ) === false )
-    {
-    OPTIONS.activeNotePosition = options.activeNotePosition;    
-    }
-
-
-if (typeof options.generateColorType !== 'undefined' && options.generateColorType !== null)
-    {
-    OPTIONS.generateColorType  = options.generateColorType;    
-    }
-
-
-if ( isNaN( options.spellCheck ) === false )
-    {
-    OPTIONS.spellCheck = options.spellCheck;
-    }
-};

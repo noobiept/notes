@@ -1,10 +1,3 @@
-/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
-/*global $, DragDrop, MAIN_CONTAINER, Draw, NoteWindow, OPTIONS, UndoRedo, Color*/
-
-
-'use strict';
-
-
 /*
  * Note's class -- its called from a MainContainer object (not directly)
  * 
@@ -79,22 +72,22 @@ noteControls.appendChild( openWindow );
 
 
     // :: container :: //
+var noteWidth = Options.get( 'noteWidth' );
+var noteHeight = Options.get( 'noteHeight' );
+var noteMargin = Options.get( 'noteMargin' );
 
 var noteContainer = document.createElement( 'div' );
 
 noteContainer.className = "noteContainer";
-
-noteContainer.style.width = OPTIONS.noteWidth + 'px';
-noteContainer.style.height = OPTIONS.noteHeight + 'px'; //HERE -- dps se mudar nas opcoes e adicionar uma nota vai ter dimensoes diferentes...
-noteContainer.style.margin = OPTIONS.noteMargin + 'px'; //HERE o mesmo, se mudar e dps adicionar notas
+noteContainer.style.width = noteWidth + 'px';
+noteContainer.style.height = noteHeight + 'px';
+noteContainer.style.margin = noteMargin + 'px';
 
 
 var noteControlsHeight = 20;
 
-var bb = OPTIONS.noteHeight - noteControlsHeight;
-
-noteEntry.style.width  = OPTIONS.noteWidth + 'px';   //HERE evil
-noteEntry.style.height = bb + 'px';
+noteEntry.style.width  = noteWidth + 'px';
+noteEntry.style.height = (noteHeight - noteControlsHeight) + 'px';
 
 noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
@@ -120,7 +113,7 @@ noteContainer.style.backgroundColor = backgroundColor;
 
 
 
-if (OPTIONS.spellCheck === false)
+if (Options.get( 'spellCheck' ) === false)
     {
     noteEntry.setAttribute('spellcheck', 'false');
     }
@@ -209,8 +202,10 @@ return this;
 Note.prototype.generateColor = function()
 {
 var red = 0, green = 0, blue = 0, alpha = 1;
-    
-if (OPTIONS.generateColorType === 'fixed_order')
+var generateColorType = Options.get( 'generateColorType' );
+
+
+if (generateColorType === 'fixed_order')
     {
     var color = this.getPosition() % 3;
     
@@ -243,7 +238,7 @@ if (OPTIONS.generateColorType === 'fixed_order')
         }
     }
     
-else if (OPTIONS.generateColorType === 'random')
+else if (generateColorType === 'random')
     {
         // Math.random() --> returns a random number from 0 to 1 (not including 1)
         // Math.round()  --> to get an integer
@@ -305,8 +300,6 @@ else
 
 return new Color( red, green, blue, alpha ); 
 };
-
-
 
 
 

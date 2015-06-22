@@ -1,9 +1,3 @@
-/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
-/*global $, window, EVENT_KEY, MAIN_CONTAINER*/
-
-
-'use strict';
-
 /*
  * the popup window constructor
  * 

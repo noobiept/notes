@@ -1,11 +1,6 @@
-/*jslint white: true*/
-
-'use strict';
-
-/*
- * 
+/**
+ * Represents a color.
  */
-
 function Color(red, green, blue, alpha, wasSetByUser)
 {
 if (typeof wasSetByUser === 'undefined')

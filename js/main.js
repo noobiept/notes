@@ -1,27 +1,9 @@
-/*jslint white: true, vars: true, browser: true, newcap: true*/
-/*global MainContainer, window, Save, Load, PopupWindow, NoteWindow, Analytics*/
-
-'use strict';
-
 /*
     In the server version, the index.html (in the server templates) has these variables re-defined
  */
 
 var TYPE = 'app';
 var BASE_URL = '';
- 
- 
-var OPTIONS = {
-    noteWidth  : 250,   // the width/height of each note
-    noteHeight : 125,
-    noteMargin : 7,
-    activeNotePosition : -1,               // which note to get focus on the beginning of the program (-1 means no one)
-    generateColorType  : 'red_gradient',   // how to generate the background-color of the notes
-    analyticsTimer     : -1,
-    spellCheck : true
-    };
-
-
 var MAIN_CONTAINER = null;
 
 

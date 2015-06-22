@@ -1,8 +1,3 @@
-/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
-/*global Menu, MAIN_CONTAINER, Analytics*/
-
-'use strict';
-
 /*
  * Works for:
  * 

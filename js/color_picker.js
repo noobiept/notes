@@ -1,9 +1,3 @@
-/*jslint white: true, vars: true, browser: true*/
-/*global $*/
-
-
-'use strict';
-
 /*
  * Arguments:
  * 

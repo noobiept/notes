@@ -1,8 +1,3 @@
-/*jslint white: true, vars: true, browser: true, newcap: true*/
-/*global Note, MAIN_CONTAINER, NoteWindow*/
-
-'use strict';
-
 /*
  * Keys code for the keyboard events
  */

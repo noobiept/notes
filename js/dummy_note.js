@@ -1,9 +1,3 @@
-/*jslint white: true, vars: true, browser: true*/
-/*global $, MAIN_CONTAINER, EVENT_KEY, OPTIONS*/
-
-
-'use strict';
-
 function DummyNote()
 {
 var dummyObject = this;
@@ -19,9 +13,9 @@ dummyText.innerHTML = "New Note";
 dummyText.setAttribute( 'spellcheck', 'false' );
 dummyText.setAttribute( 'contenteditable', 'true' );
 
-dummy.style.width  = OPTIONS.noteWidth + 'px';  //HERE
-dummy.style.height = OPTIONS.noteHeight + 'px';
-dummy.style.margin = OPTIONS.noteMargin + 'px';
+dummy.style.width  = Options.get( 'noteWidth'  ) + 'px';
+dummy.style.height = Options.get( 'noteHeight' ) + 'px';
+dummy.style.margin = Options.get( 'noteMargin' ) + 'px';
 
 
 dummy.onclick = function()

@@ -1,8 +1,3 @@
-/*jslint white: true, vars: true, browser: true, newcap: true, plusplus: true*/
-/*global Storage, localStorage, MAIN_CONTAINER, OPTIONS, NoteWindow*/
-
-'use strict';
-
 /*
  * Converts an object to string, and saves it in storage
  * 
@@ -68,12 +63,9 @@ if (activeNote.classList.contains('noteEntry'))
     }
 
 
-
-
     // update the active note
-OPTIONS.activeNotePosition = activePosition;
+Options.set( 'activeNotePosition', activePosition );
 
-   
    
 if (TYPE == "server")
     {
@@ -84,7 +76,7 @@ if (TYPE == "server")
             logout
      */
         
-    var data = { data: JSON.stringify( notes ), options: JSON.stringify( OPTIONS ) };
+    var data = { data: JSON.stringify( notes ), options: Options.getSaveString() };
     
         
     if (logout === true)
@@ -111,8 +103,7 @@ if (TYPE == "server")
 else
     {
     localStorage.setObject( 'notes', notes );
-    
-    localStorage.setObject( 'options', OPTIONS );        
+    localStorage.setItem( 'options', Options.getSaveString() );
     }
 }
 
