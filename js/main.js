@@ -1,39 +1,33 @@
-/*
-    In the server version, the index.html (in the server templates) has these variables re-defined
- */
-
-var TYPE = 'app';
-var BASE_URL = '';
 var MAIN_CONTAINER = null;
-
 
 
 window.onload = function()
 {
+AppStorage.getData( [ 'notes', 'options' ], initApp );
+};
+
+
+function initApp( data )
+{
 MAIN_CONTAINER = new MainContainer();
-    
 
-Load();
+Load( data );
 
 
-var resize = function() 
+var resize = function()
     {
     if (PopupWindow.hasOpenedWindows() === true)
         {
-        PopupWindow.resizeAll();            
-        }    
+        PopupWindow.resizeAll();
+        }
     };
-
 
 resize();
 
     // resize/reposition the popup windows, according to the space available
-window.addEventListener( 'resize', resize, true );    
-
+window.addEventListener( 'resize', resize, true );
 window.addEventListener( 'keyup', globalShortcuts, true );
-};
-
-
+}
 
 
     // 'on before unload' instead of 'on unload' so that in the server version, when refreshing (F5)
@@ -45,11 +39,9 @@ Save();
 }; 
 
 
-
 /*
  * Logout the user as well
  */
-
 function Logout()
 {
     // remove the function from the event, otherwise its going to be called again (the Save() will redirect to '/')
@@ -57,4 +49,3 @@ window.onbeforeunload = null;
     
 Save( true );
 }
-

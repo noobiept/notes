@@ -70,9 +70,9 @@ NEXT_OPTIONS = $.extend( true, {}, LOADED_OPTIONS );
 /**
  * Get a string of the options, to be saved to the localStorage/server.
  */
-Options.getSaveString = function()
+Options.getNextOptions = function()
 {
-return JSON.stringify( NEXT_OPTIONS );
+return NEXT_OPTIONS;
 };
 
 

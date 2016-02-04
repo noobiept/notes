@@ -1,6 +1,7 @@
 {
     "C:\\Users\\drk\\Dropbox\\projects\\notes": [
         "js/utilities.js",
+        "js/options.js",
         "js/main.js",
         "js/main_container.js",
         "js/note.js",

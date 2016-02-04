@@ -6,10 +6,7 @@ function OptionsPage()
 {
 var container = document.createElement( 'div' );
 
-var url = BASE_URL + 'options.html';
-
-
-$( container ).load( url,
+$( container ).load( 'options.html',
     function()
     {
     new PopupWindow( container );
