@@ -23,7 +23,7 @@ var NEXT_OPTIONS = {};
 Options.load = function( options )
 {
     // first time program runs
-if (options === null || options === "")
+if ( !options )
     {
     return;
     }

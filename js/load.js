@@ -14,9 +14,9 @@ MAIN_CONTAINER.addDummyNote();
  */
 
 Load.notes = function( notes )
-{   
+{
     // first time the program runs
-if (notes === null || notes === '')
+if ( !notes )
     {
     return;
     }

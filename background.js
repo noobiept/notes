@@ -8,7 +8,7 @@ chrome.app.runtime.onLaunched.addListener( function() {
         }
     }, function( window ) {
         window.onClosed.addListener( function() {
-          //var data = window.contentWindow.getAppData();
+            chrome.storage.local.set( window.contentWindow.Save.getSaveData() );
         });
     });
 });
