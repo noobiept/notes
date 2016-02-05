@@ -76,6 +76,12 @@ return JSON.stringify( NEXT_OPTIONS );
 };
 
 
+Options.getNextOptions = function()
+{
+return NEXT_OPTIONS;
+};
+
+
 /**
  * Get an option value, off the options that were initially loaded.
  */

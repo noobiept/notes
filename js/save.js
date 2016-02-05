@@ -104,6 +104,9 @@ else
     {
     localStorage.setObject( 'notes', notes );
     localStorage.setItem( 'options', Options.getSaveString() );
+
+        // save to chrome.storage too
+    chrome.storage.local.set( { notes: notes, notes_options: Options.getNextOptions() } );
     }
 }
 
