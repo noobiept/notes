@@ -66,7 +66,7 @@ function chromeStorageSet( items, callback )
  */
 AppStorage.getData = function( keys, callback )
     {
-    if ( chrome.storage )
+    if ( window.chrome && window.chrome.storage )
         {
         chromeStorageGet( keys, callback );
         }
@@ -83,7 +83,7 @@ AppStorage.getData = function( keys, callback )
  */
 AppStorage.setData = function( items, callback )
     {
-    if ( chrome.storage )
+    if ( window.chrome && window.chrome.storage )
         {
         chromeStorageSet( items, callback );
         }
