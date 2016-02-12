@@ -44,7 +44,7 @@ var notes = Save.notesToJson();
 var noteObject;
 
 
-    // :: Options :: //
+    // :: Active Note Position :: //
 
 var activeNote = document.activeElement;
 
@@ -58,12 +58,14 @@ if (activeNote.classList.contains('noteEntry'))
     activePosition = noteObject.getPosition();
     }
 
-
-    // update the active note
-Options.set( 'activeNotePosition', activePosition );
-
 return {
     notes: notes,
-    notes_options: Options.getNextOptions()
+    notes_activeNotePosition: activePosition
     };
+};
+
+
+Save.saveOptions = function()
+{
+AppStorage.setData({ notes_options: Options.getNextOptions() });
 };

@@ -9,7 +9,10 @@ var container = document.createElement( 'div' );
 $( container ).load( 'options.html',
     function()
     {
-    new PopupWindow( container );
+    new PopupWindow( container, null, function()
+        {
+        Save.saveOptions();
+        });
 
 
         // :: Width :: //

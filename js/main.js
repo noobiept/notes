@@ -3,7 +3,7 @@ var MAIN_CONTAINER = null;
 
 window.onload = function()
 {
-AppStorage.getData( [ 'notes', 'options' ], initApp );
+AppStorage.getData( [ 'notes', 'notes_options', 'notes_activeNotePosition' ], initApp );
 };
 
 

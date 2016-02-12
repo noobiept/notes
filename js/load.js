@@ -2,8 +2,8 @@ function Load( data )
 {
 Menu();
 
-Options.load( data[ 'options' ] );
-Load.notes( data[ 'notes' ] );
+Options.load( data[ 'notes_options' ] );
+Load.notes( data[ 'notes' ], data[ 'notes_activeNotePosition' ] );
 
 MAIN_CONTAINER.addDummyNote();
 }
@@ -13,7 +13,7 @@ MAIN_CONTAINER.addDummyNote();
  * load the notes
  */
 
-Load.notes = function( notes )
+Load.notes = function( notes, activeNotePosition )
 {
     // first time the program runs
 if ( !notes )
@@ -21,20 +21,16 @@ if ( !notes )
     return;
     }
 
-var i = 0;
-
-for (i = 0 ; i < notes.length ; i++)
+for (var i = 0 ; i < notes.length ; i++)
     {
     MAIN_CONTAINER.newNote( notes[ i ].text, notes[ i ].backgroundColorComponents, false );
     }
 
 
     // set focus on the element that was active last time
-var activeNotPosition = Options.get( 'activeNotePosition' );
-
-if (activeNotPosition >= 0)
+if (activeNotePosition >= 0)
     {
-    var noteObject = MAIN_CONTAINER.getChild( activeNotPosition );
+    var noteObject = MAIN_CONTAINER.getChild( activeNotePosition );
     
     if (noteObject !== null)
         {
