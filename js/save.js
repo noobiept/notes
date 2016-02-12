@@ -64,6 +64,6 @@ Options.set( 'activeNotePosition', activePosition );
 
 return {
     notes: notes,
-    options: Options.getNextOptions()
+    notes_options: Options.getNextOptions()
     };
 };

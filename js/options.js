@@ -22,44 +22,40 @@ var NEXT_OPTIONS = {};
  */
 Options.load = function( options )
 {
-    // first time program runs
-if ( !options )
+if ( options )
     {
-    return;
-    }
+        // I have to change each option, and not do something like OPTIONS = options, because otherwise when adding new
+        // options (to the OPTIONS object), it won't matter, since it will be overwritten with the old options
+        // by changing each one, if I add later another option, it will keep its default value
+    if ( isNaN( options.noteWidth ) === false )
+        {
+        LOADED_OPTIONS.noteWidth = options.noteWidth;
+        }
 
+    if ( isNaN( options.noteHeight ) === false )
+        {
+        LOADED_OPTIONS.noteHeight = options.noteHeight;
+        }
 
-    // I have to change each option, and not do something like OPTIONS = options, because otherwise when adding new
-    // options (to the OPTIONS object), it won't matter, since it will be overwritten with the old options
-    // by changing each one, if I add later another option, it will keep its default value
-if ( isNaN( options.noteWidth ) === false )
-    {
-    LOADED_OPTIONS.noteWidth = options.noteWidth;
-    }
+    if ( isNaN( options.noteMargin ) === false )
+        {
+        LOADED_OPTIONS.noteMargin = options.noteMargin;
+        }
 
-if ( isNaN( options.noteHeight ) === false )
-    {
-    LOADED_OPTIONS.noteHeight = options.noteHeight;
-    }
+    if ( isNaN( options.activeNotePosition ) === false )
+        {
+        LOADED_OPTIONS.activeNotePosition = options.activeNotePosition;
+        }
 
-if ( isNaN( options.noteMargin ) === false )
-    {
-    LOADED_OPTIONS.noteMargin = options.noteMargin;
-    }
+    if (typeof options.generateColorType !== 'undefined' && options.generateColorType !== null)
+        {
+        LOADED_OPTIONS.generateColorType  = options.generateColorType;
+        }
 
-if ( isNaN( options.activeNotePosition ) === false )
-    {
-    LOADED_OPTIONS.activeNotePosition = options.activeNotePosition;
-    }
-
-if (typeof options.generateColorType !== 'undefined' && options.generateColorType !== null)
-    {
-    LOADED_OPTIONS.generateColorType  = options.generateColorType;
-    }
-
-if ( isNaN( options.spellCheck ) === false )
-    {
-    LOADED_OPTIONS.spellCheck = options.spellCheck;
+    if ( isNaN( options.spellCheck ) === false )
+        {
+        LOADED_OPTIONS.spellCheck = options.spellCheck;
+        }
     }
 
     // the loaded options are the starting point for the next options, it can then be changed through the program

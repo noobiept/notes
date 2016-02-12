@@ -14,7 +14,7 @@ function getLocalStorage( keys, callback )
         var key = keys[ a ];
         var value = localStorage.getItem( key );
 
-        objects[ key ] =  value && JSON.parse( value );
+        objects[ key ] = value && JSON.parse( value );
         }
 
     callback( objects );
