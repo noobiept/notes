@@ -1,7 +1,7 @@
 Dependencies
 ============
 
-- jquery -- 2.1
+- jquery -- 2.2
 - jqueryui -- 1.11
     - position
     - start theme
@@ -10,3 +10,30 @@ Dependencies
     - fade effect
     
 - ba-resize -- 1.1
+
+
+Keyboard Shortcuts
+==================
+
+Global Shortcuts
+================
+
+- `alt + n` : new `(n)`ote.
+- `alt + o` : open `(o)`ptions.
+- `alt + u` : `(u)`ndo of added/removed/dragged notes.
+- `alt + r` : `(r)`edo of added/removed/dragged notes.
+
+When focus on a Note
+====================
+
+- `ctrl + left arrow` : Focus to the note on the left.
+- `ctrl + right arrow` : Focus to the note on the right.
+- `ctrl + delete` : Delete the note.
+- `ctrl + enter` : Create a new note in the next position.
+- `alt + w` : Open the note's window.
+
+When the note's window is opened
+================================
+
+- `ctrl + left arrow` : Focus to the note on the left.
+- `ctrl + right arrow` : Focus to the note on the right.

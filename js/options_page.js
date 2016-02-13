@@ -118,9 +118,7 @@ $( container ).load( 'options.html',
 
     exportNotes.onclick = function()
         {
-        var notes = Save.notesToJson();
-
-        var notesString = JSON.stringify( notes, null, 4 );
+        var notesString = JSON.stringify( MAIN_CONTAINER.getTextList(), null, 4 );
 
         exportNotes.href = "data:text/plain;base64," + utf8_to_b64( notesString );
         };

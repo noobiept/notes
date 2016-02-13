@@ -197,3 +197,18 @@ this.childrenObjects_array.sort(
 };
 
 
+/**
+ * Returns a list with all the notes text.
+ */
+MainContainer.prototype.getTextList = function()
+{
+var children = this.childrenObjects_array;
+var textList = [];
+
+for (var a = 0 ; a < children.length ; a++)
+    {
+    textList.push( children[ a ].getText() );
+    }
+
+return textList;
+};
