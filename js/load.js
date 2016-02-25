@@ -1,9 +1,9 @@
-function Load( data )
+function Load()
 {
 Menu();
 
-Options.load( data[ 'notes_options' ] );
-Load.notes( data[ 'notes' ], data[ 'notes_activeNotePosition' ] );
+Options.load();
+Load.notes();
 
 MAIN_CONTAINER.addDummyNote();
 }
@@ -13,8 +13,11 @@ MAIN_CONTAINER.addDummyNote();
  * load the notes
  */
 
-Load.notes = function( notes, activeNotePosition )
+Load.notes = function()
 {
+var notes = Data.getNotes();
+var activeNotePosition = Data.getNoteActivePosition();
+
     // first time the program runs
 if ( !notes )
     {

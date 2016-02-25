@@ -3,16 +3,15 @@ var MAIN_CONTAINER = null;
 
 window.onload = function()
 {
-AppStorage.getData( [ 'notes', 'notes_options', 'notes_activeNotePosition' ], initApp );
+Data.load( initApp );
 };
 
 
-function initApp( data )
+function initApp()
 {
 MAIN_CONTAINER = new MainContainer();
 
-Load( data );
-
+Load();
 
 var resize = function()
     {
@@ -28,17 +27,3 @@ resize();
 window.addEventListener( 'resize', resize, true );
 window.addEventListener( 'keyup', globalShortcuts, true );
 }
-
-
-    // 'on before unload' instead of 'on unload' so that in the server version, when refreshing (F5)
-    // the logout gets called first, than the load of the new page (otherwise, the new load will have the previous data)
-    // in a chrome application, this event isn't available, so its saved instead on the 'background.js'
-if ( !(window.chrome && window.chrome.storage) )
-    {
-    window.onbeforeunload = function()
-        {
-            //save some stuff when the application is closed
-        Save();
-        };
-    }
-

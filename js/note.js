@@ -363,9 +363,6 @@ $( this.noteContainer_ui ).removeClass( 'NoteOnFocus' );
 };
 
 
-
-
-
 /*
  * returns the element's position
  */
@@ -374,7 +371,6 @@ Note.prototype.getPosition = function()
 {
 return this.position_int;
 };
-
 
 
 /*
