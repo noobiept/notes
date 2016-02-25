@@ -98,4 +98,10 @@ NEXT_OPTIONS[ key ] = value;
 };
 
 
+Options.saveOptions = function()
+{
+AppStorage.setData({ notes_options: Options.getNextOptions() });
+};
+
+
 })(Options || (Options = {}));

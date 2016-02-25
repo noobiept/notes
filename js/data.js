@@ -44,7 +44,7 @@ Data.load = function( callback )
             NOTES = notes;
             }
 
-        if ( activePosition )
+        if ( isNaN( activePosition ) === false )
             {
             ACTIVE_POSITION = activePosition;
             }

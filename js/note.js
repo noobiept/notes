@@ -125,12 +125,14 @@ $( noteEntry ).bind( 'focus',
     function()
     {
     noteObject.setFocusStyle();
+    Data.setActiveNotePosition( noteObject.getPosition() );
     });
 
 $( noteEntry ).bind( 'blur',
     function()
     {
     noteObject.removeFocusStyle();
+    Data.setActiveNotePosition( -1 );
     });
 
 

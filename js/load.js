@@ -30,7 +30,7 @@ for (var i = 0 ; i < notes.length ; i++)
 if (activeNotePosition >= 0)
     {
     var noteObject = MAIN_CONTAINER.getChild( activeNotePosition );
-    
+
     if (noteObject !== null)
         {
         noteObject.gainFocus();

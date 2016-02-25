@@ -11,7 +11,7 @@ $( container ).load( 'options.html',
     {
     new PopupWindow( container, null, function()
         {
-        Save.saveOptions();
+        Options.saveOptions();
         });
 
 
