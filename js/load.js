@@ -1,8 +1,6 @@
 function Load()
 {
 Menu();
-
-Options.load();
 Load.notes();
 
 MAIN_CONTAINER.addDummyNote();
@@ -12,7 +10,6 @@ MAIN_CONTAINER.addDummyNote();
 /*
  * load the notes
  */
-
 Load.notes = function()
 {
 var notes = Data.getNotes();
@@ -26,9 +23,8 @@ if ( !notes )
 
 for (var i = 0 ; i < notes.length ; i++)
     {
-    MAIN_CONTAINER.newNote( notes[ i ].text, notes[ i ].backgroundColorComponents, false );
+    MAIN_CONTAINER.newNote( notes[ i ].text, notes[ i ].backgroundColorComponents, false, -1, true );
     }
-
 
     // set focus on the element that was active last time
 if (activeNotePosition >= 0)

@@ -1,15 +1,6 @@
 var Data;
 (function(Data) {
 
-var OPTIONS = {
-    activeNotePosition: -1,
-    generateColorType: "red_gradient",
-    noteHeight: 125,
-    noteMargin: 7,
-    noteWidth: 250,
-    spellCheck: true
-};
-
 /**
  * {
  *     text: string;
@@ -46,10 +37,7 @@ Data.load = function( callback )
         var options = data[ 'notes_options' ];
         var activePosition = data[ 'notes_activeNotePosition' ];
 
-        if ( options )
-            {
-            OPTIONS = options;
-            }
+        Options.load( options );
 
         if ( notes )
             {
@@ -66,12 +54,6 @@ Data.load = function( callback )
     };
 
 
-Data.saveOptions = function()
-    {
-    AppStorage.setData({ notes_options: OPTIONS });
-    };
-
-
 Data.saveNotes = function()
     {
     AppStorage.setData({ notes: NOTES });
@@ -81,23 +63,6 @@ Data.saveNotes = function()
 Data.saveActivePosition = function()
     {
     AppStorage.setData({ notes_activeNotePosition: ACTIVE_POSITION });
-    };
-
-
-Data.getOption = function( key )
-    {
-    return OPTIONS[ key ];
-    };
-
-
-Data.setOption = function( key, value )
-    {
-    OPTIONS[ key ] = value;
-
-    if ( SAVE_ENABLED )
-        {
-        Data.saveOptions();
-        }
     };
 
 
@@ -113,9 +78,17 @@ Data.getNoteActivePosition = function()
     };
 
 
-Data.newNote = function( note, position )
+Data.setActiveNotePosition = function( position )
     {
-    NOTES.splice( position, 0, {
+    ACTIVE_POSITION = position;
+
+    Data.saveActivePosition();
+    };
+
+
+Data.newNote = function( note )
+    {
+    NOTES.splice( note.getPosition(), 0, {
             text  : note.getText(),
             backgroundColorComponents : note.getColorObject().getColor()
         });
@@ -138,9 +111,9 @@ Data.removeNote = function( note )
     };
 
 
-Data.changeNoteText = function( note, text )
+Data.changeNoteText = function( note )
     {
-    NOTES[ note.getPosition() ].text = text;
+    NOTES[ note.getPosition() ].text = note.getText();
 
     if ( SAVE_ENABLED )
         {
@@ -160,7 +133,7 @@ Data.changeNoteBackgroundColor = function( note )
     };
 
 
-Data.changePosition = function( note, previousPosition )
+Data.changeNotePosition = function( note, previousPosition )
     {
     var data = NOTES.splice( previousPosition, 1 )[ 0 ];
     NOTES.splice( note.getPosition(), 0, data );

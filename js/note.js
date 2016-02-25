@@ -20,15 +20,14 @@
  *
  */
 
-function Note( containerObject, text, colorComponents, saveToUndo, position )
+function Note( containerObject, text, colorComponents, saveToUndo, position, fromLoad )
 {
 var noteObject = this;
-    
-    
+
     // :: Deal with the note's position :: //
     
     // add at the end (its not -1, since we still didn't add to the array)
-if ( typeof position === 'undefined' || isNaN( position ) === true )
+if ( typeof position === 'undefined' || isNaN( position ) === true || position < 0 )
     {
     position = containerObject.childrenCount();
     }
@@ -39,9 +38,7 @@ this.position_int = position;
     // :: Note entry -- where you write the title :: //
     
 var noteEntry = document.createElement( 'div' );
-
 noteEntry.className = "noteEntry";
-
 
 if ( typeof text === 'undefined' || text === "" )
     {
@@ -50,17 +47,18 @@ if ( typeof text === 'undefined' || text === "" )
 
 noteEntry.innerHTML = text;
 noteEntry.setAttribute( 'contenteditable', 'true' );
-
+noteEntry.addEventListener( 'input', function()
+    {
+    Data.changeNoteText( noteObject );
+    });
 
     // :: Open the popup window :: //
     
 var openWindow = Draw( 'openWindow' );
 
-    
     // :: Remove the entry :: //
 
 var delNote = Draw( 'delNote' );
-
 
     // :: note controls :: //
     
@@ -69,7 +67,6 @@ noteControls.className = "noteControls";
 
 noteControls.appendChild( delNote );
 noteControls.appendChild( openWindow );
-
 
     // :: container :: //
 var noteWidth = Options.get( 'noteWidth' );
@@ -83,7 +80,6 @@ noteContainer.style.width = noteWidth + 'px';
 noteContainer.style.height = noteHeight + 'px';
 noteContainer.style.margin = noteMargin + 'px';
 
-
 var noteControlsHeight = 20;
 
 noteEntry.style.width  = noteWidth + 'px';
@@ -93,7 +89,6 @@ noteContainer.appendChild( noteControls );
 noteContainer.appendChild( noteEntry );
 
 var colorObject;
-
 
     // if a color is not given, we generate one
 if ( !colorComponents || colorComponents.wasSetByUser === false || colorComponents.red < 0 )
@@ -107,11 +102,7 @@ else
     colorObject = new Color( colorComponents.red, colorComponents.green, colorComponents.blue, colorComponents.alpha, colorComponents.wasSetByUser );
     }
 
-
-var backgroundColor = colorObject.getCssRepresentation();
-noteContainer.style.backgroundColor = backgroundColor;
-
-
+noteContainer.style.backgroundColor = colorObject.getCssRepresentation();
 
 if (Options.get( 'spellCheck' ) === false)
     {
@@ -122,9 +113,6 @@ else
     {
     noteEntry.setAttribute('spellcheck', 'true');
     }
-
-
-
 
     // :: Events :: //
 
@@ -139,7 +127,6 @@ $( noteEntry ).bind( 'focus',
     noteObject.setFocusStyle();
     });
 
-
 $( noteEntry ).bind( 'blur',
     function()
     {
@@ -147,40 +134,34 @@ $( noteEntry ).bind( 'blur',
     });
 
 
-
-
-
 openWindow.addEventListener( 'click', function() { NoteWindow( noteObject ); }, false );
 
 delNote.addEventListener( 'click', function() { noteObject.remove(); }, false );
-
 
     // :: Other :: //
 
 noteContainer.noteObject = this;
 
-
     // make notes draggable
 this.dragDrop_obj = new DragDrop( noteContainer , noteControls, this );
-
-
 
 this.parentObject = containerObject;
 this.noteEntry_obj = noteEntry;
 this.noteContainer_ui = noteContainer;
 this.backgroundColor_obj = colorObject;
 
-
 if (saveToUndo !== false)
     {
     UndoRedo.add( 'addedNote', this );
     }
 
-
+if ( fromLoad !== true )
+    {
+    Data.newNote( this );
+    }
 
 return this;
 }
-
 
 
 /*
@@ -302,40 +283,32 @@ return new Color( red, green, blue, alpha );
 };
 
 
-
 /*
  * remove the note
  */
-
 Note.prototype.remove = function( saveToUndo )
 {
+Data.removeNote( this );
 var position = this.getPosition();
-    
 
 if (saveToUndo !== false)
     {
     UndoRedo.add( 'removedNote', this );
     }
 
-
-
     //remove from the array
 MAIN_CONTAINER.childrenObjects_array.splice( position, 1 );
-
 
     //remove the html element
 MAIN_CONTAINER.getHtmlElement().removeChild( this.getHtmlElement() );
 
-
-MAIN_CONTAINER.updateOrder( position );  
+MAIN_CONTAINER.updateOrder( position );
 };
-
 
 
 /*
  * Put (keyboard) focus on a note 
  */
-
 Note.prototype.gainFocus = function()
 {
 this.noteEntry_obj.focus();

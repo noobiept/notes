@@ -16,7 +16,6 @@ var LOADED_OPTIONS = {
 var NEXT_OPTIONS = {};
 
 
-
 /**
  * Load the options, from the localStorage or from the server, to be used in the program.
  */
