@@ -6,8 +6,7 @@
  *      onColorChange (function) : is executed when a color changes
  * 
  */
-
-function ColorPicker( colorObject, container, onColorChange )
+function getColorPicker( colorObject, container, onColorChange_f )
 {
     // :: Init of variables required below :: //
 
@@ -18,11 +17,21 @@ var green = color.green;
 var blue = color.blue;
 var alpha = color.alpha;
 
+var elementToUpdateColor;
 
-var colorPickerObject = this;
-    
+var updateBackground = function()
+    {
+    $( elementToUpdateColor ).css( 'background-color', colorObject.getCssRepresentation() );
+    };
+var onColorChange = function()
+    {
+    if ( onColorChange_f )
+        {
+        onColorChange_f();
+        }
 
-this.color_obj = colorObject;
+    updateBackground();
+    };
 
 
 if (typeof onColorChange === 'undefined')
@@ -30,8 +39,6 @@ if (typeof onColorChange === 'undefined')
     onColorChange = null;
     }
 
-this.onColorChange_f = onColorChange;
-    
     // :: The letter indicating the base color :: //
     
 var redText = document.createElement( 'div' );
@@ -128,10 +135,9 @@ $( redSlider ).slider({
     slide : function(event, ui)
         {
         redValue.innerHTML = ui.value;
-        
         colorObject.setRed( ui.value );
 
-        colorPickerObject.onColorChange();
+        onColorChange();
         }
     });
 
@@ -148,10 +154,9 @@ $( greenSlider ).slider({
     slide : function(event, ui)
         {
         greenValue.innerHTML = ui.value;
-        
         colorObject.setGreen( ui.value );
 
-        colorPickerObject.onColorChange();
+        onColorChange();
         }
     });
 
@@ -168,11 +173,9 @@ $( blueSlider ).slider({
     slide : function(event, ui)
         {
         blueValue.innerHTML = ui.value;
-        
-        
         colorObject.setBlue( ui.value );
         
-        colorPickerObject.onColorChange();
+        onColorChange();
         }
     });
 
@@ -189,10 +192,9 @@ $( alphaSlider ).slider({
     slide : function(event, ui)
         {
         alphaValue.innerHTML = ui.value;
-        
         colorObject.setAlpha( ui.value );
         
-        colorPickerObject.onColorChange();
+        onColorChange();
         }
     });
     
@@ -226,60 +228,27 @@ alphaContainer.className = "ColorPicker-colorContainer";
 alphaContainer.appendChild( alphaTextValueContainer );
 alphaContainer.appendChild( alphaSlider );
 
-
 var mainContainer = document.createElement( 'div' );
-
 mainContainer.className = "ColorPicker-container";
+
 
 
 if (typeof container == 'undefined' || container === null)
     {
-    this.elementToUpdateColor_ui = mainContainer;    
+    elementToUpdateColor = mainContainer;
     }
 
 else
     {
-    this.elementToUpdateColor_ui = container;    
+    elementToUpdateColor = container;
     }
-
 
 mainContainer.appendChild( redContainer );
 mainContainer.appendChild( greenContainer );
 mainContainer.appendChild( blueContainer );
 mainContainer.appendChild( alphaContainer );
 
-
-colorPickerObject.updateBackground();
-
+updateBackground();
 
 return mainContainer;
 }
-
-
-
-
-
-/*
- * 
- */
-
-ColorPicker.prototype.updateBackground = function()
-{
-$( this.elementToUpdateColor_ui ).css( 'background-color', this.color_obj.getCssRepresentation() );
-};
-
-
-
-/*
- * 
- */
-
-ColorPicker.prototype.onColorChange = function()
-{
-if (this.onColorChange_f !== null)
-    {
-    this.onColorChange_f();
-    }
-    
-this.updateBackground();
-};

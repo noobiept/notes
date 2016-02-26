@@ -350,7 +350,7 @@ var onColorChange = function()
     fixedType.classList.add( "NoteWindow-selected" );  
     };
 
-var colorPicker = new ColorPicker( colorObject, optionsContainer, onColorChange );
+var colorPicker = getColorPicker( colorObject, optionsContainer, onColorChange );
 
 optionsContainer.appendChild( selectTypeContainer );
 optionsContainer.appendChild( colorPicker ); 
