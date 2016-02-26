@@ -41,8 +41,12 @@ var text = document.createElement( 'div' );
 text.setAttribute( 'contenteditable', 'true' );
 text.className = "NoteWindow-text";
 text.innerHTML = noteObject.getText();
-
-
+text.addEventListener( 'input', function()
+    {
+    var noteText = this.innerHTML;
+    NoteWindow.noteObject_obj.setText( noteText );
+    Data.changeNoteText( NoteWindow.noteObject_obj );
+    });
 
 if (Options.get( 'spellCheck' ) === false)
     {
@@ -136,19 +140,13 @@ NoteWindow.isOpened_bool = true;
  * 
  * Save the title/text, and set focus to the note
  */
-
 NoteWindow.onHide = function()
 {
 var noteObject = NoteWindow.noteObject_obj;
 
-
-NoteWindow.saveNote();
-
 noteObject.gainFocus();
 
-
     // remove the left/right arrow
-    
 document.body.removeChild( NoteWindow.leftArrow_ui );
 document.body.removeChild( NoteWindow.rightArrow_ui );
 
@@ -156,41 +154,19 @@ NoteWindow.isOpened_bool = false;
 };
 
 
-
-
-/*
- * saves the text in the NoteWindow back to the noteObject
- */
-
-NoteWindow.saveNote = function()
-{
-var noteObject = NoteWindow.noteObject_obj;
-    
-noteObject.setText( NoteWindow.text_ui.innerHTML );    
-};
-
-
-
 /*
  * Change the note that is on the NoteWindow (the title/text)
  */
-
 NoteWindow.updateContent = function( noteObject )
 {
 NoteWindow.text_ui.innerHTML = noteObject.getText();
 
 NoteWindow.popupWindow_ui.resize();
-
-
 NoteWindow.container_ui.style.backgroundColor = noteObject.getColorObject().getCssRepresentation();
-
 NoteWindow.noteObject_obj = noteObject;
-
-
 
 NoteWindow.text_ui.focus();
 };
-
 
 
 /*
@@ -198,9 +174,7 @@ NoteWindow.text_ui.focus();
  * 
  *      if there's only one, does nothing
  *      if first note, it goes to the last one
- * 
  */
-
 NoteWindow.goLeftNote = function()
 {
 var noteObject = NoteWindow.noteObject_obj;
@@ -215,11 +189,7 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
         {
         otherElement = MAIN_CONTAINER.getLastChild();
         }     
-            
-    
-        // the content of the note might have be changed (its only saved onHide())
-    NoteWindow.saveNote();
-            
+
     NoteWindow.updateContent( otherElement );
     }
 };
@@ -246,10 +216,7 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
         {
         otherElement = MAIN_CONTAINER.getFirstChild();
         }     
-    
-        // the content of the note might have be changed (its only saved onHide())
-    NoteWindow.saveNote();
-    
+
     NoteWindow.updateContent( otherElement );
     } 
 };
@@ -324,25 +291,17 @@ noteObject.remove();
 NoteWindow.openOptions = function( noteObject )
 {
 var colorObject = noteObject.getColorObject();
-    
-    
-var backgroundColorText = document.createElement( 'div' );
 
+var backgroundColorText = document.createElement( 'div' );
 backgroundColorText.innerHTML = "Background color:";
 
-
 var generatedType = document.createElement( 'div' );
-
 generatedType.className = "NoteWindow-generated";
 generatedType.innerHTML = "is generated";
     
-
-
 var fixedType = document.createElement( 'div' );
-    
 fixedType.className = "NoteWindow-fixed";
 fixedType.innerHTML = "is fixed";
-    
     
 if (colorObject.wasSetByUser() === true)
     {
@@ -357,11 +316,9 @@ else
 var selectTypeContainer = document.createElement( 'div' ); 
 
 selectTypeContainer.className = "NoteWindow-selectBackgroundTypeContainer";
-
 selectTypeContainer.appendChild( backgroundColorText );
 selectTypeContainer.appendChild( generatedType );
 selectTypeContainer.appendChild( fixedType );
-
 
     // :: Events :: //
     
@@ -374,7 +331,6 @@ $( generatedType ).bind( 'click', function()
     colorObject.canBeGenerated( true );
     });   
 
-
     // the current color becomes fixed
 $( fixedType ).bind( 'click', function()
     {
@@ -384,12 +340,9 @@ $( fixedType ).bind( 'click', function()
     colorObject.canBeGenerated( false );    
     });
 
-
-
     // :: Other :: //
 
 var optionsContainer = document.createElement( 'div' );
-
 
 var onColorChange = function()
     {
@@ -399,16 +352,15 @@ var onColorChange = function()
 
 var colorPicker = new ColorPicker( colorObject, optionsContainer, onColorChange );
 
-
 optionsContainer.appendChild( selectTypeContainer );
 optionsContainer.appendChild( colorPicker ); 
-
 
 var colorPickerOnHide = function() {
     
     NoteWindow.container_ui.style.backgroundColor = colorObject.getCssRepresentation();
-    
+
     noteObject.updateBackgroundColor();
+    Data.changeNoteBackgroundColor( noteObject );
     };
     
 new PopupWindow( optionsContainer, null, colorPickerOnHide );

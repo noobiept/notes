@@ -365,11 +365,6 @@ return text;
 };
 
 
-
-/*
- * 
- */
-
 Note.prototype.setText = function( text )
 {
 if (typeof text === 'undefined' || text === null)
@@ -385,12 +380,10 @@ this.noteEntry_obj.innerHTML = text;
 /*
  * Returns a Color object, representing the background color
  */
-
 Note.prototype.getColorObject = function()
 {
 return this.backgroundColor_obj;
 };
-
 
 
 Note.prototype.updateBackgroundColor = function()
@@ -448,13 +441,11 @@ if (document.activeElement)
     {
         //this will probably be always called, since there's always an element on focus, even if it is just the <body>
     document.activeElement.blur();        
-    }    
-    
-    
+    }
+
     //for undo
 var previousPosition = this.getPosition();
     
-
     //find the position from where we need to update (depends if we move from an higher position to a lower, or the other way around)
 var lessPosition;
 
@@ -470,9 +461,6 @@ else
     lessPosition = previousPosition;
     }
 
-  
-    
-    
     //inserting at the end
 if (position === MAIN_CONTAINER.childrenCount() - 1)
     {
@@ -498,8 +486,7 @@ else
         MAIN_CONTAINER.getChild( position ).getHtmlElement() 
         );
     }
-    
-    
+
     //update the order, from the lesser position that was affected
 MAIN_CONTAINER.updateOrder( lessPosition );
 
@@ -509,9 +496,9 @@ if ( saveToUndo !== false )
     UndoRedo.add( 'draggedNote', this, previousPosition );
     }
 
-
     //focus on the element that was dragged
 this.gainFocus();
+Data.changeNotePosition( this, previousPosition );
 };
 
 
