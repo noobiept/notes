@@ -19,7 +19,6 @@
  *      position (number)
  *
  */
-
 function Note( containerObject, text, colorComponents, saveToUndo, position, fromLoad )
 {
 var noteObject = this;
@@ -181,7 +180,6 @@ return this;
  *      "random"       : generate a random color every time
  *      "red_gradient" : a gradient, starting at a darker color, then moving to a red color, then back to the darker color...  
  */
-
 Note.prototype.generateColor = function()
 {
 var red = 0, green = 0, blue = 0, alpha = 1;
@@ -317,11 +315,9 @@ this.noteEntry_obj.focus();
 };
 
 
-
 /*
  * A style for the note that is currently on focus
  */
-
 Note.prototype.setFocusStyle = function()
 {
 $( this.noteContainer_ui ).addClass( 'NoteOnFocus' );
@@ -331,7 +327,6 @@ $( this.noteContainer_ui ).addClass( 'NoteOnFocus' );
 /*
  * Remove the special styling for the note on focus (when it no longer is (on blur, for example))
  */
-
 Note.prototype.removeFocusStyle = function()
 {
 $( this.noteContainer_ui ).removeClass( 'NoteOnFocus' );
@@ -341,7 +336,6 @@ $( this.noteContainer_ui ).removeClass( 'NoteOnFocus' );
 /*
  * returns the element's position
  */
-
 Note.prototype.getPosition = function()
 {
 return this.position_int;
@@ -351,7 +345,6 @@ return this.position_int;
 /*
  * get the text of the note
  */
-
 Note.prototype.getText = function ()
 {
 var text = this.noteEntry_obj.innerHTML;    //always returns a string?..    //HERE
@@ -376,7 +369,6 @@ this.noteEntry_obj.innerHTML = text;
 };
 
 
-
 /*
  * Returns a Color object, representing the background color
  */
@@ -392,13 +384,9 @@ this.noteContainer_ui.style.backgroundColor = this.backgroundColor_obj.getCssRep
 };
 
 
-
-
-
 /*
  * tells if this is the first element or not
  */
-
 Note.prototype.isFirst = function ()
 {
 if (this.position_int === 0)
@@ -410,11 +398,9 @@ return false;
 };
 
 
-
 /*
  * tells if this is the last element
  */
-
 Note.prototype.isLast = function()
 {
 if ( this.position_int + 1 === this.parentObject.childrenObjects_array.length )
@@ -425,12 +411,6 @@ if ( this.position_int + 1 === this.parentObject.childrenObjects_array.length )
 return false;
 };
 
-
-
-
-/*
- * 
- */
 
 Note.prototype.moveTo = function( position, saveToUndo )
 {
@@ -502,12 +482,9 @@ Data.changeNotePosition( this, previousPosition );
 };
 
 
-
-
 /*
  * returns the next element object (or null if we're at the end)
  */
-
 Note.prototype.next = function()
 {
 var elementsArray = this.parentObject.childrenObjects_array;
@@ -523,11 +500,9 @@ return elementsArray[ position + 1 ];
 };
 
 
-
 /*
  * returns the previous element object (or null if there isn't one)
  */
-
 Note.prototype.previous = function()
 {
 var position = this.position_int;
@@ -542,12 +517,105 @@ return null;
 };
 
 
-
-/*
- * 
- */
-
 Note.prototype.getHtmlElement = function()
 {
 return this.noteContainer_ui;
+};
+
+
+/*
+    - ctrl + left arrow  : focus to the note to the left (or the dummy note, if its the first note)
+    - ctrl + right arrow : focus to the note to the right (or dummy note, if its the last one)
+    - ctrl + delete      : delete the note
+    - ctrl + enter       : create a new note in the next position
+    - alt + w            : open the NoteWindow
+
+ */
+Note.prototype.keyboardShortcuts = function( event )
+{
+var noteObject = this;
+var key = event.which;
+
+    // used when we're selecting another element than this
+var otherNoteObject;
+
+if (event.type === 'keydown')
+    {
+        // focus to the note to the left (or the dummy note, if its the first note)
+    if ( event.ctrlKey && key === EVENT_KEY.leftArrow )
+        {
+        otherNoteObject = noteObject.previous();
+
+        if (otherNoteObject !== null)
+            {
+            otherNoteObject.gainFocus();
+            }
+
+            // means this is the first note, go to the .dummyNote
+        else
+            {
+            MAIN_CONTAINER.getDummy().gainFocus();
+            }
+        }
+
+        // focus to the note to the right (or dummy note, if its the last one)
+    else if ( event.ctrlKey && key === EVENT_KEY.rightArrow )
+        {
+        otherNoteObject = noteObject.next();
+
+        if (otherNoteObject !== null)
+            {
+            otherNoteObject.gainFocus();
+            }
+
+            // means this is the last element, go to .dummyNote
+        else
+            {
+            MAIN_CONTAINER.getDummy().gainFocus();
+            }
+        }
+
+        // create a new note in the next position
+    else if ( event.ctrlKey && key === EVENT_KEY.enter )
+        {
+        otherNoteObject = MAIN_CONTAINER.newNote( "", null, true, this.getPosition() + 1 );
+
+        otherNoteObject.gainFocus();
+        }
+
+    event.stopPropagation();
+    }
+
+else if (event.type === 'keyup')
+    {
+            // remove the note
+    if ( event.ctrlKey && key === EVENT_KEY.del )
+        {
+            // we'll try to give focus to the next note, or the previous if this is the last note
+            // if this is the only note left, focus goes to the dummy note
+        otherNoteObject = this.next();
+
+        if (otherNoteObject === null)
+            {
+            otherNoteObject = this.previous();
+
+            if (otherNoteObject === null)
+                {
+                otherNoteObject = MAIN_CONTAINER.getDummy();
+                }
+            }
+
+
+        this.remove();
+
+
+        otherNoteObject.gainFocus();
+        }
+
+        // open the NoteWindow
+    else if (event.altKey && key === EVENT_KEY.w)
+        {
+        NoteWindow( noteObject );
+        }
+    }
 };
