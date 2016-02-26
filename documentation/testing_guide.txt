@@ -2,6 +2,9 @@
 - remover notas
 
 - atalhos de teclado
+    - global
+    - notes
+    - note window
 
 - drag de uma nota:
     - para o inicio
@@ -30,4 +33,3 @@
         - mudar entre gerada e fixa
         - se as componentes da cor funcionam
     - se ao fazer refresh com a NoteWindow aberta, ele grava alteracoes de texto/cor
-    
