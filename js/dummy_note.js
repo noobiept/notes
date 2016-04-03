@@ -19,7 +19,6 @@ dummy.style.width  = Options.get( 'noteWidth'  ) + 'px';
 dummy.style.height = Options.get( 'noteHeight' ) + 'px';
 dummy.style.margin = Options.get( 'noteMargin' ) + 'px';
 
-
 dummy.onclick = function()
     {
     var tempNote = MAIN_CONTAINER.newNote();
@@ -27,24 +26,16 @@ dummy.onclick = function()
     tempNote.gainFocus();
     };
 
-
 dummy.addEventListener( 'keydown', function(event) { dummyObject.keyboardEvents( event ); }, false );
-
 
 dummy.appendChild( dummyText );
 
 this.dummy_html = dummy;
 this.dummyText_ui = dummyText;
 
-
 return this;
 }
 
-
-
-/*
- *
- */
 
 DummyNote.prototype.keyboardEvents = function(event)
 {
@@ -91,7 +82,6 @@ if (event.type === 'keydown')
 
         // else --> cancel other input
 
-
     event.preventDefault();
     event.stopPropagation();
     }
@@ -101,12 +91,10 @@ if (event.type === 'keydown')
 /*
     Center the dummy text in the center of the note (the elements have to be already been appended, otherwise the calculations might not give the right results)
  */
-
 DummyNote.prototype.centerText = function()
 {
 var dummy = this.dummy_html;
 var dummyText = this.dummyText_ui;
-
 
     //get the dummy note measures
 var dummyWidth = $( dummy ).outerWidth();
@@ -116,11 +104,9 @@ var dummyHeight = $( dummy ).outerHeight();
 var textWidth = $( dummyText ).outerWidth();
 var textHeight = $( dummyText ).outerHeight();
 
-
     //we want to have the text on the center of the dummy note, so lets calculate the top and left values
 var top = (dummyHeight / 2) - (textHeight / 2);
 var left = (dummyWidth / 2) - (textWidth  / 2);
-
 
     //position the window at the center of the page
 $( dummyText ).css('top', top + 'px');
@@ -128,21 +114,11 @@ $( dummyText ).css('left', left + 'px');
 };
 
 
-
-/*
- *
- */
-
 DummyNote.prototype.getHtmlElement = function()
 {
 return this.dummy_html;
 };
 
-
-
-/*
- *
- */
 
 DummyNote.prototype.gainFocus = function()
 {

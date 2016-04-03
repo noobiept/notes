@@ -3,7 +3,6 @@
 /*
  * Open a popup window for a note
  */
-
 function NoteWindow( noteObject )
 {
     // :: Menu :: //
@@ -12,12 +11,10 @@ var removeNote = Draw( 'delNote' );
 
 removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
 
-
 var options = document.createElement( 'div' );
 
 options.className = "NoteWindow-options";
 options.innerHTML = "Options";
-
 
 var menu = document.createElement( 'div' );
 
@@ -26,15 +23,12 @@ menu.className = "NoteWindow-menu";
 menu.appendChild( options );
 menu.appendChild( removeNote );
 
-
 $( options ).bind( 'click', function()
     {
         // open with the noteObject of the currently displayed note (it can change with the left/right arrows)
         // don't bind to the initial note
     NoteWindow.openOptions( NoteWindow.noteObject_obj );
     });
-
-
 
     // :: Text :: //
 
@@ -59,7 +53,6 @@ else
     {
     text.setAttribute('spellcheck', 'true');
     }
-
 
     // :: Left arrow -- change to the note to the left :: //
 
@@ -102,8 +95,6 @@ container.appendChild( text );
 document.body.appendChild( left );
 document.body.appendChild( right );
 
-
-
     // :: Other :: //
 
 NoteWindow.text_ui = text;
@@ -113,13 +104,10 @@ NoteWindow.noteObject_obj = noteObject;
 NoteWindow.leftArrow_ui = left;
 NoteWindow.rightArrow_ui = right;
 
-
 NoteWindow.isOpened_bool = false;
-
 
 NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, NoteWindow.onHide, NoteWindow.shortcuts, NoteWindow.resize );
 }
-
 
 
 /*
@@ -127,14 +115,12 @@ NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, Note
  *
  * Set focus on the title entry
  */
-
 NoteWindow.onStart = function()
 {
 NoteWindow.text_ui.focus();
 
 NoteWindow.isOpened_bool = true;
 };
-
 
 
 /*
@@ -203,7 +189,6 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
  *      if there's only one, do nothing
  *      if its the last note, go to the first
  */
-
 NoteWindow.goRightNote = function()
 {
 var noteObject = NoteWindow.noteObject_obj;
@@ -224,11 +209,9 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
 };
 
 
-
 /*
  * re-calculate the position of the left/right arrows
  */
-
 NoteWindow.resize = function()
 {
 var height = $( window ).height();
@@ -245,11 +228,9 @@ $( right ).css('top', heightPx);
 };
 
 
-
 /*
  * Removes the note, and updates the window with the next/previous note (or just closes the window, if this is the last one)
  */
-
 NoteWindow.removeNote = function()
 {
 var noteObject = NoteWindow.noteObject_obj;
@@ -284,12 +265,9 @@ noteObject.remove();
 };
 
 
-
-
 /*
  * The options of the individual note (to change the background color)
  */
-
 NoteWindow.openOptions = function( noteObject )
 {
 var colorObject = noteObject.getColorObject();
@@ -369,13 +347,10 @@ new PopupWindow( optionsContainer, null, colorPickerOnHide );
 };
 
 
-
-
 /*
  * - ctrl + left arrow  : move to the note to the left (or if this is the first one, go to the last)
  * - ctrl + right arrow : move to the note to the right (or if this is the last one, go to the first)
  */
-
 NoteWindow.shortcuts = function( event )
 {
 var key = event.which;
@@ -397,11 +372,9 @@ if (event.type === 'keyup')
 };
 
 
-
 /*
  * Tells if the NoteWindow is currently opened
  */
-
 NoteWindow.isOpened = function()
 {
 return NoteWindow.isOpened_bool;

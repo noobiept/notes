@@ -4,18 +4,14 @@
  * container of all the notes (there can be only one)
  *
  */
-
 function MainContainer()
 {
 this.htmlElement_obj = document.querySelector( '#mainContainer' );
-
 this.childrenObjects_array = [];
-
 this.dummyNote_obj = null;
 
 return this;
 }
-
 
 
 /*
@@ -24,7 +20,6 @@ return this;
  *
  * Creates a note and adds it to the main container
  */
-
 MainContainer.prototype.newNote = function( text, noteComponents, saveToUndo, position, fromLoad )
 {
 var noteObject = new Note( this, text, noteComponents, saveToUndo, position, fromLoad );
@@ -40,26 +35,15 @@ container.insertBefore( noteObject.getHtmlElement(), container.childNodes[ noteP
     //add to the array
 this.childrenObjects_array.splice( notePosition, 0, noteObject );
 
-
     // only need to update when its not added at the end
 if ( this.childrenCount() !== notePosition + 1 )
     {
     this.updateOrder( notePosition );
     }
 
-
 return noteObject;
 };
 
-
-
-
-
-
-
-/*
- *
- */
 
 MainContainer.prototype.addDummyNote = function()
 {
@@ -72,21 +56,11 @@ this.dummyNote_obj.centerText();
 };
 
 
-
-/*
- *
- */
-
 MainContainer.prototype.getDummy = function()
 {
 return this.dummyNote_obj;
 };
 
-
-
-/*
- *
- */
 
 MainContainer.prototype.getHtmlElement = function()
 {
@@ -94,12 +68,9 @@ return this.htmlElement_obj;
 };
 
 
-
-
 /*
  * returns the first child element object (null if it doesn't exist)
  */
-
 MainContainer.prototype.getFirstChild = function()
 {
 if (this.childrenObjects_array.length !== 0)
@@ -111,11 +82,9 @@ return null;
 };
 
 
-
 /*
  * returns the last child object (null if it doesn't exist)
  */
-
 MainContainer.prototype.getLastChild = function()
 {
 var children = this.childrenObjects_array;
@@ -129,16 +98,12 @@ return null;
 };
 
 
-
-
-
 /*
  * get a specific child object (null if not found)
  *
  * Arguments:
  *      - position (number)
  */
-
 MainContainer.prototype.getChild = function( position )
 {
     //see if it exists
@@ -154,12 +119,10 @@ return this.childrenObjects_array[ position ];
 /*
  * returns the number of children elements (do note, that it may not make sense (for example for an entry.. it doesn't have children))
  */
-
 MainContainer.prototype.childrenCount = function()
 {
 return this.childrenObjects_array.length;
 };
-
 
 
 /*
@@ -167,7 +130,6 @@ return this.childrenObjects_array.length;
  *
  *      lessPosition (int) : from what position we start updating the order, as in, where did the change occur (the elements before have the right order)
  */
-
 MainContainer.prototype.updateOrder = function( lessPosition )
 {
 if (typeof lessPosition === 'undefined')

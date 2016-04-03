@@ -7,7 +7,6 @@ function Menu()
 {
 var menu = document.querySelector( '#menu' );
 
-
     // :: New Note :: //
 
 var newNote = menu.querySelector( '#newNote' );
@@ -46,8 +45,8 @@ donate.addEventListener( 'click', function()
  *      - content (string) -> the stuff to be written
  *
  */
-
 Menu.messageTimeout_f = null;
+
 
 Menu.showMessage = function (content)
 {

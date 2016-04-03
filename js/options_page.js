@@ -3,7 +3,6 @@
 /*
  * The page where you change the options of the program
  */
-
 function OptionsPage()
 {
 var container = document.createElement( 'div' );
@@ -16,12 +15,10 @@ $( container ).load( 'options.html',
         Options.saveOptions();
         });
 
-
         // :: Width :: //
 
     //var slider = container.querySelector( 'Options-noteSlider' );
     var widthSlider = document.createElement( 'div' );   //HERE n funciona com o k esta na options.html
-
 
     var widthValue = container.querySelector( '#Options-noteWidth' );
     var noteWidth = Options.getNext( 'noteWidth' );
@@ -39,7 +36,6 @@ $( container ).load( 'options.html',
             Options.set( 'noteWidth', ui.value );
             }
         });
-
 
         // :: Height :: //
 
@@ -82,7 +78,6 @@ $( container ).load( 'options.html',
             }
         });
 
-
     widthValue.parentNode.parentNode.appendChild( widthSlider );
     heightValue.parentNode.parentNode.appendChild( heightSlider );
     marginValue.parentNode.parentNode.appendChild( marginSlider );
@@ -90,7 +85,6 @@ $( container ).load( 'options.html',
     //$( widthSlider  ).insertAfter( widthValue );  //HERE se desse para usar o k ja esta nas opções...
     //$( heightSlider ).insertAfter( heightValue );
     //$( marginSlider ).insertAfter( marginValue );
-
 
         // :: Generate background-color :: //
 
@@ -101,7 +95,6 @@ $( container ).load( 'options.html',
 
     $( backgroundColor ).bind('click', function(event) { OptionsPage.switchBackgroundColor( event, backgroundColorValue ); });
 
-
         // :: SpellCheck :: //
 
     var spellCheck = container.querySelector( '#Options-spellCheck' );
@@ -110,9 +103,7 @@ $( container ).load( 'options.html',
 
     spellCheckValue.innerHTML = OptionsPage.boolToYesNo( spellCheckOption );
 
-
     $( spellCheck ).bind('click', function(event) { OptionsPage.switchSpellCheck( event, spellCheckValue ); });
-
 
         // :: Export notes :: //
 
@@ -128,12 +119,10 @@ $( container ).load( 'options.html',
 }
 
 
-
 /*
  * true  --> "Yes"
  * false --> "No"
  */
-
 OptionsPage.boolToYesNo = function( boolVar )
 {
 if ( boolVar === true )
@@ -145,14 +134,12 @@ return "No";
 };
 
 
-
 /*
  * Arguments:
  *
  *      event : the on click event object
  *      spellCheckValue : the html element to update the values (to show the user the new value)
  */
-
 OptionsPage.switchSpellCheck = function( event, spellCheckValue )
 {
 if (event.type === 'click')
@@ -169,14 +156,12 @@ if (event.type === 'click')
 };
 
 
-
 /*
  * Arguments:
  *
  *      event : the on click event object
  *      backgroundColorValue : the html element to update the values (to show the user the new value)
  */
-
 OptionsPage.switchBackgroundColor = function( event, backgroundColorValue )
 {
 var next = '';

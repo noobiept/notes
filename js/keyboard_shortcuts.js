@@ -4,7 +4,6 @@
 /*
  * Keys code for the keyboard events
  */
-
 var EVENT_KEY = {
 
     backspace  : 8,
@@ -74,7 +73,6 @@ var EVENT_KEY = {
 };
 
 
-
 /*
     Keyboard shortcuts (don't work when a PopupWindow is opened)
 
@@ -83,7 +81,6 @@ var EVENT_KEY = {
     - alt + o : open the options
     - alt + n : create a new note
  */
-
 function globalShortcuts( event )
 {
     //when the popup window is opened, its best to cancel these events, since they would happen

@@ -2,7 +2,6 @@
  * function that is called throughout the code (its the interface)
  * calls all other functions, depending on which element to draw
  */
-
 function Draw (className)
 {
 var element = document.createElement( 'canvas' );
@@ -43,10 +42,6 @@ switch (className)
 return element;
 }
 
-
-/*
- *
- */
 
 Draw.arrow = function( canvas, orientation )
 {
@@ -104,17 +99,13 @@ else
     ctx.lineTo( margin        , height - margin );
     }
 
-
 ctx.stroke();
 };
-
-
 
 
 /*
  * Draws the button in the note that opens the note's window
  */
-
 Draw.openWindow = function( canvas )
 {
 var width = 15;
@@ -141,10 +132,6 @@ for (var i = 2 ; i < height ; i += step)
 ctx.stroke();
 };
 
-
-/*
- *
- */
 
 Draw.removeNote = function( canvas )
 {
@@ -181,5 +168,3 @@ ctx.moveTo(13, 2);
 ctx.lineTo(2, 13);
 ctx.stroke();
 };
-
-

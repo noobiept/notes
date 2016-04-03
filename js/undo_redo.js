@@ -7,13 +7,10 @@
  *      - removed notes
  *      - dragged notes
  */
-
 var UndoRedo = {
     undo_list : [],
     redo_list : []
 };
-
-
 
 
 /*
@@ -23,7 +20,6 @@ var UndoRedo = {
  *      noteObject (Note) : the object of the note in question
  *      usefulStuff  (??) : depends on 'what' is -- see in the code
  */
-
 UndoRedo.add = function( what, noteObject, usefulStuff )
 {
 switch( what )
@@ -46,11 +42,6 @@ switch( what )
 };
 
 
-
-/*
- *
- */
-
 UndoRedo.saveAddedNote = function( what, noteObject )
 {
 UndoRedo.undo_list.push({
@@ -62,16 +53,10 @@ UndoRedo.undo_list.push({
 
     });
 
-
     //on a new change, clean the REDO, so that it doesn't create conflicts
 UndoRedo.cleanRedo();
 };
 
-
-
-/*
- *
- */
 
 UndoRedo.saveRemovedNote = function( what, noteObject )
 {
@@ -84,16 +69,10 @@ UndoRedo.undo_list.push({
 
     });
 
-
     //on a new change, clean the REDO, so that it doesn't create conflicts
 UndoRedo.cleanRedo();
 };
 
-
-
-/*
- *
- */
 
 UndoRedo.saveDraggedNote = function( what, noteObject, previousPosition )
 {
@@ -110,17 +89,13 @@ UndoRedo.cleanRedo();
 };
 
 
-
 /*
  * When there's a new change in the list, we clean the redo_obj to avoid conflicts with the undo later on
  */
-
 UndoRedo.cleanRedo = function ()
 {
 UndoRedo.redo_list.length = 0;
 };
-
-
 
 
 /*
@@ -133,7 +108,6 @@ UndoRedo.redo_list.length = 0;
  *
  * So, before we undo/redo, we need to update the text/background-color
  */
-
 UndoRedo.updateNote = function(element, noteObject)
 {
     //update the text (since it could have been changed)
@@ -142,14 +116,11 @@ element.colorObject = noteObject.getColorObject();
 };
 
 
-
-
 /*
  * Arguments:
  *
  *      whichOne (string) : "undo" or "redo"
  */
-
 UndoRedo.stuff = function( whichOne )
 {
 var element;
@@ -183,8 +154,6 @@ else        //redo
         //send it to the UNDO array
     UndoRedo.undo_list.push( element );
     }
-
-
 
 var temp;
 
@@ -261,11 +230,9 @@ else if (element.what === 'draggedNote')
        }
    }
 
-
     // what is in the form: likeThis
     // separate the words with a space
 var what = element.what.replace(/[A-Z]/, function(match) { return " " + match; });
-
 
     // capitalize everything (first letter upper case)
 var capitalize = function(theString)
@@ -273,10 +240,8 @@ var capitalize = function(theString)
     return theString.replace(/\b[a-z]/i, function(match) { return match.toUpperCase(); });
     };
 
-
 what = capitalize( what );
 whichOne = capitalize( whichOne );
-
 
 Menu.showMessage( whichOne + ": " + what );
 };

@@ -35,7 +35,6 @@ if ( typeof position === 'undefined' || isNaN( position ) === true || position <
 
 this.position_int = position;
 
-
     // :: Note entry -- where you write the title :: //
 
 var noteEntry = document.createElement( 'div' );
@@ -274,12 +273,10 @@ else
         red = redUpperLimit - position * colorStep;
         }
 
-
     green = 0;
     blue  = 0;
     alpha = 0.7;
     }
-
 
 return new Color( red, green, blue, alpha );
 };
