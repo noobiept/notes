@@ -1,3 +1,6 @@
+/*global PopupWindow, UndoRedo, OptionsPage, MAIN_CONTAINER*/
+/*exported globalShortcuts*/
+
 /*
  * Keys code for the keyboard events
  */

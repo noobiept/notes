@@ -1,3 +1,5 @@
+/*global Menu, MAIN_CONTAINER, Data*/
+
 function Load()
 {
 Menu();

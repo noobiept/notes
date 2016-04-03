@@ -1,3 +1,5 @@
+/*global AppStorage, Options*/
+
 var Data;
 (function(Data) {
 
@@ -142,7 +144,7 @@ Data.changeNotePosition = function( note, previousPosition )
         {
         Data.saveNotes();
         }
-    }
+    };
 
 
 })(Data || (Data = {}));

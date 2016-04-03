@@ -1,19 +1,20 @@
+/*global Note, DummyNote*/
+
 /*
  * container of all the notes (there can be only one)
- * 
+ *
  */
 
 function MainContainer()
 {
 this.htmlElement_obj = document.querySelector( '#mainContainer' );
-    
+
 this.childrenObjects_array = [];
 
 this.dummyNote_obj = null;
 
 return this;
 }
-
 
 
 
@@ -30,7 +31,7 @@ var noteObject = new Note( this, text, noteComponents, saveToUndo, position, fro
 
     // we're getting the position from the object and not from the argument, because the argument may not have an acceptable value
 var notePosition = noteObject.getPosition();
-    
+
 var container = this.htmlElement_obj;
 
     // add to the html container element
@@ -43,7 +44,7 @@ this.childrenObjects_array.splice( notePosition, 0, noteObject );
     // only need to update when its not added at the end
 if ( this.childrenCount() !== notePosition + 1 )
     {
-    this.updateOrder( notePosition );    
+    this.updateOrder( notePosition );
     }
 
 
@@ -57,7 +58,7 @@ return noteObject;
 
 
 /*
- * 
+ *
  */
 
 MainContainer.prototype.addDummyNote = function()
@@ -73,7 +74,7 @@ this.dummyNote_obj.centerText();
 
 
 /*
- * 
+ *
  */
 
 MainContainer.prototype.getDummy = function()
@@ -84,7 +85,7 @@ return this.dummyNote_obj;
 
 
 /*
- * 
+ *
  */
 
 MainContainer.prototype.getHtmlElement = function()
@@ -118,7 +119,7 @@ return null;
 MainContainer.prototype.getLastChild = function()
 {
 var children = this.childrenObjects_array;
-    
+
 if (children.length !== 0)
     {
     return children[ children.length - 1 ];
@@ -133,7 +134,7 @@ return null;
 
 /*
  * get a specific child object (null if not found)
- * 
+ *
  * Arguments:
  *      - position (number)
  */
@@ -156,14 +157,14 @@ return this.childrenObjects_array[ position ];
 
 MainContainer.prototype.childrenCount = function()
 {
-return this.childrenObjects_array.length;  
+return this.childrenObjects_array.length;
 };
 
 
 
 /*
  * Arguments:
- *      
+ *
  *      lessPosition (int) : from what position we start updating the order, as in, where did the change occur (the elements before have the right order)
  */
 
@@ -173,7 +174,7 @@ if (typeof lessPosition === 'undefined')
     {
     lessPosition = 0;
     }
-    
+
 var notes = this.getHtmlElement().childNodes;
 
 var i;
@@ -183,15 +184,15 @@ for (i = lessPosition ; i < notes.length ; i++)
         //apply only to notes
     if ( notes[i].classList.contains( 'dummyNote' ) === false )
         {
-        notes[i].noteObject.position_int = i;   
+        notes[i].noteObject.position_int = i;
         }
     }
 
     //sort array
 this.childrenObjects_array.sort(
-    function(a, b) 
+    function(a, b)
         {
-        return a.position_int - b.position_int; 
+        return a.position_int - b.position_int;
         }
     );
 };

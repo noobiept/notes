@@ -1,6 +1,8 @@
+/*global Data, Draw, Options, Color, NoteWindow, DragDrop, UndoRedo, MAIN_CONTAINER, EVENT_KEY*/
+
 /*
  * Note's class -- its called from a MainContainer object (not directly)
- * 
+ *
  * colorComponents:
  *      {
  *      red: (int),
@@ -24,7 +26,7 @@ function Note( containerObject, text, colorComponents, saveToUndo, position, fro
 var noteObject = this;
 
     // :: Deal with the note's position :: //
-    
+
     // add at the end (its not -1, since we still didn't add to the array)
 if ( typeof position === 'undefined' || isNaN( position ) === true || position < 0 )
     {
@@ -35,7 +37,7 @@ this.position_int = position;
 
 
     // :: Note entry -- where you write the title :: //
-    
+
 var noteEntry = document.createElement( 'div' );
 noteEntry.className = "noteEntry";
 
@@ -52,7 +54,7 @@ noteEntry.addEventListener( 'input', function()
     });
 
     // :: Open the popup window :: //
-    
+
 var openWindow = Draw( 'openWindow' );
 
     // :: Remove the entry :: //
@@ -60,7 +62,7 @@ var openWindow = Draw( 'openWindow' );
 var delNote = Draw( 'delNote' );
 
     // :: note controls :: //
-    
+
 var noteControls = document.createElement( 'div' );
 noteControls.className = "noteControls";
 
@@ -167,18 +169,18 @@ return this;
 
 /*
  * Generates a color and returns a Color object
- * 
+ *
  *      With red/green/blue going from 0 to 255
  *          and alpha from 0 to 1
- * 
- * 
+ *
+ *
  * reads OPTIONS.generateColorType, to see in what way to generate the background colors
- * 
+ *
  * There's 3 ways to generate the color:
- * 
+ *
  *      "fixed_order"  : switch between a number of known colors
  *      "random"       : generate a random color every time
- *      "red_gradient" : a gradient, starting at a darker color, then moving to a red color, then back to the darker color...  
+ *      "red_gradient" : a gradient, starting at a darker color, then moving to a red color, then back to the darker color...
  */
 Note.prototype.generateColor = function()
 {
@@ -189,36 +191,36 @@ var generateColorType = Options.get( 'generateColorType' );
 if (generateColorType === 'fixed_order')
     {
     var color = this.getPosition() % 3;
-    
+
     switch( color )
         {
         case 0:
-        
+
             red = 255;
             green = 0;
             blue = 0;
             alpha = 0.6;
-            break; 
-            
+            break;
+
         case 1:
-        
+
             red = 0;
             green = 255;
             blue = 0;
             alpha = 0.6;
             break;
-        
+
         case 2:
-        
+
             red = 0;
             green = 0;
             blue = 255;
             alpha = 0.6;
             break;
-            
+
         }
     }
-    
+
 else if (generateColorType === 'random')
     {
         // Math.random() --> returns a random number from 0 to 1 (not including 1)
@@ -226,7 +228,7 @@ else if (generateColorType === 'random')
     red   = Math.round( Math.random() * 255 );
     green = Math.round( Math.random() * 255 );
     blue  = Math.round( Math.random() * 255 );
-    
+
         // means its a bright color -- choose another to get a darker color
     if ( red > 200 && green > 200 && blue && 200 )
         {
@@ -234,11 +236,11 @@ else if (generateColorType === 'random')
         red   = Math.round( Math.random() * 100 );
         green = Math.round( Math.random() * 100 );
         }
-    
+
         // get a value between 1 and 0.5
     alpha = Math.random() * 0.5 + 0.5;
     }
-    
+
     // "red_gradient"
 else
     {
@@ -272,14 +274,14 @@ else
         red = redUpperLimit - position * colorStep;
         }
 
-    
+
     green = 0;
-    blue  = 0; 
+    blue  = 0;
     alpha = 0.7;
     }
 
 
-return new Color( red, green, blue, alpha ); 
+return new Color( red, green, blue, alpha );
 };
 
 
@@ -307,7 +309,7 @@ MAIN_CONTAINER.updateOrder( position );
 
 
 /*
- * Put (keyboard) focus on a note 
+ * Put (keyboard) focus on a note
  */
 Note.prototype.gainFocus = function()
 {
@@ -406,7 +408,7 @@ Note.prototype.isLast = function()
 if ( this.position_int + 1 === this.parentObject.childrenObjects_array.length )
     {
     return true;
-    }  
+    }
 
 return false;
 };
@@ -416,16 +418,16 @@ Note.prototype.moveTo = function( position, saveToUndo )
 {
     //if there's an active element (with focus), we need to remove the focus before starting moving stuff around
     //since there are events (blur) attached to the elements, which are triggered when we move the html elements
-    //so we 'call' them now, while we haven't done anything yet 
+    //so we 'call' them now, while we haven't done anything yet
 if (document.activeElement)
     {
         //this will probably be always called, since there's always an element on focus, even if it is just the <body>
-    document.activeElement.blur();        
+    document.activeElement.blur();
     }
 
     //for undo
 var previousPosition = this.getPosition();
-    
+
     //find the position from where we need to update (depends if we move from an higher position to a lower, or the other way around)
 var lessPosition;
 
@@ -449,7 +451,7 @@ if (position === MAIN_CONTAINER.childrenCount() - 1)
         MAIN_CONTAINER.getDummy().getHtmlElement()
         );
     }
-        
+
     //when the drag was from a higher position to a lower
 else if (position > this.getPosition())
     {
@@ -458,12 +460,12 @@ else if (position > this.getPosition())
         MAIN_CONTAINER.getChild( position + 1 ).getHtmlElement()
         );
     }
-    
+
 else
     {
     MAIN_CONTAINER.getHtmlElement().insertBefore(
         this.getHtmlElement(),
-        MAIN_CONTAINER.getChild( position ).getHtmlElement() 
+        MAIN_CONTAINER.getChild( position ).getHtmlElement()
         );
     }
 

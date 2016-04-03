@@ -1,7 +1,9 @@
+/*global Options, MAIN_CONTAINER, EVENT_KEY*/
+
 function DummyNote()
 {
 var dummyObject = this;
-    
+
 var dummy = document.createElement( 'div' );
 
 dummy.className = "dummyNote";
@@ -21,8 +23,8 @@ dummy.style.margin = Options.get( 'noteMargin' ) + 'px';
 dummy.onclick = function()
     {
     var tempNote = MAIN_CONTAINER.newNote();
-    
-    tempNote.gainFocus();  
+
+    tempNote.gainFocus();
     };
 
 
@@ -41,7 +43,7 @@ return this;
 
 
 /*
- * 
+ *
  */
 
 DummyNote.prototype.keyboardEvents = function(event)
@@ -61,35 +63,35 @@ if (event.type === 'keydown')
     if (key === EVENT_KEY.enter || key === EVENT_KEY.tab)
         {
         noteObject = MAIN_CONTAINER.newNote();
-        
+
         noteObject.gainFocus();
         }
-    
+
         // focus to the last note
     else if (event.ctrlKey && key === EVENT_KEY.leftArrow)
         {
         noteObject = MAIN_CONTAINER.getLastChild();
-        
+
         if (noteObject !== null)
             {
             noteObject.gainFocus();
             }
         }
-    
+
         // focus to the first note
     else if (event.ctrlKey && key == EVENT_KEY.rightArrow)
         {
         noteObject = MAIN_CONTAINER.getFirstChild();
-        
+
         if (noteObject !== null)
             {
             noteObject.gainFocus();
             }
-        }    
-    
+        }
+
         // else --> cancel other input
 
-    
+
     event.preventDefault();
     event.stopPropagation();
     }
@@ -124,11 +126,11 @@ var left = (dummyWidth / 2) - (textWidth  / 2);
 $( dummyText ).css('top', top + 'px');
 $( dummyText ).css('left', left + 'px');
 };
- 
+
 
 
 /*
- * 
+ *
  */
 
 DummyNote.prototype.getHtmlElement = function()
@@ -139,7 +141,7 @@ return this.dummy_html;
 
 
 /*
- * 
+ *
  */
 
 DummyNote.prototype.gainFocus = function()

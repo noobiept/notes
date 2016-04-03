@@ -1,3 +1,6 @@
+/*global Data, MainContainer, Load, PopupWindow, globalShortcuts*/
+/*exported MAIN_CONTAINER*/
+
 var MAIN_CONTAINER = null;
 
 

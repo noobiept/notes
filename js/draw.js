@@ -11,33 +11,33 @@ element.className = className;
 switch (className)
     {
     case 'delNote':
-        
+
         element.title = 'remove note';
         Draw.removeNote( element );
-        
+
         break;
-        
+
     case 'openWindow':
-    
+
         element.title = 'open window';
         Draw.openWindow( element );
-    
+
         break;
-        
+
     case 'NoteWindow-leftArrow':
-    
+
         element.title = 'Previous Note';
         Draw.arrow( element, 'left' );
-        
+
         break;
-        
+
     case 'NoteWindow-rightArrow':
-    
+
         element.title = 'Next Note';
         Draw.arrow( element, 'right' );
-        
+
         break;
-        
+
     }
 
 return element;
@@ -45,7 +45,7 @@ return element;
 
 
 /*
- * 
+ *
  */
 
 Draw.arrow = function( canvas, orientation )
@@ -72,15 +72,15 @@ if (orientation == 'left')
     {
     ctx.lineWidth = 4;
     ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-    
+
     ctx.moveTo( width - margin, margin          );
     ctx.lineTo( margin        , height / 2      );
     ctx.lineTo( width - margin, height - margin );
     ctx.stroke();
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgb(255, 255, 255)';    
-    
+    ctx.strokeStyle = 'rgb(255, 255, 255)';
+
     ctx.moveTo( width - margin, margin          );
     ctx.lineTo( margin        , height / 2      );
     ctx.lineTo( width - margin, height - margin );
@@ -90,15 +90,15 @@ else
     {
     ctx.lineWidth = 4;
     ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-    
+
     ctx.moveTo( margin        , margin          );
     ctx.lineTo( width - margin, height / 2      );
     ctx.lineTo( margin        , height - margin );
     ctx.stroke();
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgb(255, 255, 255)';    
-    
+    ctx.strokeStyle = 'rgb(255, 255, 255)';
+
     ctx.moveTo( margin        , margin          );
     ctx.lineTo( width - margin, height / 2      );
     ctx.lineTo( margin        , height - margin );
@@ -119,7 +119,7 @@ Draw.openWindow = function( canvas )
 {
 var width = 15;
 var height = 15;
-    
+
 canvas.width  = width;
 canvas.height = height;
 
@@ -143,7 +143,7 @@ ctx.stroke();
 
 
 /*
- * 
+ *
  */
 
 Draw.removeNote = function( canvas )

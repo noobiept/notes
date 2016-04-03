@@ -1,14 +1,16 @@
+/*global EVENT_KEY*/
+
 /*
  * the popup window constructor
- * 
- *  
+ *
+ *
  * Arguments:
  *      - contentElement    : an html element with the content to add to the window
  *      - onStartFunction   : to be called when the window is created
  *      - onHideFunction    : to be called when the window is closed
  *      - shortcutsFunction : to be called when keys are pressed
  *      - onResizeFunction  : to be called when the PopupWindow's resize is called
- * 
+ *
  */
 
 function PopupWindow (contentElement, onStartFunction, onHideFunction, shortcutsFunction, onResizeFunction)
@@ -21,7 +23,7 @@ var popupWindowObject = this;
 if (document.activeElement)
     {
         //this will probably be always called, since there's always an element on focus, even if it is just the <body>
-    document.activeElement.blur();        
+    document.activeElement.blur();
     }
 
 
@@ -49,8 +51,8 @@ $(windowContainer).css( 'z-index', PopupWindow.zIndex_class + numberOfOpenedWind
 
 
     // :: setting up the events :: //
-    
-windowOverlay.addEventListener('click', function () { popupWindowObject.hide(); }, false);  
+
+windowOverlay.addEventListener('click', function () { popupWindowObject.hide(); }, false);
 
 
     //this is going to be set when we show the window, and cleared when the window is closed
@@ -58,10 +60,10 @@ windowOverlay.addEventListener('click', function () { popupWindowObject.hide(); 
 this.shortcut_obj = function (event)
     {
     popupWindowObject.shortcuts(event);
-    
+
     if (typeof shortcutsFunction !== 'undefined')
         {
-        shortcutsFunction(event);        
+        shortcutsFunction(event);
         }
     };
 
@@ -132,7 +134,7 @@ return true;
 
 /*
  * show the popup window
- * 
+ *
  * Arguments:
  *      - contentElement    : an html element with the content to add to the window
  *      - onStartFunction   : to be called when the window is created
@@ -145,7 +147,7 @@ PopupWindow.prototype.show = function (contentElement, onStartFunction)
 
 this.isOpened_obj = true;
 
-var container = this.getContainer(); 
+var container = this.getContainer();
 var overlay = this.getOverlay();
 
 
@@ -156,7 +158,7 @@ this.windowContent_obj = contentElement;
 contentElement.classList.add( 'windowContent' );
 
 this.windowContainer_obj.appendChild( contentElement );
-    
+
 
 
     //set the overlay to cover the whole page
@@ -172,7 +174,7 @@ this.centerWindow();
 
 
 
-window.addEventListener('resize', 
+window.addEventListener('resize',
     function (event)
         {
         overlay.style.height = $(document).height() + 'px';
@@ -182,7 +184,7 @@ window.addEventListener('resize',
 
 
 var popupWin = this;
-$(container).resize(function () 
+$(container).resize(function ()
     {
         //re-center the window when the container is resized
     popupWin.centerWindow();
@@ -197,12 +199,12 @@ $(container).resize(function ()
 //if ( PopupWindow.allWindows_class.length === 0 )
     //{//HERE .. uns erros...
         //show the window and overlay
-    $(overlay).show('fade', 100);    
+    $(overlay).show('fade', 100);
     //}
 
 
 
-$(container).css('display', 'block');   //I'm not using something like $(container).show('blind', 100); since it then doesn't position the window correctly 
+$(container).css('display', 'block');   //I'm not using something like $(container).show('blind', 100); since it then doesn't position the window correctly
 $(container).css('opacity', 1);
 
 
@@ -216,7 +218,7 @@ if (typeof onStartFunction !== 'undefined' && onStartFunction !== null)
 
 
 
-var allWindows = PopupWindow.allWindows_class; 
+var allWindows = PopupWindow.allWindows_class;
 
     //if there another opened tab, deal with the keyboard shortcuts
 if (allWindows.length !== 0)
@@ -240,7 +242,7 @@ PopupWindow.allWindows_class.push( this );
 
 /*
  * hide the popup window
- * 
+ *
  * Arguments:
  *      - effectTime (number) : (default: 100ms)
  */
@@ -251,10 +253,10 @@ if (typeof this.onHide_f !== 'undefined' && this.onHide_f !== null)
     {
     this.onHide_f();
     }
-    
-    
+
+
 var popupWindowObject = this;
-    
+
 if (typeof effectTime === 'undefined')
     {
     effectTime = 100;   //default value
@@ -275,14 +277,14 @@ this.windowContent_obj = null;
     //if this is the only opened window, then hide the overlay ( //HERE o overlay nao eh global.. eh de cada objecto )
 //if ( PopupWindow.allWindows_class.length === 1 )
     //{ //HERE
-    $(overlay).hide('fade', effectTime, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );        
+    $(overlay).hide('fade', effectTime, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
     //}
 
 
 this.isOpened_obj = false;
 
 
-    
+
     //remove from body
 document.body.removeChild( windowContainer );
 
@@ -300,7 +302,7 @@ if (allWindows.length !== 0)
         //we have to add back the shortcut events
     document.addEventListener('keyup', allWindows[ allWindows.length - 1 ].shortcut_obj, false);
     }
-    
+
     //remove from this PopupWindow
 document.removeEventListener('keyup', this.shortcut_obj, false);
 };
@@ -332,7 +334,7 @@ return this.windowOverlay_obj;
 
 
 /*
- * returns the #windowContainer element 
+ * returns the #windowContainer element
  */
 
 PopupWindow.prototype.getContainer = function ()
@@ -378,8 +380,8 @@ var content = this.windowContent_obj;
 
 if ( $(content).outerHeight() > $(container).outerHeight() )    //HERE the scrollbar breaks the element's position ( for elementWindow )
     {
-   
-//    console.log('scroll bar..');        
+
+//    console.log('scroll bar..');
     }*/
 };
 
@@ -422,9 +424,9 @@ for (i = 0 ; i < all.length ; i++)
 
 /*
  * popup window 'global' shortcuts
- * 
+ *
  *      - esc  : closes the window
- * 
+ *
  */
 
 PopupWindow.prototype.shortcuts = function (event)
@@ -437,9 +439,9 @@ if (event.type === 'keyup')
     if (key === EVENT_KEY.esc)
         {
         this.hide();
-    
+
         event.stopPropagation();
-        } 
+        }
     }
 };
 

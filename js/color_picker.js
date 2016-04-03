@@ -1,10 +1,12 @@
+/*exported getColorPicker*/
+
 /*
  * Arguments:
- * 
+ *
  *      colorObject : an object of type Color that corresponds to a noteObject
  *      container   : the element that will get its background-color updated
  *      onColorChange (function) : is executed when a color changes
- * 
+ *
  */
 function getColorPicker( colorObject, container, onColorChange_f )
 {
@@ -40,7 +42,7 @@ if (typeof onColorChange === 'undefined')
     }
 
     // :: The letter indicating the base color :: //
-    
+
 var redText = document.createElement( 'div' );
 
 redText.className = "ColorPicker-text";
@@ -64,14 +66,14 @@ var alphaText = document.createElement( 'div' );
 alphaText.className = "ColorPicker-text";
 alphaText.innerHTML = "Alpha";
 
-    
+
     // :: The current value of each color :: //
-    
+
 var redValue = document.createElement( 'div' );
 
 redValue.className = "ColorPicker-value";
 redValue.innerHTML = red;
-    
+
 
 var greenValue = document.createElement( 'div' );
 
@@ -95,7 +97,7 @@ alphaValue.innerHTML = alpha.toFixed( 2 );
 
 
     // :: A container for the text/value so that they appear next to each other :: //
-    
+
 var redTextValueContainer = document.createElement( 'div' );
 
 redTextValueContainer.className = "ColorPicker-textValueContainer";
@@ -121,7 +123,7 @@ alphaTextValueContainer.appendChild( alphaText );
 alphaTextValueContainer.appendChild( alphaValue );
 
     // :: The sliders to change the color value :: //
-    
+
 
 var redSlider = document.createElement( 'div' );
 
@@ -174,7 +176,7 @@ $( blueSlider ).slider({
         {
         blueValue.innerHTML = ui.value;
         colorObject.setBlue( ui.value );
-        
+
         onColorChange();
         }
     });
@@ -193,14 +195,14 @@ $( alphaSlider ).slider({
         {
         alphaValue.innerHTML = ui.value;
         colorObject.setAlpha( ui.value );
-        
+
         onColorChange();
         }
     });
-    
-    
+
+
     // :: containers and stuff :: //
-    
+
 var redContainer = document.createElement( 'div' );
 
 redContainer.className = "ColorPicker-colorContainer";

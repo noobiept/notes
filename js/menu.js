@@ -1,3 +1,5 @@
+/*global MAIN_CONTAINER, OptionsPage, UndoRedo*/
+
 /*
  * Menu initialization.
  */

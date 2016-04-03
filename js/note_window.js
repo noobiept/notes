@@ -1,3 +1,5 @@
+/*global Draw, Data, Options, PopupWindow, MAIN_CONTAINER, getColorPicker, EVENT_KEY*/
+
 /*
  * Open a popup window for a note
  */
@@ -5,7 +7,7 @@
 function NoteWindow( noteObject )
 {
     // :: Menu :: //
-    
+
 var removeNote = Draw( 'delNote' );
 
 removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
@@ -14,7 +16,7 @@ removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
 var options = document.createElement( 'div' );
 
 options.className = "NoteWindow-options";
-options.innerHTML = "Options"; 
+options.innerHTML = "Options";
 
 
 var menu = document.createElement( 'div' );
@@ -25,11 +27,11 @@ menu.appendChild( options );
 menu.appendChild( removeNote );
 
 
-$( options ).bind( 'click', function() 
+$( options ).bind( 'click', function()
     {
         // open with the noteObject of the currently displayed note (it can change with the left/right arrows)
         // don't bind to the initial note
-    NoteWindow.openOptions( NoteWindow.noteObject_obj );  
+    NoteWindow.openOptions( NoteWindow.noteObject_obj );
     });
 
 
@@ -122,7 +124,7 @@ NoteWindow.popupWindow_ui = new PopupWindow( container, NoteWindow.onStart, Note
 
 /*
  * To be executed when the window is created
- * 
+ *
  * Set focus on the title entry
  */
 
@@ -137,7 +139,7 @@ NoteWindow.isOpened_bool = true;
 
 /*
  * To be executed when the window is closed
- * 
+ *
  * Save the title/text, and set focus to the note
  */
 NoteWindow.onHide = function()
@@ -170,25 +172,25 @@ NoteWindow.text_ui.focus();
 
 
 /*
- * Update the content of the NoteWindow with the note to the left 
- * 
+ * Update the content of the NoteWindow with the note to the left
+ *
  *      if there's only one, does nothing
  *      if first note, it goes to the last one
  */
 NoteWindow.goLeftNote = function()
 {
 var noteObject = NoteWindow.noteObject_obj;
-    
+
     // if there's only one, do nothing
 if ( MAIN_CONTAINER.childrenCount() > 1 )
     {
     var otherElement = noteObject.previous();
-            
+
         // this is the first one
     if ( otherElement === null )
         {
         otherElement = MAIN_CONTAINER.getLastChild();
-        }     
+        }
 
     NoteWindow.updateContent( otherElement );
     }
@@ -197,7 +199,7 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
 
 /*
  * Update the content of the NoteWindow with the note to the right
- * 
+ *
  *      if there's only one, do nothing
  *      if its the last note, go to the first
  */
@@ -205,20 +207,20 @@ if ( MAIN_CONTAINER.childrenCount() > 1 )
 NoteWindow.goRightNote = function()
 {
 var noteObject = NoteWindow.noteObject_obj;
-    
+
      // if there's only one, do nothing
 if ( MAIN_CONTAINER.childrenCount() > 1 )
     {
     var otherElement = noteObject.next();
-    
+
         // this is the first one
     if ( otherElement === null )
         {
         otherElement = MAIN_CONTAINER.getFirstChild();
-        }     
+        }
 
     NoteWindow.updateContent( otherElement );
-    } 
+    }
 };
 
 
@@ -268,7 +270,7 @@ if (otherNoteObject === null)
 if (otherNoteObject === null)
     {
     var popupWindow = NoteWindow.popupWindow_ui;
-        
+
     popupWindow.hide();
     }
 
@@ -298,22 +300,22 @@ backgroundColorText.innerHTML = "Background color:";
 var generatedType = document.createElement( 'div' );
 generatedType.className = "NoteWindow-generated";
 generatedType.innerHTML = "is generated";
-    
+
 var fixedType = document.createElement( 'div' );
 fixedType.className = "NoteWindow-fixed";
 fixedType.innerHTML = "is fixed";
-    
+
 if (colorObject.wasSetByUser() === true)
     {
     fixedType.classList.add( "NoteWindow-selected" );
     }
-    
+
 else
     {
     generatedType.classList.add( "NoteWindow-selected" );
     }
-    
-var selectTypeContainer = document.createElement( 'div' ); 
+
+var selectTypeContainer = document.createElement( 'div' );
 
 selectTypeContainer.className = "NoteWindow-selectBackgroundTypeContainer";
 selectTypeContainer.appendChild( backgroundColorText );
@@ -321,23 +323,23 @@ selectTypeContainer.appendChild( generatedType );
 selectTypeContainer.appendChild( fixedType );
 
     // :: Events :: //
-    
+
     // color stops being fixed, and can have a different color next time the program runs (can be generated)
 $( generatedType ).bind( 'click', function()
     {
     generatedType.classList.add( "NoteWindow-selected" );
-    fixedType.classList.remove( "NoteWindow-selected" ); 
-    
+    fixedType.classList.remove( "NoteWindow-selected" );
+
     colorObject.canBeGenerated( true );
-    });   
+    });
 
     // the current color becomes fixed
 $( fixedType ).bind( 'click', function()
     {
     fixedType.classList.add( "NoteWindow-selected" );
-    generatedType.classList.remove( "NoteWindow-selected" ); 
-    
-    colorObject.canBeGenerated( false );    
+    generatedType.classList.remove( "NoteWindow-selected" );
+
+    colorObject.canBeGenerated( false );
     });
 
     // :: Other :: //
@@ -347,22 +349,22 @@ var optionsContainer = document.createElement( 'div' );
 var onColorChange = function()
     {
     generatedType.classList.remove( "NoteWindow-selected" );
-    fixedType.classList.add( "NoteWindow-selected" );  
+    fixedType.classList.add( "NoteWindow-selected" );
     };
 
 var colorPicker = getColorPicker( colorObject, optionsContainer, onColorChange );
 
 optionsContainer.appendChild( selectTypeContainer );
-optionsContainer.appendChild( colorPicker ); 
+optionsContainer.appendChild( colorPicker );
 
 var colorPickerOnHide = function() {
-    
+
     NoteWindow.container_ui.style.backgroundColor = colorObject.getCssRepresentation();
 
     noteObject.updateBackgroundColor();
     Data.changeNoteBackgroundColor( noteObject );
     };
-    
+
 new PopupWindow( optionsContainer, null, colorPickerOnHide );
 };
 
@@ -385,7 +387,7 @@ if (event.type === 'keyup')
         {
         NoteWindow.goLeftNote();
         }
-        
+
         // move to the note to the right (or if this is the last one, go to the first)
     else if (event.ctrlKey && key === EVENT_KEY.rightArrow)
         {
