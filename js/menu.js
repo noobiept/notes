@@ -34,7 +34,7 @@ redo.addEventListener( 'click', function() { UndoRedo.stuff( 'redo' ); }, false 
 var donate = menu.querySelector( '#donate' );
 donate.addEventListener( 'click', function()
     {
-    window.open( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UQ6ZF2JKUC626', '_blank' );
+    window.open( 'http://nbpt.eu/donate/', '_blank' );
     }, false );
 }
 
