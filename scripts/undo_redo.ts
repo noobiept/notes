@@ -18,7 +18,7 @@ var REDO_LIST = [];
  *      noteObject (Note) : the object of the note in question
  *      usefulStuff  (??) : depends on 'what' is -- see in the code
  */
-export function add( what, noteObject, usefulStuff )
+export function add( what, noteObject, usefulStuff? )
     {
     switch( what )
         {
