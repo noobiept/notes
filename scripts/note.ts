@@ -1,5 +1,3 @@
-/*global Data, Draw, Options, Color, NoteWindow, DragDrop, UndoRedo, MAIN_CONTAINER, EVENT_KEY*/
-
 /*
  * Note's class -- its called from a MainContainer object (not directly)
  *
@@ -54,11 +52,11 @@ noteEntry.addEventListener( 'input', function()
 
     // :: Open the popup window :: //
 
-var openWindow = Draw( 'openWindow' );
+var openWindow = Draw.create( 'openWindow' );
 
     // :: Remove the entry :: //
 
-var delNote = Draw( 'delNote' );
+var delNote = Draw.create( 'delNote' );
 
     // :: note controls :: //
 

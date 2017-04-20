@@ -1,5 +1,3 @@
-/*global Draw, Data, Options, PopupWindow, MAIN_CONTAINER, getColorPicker, EVENT_KEY*/
-
 /*
  * Open a popup window for a note
  */
@@ -7,7 +5,7 @@ function NoteWindow( noteObject )
 {
     // :: Menu :: //
 
-var removeNote = Draw( 'delNote' );
+var removeNote = Draw.create( 'delNote' );
 
 removeNote.addEventListener( 'click', NoteWindow.removeNote, false );
 
@@ -56,7 +54,7 @@ else
 
     // :: Left arrow -- change to the note to the left :: //
 
-var left = Draw( 'NoteWindow-leftArrow' );
+var left = Draw.create( 'NoteWindow-leftArrow' );
 
 //var width = $(window).width();
 var height = $(window).height();
@@ -73,7 +71,7 @@ left.addEventListener( 'click', function() { NoteWindow.goLeftNote(); }, false )
 
     // :: Right arrow -- change to the note to the right :: //
 
-var right = Draw( 'NoteWindow-rightArrow' );
+var right = Draw.create( 'NoteWindow-rightArrow' );
 
 
 $( right ).css( 'right', '100px' );//HERE
