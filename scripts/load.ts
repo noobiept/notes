@@ -2,7 +2,7 @@
 
 function Load()
 {
-Menu();
+Menu.init();
 Load.notes();
 
 MAIN_CONTAINER.addDummyNote();

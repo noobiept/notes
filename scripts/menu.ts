@@ -1,72 +1,71 @@
-/*global MAIN_CONTAINER, OptionsPage, UndoRedo*/
+module Menu
+{
+var MESSAGE_TIMEOUT: number | null = null;
+var MESSAGE: HTMLElement;
+
 
 /*
  * Menu initialization.
  */
-function Menu()
-{
-var menu = document.querySelector( '#menu' );
-
-    // :: New Note :: //
-
-var newNote = menu.querySelector( '#newNote' );
-
-newNote.addEventListener( 'click', function(event)
+export function init()
     {
-    var noteObject = MAIN_CONTAINER.newNote();
+    var menu = document.querySelector( '#menu' );
 
-    noteObject.gainFocus();
+        // :: New Note :: //
 
-    }, false );
+    var newNote = menu.querySelector( '#newNote' );
 
+    newNote.addEventListener( 'click', function(event)
+        {
+        var noteObject = MAIN_CONTAINER.newNote();
 
-var options = menu.querySelector( '#options' );
-options.addEventListener( 'click', function() { new OptionsPage(); }, false );
+        noteObject.gainFocus();
 
-Menu.message = menu.querySelector( '#message' );
-
-var undo = menu.querySelector( '#undo' );
-undo.addEventListener( 'click', function() { UndoRedo.stuff( 'undo' ); }, false );
-
-var redo = menu.querySelector( '#redo' );
-redo.addEventListener( 'click', function() { UndoRedo.stuff( 'redo' ); }, false );
-
-var donate = menu.querySelector( '#donate' );
-donate.addEventListener( 'click', function()
-    {
-    window.open( 'http://nbpt.eu/donate/', '_blank' );
-    }, false );
-}
+        }, false );
 
 
-/* ******************* Deals with messages **************** */
-/*
- * Arguments:
- *      - content (string) -> the stuff to be written
- *
- */
-Menu.messageTimeout_f = null;
+    var options = menu.querySelector( '#options' );
+    options.addEventListener( 'click', function() { new OptionsPage(); }, false );
 
+    MESSAGE = <HTMLElement> menu.querySelector( '#message' );
 
-Menu.showMessage = function (content)
-{
-Menu.message.innerHTML = content;
+    var undo = menu.querySelector( '#undo' );
+    undo.addEventListener( 'click', function() { UndoRedo.stuff( 'undo' ); }, false );
 
-    // show the message
-Menu.message.style.opacity = 1;
+    var redo = menu.querySelector( '#redo' );
+    redo.addEventListener( 'click', function() { UndoRedo.stuff( 'redo' ); }, false );
 
-    // if there was a previous message being displayed before, we need to cancel its timeout (otherwise, this message will end sooner)
-if ( Menu.messageTimeout_f !== null)
-    {
-    window.clearTimeout( Menu.messageTimeout_f );
+    var donate = menu.querySelector( '#donate' );
+    donate.addEventListener( 'click', function()
+        {
+        window.open( 'http://nbpt.eu/donate/', '_blank' );
+        }, false );
     }
 
-    // adds a fade style
-Menu.messageTimeout_f = setTimeout(
-    function()
+
+/**
+ * Show a message in the menu.
+ */
+export function showMessage( content: string )
+    {
+    MESSAGE.innerHTML = content;
+
+        // show the message
+    MESSAGE.style.opacity = '1';
+
+        // if there was a previous message being displayed before, we need to cancel its timeout (otherwise, this message will end sooner)
+    if ( MESSAGE_TIMEOUT !== null)
         {
-        Menu.message.style.opacity = 0;
-        Menu.messageTimeout_f = null;
-        },
-    1000);
-};
+        window.clearTimeout( MESSAGE_TIMEOUT );
+        }
+
+        // adds a fade style
+    MESSAGE_TIMEOUT = setTimeout(
+        function()
+            {
+            MESSAGE.style.opacity = '0';
+            MESSAGE_TIMEOUT = null;
+            },
+        1000);
+    }
+}
