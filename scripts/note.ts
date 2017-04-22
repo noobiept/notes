@@ -153,7 +153,7 @@ constructor( containerObject, text, colorComponents, saveToUndo, position, fromL
     noteContainer.noteObject = this;
 
         // make notes draggable
-    this.dragDrop_obj = new DragDrop( noteContainer , noteControls, this );
+    this.dragDrop_obj = new DragDrop( noteContainer, noteControls, this );
 
     this.parentObject = containerObject;
     this.noteEntry_obj = noteEntry;

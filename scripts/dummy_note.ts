@@ -1,126 +1,130 @@
-/*global Options, MAIN_CONTAINER, EVENT_KEY*/
-
-function DummyNote()
+class DummyNote
 {
-var dummyObject = this;
+dummy_html: HTMLElement;
+dummyText_ui: HTMLElement;
 
-var dummy = document.createElement( 'div' );
 
-dummy.className = "dummyNote";
-
-var dummyText = document.createElement( 'div' );
-
-dummyText.className = "DummyNote-text";
-dummyText.innerHTML = "New Note";
-dummyText.setAttribute( 'spellcheck', 'false' );
-dummyText.setAttribute( 'contenteditable', 'true' );
-
-dummy.style.width  = Options.get( 'noteWidth'  ) + 'px';
-dummy.style.height = Options.get( 'noteHeight' ) + 'px';
-dummy.style.margin = Options.get( 'noteMargin' ) + 'px';
-
-dummy.onclick = function()
+constructor()
     {
-    var tempNote = MAIN_CONTAINER.newNote();
+    var dummyObject = this;
 
-    tempNote.gainFocus();
-    };
+    var dummy = document.createElement( 'div' );
+    dummy.className = "dummyNote";
 
-dummy.addEventListener( 'keydown', function(event) { dummyObject.keyboardEvents( event ); }, false );
+    var dummyText = document.createElement( 'div' );
 
-dummy.appendChild( dummyText );
+    dummyText.className = "DummyNote-text";
+    dummyText.innerHTML = "New Note";
+    dummyText.setAttribute( 'spellcheck', 'false' );
+    dummyText.setAttribute( 'contenteditable', 'true' );
 
-this.dummy_html = dummy;
-this.dummyText_ui = dummyText;
+    dummy.style.width  = Options.get( 'noteWidth'  ) + 'px';
+    dummy.style.height = Options.get( 'noteHeight' ) + 'px';
+    dummy.style.margin = Options.get( 'noteMargin' ) + 'px';
 
-return this;
-}
+    dummy.onclick = function()
+        {
+        var tempNote = MAIN_CONTAINER.newNote();
 
+        tempNote.gainFocus();
+        };
 
-DummyNote.prototype.keyboardEvents = function(event)
-{
-var key = event.which;
-var noteObject;
+    dummy.addEventListener( 'keydown', function(event) { dummyObject.keyboardEvents( event ); }, false );
 
-    //allow the F1, F2, ... until F12 keys to pass
-if ( key >= EVENT_KEY.f1 && key <= EVENT_KEY.f12 )
-    {
-    return;
+    dummy.appendChild( dummyText );
+
+    this.dummy_html = dummy;
+    this.dummyText_ui = dummyText;
+
+    return this;
     }
 
-if (event.type === 'keydown')
+
+keyboardEvents( event )
     {
-        // add a new note
-    if (key === EVENT_KEY.enter || key === EVENT_KEY.tab)
-        {
-        noteObject = MAIN_CONTAINER.newNote();
+    var key = event.which;
+    var noteObject;
 
-        noteObject.gainFocus();
+        //allow the F1, F2, ... until F12 keys to pass
+    if ( key >= EVENT_KEY.f1 && key <= EVENT_KEY.f12 )
+        {
+        return;
         }
 
-        // focus to the last note
-    else if (event.ctrlKey && key === EVENT_KEY.leftArrow)
+    if (event.type === 'keydown')
         {
-        noteObject = MAIN_CONTAINER.getLastChild();
-
-        if (noteObject !== null)
+            // add a new note
+        if (key === EVENT_KEY.enter || key === EVENT_KEY.tab)
             {
+            noteObject = MAIN_CONTAINER.newNote();
+
             noteObject.gainFocus();
             }
-        }
 
-        // focus to the first note
-    else if (event.ctrlKey && key == EVENT_KEY.rightArrow)
-        {
-        noteObject = MAIN_CONTAINER.getFirstChild();
-
-        if (noteObject !== null)
+            // focus to the last note
+        else if (event.ctrlKey && key === EVENT_KEY.leftArrow)
             {
-            noteObject.gainFocus();
+            noteObject = MAIN_CONTAINER.getLastChild();
+
+            if (noteObject !== null)
+                {
+                noteObject.gainFocus();
+                }
             }
+
+            // focus to the first note
+        else if (event.ctrlKey && key == EVENT_KEY.rightArrow)
+            {
+            noteObject = MAIN_CONTAINER.getFirstChild();
+
+            if (noteObject !== null)
+                {
+                noteObject.gainFocus();
+                }
+            }
+
+            // else --> cancel other input
+
+        event.preventDefault();
+        event.stopPropagation();
         }
-
-        // else --> cancel other input
-
-    event.preventDefault();
-    event.stopPropagation();
     }
-};
 
 
 /*
     Center the dummy text in the center of the note (the elements have to be already been appended, otherwise the calculations might not give the right results)
  */
-DummyNote.prototype.centerText = function()
-{
-var dummy = this.dummy_html;
-var dummyText = this.dummyText_ui;
+centerText()
+    {
+    var dummy = this.dummy_html;
+    var dummyText = this.dummyText_ui;
 
-    //get the dummy note measures
-var dummyWidth = $( dummy ).outerWidth();
-var dummyHeight = $( dummy ).outerHeight();
+        //get the dummy note measures
+    var dummyWidth = $( dummy ).outerWidth();
+    var dummyHeight = $( dummy ).outerHeight();
 
-    //and the dummy text
-var textWidth = $( dummyText ).outerWidth();
-var textHeight = $( dummyText ).outerHeight();
+        //and the dummy text
+    var textWidth = $( dummyText ).outerWidth();
+    var textHeight = $( dummyText ).outerHeight();
 
-    //we want to have the text on the center of the dummy note, so lets calculate the top and left values
-var top = (dummyHeight / 2) - (textHeight / 2);
-var left = (dummyWidth / 2) - (textWidth  / 2);
+        //we want to have the text on the center of the dummy note, so lets calculate the top and left values
+    var top = (dummyHeight / 2) - (textHeight / 2);
+    var left = (dummyWidth / 2) - (textWidth  / 2);
 
-    //position the window at the center of the page
-$( dummyText ).css('top', top + 'px');
-$( dummyText ).css('left', left + 'px');
-};
-
-
-DummyNote.prototype.getHtmlElement = function()
-{
-return this.dummy_html;
-};
+        //position the window at the center of the page
+    $( dummyText ).css('top', top + 'px');
+    $( dummyText ).css('left', left + 'px');
+    }
 
 
-DummyNote.prototype.gainFocus = function()
-{
-this.dummyText_ui.focus();
-};
+getHtmlElement()
+    {
+    return this.dummy_html;
+    }
+
+
+gainFocus()
+    {
+    this.dummyText_ui.focus();
+    }
+}
