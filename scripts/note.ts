@@ -144,7 +144,7 @@ constructor( containerObject, text, colorComponents, saveToUndo, position, fromL
         });
 
 
-    openWindow.addEventListener( 'click', function() { NoteWindow( noteObject ); }, false );
+    openWindow.addEventListener( 'click', function() { NoteWindow.open( noteObject ); }, false );
 
     delNote.addEventListener( 'click', function() { noteObject.remove(); }, false );
 
