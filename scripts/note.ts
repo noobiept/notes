@@ -621,7 +621,7 @@ keyboardShortcuts( event )
             // open the NoteWindow
         else if (event.altKey && key === EVENT_KEY.w)
             {
-            NoteWindow( noteObject );
+            NoteWindow.open( noteObject );
             }
         }
     }
