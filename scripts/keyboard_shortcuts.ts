@@ -113,7 +113,7 @@ if ( event.type === 'keyup' )
         // alt + o -- open the (o)ptions
     else if ( event.altKey && key === EVENT_KEY.o )
         {
-        new OptionsPage();
+        OptionsPage.create();
 
         event.stopPropagation();
         }

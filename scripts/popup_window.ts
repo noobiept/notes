@@ -27,7 +27,7 @@ isOpened_obj: boolean;
  *      - onResizeFunction  : to be called when the PopupWindow's resize is called
  *
  */
-constructor( contentElement, onStartFunction, onHideFunction, shortcutsFunction, onResizeFunction )
+constructor( contentElement, onStartFunction, onHideFunction, shortcutsFunction?, onResizeFunction? )
     {
     var popupWindowObject = this;
 
