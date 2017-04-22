@@ -83,16 +83,12 @@ constructor( contentElement, onStartFunction, onHideFunction, shortcutsFunction?
     $(windowContainer).css('display', 'none');
     $(windowOverlay).css('display', 'none');
 
-        //save the object in an html element
-    windowContainer.popupWindowObject = this;
-
-    this.onHide_f = onHideFunction;
-
     if (typeof onResizeFunction === 'undefined')
         {
         onResizeFunction = null;
         }
 
+    this.onHide_f = onHideFunction;
     this.onResize_f = onResizeFunction;
 
     this.windowOverlay_obj = windowOverlay;

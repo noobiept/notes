@@ -1,5 +1,3 @@
-/*exported getColorPicker*/
-
 /*
  * Arguments:
  *
