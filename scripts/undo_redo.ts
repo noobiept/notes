@@ -7,8 +7,19 @@
  */
 module UndoRedo
 {
-var UNDO_LIST = [];
-var REDO_LIST = [];
+type ActionType = 'removedNote' | 'addedNote' | 'draggedNote';
+
+interface Action
+    {
+    what: ActionType;
+    position: number;
+    text?: string;
+    colorObject?: Color;
+    previousPosition?: number;
+    }
+
+var UNDO_LIST: Action[] = [];
+var REDO_LIST: Action[] = [];
 
 
 /*
@@ -18,7 +29,7 @@ var REDO_LIST = [];
  *      noteObject (Note) : the object of the note in question
  *      usefulStuff  (??) : depends on 'what' is -- see in the code
  */
-export function add( what, noteObject, usefulStuff? )
+export function add( what: ActionType, noteObject: Note, previousPosition?: number )
     {
     switch( what )
         {
@@ -34,13 +45,13 @@ export function add( what, noteObject, usefulStuff? )
 
         case 'draggedNote':
 
-            saveDraggedNote( what, noteObject, usefulStuff );
+            saveDraggedNote( what, noteObject, previousPosition! );
             break;
         }
     }
 
 
-function saveAddedNote( what, noteObject )
+function saveAddedNote( what: ActionType, noteObject: Note )
     {
     UNDO_LIST.push({
 
@@ -56,7 +67,7 @@ function saveAddedNote( what, noteObject )
     }
 
 
-function saveRemovedNote( what, noteObject )
+function saveRemovedNote( what: ActionType, noteObject: Note )
     {
     UNDO_LIST.push({
 
@@ -72,7 +83,7 @@ function saveRemovedNote( what, noteObject )
     }
 
 
-function saveDraggedNote( what, noteObject, previousPosition )
+function saveDraggedNote( what: ActionType, noteObject: Note, previousPosition: number )
     {
     UNDO_LIST.push({
 
@@ -106,7 +117,7 @@ function cleanRedo()
  *
  * So, before we undo/redo, we need to update the text/background-color
  */
-function updateNote(element, noteObject)
+function updateNote( element: Action, noteObject: Note )
     {
         //update the text (since it could have been changed)
     element.text = noteObject.getText();
@@ -115,24 +126,22 @@ function updateNote(element, noteObject)
 
 
 /*
- * Arguments:
- *
- *      whichOne (string) : "undo" or "redo"
+ * Undo or redo an action.
  */
-export function stuff( whichOne )
+export function stuff( whichOne: 'undo' | 'redo' )
     {
-    var element;
+    var element: Action;
 
-    if (whichOne === 'undo')
+    if ( whichOne === 'undo' )
         {
-        if (UNDO_LIST.length === 0)
+        if ( UNDO_LIST.length === 0 )
             {
             Menu.showMessage('Nothing to restore');
             return;
             }
 
             //get last element
-        element = UNDO_LIST.pop();
+        element = UNDO_LIST.pop()!;
 
             //send it to the redo array
         REDO_LIST.push( element );
@@ -140,14 +149,14 @@ export function stuff( whichOne )
 
     else        //redo
         {
-        if (REDO_LIST.length === 0)
+        if ( REDO_LIST.length === 0 )
             {
             Menu.showMessage('Nothing to redo');
             return;
             }
 
             //get last element
-        element = REDO_LIST.pop();
+        element = REDO_LIST.pop()!;
 
             //send it to the UNDO array
         UNDO_LIST.push( element );
@@ -161,11 +170,11 @@ export function stuff( whichOne )
             {
             var colorComponents = {
 
-                    red          : element.colorObject.red_int,
-                    green        : element.colorObject.green_int,
-                    blue         : element.colorObject.blue_int,
-                    alpha        : element.colorObject.alpha_float,
-                    wasSetByUser : element.colorObject.wasSetByUser_bool
+                    red          : element.colorObject!.red_int,
+                    green        : element.colorObject!.green_int,
+                    blue         : element.colorObject!.blue_int,
+                    alpha        : element.colorObject!.alpha_float,
+                    wasSetByUser : element.colorObject!.wasSetByUser_bool
                 };
 
             MAIN_CONTAINER.newNote( element.text, colorComponents, false, element.position );
@@ -174,7 +183,7 @@ export function stuff( whichOne )
             //redo - we remove the previously added entry (by the undo)
         else
             {
-            temp = MAIN_CONTAINER.getChild( element.position );
+            temp = MAIN_CONTAINER.getChild( element.position )!;
 
                 //update the data on the element (some stuff could have been changed since it was first saved to UndoRedo)
             updateNote( element, temp );
@@ -188,7 +197,7 @@ export function stuff( whichOne )
         {
         if (whichOne === 'undo') // same as 'removedNote' and 'redo'
             {
-            temp = MAIN_CONTAINER.getChild( element.position );
+            temp = MAIN_CONTAINER.getChild( element.position )!;
 
                 //update the data on the element (some stuff could have been changed since it was first saved to UndoRedo)
             updateNote( element, temp );
@@ -200,11 +209,11 @@ export function stuff( whichOne )
             {
             var colorComponents2 = {
 
-                    red          : element.colorObject.red_int,
-                    green        : element.colorObject.green_int,
-                    blue         : element.colorObject.blue_int,
-                    alpha        : element.colorObject.alpha_float,
-                    wasSetByUser : element.colorObject.wasSetByUser_bool
+                    red          : element.colorObject!.red_int,
+                    green        : element.colorObject!.green_int,
+                    blue         : element.colorObject!.blue_int,
+                    alpha        : element.colorObject!.alpha_float,
+                    wasSetByUser : element.colorObject!.wasSetByUser_bool
                 };
 
             MAIN_CONTAINER.newNote( element.text, colorComponents2, false, element.position );
@@ -216,13 +225,13 @@ export function stuff( whichOne )
     if (whichOne === 'undo')
         {
             //move without saving it again to undo
-        MAIN_CONTAINER.getChild( element.position ).moveTo( element.previousPosition, false );
+        MAIN_CONTAINER.getChild( element.position )!.moveTo( element.previousPosition!, false );
         }
 
     else
         {
             //move without saving it again to undo
-        MAIN_CONTAINER.getChild( element.previousPosition ).moveTo( element.position, false );
+        MAIN_CONTAINER.getChild( element.previousPosition! )!.moveTo( element.position, false );
         }
     }
 
@@ -231,15 +240,15 @@ export function stuff( whichOne )
     var what = element.what.replace(/[A-Z]/, function(match) { return " " + match; });
 
         // capitalize everything (first letter upper case)
-    var capitalize = function(theString)
+    var capitalize = function( theString: string )
         {
         return theString.replace(/\b[a-z]/i, function(match) { return match.toUpperCase(); });
         };
 
     what = capitalize( what );
-    whichOne = capitalize( whichOne );
+    var capitalizedWhichOne = capitalize( whichOne );
 
-    Menu.showMessage( whichOne + ": " + what );
+    Menu.showMessage( capitalizedWhichOne + ": " + what );
     }
 }
 
