@@ -1,5 +1,11 @@
 module Utilities
 {
+export function capitalize( theString: string )
+    {
+    return theString.replace(/\b[a-z]/i, function(match) { return match.toUpperCase(); });
+    }
+
+
 export function utf8_to_b64( str: string )
     {
     return window.btoa( decodeURI( encodeURIComponent( str ) ) );

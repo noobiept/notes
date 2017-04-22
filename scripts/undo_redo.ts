@@ -240,13 +240,8 @@ export function stuff( whichOne: 'undo' | 'redo' )
     var what = element.what.replace(/[A-Z]/, function(match) { return " " + match; });
 
         // capitalize everything (first letter upper case)
-    var capitalize = function( theString: string )
-        {
-        return theString.replace(/\b[a-z]/i, function(match) { return match.toUpperCase(); });
-        };
-
-    what = capitalize( what );
-    var capitalizedWhichOne = capitalize( whichOne );
+    what = Utilities.capitalize( what );
+    var capitalizedWhichOne = Utilities.capitalize( whichOne );
 
     Menu.showMessage( capitalizedWhichOne + ": " + what );
     }
