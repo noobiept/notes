@@ -58,13 +58,13 @@ Data.load = function( callback )
 
 Data.saveNotes = function()
     {
-    AppStorage.setData({ notes: NOTES });
+    Utilities.setData({ notes: NOTES });
     };
 
 
 Data.saveActivePosition = function()
     {
-    AppStorage.setData({ notes_activeNotePosition: ACTIVE_POSITION });
+    Utilities.setData({ notes_activeNotePosition: ACTIVE_POSITION });
     };
 
 
