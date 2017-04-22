@@ -46,7 +46,7 @@ keyboardEvents( event )
     var noteObject;
 
         //allow the F1, F2, ... until F12 keys to pass
-    if ( key >= EVENT_KEY.f1 && key <= EVENT_KEY.f12 )
+    if ( key >= Utilities.EVENT_KEY.f1 && key <= Utilities.EVENT_KEY.f12 )
         {
         return;
         }
@@ -54,7 +54,7 @@ keyboardEvents( event )
     if (event.type === 'keydown')
         {
             // add a new note
-        if (key === EVENT_KEY.enter || key === EVENT_KEY.tab)
+        if (key === Utilities.EVENT_KEY.enter || key === Utilities.EVENT_KEY.tab)
             {
             noteObject = MAIN_CONTAINER.newNote();
 
@@ -62,7 +62,7 @@ keyboardEvents( event )
             }
 
             // focus to the last note
-        else if (event.ctrlKey && key === EVENT_KEY.leftArrow)
+        else if (event.ctrlKey && key === Utilities.EVENT_KEY.leftArrow)
             {
             noteObject = MAIN_CONTAINER.getLastChild();
 
@@ -73,7 +73,7 @@ keyboardEvents( event )
             }
 
             // focus to the first note
-        else if (event.ctrlKey && key == EVENT_KEY.rightArrow)
+        else if (event.ctrlKey && key == Utilities.EVENT_KEY.rightArrow)
             {
             noteObject = MAIN_CONTAINER.getFirstChild();
 

@@ -345,13 +345,13 @@ function shortcuts( event )
     if (event.type === 'keyup')
         {
             // move to the note to the left (or if this is the first one, go to the last)
-        if (event.ctrlKey && key === EVENT_KEY.leftArrow)
+        if (event.ctrlKey && key === Utilities.EVENT_KEY.leftArrow)
             {
             goLeftNote();
             }
 
             // move to the note to the right (or if this is the last one, go to the first)
-        else if (event.ctrlKey && key === EVENT_KEY.rightArrow)
+        else if (event.ctrlKey && key === Utilities.EVENT_KEY.rightArrow)
             {
             goRightNote();
             }

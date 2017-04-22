@@ -549,7 +549,7 @@ keyboardShortcuts( event )
     if (event.type === 'keydown')
         {
             // focus to the note to the left (or the dummy note, if its the first note)
-        if ( event.ctrlKey && key === EVENT_KEY.leftArrow )
+        if ( event.ctrlKey && key === Utilities.EVENT_KEY.leftArrow )
             {
             otherNoteObject = noteObject.previous();
 
@@ -566,7 +566,7 @@ keyboardShortcuts( event )
             }
 
             // focus to the note to the right (or dummy note, if its the last one)
-        else if ( event.ctrlKey && key === EVENT_KEY.rightArrow )
+        else if ( event.ctrlKey && key === Utilities.EVENT_KEY.rightArrow )
             {
             otherNoteObject = noteObject.next();
 
@@ -583,7 +583,7 @@ keyboardShortcuts( event )
             }
 
             // create a new note in the next position
-        else if ( event.ctrlKey && key === EVENT_KEY.enter )
+        else if ( event.ctrlKey && key === Utilities.EVENT_KEY.enter )
             {
             otherNoteObject = MAIN_CONTAINER.newNote( "", null, true, this.getPosition() + 1 );
 
@@ -596,7 +596,7 @@ keyboardShortcuts( event )
     else if (event.type === 'keyup')
         {
                 // remove the note
-        if ( event.ctrlKey && key === EVENT_KEY.del )
+        if ( event.ctrlKey && key === Utilities.EVENT_KEY.del )
             {
                 // we'll try to give focus to the next note, or the previous if this is the last note
                 // if this is the only note left, focus goes to the dummy note
@@ -619,7 +619,7 @@ keyboardShortcuts( event )
             }
 
             // open the NoteWindow
-        else if (event.altKey && key === EVENT_KEY.w)
+        else if (event.altKey && key === Utilities.EVENT_KEY.w)
             {
             NoteWindow.open( noteObject );
             }

@@ -363,7 +363,7 @@ shortcuts( event )
     if (event.type === 'keyup')
         {
             //close the window
-        if (key === EVENT_KEY.esc)
+        if (key === Utilities.EVENT_KEY.esc)
             {
             this.hide();
 
