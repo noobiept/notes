@@ -1,8 +1,5 @@
-/*global AppStorage, Options*/
-
-var Data;
-(function(Data) {
-
+module Data
+{
 /**
  * {
  *     text: string;
@@ -25,15 +22,15 @@ var ACTIVE_POSITION = -1;
 var SAVE_ENABLED = true;
 
 
-Data.saveToStorage = function( yesNo )
+export function saveToStorage( yesNo )
     {
     SAVE_ENABLED = yesNo;
-    };
+    }
 
 
-Data.load = function( callback )
+export function load( callback )
     {
-    AppStorage.getData( [ 'notes', 'notes_options', 'notes_activeNotePosition' ], function( data )
+    Utilities.getData( [ 'notes', 'notes_options', 'notes_activeNotePosition' ], function( data )
         {
         var notes = data[ 'notes' ];
         var options = data[ 'notes_options' ];
@@ -56,39 +53,39 @@ Data.load = function( callback )
     };
 
 
-Data.saveNotes = function()
+export function saveNotes()
     {
     Utilities.setData({ notes: NOTES });
-    };
+    }
 
 
-Data.saveActivePosition = function()
+export function saveActivePosition()
     {
     Utilities.setData({ notes_activeNotePosition: ACTIVE_POSITION });
-    };
+    }
 
 
-Data.getNotes = function()
+export function getNotes()
     {
     return NOTES;
-    };
+    }
 
 
-Data.getNoteActivePosition = function()
+export function getNoteActivePosition()
     {
     return ACTIVE_POSITION;
-    };
+    }
 
 
-Data.setActiveNotePosition = function( position )
+export function setActiveNotePosition( position )
     {
     ACTIVE_POSITION = position;
 
     Data.saveActivePosition();
-    };
+    }
 
 
-Data.newNote = function( note )
+export function newNote( note )
     {
     NOTES.splice( note.getPosition(), 0, {
             text  : note.getText(),
@@ -102,7 +99,7 @@ Data.newNote = function( note )
     };
 
 
-Data.removeNote = function( note )
+export function removeNote( note )
     {
     NOTES.splice( note.getPosition(), 1 );
 
@@ -110,10 +107,10 @@ Data.removeNote = function( note )
         {
         Data.saveNotes();
         }
-    };
+    }
 
 
-Data.changeNoteText = function( note )
+export function changeNoteText( note )
     {
     NOTES[ note.getPosition() ].text = note.getText();
 
@@ -121,10 +118,10 @@ Data.changeNoteText = function( note )
         {
         Data.saveNotes();
         }
-    };
+    }
 
 
-Data.changeNoteBackgroundColor = function( note )
+export function changeNoteBackgroundColor( note )
     {
     NOTES[ note.getPosition() ].backgroundColorComponents = note.getColorObject().getColor();
 
@@ -132,10 +129,10 @@ Data.changeNoteBackgroundColor = function( note )
         {
         Data.saveNotes();
         }
-    };
+    }
 
 
-Data.changeNotePosition = function( note, previousPosition )
+export function changeNotePosition( note, previousPosition )
     {
     var data = NOTES.splice( previousPosition, 1 )[ 0 ];
     NOTES.splice( note.getPosition(), 0, data );
@@ -144,7 +141,5 @@ Data.changeNotePosition = function( note, previousPosition )
         {
         Data.saveNotes();
         }
-    };
-
-
-})(Data || (Data = {}));
+    }
+}
