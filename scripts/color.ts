@@ -10,7 +10,7 @@ alpha_float: number;
 /**
  * Represents a color.
  */
-constructor( red, green, blue, alpha, wasSetByUser )
+constructor( red, green, blue, alpha, wasSetByUser? )
     {
     if (typeof wasSetByUser === 'undefined')
         {

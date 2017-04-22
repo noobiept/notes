@@ -1,5 +1,3 @@
-/*global PopupWindow, Options, MAIN_CONTAINER, utf8_to_b64*/
-
 /*
  * The page where you change the options of the program
  */
@@ -113,7 +111,7 @@ $( container ).load( 'options.html',
         {
         var notesString = JSON.stringify( MAIN_CONTAINER.getTextList(), null, 4 );
 
-        exportNotes.href = "data:text/plain;base64," + utf8_to_b64( notesString );
+        exportNotes.href = "data:text/plain;base64," + Utilities.utf8_to_b64( notesString );
         };
     });
 }
