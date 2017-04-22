@@ -1,4 +1,4 @@
-var MAIN_CONTAINER = null;
+var MAIN_CONTAINER: MainContainer;
 
 
 window.onload = function()
@@ -66,7 +66,7 @@ window.addEventListener( 'keyup', globalShortcuts, true );
     - alt + o : open the options
     - alt + n : create a new note
  */
-function globalShortcuts( event )
+function globalShortcuts( event: KeyboardEvent )
 {
     //when the popup window is opened, its best to cancel these events, since they would happen
     //in the 'background' (from a user point of view)

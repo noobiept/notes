@@ -13,7 +13,6 @@ constructor()
     {
     this.htmlElement_obj = <HTMLElement> document.querySelector( '#mainContainer' );
     this.childrenObjects_array = [];
-    this.dummyNote_obj = null;
     }
 
 
@@ -23,7 +22,7 @@ constructor()
  *
  * Creates a note and adds it to the main container
  */
-newNote( text, noteComponents, saveToUndo, position, fromLoad )
+newNote( text?: string, noteComponents?: ColorComponents, saveToUndo?: boolean, position?: number, fromLoad?: boolean )
     {
     var noteObject = new Note( this, text, noteComponents, saveToUndo, position, fromLoad );
 
@@ -65,7 +64,7 @@ getDummy()
     }
 
 
-getHtmlElement = function()
+getHtmlElement()
     {
     return this.htmlElement_obj;
     }
@@ -103,11 +102,8 @@ getLastChild()
 
 /*
  * get a specific child object (null if not found)
- *
- * Arguments:
- *      - position (number)
  */
-getChild( position )
+getChild( position: number )
     {
         //see if it exists
     if ( position >= this.childrenCount() || position < 0)
@@ -133,7 +129,7 @@ childrenCount()
  *
  *      lessPosition (int) : from what position we start updating the order, as in, where did the change occur (the elements before have the right order)
  */
-updateOrder( lessPosition )
+updateOrder( lessPosition: number )
     {
     if (typeof lessPosition === 'undefined')
         {

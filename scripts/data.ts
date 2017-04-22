@@ -3,13 +3,7 @@ module Data
 interface NoteData
     {
     text: string;
-    backgroundColorComponents: {
-            alpha: number;
-            blue: number;
-            green: number;
-            red: number;
-            wasSetByUser: boolean;
-        }
+    backgroundColorComponents: ColorComponents
     }
 
 var NOTES: NoteData[] = [];

@@ -1,7 +1,7 @@
 class DragDrop
 {
     //has the object of the element that is being dragged
- static dragElement_class = null;
+ static dragElement_class: Note | null = null;
 
 dragElement_ui: HTMLElement;
 element_ui: HTMLElement;
@@ -17,7 +17,7 @@ elementObject_obj: Note;
  *      dragElement   : the html element that is used to start the drag of the actual element
  *      elementObject : the object that represents the element
  */
-constructor( element, dragElement, elementObject )
+constructor( element: HTMLElement, dragElement: HTMLElement, elementObject: Note )
     {
     var dragObject = this;
 
@@ -60,7 +60,7 @@ isValidDrop()
 /*
  * when the drag of an element starts
  */
-onDragStart( event )
+onDragStart( event: DragEvent )
     {
     var dataTransfer = event.dataTransfer;
 
@@ -85,7 +85,7 @@ onDragStart( event )
  * when an element is dropped over a valid place, we have to switch the positions between the element that is was
  *      been dragged, and the element where the drop occurred
  */
-onDrop( event )
+onDrop( event: DragEvent )
     {
         //remove the css effect for valid drop places
     this.element_ui.classList.remove( 'validDrop' );
@@ -94,7 +94,7 @@ onDrop( event )
     var elementObject = this.elementObject_obj;
 
         //what we're dragging
-    var dragObject = DragDrop.dragElement_class;
+    var dragObject = DragDrop.dragElement_class!;
 
         //see if we're not dropping on the same place
     if ( dragObject !== elementObject )
@@ -112,7 +112,7 @@ onDrop( event )
 /*
  * Allows or not the drop to occur
  */
-onDragOver( event )
+onDragOver( event: DragEvent )
     {
         //if this is a valid drop, let it be possible to occur
     if ( this.isValidDrop() === true )
@@ -136,7 +136,7 @@ onDragOver( event )
 /*
  * Remove the effect of a valid drop place
  */
-onDragLeave( event )
+onDragLeave( event: DragEvent )
     {
     if ( this.isValidDrop() === true )
         {

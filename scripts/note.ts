@@ -10,26 +10,8 @@ backgroundColor_obj: Color;
 
 /*
  * Note's class -- its called from a MainContainer object (not directly)
- *
- * colorComponents:
- *      {
- *      red: (int),
- *      green: (int),
- *      blue: (int),
- *      alpha: (float),
- *      wasSetByUser: (bool)
- *      }
- *
- *  Arguments:
- *
- *      containerObject (Container)
- *      text (string): content of the note
- *      colorComponents (Object) : see type above
- *      saveToUndo (bool)
- *      position (number)
- *
  */
-constructor( containerObject, text, colorComponents, saveToUndo, position, fromLoad )
+constructor( containerObject: MainContainer, text?: string, colorComponents?: ColorComponents, saveToUndo?: boolean, position?: number, fromLoad?: boolean )
     {
     var noteObject = this;
 
@@ -124,7 +106,7 @@ constructor( containerObject, text, colorComponents, saveToUndo, position, fromL
 
         // :: Events :: //
 
-    var noteKeyEvents = function(event) { noteObject.keyboardShortcuts( event ); };
+    var noteKeyEvents = function( event: KeyboardEvent ) { noteObject.keyboardShortcuts( event ); };
 
     noteEntry.addEventListener( 'keydown' , noteKeyEvents, false );
     noteEntry.addEventListener( 'keyup' , noteKeyEvents, false );
@@ -365,7 +347,7 @@ getText()
     }
 
 
-setText( text )
+setText( text: string )
     {
     if (typeof text === 'undefined' || text === null)
         {
@@ -419,7 +401,7 @@ isLast()
     }
 
 
-moveTo( position, saveToUndo )
+moveTo( position: number, saveToUndo?: boolean )
     {
         //if there's an active element (with focus), we need to remove the focus before starting moving stuff around
         //since there are events (blur) attached to the elements, which are triggered when we move the html elements
@@ -538,7 +520,7 @@ getHtmlElement()
     - alt + w            : open the NoteWindow
 
  */
-keyboardShortcuts( event )
+keyboardShortcuts( event: KeyboardEvent )
     {
     var noteObject = this;
     var key = event.which;

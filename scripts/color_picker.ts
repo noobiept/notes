@@ -129,7 +129,7 @@ $( redSlider ).slider({
     slide : function( event, ui )
         {
         redValue.innerHTML = ui.value!.toString();
-        colorObject.setRed( ui.value );
+        colorObject.setRed( ui.value! );
 
         onColorChange();
         }
@@ -148,7 +148,7 @@ $( greenSlider ).slider({
     slide : function( event, ui )
         {
         greenValue.innerHTML = ui.value!.toString();
-        colorObject.setGreen( ui.value );
+        colorObject.setGreen( ui.value! );
 
         onColorChange();
         }
@@ -167,7 +167,7 @@ $( blueSlider ).slider({
     slide : function( event, ui )
         {
         blueValue.innerHTML = ui.value!.toString();
-        colorObject.setBlue( ui.value );
+        colorObject.setBlue( ui.value! );
 
         onColorChange();
         }
@@ -186,7 +186,7 @@ $( alphaSlider ).slider({
     slide : function( event, ui )
         {
         alphaValue.innerHTML = ui.value!.toString();
-        colorObject.setAlpha( ui.value );
+        colorObject.setAlpha( ui.value! );
 
         onColorChange();
         }

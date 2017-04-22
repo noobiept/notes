@@ -11,7 +11,7 @@ var POPUP_WINDOW: PopupWindow;
 /*
  * Open a popup window for a note
  */
-export function open( noteObject )
+export function open( noteObject: Note )
     {
         // :: Menu :: //
 
@@ -145,7 +145,7 @@ function onHide()
 /*
  * Change the note that is on the NoteWindow (the title/text)
  */
-function updateContent( noteObject )
+function updateContent( noteObject: Note )
     {
     TEXT.innerHTML = noteObject.getText();
 
@@ -255,7 +255,7 @@ function removeNote()
 /*
  * The options of the individual note (to change the background color)
  */
-function openOptions( noteObject )
+function openOptions( noteObject: Note )
     {
     var colorObject = noteObject.getColorObject();
 
@@ -338,7 +338,7 @@ function openOptions( noteObject )
  * - ctrl + left arrow  : move to the note to the left (or if this is the first one, go to the last)
  * - ctrl + right arrow : move to the note to the right (or if this is the last one, go to the first)
  */
-function shortcuts( event )
+function shortcuts( event: KeyboardEvent )
     {
     var key = event.which;
 

@@ -1,3 +1,13 @@
+interface ColorComponents
+    {
+    red: number;
+    green: number;
+    blue: number;
+    alpha: number;
+    wasSetByUser: boolean;
+    }
+
+
 class Color
 {
 wasSetByUser_bool: boolean;

@@ -20,7 +20,7 @@ export function create()
         //var slider = container.querySelector( 'Options-noteSlider' );
         var widthSlider = document.createElement( 'div' );   //HERE n funciona com o k esta na options.html
 
-        var widthValue = container.querySelector( '#Options-noteWidth' );
+        var widthValue = container.querySelector( '#Options-noteWidth' )!;
         var noteWidth = Options.getNext( 'noteWidth' );
 
         widthValue.innerHTML = noteWidth;
@@ -32,14 +32,14 @@ export function create()
             step  : 25,
             slide : function(event, ui)
                 {
-                widthValue.innerHTML = ui.value.toString();
+                widthValue.innerHTML = ui.value!.toString();
                 Options.set( 'noteWidth', ui.value );
                 }
             });
 
             // :: Height :: //
 
-        var heightValue  = container.querySelector( '#Options-noteHeight' );
+        var heightValue = container.querySelector( '#Options-noteHeight' )!;
         //var heightSlider = container.querySelector( 'Options-noteHeightSlider' );     //HERE
         var heightSlider = document.createElement( 'div' );
         var noteHeight = Options.getNext( 'noteHeight' );
@@ -53,14 +53,14 @@ export function create()
             step  : 25,
             slide : function(event, ui)
                 {
-                heightValue.innerHTML = ui.value.toString();
+                heightValue.innerHTML = ui.value!.toString();
                 Options.set( 'noteHeight', ui.value );
                 }
             });
 
                 // :: Margin :: //
 
-        var marginValue = container.querySelector( '#Options-margin' );
+        var marginValue = container.querySelector( '#Options-margin' )!;
         var marginSlider = document.createElement( 'div' );
         var noteMargin = Options.getNext( 'noteMargin' );
 
@@ -73,7 +73,7 @@ export function create()
             step  : 1,
             slide : function(event, ui)
                 {
-                marginValue.innerHTML = ui.value.toString();
+                marginValue.innerHTML = ui.value!.toString();
                 Options.set( 'noteMargin', ui.value );
                 }
             });
@@ -88,22 +88,22 @@ export function create()
 
             // :: Generate background-color :: //
 
-        var backgroundColor = container.querySelector( '#Options-backgroundColor' );
-        var backgroundColorValue = container.querySelector( '#Options-backgroundColorValue' );
+        var backgroundColor = container.querySelector( '#Options-backgroundColor' )!;
+        var backgroundColorValue = container.querySelector( '#Options-backgroundColorValue' )!;
 
         backgroundColorValue.innerHTML = Options.getNext( 'generateColorType' );
 
-        $( backgroundColor ).bind('click', function(event) { OptionsPage.switchBackgroundColor( event, backgroundColorValue ); });
+        $( backgroundColor ).bind('click', function( event ) { OptionsPage.switchBackgroundColor( event, backgroundColorValue ); });
 
             // :: SpellCheck :: //
 
-        var spellCheck = container.querySelector( '#Options-spellCheck' );
-        var spellCheckValue = container.querySelector( '#Options-spellCheckValue' );
+        var spellCheck = container.querySelector( '#Options-spellCheck' )!;
+        var spellCheckValue = container.querySelector( '#Options-spellCheckValue' )!;
         var spellCheckOption = Options.getNext( 'spellCheck' );
 
         spellCheckValue.innerHTML = OptionsPage.boolToYesNo( spellCheckOption );
 
-        $( spellCheck ).bind('click', function(event) { OptionsPage.switchSpellCheck( event, spellCheckValue ); });
+        $( spellCheck ).bind('click', function( event ) { OptionsPage.switchSpellCheck( event, spellCheckValue ); });
 
             // :: Export notes :: //
 
@@ -123,7 +123,7 @@ export function create()
  * true  --> "Yes"
  * false --> "No"
  */
-export function boolToYesNo( boolVar )
+export function boolToYesNo( boolVar: boolean )
     {
     if ( boolVar === true )
         {
@@ -140,7 +140,7 @@ export function boolToYesNo( boolVar )
  *      event : the on click event object
  *      spellCheckValue : the html element to update the values (to show the user the new value)
  */
-export function switchSpellCheck( event, spellCheckValue )
+export function switchSpellCheck( event: MouseEvent, spellCheckValue: HTMLElement )
     {
     if (event.type === 'click')
         {
@@ -162,7 +162,7 @@ export function switchSpellCheck( event, spellCheckValue )
  *      event : the on click event object
  *      backgroundColorValue : the html element to update the values (to show the user the new value)
  */
-export function switchBackgroundColor( event, backgroundColorValue )
+export function switchBackgroundColor( event: MouseEvent, backgroundColorValue: HTMLElement )
     {
     var next = '';
 
