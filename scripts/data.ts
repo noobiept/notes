@@ -1,18 +1,18 @@
 module Data
 {
-/**
- * {
- *     text: string;
- *     backgroundColorComponents: {
- *         alpha: number;
- *         blue: number;
- *         green: number;
- *         red: number;
- *         wasSetByUser: boolean;
- *     }
- * }[]
- */
-var NOTES = [];
+interface NoteData
+    {
+    text: string;
+    backgroundColorComponents: {
+            alpha: number;
+            blue: number;
+            green: number;
+            red: number;
+            wasSetByUser: boolean;
+        }
+    }
+
+var NOTES: NoteData[] = [];
 var ACTIVE_POSITION = -1;
 
     // we can temporarily disable saving to the storage on every change
@@ -22,13 +22,13 @@ var ACTIVE_POSITION = -1;
 var SAVE_ENABLED = true;
 
 
-export function saveToStorage( yesNo )
+export function saveToStorage( yesNo: boolean )
     {
     SAVE_ENABLED = yesNo;
     }
 
 
-export function load( callback )
+export function load( callback: () => void )
     {
     Utilities.getData( [ 'notes', 'notes_options', 'notes_activeNotePosition' ], function( data )
         {
@@ -77,7 +77,7 @@ export function getNoteActivePosition()
     }
 
 
-export function setActiveNotePosition( position )
+export function setActiveNotePosition( position: number )
     {
     ACTIVE_POSITION = position;
 
@@ -85,7 +85,7 @@ export function setActiveNotePosition( position )
     }
 
 
-export function newNote( note )
+export function newNote( note: Note )
     {
     NOTES.splice( note.getPosition(), 0, {
             text  : note.getText(),
@@ -99,7 +99,7 @@ export function newNote( note )
     };
 
 
-export function removeNote( note )
+export function removeNote( note: Note )
     {
     NOTES.splice( note.getPosition(), 1 );
 
@@ -110,7 +110,7 @@ export function removeNote( note )
     }
 
 
-export function changeNoteText( note )
+export function changeNoteText( note: Note )
     {
     NOTES[ note.getPosition() ].text = note.getText();
 
@@ -121,7 +121,7 @@ export function changeNoteText( note )
     }
 
 
-export function changeNoteBackgroundColor( note )
+export function changeNoteBackgroundColor( note: Note )
     {
     NOTES[ note.getPosition() ].backgroundColorComponents = note.getColorObject().getColor();
 
@@ -132,7 +132,7 @@ export function changeNoteBackgroundColor( note )
     }
 
 
-export function changeNotePosition( note, previousPosition )
+export function changeNotePosition( note: Note, previousPosition: number )
     {
     var data = NOTES.splice( previousPosition, 1 )[ 0 ];
     NOTES.splice( note.getPosition(), 0, data );

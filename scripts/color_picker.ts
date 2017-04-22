@@ -6,7 +6,7 @@
  *      onColorChange (function) : is executed when a color changes
  *
  */
-function getColorPicker( colorObject, container, onColorChange_f )
+function getColorPicker( colorObject: Color, container: HTMLElement, onColorChange_f: () => void )
 {
     // :: Init of variables required below :: //
 
@@ -17,7 +17,7 @@ var green = color.green;
 var blue = color.blue;
 var alpha = color.alpha;
 
-var elementToUpdateColor;
+var elementToUpdateColor: HTMLElement;
 
 var updateBackground = function()
     {
@@ -32,12 +32,6 @@ var onColorChange = function()
 
     updateBackground();
     };
-
-
-if (typeof onColorChange === 'undefined')
-    {
-    onColorChange = null;
-    }
 
     // :: The letter indicating the base color :: //
 
@@ -70,19 +64,19 @@ alphaText.innerHTML = "Alpha";
 var redValue = document.createElement( 'div' );
 
 redValue.className = "ColorPicker-value";
-redValue.innerHTML = red;
+redValue.innerHTML = red.toString();
 
 
 var greenValue = document.createElement( 'div' );
 
 greenValue.className = "ColorPicker-value";
-greenValue.innerHTML = green;
+greenValue.innerHTML = green.toString();
 
 
 var blueValue = document.createElement( 'div' );
 
 blueValue.className = "ColorPicker-value";
-blueValue.innerHTML = blue;
+blueValue.innerHTML = blue.toString();
 
 
 var alphaValue = document.createElement( 'div' );
@@ -132,9 +126,9 @@ $( redSlider ).slider({
     min   : 0,
     max   : 255,
     step  : 1,
-    slide : function(event, ui)
+    slide : function( event, ui )
         {
-        redValue.innerHTML = ui.value.toString();
+        redValue.innerHTML = ui.value!.toString();
         colorObject.setRed( ui.value );
 
         onColorChange();
@@ -151,9 +145,9 @@ $( greenSlider ).slider({
     min   : 0,
     max   : 255,
     step  : 1,
-    slide : function(event, ui)
+    slide : function( event, ui )
         {
-        greenValue.innerHTML = ui.value.toString();
+        greenValue.innerHTML = ui.value!.toString();
         colorObject.setGreen( ui.value );
 
         onColorChange();
@@ -170,9 +164,9 @@ $( blueSlider ).slider({
     min   : 0,
     max   : 255,
     step  : 1,
-    slide : function(event, ui)
+    slide : function( event, ui )
         {
-        blueValue.innerHTML = ui.value.toString();
+        blueValue.innerHTML = ui.value!.toString();
         colorObject.setBlue( ui.value );
 
         onColorChange();
@@ -189,9 +183,9 @@ $( alphaSlider ).slider({
     min   : 0,
     max   : 1,
     step  : 0.05,
-    slide : function(event, ui)
+    slide : function( event, ui )
         {
-        alphaValue.innerHTML = ui.value.toString();
+        alphaValue.innerHTML = ui.value!.toString();
         colorObject.setAlpha( ui.value );
 
         onColorChange();

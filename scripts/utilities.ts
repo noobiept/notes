@@ -1,23 +1,29 @@
 module Utilities
 {
-export function utf8_to_b64( str )
+export function utf8_to_b64( str: string )
     {
     return window.btoa( decodeURI( encodeURIComponent( str ) ) );
     }
 
 
-export function b64_to_utf8( str )
+export function b64_to_utf8( str: string )
     {
     return decodeURIComponent( encodeURI( window.atob( str ) ) );
+    }
+
+
+export interface StorageData
+    {
+    [key: string]: any;
     }
 
 
 /**
  * Calls the `callback` with a dictionary that has all the requested keys/values from `localStorage`.
  */
-export function getData( keys, callback )
+export function getData( keys: string[], callback: (data: StorageData) => void )
     {
-    var objects = {};
+    var objects: StorageData = {};
 
     for (var a = 0 ; a < keys.length ; a++)
         {
@@ -35,7 +41,7 @@ export function getData( keys, callback )
  * Sets the given key/value into `localStorage`. Calls the `callback` when its done.
  * Converts the value to string (with json).
  */
-export function setData( items )
+export function setData( items: StorageData )
     {
     for ( var key in items )
         {

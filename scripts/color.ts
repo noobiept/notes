@@ -10,7 +10,7 @@ alpha_float: number;
 /**
  * Represents a color.
  */
-constructor( red, green, blue, alpha, wasSetByUser? )
+constructor( red: number, green: number, blue: number, alpha: number, wasSetByUser?: boolean )
     {
     if (typeof wasSetByUser === 'undefined')
         {
@@ -41,7 +41,7 @@ getRed()
     }
 
 
-setRed( red )
+setRed( red: number )
     {
     this.red_int = red;
 
@@ -55,7 +55,7 @@ getGreen()
     }
 
 
-setGreen( green )
+setGreen( green: number )
     {
     this.green_int = green;
 
@@ -69,7 +69,7 @@ getBlue()
     }
 
 
-setBlue( blue )
+setBlue( blue: number )
     {
     this.blue_int = blue;
 
@@ -83,7 +83,7 @@ getAlpha()
     }
 
 
-setAlpha( alpha )
+setAlpha( alpha: number )
     {
     this.alpha_float = alpha;
 
@@ -119,12 +119,8 @@ wasSetByUser()
 
 /*
  * To change between fixed/generated type
- *
- * Arguments:
- *
- *      yesNo (bool)
  */
-canBeGenerated( yesNo )
+canBeGenerated( yesNo: boolean )
     {
     this.wasSetByUser_bool = !yesNo;
     }
