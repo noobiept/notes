@@ -16,7 +16,7 @@ export function init()
     var widthValue = document.getElementById( 'Options-noteWidth' )!;
     var noteWidth = Options.getNext( 'noteWidth' );
 
-    widthValue.innerHTML = noteWidth;
+    widthValue.innerHTML = noteWidth.toString();
 
     $( widthSlider ).slider({
         value : noteWidth,
@@ -26,7 +26,7 @@ export function init()
         slide : function(event, ui)
             {
             widthValue.innerHTML = ui.value!.toString();
-            Options.set( 'noteWidth', ui.value );
+            Options.set( 'noteWidth', ui.value! );
             }
         });
 
@@ -36,7 +36,7 @@ export function init()
     var heightSlider = document.getElementById( 'Options-noteHeightSlider' )!;
     var noteHeight = Options.getNext( 'noteHeight' );
 
-    heightValue.innerHTML = noteHeight;
+    heightValue.innerHTML = noteHeight.toString();
 
     $( heightSlider ).slider({
         value : noteHeight,
@@ -46,7 +46,7 @@ export function init()
         slide : function(event, ui)
             {
             heightValue.innerHTML = ui.value!.toString();
-            Options.set( 'noteHeight', ui.value );
+            Options.set( 'noteHeight', ui.value! );
             }
         });
 
@@ -56,7 +56,7 @@ export function init()
     var marginSlider = document.getElementById( 'Options-marginSlider' )!;
     var noteMargin = Options.getNext( 'noteMargin' );
 
-    marginValue.innerHTML = noteMargin;
+    marginValue.innerHTML = noteMargin.toString();
 
     $( marginSlider ).slider({
         value : noteMargin,
@@ -66,7 +66,7 @@ export function init()
         slide : function(event, ui)
             {
             marginValue.innerHTML = ui.value!.toString();
-            Options.set( 'noteMargin', ui.value );
+            Options.set( 'noteMargin', ui.value! );
             }
         });
 

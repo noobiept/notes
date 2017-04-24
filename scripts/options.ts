@@ -1,7 +1,18 @@
 module Options
 {
+interface OptionsData
+    {
+    noteWidth: number;
+    noteHeight: number;
+    noteMargin: number;
+    activeNotePosition: number;
+    generateColorType: string;
+    spellCheck: boolean;
+    }
+
+
     // the options that were loaded in the start, and that we are going to use in this run of the program
-var LOADED_OPTIONS = {
+var LOADED_OPTIONS: OptionsData = {
     noteWidth  : 250,   // the width/height of each note
     noteHeight : 125,
     noteMargin : 7,
@@ -12,13 +23,13 @@ var LOADED_OPTIONS = {
 
     // if the options are changed in the options page, they are only going to used for the next run
     // keep track of that here
-var NEXT_OPTIONS = {};
+var NEXT_OPTIONS: OptionsData;
 
 
 /**
  * Load the options, from the localStorage or from the server, to be used in the program.
  */
-export function load( options )
+export function load( options: OptionsData )
     {
     if ( options )
         {
@@ -50,7 +61,7 @@ export function load( options )
             LOADED_OPTIONS.generateColorType  = options.generateColorType;
             }
 
-        if ( isNaN( options.spellCheck ) === false )
+        if ( typeof options.spellCheck === 'boolean' )
             {
             LOADED_OPTIONS.spellCheck = options.spellCheck;
             }
@@ -73,7 +84,7 @@ export function getNextOptions()
 /**
  * Get an option value, off the options that were initially loaded.
  */
-export function get( key )
+export function get<K extends keyof OptionsData>( key: K )
     {
     return LOADED_OPTIONS[ key ];
     }
@@ -82,7 +93,7 @@ export function get( key )
 /**
  * Get the next option value (for the options page).
  */
-export function getNext( key )
+export function getNext<K extends keyof OptionsData>( key: K )
     {
     return NEXT_OPTIONS[ key ];
     }
@@ -91,7 +102,7 @@ export function getNext( key )
 /**
  * Any new changes, is going to be for the next run of the program.
  */
-export function set( key, value )
+export function set<K extends keyof OptionsData>( key: K, value: OptionsData[K] )
     {
     NEXT_OPTIONS[ key ] = value;
     }
