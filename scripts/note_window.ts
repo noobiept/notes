@@ -176,7 +176,7 @@ function goLeftNote()
             otherElement = MAIN_CONTAINER.getLastChild();
             }
 
-        updateContent( otherElement );
+        updateContent( otherElement! );
         }
     }
 
@@ -200,7 +200,7 @@ function goRightNote()
             otherElement = MAIN_CONTAINER.getFirstChild();
             }
 
-        updateContent( otherElement );
+        updateContent( otherElement! );
         }
     }
 

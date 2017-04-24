@@ -9,11 +9,11 @@ var MESSAGE: HTMLElement;
  */
 export function init()
     {
-    var menu = document.querySelector( '#menu' );
+    var menu = document.querySelector( '#menu' )!;
 
         // :: New Note :: //
 
-    var newNote = menu.querySelector( '#newNote' );
+    var newNote = menu.querySelector( '#newNote' )!;
 
     newNote.addEventListener( 'click', function(event)
         {
@@ -24,18 +24,18 @@ export function init()
         }, false );
 
 
-    var options = menu.querySelector( '#options' );
+    var options = menu.querySelector( '#options' )!;
     options.addEventListener( 'click', function() { OptionsPage.create(); }, false );
 
     MESSAGE = <HTMLElement> menu.querySelector( '#message' );
 
-    var undo = menu.querySelector( '#undo' );
+    var undo = menu.querySelector( '#undo' )!;
     undo.addEventListener( 'click', function() { UndoRedo.stuff( 'undo' ); }, false );
 
-    var redo = menu.querySelector( '#redo' );
+    var redo = menu.querySelector( '#redo' )!;
     redo.addEventListener( 'click', function() { UndoRedo.stuff( 'redo' ); }, false );
 
-    var donate = menu.querySelector( '#donate' );
+    var donate = menu.querySelector( '#donate' )!;
     donate.addEventListener( 'click', function()
         {
         window.open( 'http://nbpt.eu/donate/', '_blank' );

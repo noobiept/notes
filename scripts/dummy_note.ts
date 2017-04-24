@@ -40,7 +40,7 @@ constructor()
     }
 
 
-keyboardEvents( event )
+keyboardEvents( event: KeyboardEvent )
     {
     var key = event.which;
     var noteObject;

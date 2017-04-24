@@ -1,10 +1,12 @@
 module Draw
 {
+type DrawType = 'delNote' | 'openWindow' | 'NoteWindow-leftArrow' | 'NoteWindow-rightArrow';
+
 /*
  * function that is called throughout the code (its the interface)
  * calls all other functions, depending on which element to draw
  */
-export function create( className )
+export function create( className: DrawType )
     {
     var element = document.createElement( 'canvas' );
     element.className = className;
@@ -45,12 +47,12 @@ export function create( className )
     }
 
 
-function arrow( canvas, orientation )
+function arrow( canvas: HTMLCanvasElement, orientation: 'left' | 'right' )
     {
     canvas.width  = 60;
     canvas.height = 50;
 
-    var ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d')!;
 
     var width = canvas.width;
     var height = canvas.height;
@@ -108,7 +110,7 @@ function arrow( canvas, orientation )
 /*
  * Draws the button in the note that opens the note's window
  */
-function openWindow( canvas )
+function openWindow( canvas: HTMLCanvasElement )
     {
     var width = 15;
     var height = 15;
@@ -116,7 +118,7 @@ function openWindow( canvas )
     canvas.width  = width;
     canvas.height = height;
 
-    var ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d')!;
 
     ctx.beginPath();
 
@@ -135,12 +137,12 @@ function openWindow( canvas )
     }
 
 
-function removeNote( canvas )
+function removeNote( canvas: HTMLCanvasElement )
     {
     canvas.width  = 15;
     canvas.height = 15;
 
-    var ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d')!;
 
         //o circulo de baixo
     ctx.beginPath();

@@ -142,10 +142,12 @@ updateOrder( lessPosition: number )
 
     for (i = lessPosition ; i < notes.length ; i++)
         {
+        var noteElement = <HTMLElement> notes[ i ];
+
             //apply only to notes
-        if ( notes[i].classList.contains( 'dummyNote' ) === false )
+        if ( noteElement.classList.contains( 'dummyNote' ) === false )
             {
-            notes[i].noteObject.position_int = i;
+            noteElement.noteObject.position_int = i;
             }
         }
 

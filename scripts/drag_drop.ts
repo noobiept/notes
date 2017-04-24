@@ -125,11 +125,11 @@ onDragOver( event: DragEvent )
 
             //cancel as-well when its a valid drop
         event.stopPropagation();
-
         return false;
         }
 
     event.stopPropagation();
+    return true;
     }
 
 
