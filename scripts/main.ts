@@ -26,7 +26,14 @@ if ( !notes )
 
 for (var i = 0 ; i < notes.length ; i++)
     {
-    MAIN_CONTAINER.newNote( notes[ i ].text, notes[ i ].backgroundColorComponents, false, -1, true );
+    MAIN_CONTAINER.newNote({
+        container: MAIN_CONTAINER,
+        text: notes[ i ].text,
+        colorComponents: notes[ i ].backgroundColorComponents,
+        saveToUndo: false,
+        position: -1,
+        fromLoad: true
+        });
     }
 
     // set focus on the element that was active last time
@@ -107,7 +114,9 @@ if ( event.type === 'keyup' )
         // alt + n -- create a new (n)ote
     else if ( event.altKey && key === Utilities.EVENT_KEY.n )
         {
-        var noteObject = MAIN_CONTAINER.newNote();
+        var noteObject = MAIN_CONTAINER.newNote({
+            container: MAIN_CONTAINER
+            });
 
         noteObject.gainFocus();
 

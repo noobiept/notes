@@ -17,7 +17,9 @@ export function init()
 
     newNote.addEventListener( 'click', function(event)
         {
-        var noteObject = MAIN_CONTAINER.newNote();
+        var noteObject = MAIN_CONTAINER.newNote({
+            container: MAIN_CONTAINER
+            });
 
         noteObject.gainFocus();
 

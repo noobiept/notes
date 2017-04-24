@@ -177,7 +177,13 @@ export function stuff( whichOne: 'undo' | 'redo' )
                     wasSetByUser : element.colorObject!.wasSetByUser_bool
                 };
 
-            MAIN_CONTAINER.newNote( element.text, colorComponents, false, element.position );
+            MAIN_CONTAINER.newNote({
+                container: MAIN_CONTAINER,
+                text: element.text,
+                colorComponents: colorComponents,
+                saveToUndo: false,
+                position: element.position
+                });
             }
 
             //redo - we remove the previously added entry (by the undo)
@@ -216,7 +222,13 @@ export function stuff( whichOne: 'undo' | 'redo' )
                     wasSetByUser : element.colorObject!.wasSetByUser_bool
                 };
 
-            MAIN_CONTAINER.newNote( element.text, colorComponents2, false, element.position );
+            MAIN_CONTAINER.newNote({
+                container: MAIN_CONTAINER,
+                text: element.text,
+                colorComponents: colorComponents2,
+                saveToUndo: false,
+                position: element.position
+                });
             }
         }
 

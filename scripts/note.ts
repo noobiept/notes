@@ -1,3 +1,14 @@
+interface NoteArgs
+    {
+    container: MainContainer;
+    text?: string;
+    colorComponents?: ColorComponents;
+    saveToUndo?: boolean;
+    position?: number;
+    fromLoad?: boolean;
+    }
+
+
 class Note
 {
 position_int: number;
@@ -11,31 +22,31 @@ backgroundColor_obj: Color;
 /*
  * Note's class -- its called from a MainContainer object (not directly)
  */
-constructor( containerObject: MainContainer, text?: string, colorComponents?: ColorComponents, saveToUndo?: boolean, position?: number, fromLoad?: boolean )
+constructor( args: NoteArgs )
     {
     var noteObject = this;
 
         // :: Deal with the note's position :: //
 
         // add at the end (its not -1, since we still didn't add to the array)
-    if ( typeof position === 'undefined' || isNaN( position ) === true || position < 0 )
+    if ( typeof args.position === 'undefined' || isNaN( args.position ) === true || args.position < 0 )
         {
-        position = containerObject.childrenCount();
+        args.position = args.container.childrenCount();
         }
 
-    this.position_int = position;
+    this.position_int = args.position;
 
         // :: Note entry -- where you write the title :: //
 
     var noteEntry = document.createElement( 'div' );
     noteEntry.className = "noteEntry";
 
-    if ( typeof text === 'undefined' || text === "" )
+    if ( typeof args.text === 'undefined' || args.text === "" )
         {
-        text = "<br>";
+        args.text = "<br>";
         }
 
-    noteEntry.innerHTML = text;
+    noteEntry.innerHTML = args.text;
     noteEntry.setAttribute( 'contenteditable', 'true' );
     noteEntry.addEventListener( 'input', function()
         {
@@ -81,7 +92,7 @@ constructor( containerObject: MainContainer, text?: string, colorComponents?: Co
     var colorObject;
 
         // if a color is not given, we generate one
-    if ( !colorComponents || colorComponents.wasSetByUser === false || colorComponents.red < 0 )
+    if ( !args.colorComponents || args.colorComponents.wasSetByUser === false || args.colorComponents.red < 0 )
         {
         colorObject = noteObject.generateColor();
         }
@@ -89,7 +100,7 @@ constructor( containerObject: MainContainer, text?: string, colorComponents?: Co
         // otherwise, use the color that is set
     else
         {
-        colorObject = new Color( colorComponents.red, colorComponents.green, colorComponents.blue, colorComponents.alpha, colorComponents.wasSetByUser );
+        colorObject = new Color( args.colorComponents.red, args.colorComponents.green, args.colorComponents.blue, args.colorComponents.alpha, args.colorComponents.wasSetByUser );
         }
 
     noteContainer.style.backgroundColor = colorObject.getCssRepresentation();
@@ -137,17 +148,17 @@ constructor( containerObject: MainContainer, text?: string, colorComponents?: Co
         // make notes draggable
     this.dragDrop_obj = new DragDrop( noteContainer, noteControls, this );
 
-    this.parentObject = containerObject;
+    this.parentObject = args.container;
     this.noteEntry_obj = noteEntry;
     this.noteContainer_ui = noteContainer;
     this.backgroundColor_obj = colorObject;
 
-    if (saveToUndo !== false)
+    if ( args.saveToUndo !== false )
         {
         UndoRedo.add( 'addedNote', this );
         }
 
-    if ( fromLoad !== true )
+    if ( args.fromLoad !== true )
         {
         Data.newNote( this );
         }
@@ -567,7 +578,12 @@ keyboardShortcuts( event: KeyboardEvent )
             // create a new note in the next position
         else if ( event.ctrlKey && key === Utilities.EVENT_KEY.enter )
             {
-            otherNoteObject = MAIN_CONTAINER.newNote( "", null, true, this.getPosition() + 1 );
+            otherNoteObject = MAIN_CONTAINER.newNote({
+                container: MAIN_CONTAINER,
+                text: "",
+                saveToUndo: true,
+                position: this.getPosition() + 1
+                });
 
             otherNoteObject.gainFocus();
             }

@@ -24,7 +24,9 @@ constructor()
 
     dummy.onclick = function()
         {
-        var tempNote = MAIN_CONTAINER.newNote();
+        var tempNote = MAIN_CONTAINER.newNote({
+            container: MAIN_CONTAINER
+            });
 
         tempNote.gainFocus();
         };
@@ -56,7 +58,9 @@ keyboardEvents( event: KeyboardEvent )
             // add a new note
         if (key === Utilities.EVENT_KEY.enter || key === Utilities.EVENT_KEY.tab)
             {
-            noteObject = MAIN_CONTAINER.newNote();
+            noteObject = MAIN_CONTAINER.newNote({
+                container: MAIN_CONTAINER
+                });
 
             noteObject.gainFocus();
             }
