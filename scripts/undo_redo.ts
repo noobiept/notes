@@ -193,8 +193,7 @@ export function stuff( whichOne: 'undo' | 'redo' )
 
                 //update the data on the element (some stuff could have been changed since it was first saved to UndoRedo)
             updateNote( element, temp );
-
-            temp.remove( false );
+            MAIN_CONTAINER.removeNote( temp, false );
             }
         }
 
@@ -208,7 +207,7 @@ export function stuff( whichOne: 'undo' | 'redo' )
                 //update the data on the element (some stuff could have been changed since it was first saved to UndoRedo)
             updateNote( element, temp );
 
-            temp.remove( false );
+            MAIN_CONTAINER.removeNote( temp, false );
             }
 
         else    // same as 'removedNote' and 'undo'

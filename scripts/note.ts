@@ -139,11 +139,9 @@ constructor( args: NoteArgs )
 
     openWindow.addEventListener( 'click', function() { NoteWindow.open( noteObject ); }, false );
 
-    delNote.addEventListener( 'click', function() { noteObject.remove(); }, false );
+    delNote.addEventListener( 'click', function() { MAIN_CONTAINER.removeNote( noteObject ); }, false );
 
         // :: Other :: //
-
-    noteContainer.noteObject = this;
 
         // make notes draggable
     this.dragDrop_obj = new DragDrop( noteContainer, noteControls, this );
@@ -280,29 +278,6 @@ generateColor()
         }
 
     return new Color( red, green, blue, alpha );
-    }
-
-
-/*
- * remove the note
- */
-remove( saveToUndo= true )
-    {
-    Data.removeNote( this );
-    var position = this.getPosition();
-
-    if (saveToUndo !== false)
-        {
-        UndoRedo.add( 'removedNote', this );
-        }
-
-        //remove from the array
-    MAIN_CONTAINER.childrenObjects_array.splice( position, 1 );
-
-        //remove the html element
-    MAIN_CONTAINER.getHtmlElement().removeChild( this.getHtmlElement() );
-
-    MAIN_CONTAINER.updateOrder( position );
     }
 
 
@@ -610,9 +585,7 @@ keyboardShortcuts( event: KeyboardEvent )
                     }
                 }
 
-
-            this.remove();
-
+            MAIN_CONTAINER.removeNote( this );
             otherNoteObject.gainFocus();
             }
 

@@ -254,7 +254,7 @@ function removeNote()
         updateContent( otherNoteObject );
         }
 
-    NOTE.remove();
+    MAIN_CONTAINER.removeNote( NOTE );
     }
 
 

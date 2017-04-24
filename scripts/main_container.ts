@@ -37,13 +37,41 @@ newNote( args: NoteArgs )
         //add to the array
     this.childrenObjects_array.splice( notePosition, 0, noteObject );
 
-        // only need to update when its not added at the end
-    if ( this.childrenCount() !== notePosition + 1 )
+        // update the position property
+    for (var a = notePosition ; a < this.childrenObjects_array.length ; a++)
         {
-        this.updateOrder( notePosition );
+        this.childrenObjects_array[ a ].position_int = a;
         }
 
     return noteObject;
+    }
+
+
+/**
+ * Remove a note.
+ */
+removeNote( note: Note, saveToUndo?: boolean )
+    {
+    Data.removeNote( note );
+
+    if ( saveToUndo !== false )
+        {
+        UndoRedo.add( 'removedNote', note );
+        }
+
+    var position = note.getPosition();
+
+        // remove from the array
+    this.childrenObjects_array.splice( position, 1 );
+
+        // remove the html element
+    this.htmlElement_obj.removeChild( note.getHtmlElement() );
+
+        // update the position property
+    for (var a = position ; a < this.childrenObjects_array.length ; a++)
+        {
+        this.childrenObjects_array[ a ].position_int = a;
+        }
     }
 
 
@@ -121,43 +149,6 @@ getChild( position: number )
 childrenCount()
     {
     return this.childrenObjects_array.length;
-    }
-
-
-/*
- * Arguments:
- *
- *      lessPosition (int) : from what position we start updating the order, as in, where did the change occur (the elements before have the right order)
- */
-updateOrder( lessPosition: number )
-    {
-    if (typeof lessPosition === 'undefined')
-        {
-        lessPosition = 0;
-        }
-
-    var notes = this.getHtmlElement().childNodes;
-
-    var i;
-
-    for (i = lessPosition ; i < notes.length ; i++)
-        {
-        var noteElement = <HTMLElement> notes[ i ];
-
-            //apply only to notes
-        if ( noteElement.classList.contains( 'dummyNote' ) === false )
-            {
-            noteElement.noteObject.position_int = i;
-            }
-        }
-
-        //sort array
-    this.childrenObjects_array.sort(
-        function(a, b)
-            {
-            return a.position_int - b.position_int;
-            }
-        );
     }
 
 
