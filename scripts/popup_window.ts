@@ -1,3 +1,13 @@
+interface PopupWindowArgs
+    {
+    content: HTMLElement;   // an html element with the content to add to the window
+    onStart?: () => void;   // to be called when the window is created
+    onHide?: () => void;    // to be called when the window is closed
+    onKeyUp?: (event: KeyboardEvent) => void;   // to be called when keys are pressed
+    onResize?: () => void;  // to be called when the PopupWindow's resize is called
+    }
+
+
 class PopupWindow
 {
     //has all the PopupWindow objects of opened windows
@@ -7,29 +17,16 @@ static allWindows_class: PopupWindow[] = [];
 static zIndex_class = 100;
 
 shortcut_obj: (event: KeyboardEvent) => void;
-onHide_f: () => void;
+onHide_f: (() => void) | undefined;
 onResize_f: (() => void) | undefined;
 windowOverlay_obj: HTMLElement;
 windowContainer_obj: HTMLElement;
 isOpened_obj: boolean;
 
 
-/*
- * the popup window constructor
- *
- *
- * Arguments:
- *      - contentElement    : an html element with the content to add to the window
- *      - onStartFunction   : to be called when the window is created
- *      - onHideFunction    : to be called when the window is closed
- *      - shortcutsFunction : to be called when keys are pressed
- *      - onResizeFunction  : to be called when the PopupWindow's resize is called
- *
- */
-constructor( contentElement: HTMLElement, onStartFunction: () => void, onHideFunction: () => void, shortcutsFunction?: (event: KeyboardEvent) => void, onResizeFunction?: () => void )
+constructor( args: PopupWindowArgs )
     {
     var popupWindowObject = this;
-
 
         // remove the focus from an element that could be on focus (otherwise, you could edit it)
         // happens when you use a keyboard shortcut to open a window, or when some window is opened automatically
@@ -68,9 +65,9 @@ constructor( contentElement: HTMLElement, onStartFunction: () => void, onHideFun
         {
         popupWindowObject.shortcuts(event);
 
-        if (typeof shortcutsFunction !== 'undefined')
+        if (typeof args.onKeyUp !== 'undefined')
             {
-            shortcutsFunction( event );
+            args.onKeyUp( event );
             }
         };
 
@@ -82,15 +79,15 @@ constructor( contentElement: HTMLElement, onStartFunction: () => void, onHideFun
     $(windowContainer).css('display', 'none');
     $(windowOverlay).css('display', 'none');
 
-    this.onHide_f = onHideFunction;
-    this.onResize_f = onResizeFunction;
+    this.onHide_f = args.onHide;
+    this.onResize_f = args.onResize;
 
     this.windowOverlay_obj = windowOverlay;
     this.windowContainer_obj = windowContainer;
 
     this.isOpened_obj = false;
 
-    this.show( contentElement, onStartFunction );
+    this.show( args.content, args.onStart );
 
     return this;
     }
@@ -117,7 +114,7 @@ static hasOpenedWindows()
  *      - contentElement    : an html element with the content to add to the window
  *      - onStartFunction   : to be called when the window is created
  */
-show( contentElement: HTMLElement, onStartFunction: () => void )
+show( contentElement: HTMLElement, onStartFunction?: () => void )
     {
         //when opening from the menu, the sub-menu still stays opened //HERE
     //$('#subMenu ul').css('display', 'none');  // nao ah submenus por enquanto

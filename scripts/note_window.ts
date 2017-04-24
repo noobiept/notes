@@ -112,7 +112,13 @@ export function open( noteObject: Note )
     LEFT_ARROW = left;
     RIGHT_ARROW = right;
 
-    POPUP_WINDOW = new PopupWindow( container, onStart, onHide, shortcuts, resize );
+    POPUP_WINDOW = new PopupWindow({
+            content: container,
+            onStart: onStart,
+            onHide: onHide,
+            onKeyUp: shortcuts,
+            onResize: resize
+        });
     }
 
 
@@ -330,7 +336,10 @@ function openOptions( noteObject: Note )
         Data.changeNoteBackgroundColor( noteObject );
         };
 
-    new PopupWindow( optionsContainer, null, colorPickerOnHide );
+    new PopupWindow({
+            content: optionsContainer,
+            onHide: colorPickerOnHide
+        });
     }
 
 

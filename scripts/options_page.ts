@@ -10,9 +10,12 @@ export function create()
     $( container ).load( 'options.html',
         function()
         {
-        new PopupWindow( container, null, function()
-            {
-            Options.saveOptions();
+        new PopupWindow({
+                content: container,
+                onHide: function()
+                    {
+                    Options.saveOptions();
+                    }
             });
 
             // :: Width :: //
