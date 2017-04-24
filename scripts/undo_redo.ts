@@ -246,5 +246,3 @@ export function stuff( whichOne: 'undo' | 'redo' )
     Menu.showMessage( capitalizedWhichOne + ": " + what );
     }
 }
-
-

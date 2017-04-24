@@ -1,17 +1,16 @@
 class PopupWindow
 {
     //has all the PopupWindow objects of opened windows
-static allWindows_class = [];
+static allWindows_class: PopupWindow[] = [];
 
     //initial z-index
 static zIndex_class = 100;
 
-shortcut_obj: (event) => void;
+shortcut_obj: (event: KeyboardEvent) => void;
 onHide_f: () => void;
-onResize_f: () => void;
+onResize_f: (() => void) | undefined;
 windowOverlay_obj: HTMLElement;
 windowContainer_obj: HTMLElement;
-windowContent_obj: HTMLElement;
 isOpened_obj: boolean;
 
 
@@ -27,7 +26,7 @@ isOpened_obj: boolean;
  *      - onResizeFunction  : to be called when the PopupWindow's resize is called
  *
  */
-constructor( contentElement, onStartFunction, onHideFunction, shortcutsFunction?, onResizeFunction? )
+constructor( contentElement: HTMLElement, onStartFunction: () => void, onHideFunction: () => void, shortcutsFunction?: (event: KeyboardEvent) => void, onResizeFunction?: () => void )
     {
     var popupWindowObject = this;
 
@@ -71,7 +70,7 @@ constructor( contentElement, onStartFunction, onHideFunction, shortcutsFunction?
 
         if (typeof shortcutsFunction !== 'undefined')
             {
-            shortcutsFunction(event);
+            shortcutsFunction( event );
             }
         };
 
@@ -83,17 +82,11 @@ constructor( contentElement, onStartFunction, onHideFunction, shortcutsFunction?
     $(windowContainer).css('display', 'none');
     $(windowOverlay).css('display', 'none');
 
-    if (typeof onResizeFunction === 'undefined')
-        {
-        onResizeFunction = null;
-        }
-
     this.onHide_f = onHideFunction;
     this.onResize_f = onResizeFunction;
 
     this.windowOverlay_obj = windowOverlay;
     this.windowContainer_obj = windowContainer;
-    this.windowContent_obj = null;
 
     this.isOpened_obj = false;
 
@@ -124,7 +117,7 @@ static hasOpenedWindows()
  *      - contentElement    : an html element with the content to add to the window
  *      - onStartFunction   : to be called when the window is created
  */
-show( contentElement, onStartFunction )
+show( contentElement: HTMLElement, onStartFunction: () => void )
     {
         //when opening from the menu, the sub-menu still stays opened //HERE
     //$('#subMenu ul').css('display', 'none');  // nao ah submenus por enquanto
@@ -133,9 +126,6 @@ show( contentElement, onStartFunction )
 
     var container = this.getContainer();
     var overlay = this.getOverlay();
-
-        // set content
-    this.windowContent_obj = contentElement;
 
     contentElement.classList.add( 'windowContent' );
 
@@ -201,9 +191,9 @@ show( contentElement, onStartFunction )
  * hide the popup window
  *
  * Arguments:
- *      - effectTime (number) : (default: 100ms)
+ *      - effectTime: (default: 100ms)
  */
-hide( effectTime? )
+hide( effectTime?: number )
     {
     if (typeof this.onHide_f !== 'undefined' && this.onHide_f !== null)
         {
@@ -223,12 +213,10 @@ hide( effectTime? )
         //remove the onresize event, since it uses polling (not a 'real' event)
     $( windowContainer ).unbind();
 
-    this.windowContent_obj = null;
-
         //if this is the only opened window, then hide the overlay ( //HERE o overlay nao eh global.. eh de cada objecto )
     //if ( PopupWindow.allWindows_class.length === 1 )
         //{ //HERE
-        $(overlay).hide('fade', effectTime, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
+        $(overlay).hide('fade', effectTime.toString(), function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
         //}
 
     this.isOpened_obj = false;
@@ -275,7 +263,7 @@ getOverlay()
 /*
  * returns the #windowContainer element
  */
-getContainer = function()
+getContainer()
     {
     return this.windowContainer_obj;
     }
@@ -303,16 +291,6 @@ centerWindow()
         //position the window at the center of the page
     $(container).css('top', top + 'px');
     $(container).css('left', left + 'px');
-
-    /*
-    var content = this.windowContent_obj;
-
-
-    if ( $(content).outerHeight() > $(container).outerHeight() )    //HERE the scrollbar breaks the element's position ( for elementWindow )
-        {
-
-    //    console.log('scroll bar..');
-        }*/
     }
 
 
@@ -324,7 +302,7 @@ resize()
     this.centerWindow();
 
         // call the resize function of possible 'derived' classes
-    if (this.onResize_f !== null)
+    if ( this.onResize_f )
         {
         this.onResize_f();
         }
@@ -352,7 +330,7 @@ static resizeAll()
  *
  *      - esc  : closes the window
  */
-shortcuts( event )
+shortcuts( event: KeyboardEvent )
     {
     var key = event.which;
 
