@@ -12,6 +12,7 @@ function initApp()
 MAIN_CONTAINER = new MainContainer();
 
 Menu.init();
+OptionsPage.init();
 
     // load the notes
 var notes = Data.getNotes();
@@ -98,7 +99,7 @@ if ( event.type === 'keyup' )
         // alt + o -- open the (o)ptions
     else if ( event.altKey && key === Utilities.EVENT_KEY.o )
         {
-        OptionsPage.create();
+        OptionsPage.open();
 
         event.stopPropagation();
         }

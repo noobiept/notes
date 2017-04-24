@@ -1,11 +1,9 @@
-    
-
-#mainContainer 
+#mainContainer
     {
     height: 100%;
     clear: both;
     }
-    
+
 
 body
     {
@@ -18,7 +16,7 @@ body
     }
 
 
-a   
+a
     {
     color: rgb( 97, 164, 240 );
     }
@@ -36,23 +34,27 @@ a
     background-color: rgba(255, 255, 255, 0.9);
     }
 
-    
+
 ::-webkit-scrollbar-thumb
     {
     background-color: rgba(0, 0, 0, 0.5);
     }
-    
+
 ::-webkit-scrollbar-thumb:hover
     {
     background-color: rgba(0, 0, 0, 0.7);
     }
-    
-      
-    
+
+.hidden
+    {
+    display: none;
+    }
+
+
 /* ************************************
  *
  *              Containers
- * 
+ *
  * ************************************/
 
 
@@ -60,18 +62,18 @@ a
     {
     position: relative;
     float: left;
-   
+
     -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
     }
 
 
     /* :: Dummy Note :: */
-    
+
 .noteContainer, .dummyNote
     {
     width: 100px;   /* the sum of .noteEntry with .noteControls has to have these limits */
-    height: 100px;        
+    height: 100px;
     }
 
 .DummyNote-text
@@ -86,9 +88,9 @@ a
 .noteEntry
     {
     height: 80px;
-    overflow: auto; 
+    overflow: auto;
     }
-    
+
 .noteEntry:focus
     {
     /*background-image: -webkit-linear-gradient(top, transparent 50%, rgba(130, 50, 0, 1));*/
@@ -104,12 +106,12 @@ a
     height: 20px;
     cursor: pointer;
     }
-    
+
 .dummyNote
     {
     cursor: pointer;
     }
-    
+
 
     /* The .noteEntry is the element that can be in focus, but we want to apply to the .noteContainer, so we add this
             class with javascript somewhere */
@@ -117,11 +119,11 @@ a
     {
     /*background-color: white !important;*/ /* the background-color is set with javascript on the element, so we need the !important to be able to overwrite it */
     /*color: black;*/
-   
+
     outline: 4px dashed white;
     }
 
-    
+
     /* //HERE qd a .noteEntry on focus, por o transform... n sei se da com css */
 .noteContainer:hover, .noteContainer:focus, .dummyNote:hover, .dummyNote:focus, .NoteOnFocus
     {
@@ -142,17 +144,17 @@ a
 /* ************************************
  *
  *              Side buttons
- * 
+ *
  * ************************************/
 
 .delNote, .openWindow, .NoteWindow-leftArrow, .NoteWindow-rightArrow, .NoteWindow-options
     {
     -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
-    
+
     cursor: pointer;
     position: absolute;
-    
+
     z-index: 10;
     opacity: 0;
     }
@@ -200,11 +202,11 @@ a
 /* ************************************
  *
  *              Menu
- * 
+ *
  * ************************************/
 
-#menu 
-    {           
+#menu
+    {
     list-style-type: none;
     text-align: center;
     margin: 5px 6px;
@@ -216,40 +218,40 @@ a
     }
 
 
-#menu li 
+#menu li
     {
-    float: left; 
+    float: left;
     min-width: 120px;
     font-size: 1.125em;
     cursor: pointer;
     padding: 5px 10px;
     }
-    
+
 #menu li:hover
     {
     background-color: white;
-    color: black;    
+    color: black;
     }
-    
-    
+
+
 #menu #message
     {
     -webkit-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     -moz-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     -o-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
-    
+
     /*min-width: //HERE */
 
     margin-left: 40px;  /* separate a bit from the menu */
-        
+
     opacity: 0;
     }
 
 /* ************************************
  *
  *        Popup window
- * 
+ *
  * ************************************/
 
 
@@ -267,29 +269,21 @@ a
 
 .windowContainer
     {
-    -webkit-transition-property: top, left;
-    -webkit-transition-duration: 0.2s;
-    -webkit-transition-timing-function: linear;
-    
-    -moz-transition-property: top, left;
-    -moz-transition-duration: 0.2s;
-    -moz-transition-timing-function: linear;
-    
     position: fixed;
     box-shadow: 1px 1px 10px 5px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
     overflow: auto;
-    
+
     min-width: 200px;
     min-height: 100px;
-    
+
     max-width: 90%;
     max-height: 85%;
-    
-   
+
+
     background-color: #000;
     color: #fff;
-    
+
     /*resize: both; //HERE hmmmm */
     /*z-index: 200; set with javascript as well (because of having several windows)*/
     }
@@ -300,18 +294,18 @@ a
     border-radius: 15px;   /* same as in .windowContainer */
     min-width: 400px;
     }
-    
+
 
 
 /* ************************************
  *
  *        Note Window
- * 
+ *
  * ************************************/
 
 .NoteWindow-menu
     {
-    min-height: 15px;   
+    min-height: 15px;
     }
 
 
@@ -325,7 +319,7 @@ a
     {
     outline: 2px solid rgba(229, 151, 0, 0.5);
     }
-   
+
 
 .NoteWindow .delNote
     {
@@ -343,19 +337,19 @@ a
     /*cursor: pointer;
     font-size: 80%;*/
     }
-    
-    
+
+
 .NoteWindow-selectBackgroundTypeContainer > *
     {
     float: left;
     margin-right: 5px;
     }
-    
+
 .NoteWindow-selectBackgroundTypeContainer
     {
     min-height: 30px;
     }
-    
+
 .NoteWindow-selected
     {
     padding: 0 7px;
@@ -373,11 +367,11 @@ a
 /* ************************************
  *
  *        Options Page - Sliders
- * 
+ *
  * ************************************/
 
     /* reduce the space occupied by the slider */
-   
+
 .ColorPicker-slider.ui-slider .ui-slider-handle
     {
     height: 0.8em;
@@ -388,7 +382,7 @@ a
 .ColorPicker-slider.ui-slider-horizontal
     {
     height: 0.6em;
-    } 
+    }
 
 .ColorPicker-slider.ui-slider
     {
@@ -415,7 +409,7 @@ a
     {
     float: left;
     }
-    
+
 .ColorPicker-textValueContainer
     {
     clear: both;
@@ -429,7 +423,7 @@ a
 /* ************************************
  *
  *        Options Page
- * 
+ *
  * ************************************/
 
 #Options-documentation
@@ -442,13 +436,13 @@ a
     {
     cursor: pointer;
     }
-    
+
 .Options-container
     {
     clear: both;
     min-height: 50px;
     }
-    
+
 .Options-container > *
     {
     float: left;
@@ -459,7 +453,7 @@ a
     clear: both;
     }
 
-    
+
 .ui-slider
     {
     width: 60%;

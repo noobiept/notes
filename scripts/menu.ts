@@ -25,7 +25,7 @@ export function init()
 
 
     var options = menu.querySelector( '#options' )!;
-    options.addEventListener( 'click', function() { OptionsPage.create(); }, false );
+    options.addEventListener( 'click', function() { OptionsPage.open(); }, false );
 
     MESSAGE = <HTMLElement> menu.querySelector( '#message' );
 

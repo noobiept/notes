@@ -47,5 +47,44 @@
     </ul>
 
     <div id="mainContainer"></div>
+
+    <div id="Options" class="hidden">
+        <p>
+            You need to restart the program, so that the changes take effect.
+        </p>
+
+        <div class="Options-container">
+            <h4>Note's width: <span id="Options-noteWidth">200</span></h4>
+            <div id="Options-noteWidthSlider"></div>
+        </div>
+
+        <div class="Options-container">
+            <h4>Note's height: <span id="Options-noteHeight">100</span></h4>
+            <div id="Options-noteHeightSlider"></div>
+        </div>
+
+        <div class="Options-container">
+            <h4 id="Options-backgroundColor">How to generate the background-color: <span id="Options-backgroundColorValue">fixed_order</span></h4>
+        </div>
+
+        <div class="Options-container">
+            <h4>Note's margin: <span id="Options-margin">5</span></h4>
+            <div id="Options-marginSlider"></div>
+        </div>
+
+        <div class="Options-container">
+            <h4 id="Options-spellCheck">SpellCheck: <span id="Options-spellCheckValue">Yes</span></h4>
+        </div>
+
+        <hr />
+
+        <p id="Options-documentation">
+            Here's the <a href="https://bitbucket.org/drk4/notes/wiki/" target="_blank">documentation</a>, just in case.
+        </p>
+
+        <p>
+            <a id="Options-export" href="data:text/plain;" download="notes.txt">Click to export the notes.</a>
+        </p>
+    </div>
 </body>
 </html>

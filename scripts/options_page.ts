@@ -1,123 +1,124 @@
 module OptionsPage
 {
+var CONTAINER: HTMLElement;
+
+
 /*
  * The page where you change the options of the program
  */
-export function create()
+export function init()
     {
-    var container = document.createElement( 'div' );
-
-    $( container ).load( 'options.html',
-        function()
-        {
-        new PopupWindow({
-                content: container,
-                onHide: function()
-                    {
-                    Options.saveOptions();
-                    }
-            });
+    CONTAINER = document.getElementById( 'Options' )!;
 
             // :: Width :: //
 
-        //var slider = container.querySelector( 'Options-noteSlider' );
-        var widthSlider = document.createElement( 'div' );   //HERE n funciona com o k esta na options.html
+    var widthSlider = document.getElementById( 'Options-noteWidthSlider' )!;
+    var widthValue = document.getElementById( 'Options-noteWidth' )!;
+    var noteWidth = Options.getNext( 'noteWidth' );
 
-        var widthValue = container.querySelector( '#Options-noteWidth' )!;
-        var noteWidth = Options.getNext( 'noteWidth' );
+    widthValue.innerHTML = noteWidth;
 
-        widthValue.innerHTML = noteWidth;
-
-        $( widthSlider ).slider({
-            value : noteWidth,
-            min   : 150,
-            max   : 350,
-            step  : 25,
-            slide : function(event, ui)
-                {
-                widthValue.innerHTML = ui.value!.toString();
-                Options.set( 'noteWidth', ui.value );
-                }
-            });
-
-            // :: Height :: //
-
-        var heightValue = container.querySelector( '#Options-noteHeight' )!;
-        //var heightSlider = container.querySelector( 'Options-noteHeightSlider' );     //HERE
-        var heightSlider = document.createElement( 'div' );
-        var noteHeight = Options.getNext( 'noteHeight' );
-
-        heightValue.innerHTML = noteHeight;
-
-        $( heightSlider ).slider({
-            value : noteHeight,
-            min   : 100,
-            max   : 200,
-            step  : 25,
-            slide : function(event, ui)
-                {
-                heightValue.innerHTML = ui.value!.toString();
-                Options.set( 'noteHeight', ui.value );
-                }
-            });
-
-                // :: Margin :: //
-
-        var marginValue = container.querySelector( '#Options-margin' )!;
-        var marginSlider = document.createElement( 'div' );
-        var noteMargin = Options.getNext( 'noteMargin' );
-
-        marginValue.innerHTML = noteMargin;
-
-        $( marginSlider ).slider({
-            value : noteMargin,
-            min   : 0,
-            max   : 20,
-            step  : 1,
-            slide : function(event, ui)
-                {
-                marginValue.innerHTML = ui.value!.toString();
-                Options.set( 'noteMargin', ui.value );
-                }
-            });
-
-        widthValue.parentNode.parentNode.appendChild( widthSlider );
-        heightValue.parentNode.parentNode.appendChild( heightSlider );
-        marginValue.parentNode.parentNode.appendChild( marginSlider );
-
-        //$( widthSlider  ).insertAfter( widthValue );  //HERE se desse para usar o k ja esta nas opções...
-        //$( heightSlider ).insertAfter( heightValue );
-        //$( marginSlider ).insertAfter( marginValue );
-
-            // :: Generate background-color :: //
-
-        var backgroundColor = container.querySelector( '#Options-backgroundColor' )!;
-        var backgroundColorValue = container.querySelector( '#Options-backgroundColorValue' )!;
-
-        backgroundColorValue.innerHTML = Options.getNext( 'generateColorType' );
-
-        $( backgroundColor ).bind('click', function( event ) { OptionsPage.switchBackgroundColor( event, backgroundColorValue ); });
-
-            // :: SpellCheck :: //
-
-        var spellCheck = container.querySelector( '#Options-spellCheck' )!;
-        var spellCheckValue = container.querySelector( '#Options-spellCheckValue' )!;
-        var spellCheckOption = Options.getNext( 'spellCheck' );
-
-        spellCheckValue.innerHTML = OptionsPage.boolToYesNo( spellCheckOption );
-
-        $( spellCheck ).bind('click', function( event ) { OptionsPage.switchSpellCheck( event, spellCheckValue ); });
-
-            // :: Export notes :: //
-
-        var exportNotes = <HTMLAnchorElement> container.querySelector( '#Options-export' );
-
-        exportNotes.onclick = function()
+    $( widthSlider ).slider({
+        value : noteWidth,
+        min   : 150,
+        max   : 350,
+        step  : 25,
+        slide : function(event, ui)
             {
-            var notesString = JSON.stringify( MAIN_CONTAINER.getTextList(), null, 4 );
+            widthValue.innerHTML = ui.value!.toString();
+            Options.set( 'noteWidth', ui.value );
+            }
+        });
 
-            exportNotes.href = "data:text/plain;base64," + Utilities.utf8_to_b64( notesString );
-            };
+        // :: Height :: //
+
+    var heightValue = document.getElementById( 'Options-noteHeight' )!;
+    var heightSlider = document.getElementById( 'Options-noteHeightSlider' )!;
+    var noteHeight = Options.getNext( 'noteHeight' );
+
+    heightValue.innerHTML = noteHeight;
+
+    $( heightSlider ).slider({
+        value : noteHeight,
+        min   : 100,
+        max   : 200,
+        step  : 25,
+        slide : function(event, ui)
+            {
+            heightValue.innerHTML = ui.value!.toString();
+            Options.set( 'noteHeight', ui.value );
+            }
+        });
+
+            // :: Margin :: //
+
+    var marginValue = document.getElementById( 'Options-margin' )!;
+    var marginSlider = document.getElementById( 'Options-marginSlider' )!;
+    var noteMargin = Options.getNext( 'noteMargin' );
+
+    marginValue.innerHTML = noteMargin;
+
+    $( marginSlider ).slider({
+        value : noteMargin,
+        min   : 0,
+        max   : 20,
+        step  : 1,
+        slide : function(event, ui)
+            {
+            marginValue.innerHTML = ui.value!.toString();
+            Options.set( 'noteMargin', ui.value );
+            }
+        });
+
+        // :: Generate background-color :: //
+
+    var backgroundColor = document.getElementById( 'Options-backgroundColor' )!;
+    var backgroundColorValue = document.getElementById( 'Options-backgroundColorValue' )!;
+
+    backgroundColorValue.innerHTML = Options.getNext( 'generateColorType' );
+
+    backgroundColor.onclick = function( event )
+        {
+        switchBackgroundColor( event, backgroundColorValue );
+        };
+
+        // :: SpellCheck :: //
+
+    var spellCheck = document.getElementById( 'Options-spellCheck' )!;
+    var spellCheckValue = document.getElementById( 'Options-spellCheckValue' )!;
+    var spellCheckOption = Options.getNext( 'spellCheck' );
+
+    spellCheckValue.innerHTML = boolToYesNo( spellCheckOption );
+
+    spellCheck.onclick = function( event )
+        {
+        switchSpellCheck( event, spellCheckValue );
+        };
+
+        // :: Export notes :: //
+
+    var exportNotes = <HTMLAnchorElement> document.getElementById( 'Options-export' )!;
+
+    exportNotes.onclick = function()
+        {
+        var notesString = JSON.stringify( MAIN_CONTAINER.getTextList(), null, 4 );
+
+        exportNotes.href = "data:text/plain;base64," + Utilities.utf8_to_b64( notesString );
+        };
+    }
+
+
+export function open()
+    {
+    CONTAINER.classList.remove( 'hidden' );
+
+    new PopupWindow({
+            content: CONTAINER,
+            onHide: function()
+                {
+                CONTAINER.classList.add( 'hidden' );
+                Options.saveOptions();
+                }
         });
     }
 
@@ -126,7 +127,7 @@ export function create()
  * true  --> "Yes"
  * false --> "No"
  */
-export function boolToYesNo( boolVar: boolean )
+function boolToYesNo( boolVar: boolean )
     {
     if ( boolVar === true )
         {
@@ -143,19 +144,16 @@ export function boolToYesNo( boolVar: boolean )
  *      event : the on click event object
  *      spellCheckValue : the html element to update the values (to show the user the new value)
  */
-export function switchSpellCheck( event: MouseEvent, spellCheckValue: HTMLElement )
+function switchSpellCheck( event: MouseEvent, spellCheckValue: HTMLElement )
     {
-    if (event.type === 'click')
-        {
-            // OPTIONS.spellCheck is a bool variable, so the not operator turns a true to false, or a false to true
-        var spellCheck = Options.getNext( 'spellCheck' );
-        var next = !spellCheck;
+        // OPTIONS.spellCheck is a bool variable, so the not operator turns a true to false, or a false to true
+    var spellCheck = Options.getNext( 'spellCheck' );
+    var next = !spellCheck;
 
-        Options.set( 'spellCheck', next );
+    Options.set( 'spellCheck', next );
 
-            // update the text, with a "Yes" or "No"
-        spellCheckValue.innerHTML = OptionsPage.boolToYesNo( next );
-        }
+        // update the text, with a "Yes" or "No"
+    spellCheckValue.innerHTML = boolToYesNo( next );
     }
 
 
@@ -165,7 +163,7 @@ export function switchSpellCheck( event: MouseEvent, spellCheckValue: HTMLElemen
  *      event : the on click event object
  *      backgroundColorValue : the html element to update the values (to show the user the new value)
  */
-export function switchBackgroundColor( event: MouseEvent, backgroundColorValue: HTMLElement )
+function switchBackgroundColor( event: MouseEvent, backgroundColorValue: HTMLElement )
     {
     var next = '';
 
