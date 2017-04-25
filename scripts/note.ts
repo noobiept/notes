@@ -378,7 +378,7 @@ isFirst()
  */
 isLast()
     {
-    if ( this.position_int + 1 === this.parentObject.childrenObjects_array.length )
+    if ( this.position_int + 1 === this.parentObject.childrenCount() )
         {
         return true;
         }
@@ -392,16 +392,7 @@ isLast()
  */
 next()
     {
-    var elementsArray = this.parentObject.childrenObjects_array;
-    var position = this.position_int;
-
-        //we're at the last position
-    if ( position + 1 === elementsArray.length )
-        {
-        return null;
-        }
-
-    return elementsArray[ position + 1 ];
+    return this.parentObject.getChild( this.position_int + 1 );
     }
 
 
@@ -410,15 +401,7 @@ next()
  */
 previous()
     {
-    var position = this.position_int;
-
-        //if we're not on the first one
-    if ( position !== 0 )
-        {
-        return this.parentObject.childrenObjects_array[ position - 1 ];
-        }
-
-    return null;
+    return this.parentObject.getChild( this.position_int - 1 );
     }
 
 

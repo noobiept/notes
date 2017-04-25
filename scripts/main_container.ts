@@ -1,8 +1,8 @@
 class MainContainer
 {
-htmlElement_obj: HTMLElement;
-childrenObjects_array: Note[];
-dummyNote_obj: DummyNote;
+private htmlElement_obj: HTMLElement;
+private childrenObjects_array: Note[];
+private dummyNote_obj: DummyNote;
 
 
 /*
