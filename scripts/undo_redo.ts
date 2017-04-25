@@ -190,7 +190,6 @@ export function stuff( whichOne: 'undo' | 'redo' )
             }
         }
 
-
     else if (element.what === 'addedNote')
         {
         if (whichOne === 'undo') // same as 'removedNote' and 'redo'
