@@ -236,13 +236,15 @@ export function stuff( whichOne: 'undo' | 'redo' )
     if (whichOne === 'undo')
         {
             //move without saving it again to undo
-        MAIN_CONTAINER.getChild( element.position )!.moveTo( element.previousPosition!, false );
+        let note = MAIN_CONTAINER.getChild( element.position )!;
+        MAIN_CONTAINER.moveNoteTo( note, element.previousPosition!, false );
         }
 
     else
         {
             //move without saving it again to undo
-        MAIN_CONTAINER.getChild( element.previousPosition! )!.moveTo( element.position, false );
+        let note = MAIN_CONTAINER.getChild( element.previousPosition! )!;
+        MAIN_CONTAINER.moveNoteTo( note, element.position, false );
         }
     }
 

@@ -99,7 +99,7 @@ onDrop( event: DragEvent )
         //see if we're not dropping on the same place
     if ( dragObject !== elementObject )
         {
-        dragObject.moveTo( elementObject.getPosition() );
+        MAIN_CONTAINER.moveNoteTo( dragObject, elementObject.getPosition() );
         }
 
     DragDrop.dragElement_class = null;

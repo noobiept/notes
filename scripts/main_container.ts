@@ -75,6 +75,84 @@ removeNote( note: Note, saveToUndo?: boolean )
     }
 
 
+moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
+    {
+        //if there's an active element (with focus), we need to remove the focus before starting moving stuff around
+        //since there are events (blur) attached to the elements, which are triggered when we move the html elements
+        //so we 'call' them now, while we haven't done anything yet
+    if (document.activeElement)
+        {
+            //this will probably be always called, since there's always an element on focus, even if it is just the <body>
+        (<HTMLElement>document.activeElement).blur();
+        }
+
+        //for undo
+    var previousPosition = note.getPosition();
+
+        //find the position from where we need to update (depends if we move from an higher position to a lower, or the other way around)
+    var lessPosition;
+
+        //from an higher position to a lower
+    if ( previousPosition > position )
+        {
+        lessPosition = position;
+        }
+
+        //from a lower position to a higher
+    else
+        {
+        lessPosition = previousPosition;
+        }
+
+        //inserting at the end
+    if (position === this.childrenCount() - 1)
+        {
+        this.getHtmlElement().insertBefore(
+            note.getHtmlElement(),
+            this.getDummy().getHtmlElement()
+            );
+        }
+
+        //when the drag was from a higher position to a lower
+    else if (position > note.getPosition())
+        {
+        this.getHtmlElement().insertBefore(
+            note.getHtmlElement(),
+            this.getChild( position + 1 )!.getHtmlElement()
+            );
+        }
+
+    else
+        {
+        this.getHtmlElement().insertBefore(
+            note.getHtmlElement(),
+            this.getChild( position )!.getHtmlElement()
+            );
+        }
+
+        // remove from array
+    this.childrenObjects_array.splice( previousPosition, 1 );
+
+        // add in the new position
+    this.childrenObjects_array.splice( position, 0, note );
+
+        // update the position property
+    for (var a = position ; a < this.childrenObjects_array.length ; a++)
+        {
+        this.childrenObjects_array[ a ].position_int = a;
+        }
+
+    if ( saveToUndo !== false )
+        {
+        UndoRedo.add( 'draggedNote', note, previousPosition );
+        }
+
+        //focus on the element that was dragged
+    note.gainFocus();
+    Data.changeNotePosition( note, previousPosition );
+    }
+
+
 addDummyNote()
     {
     this.dummyNote_obj = new DummyNote();
