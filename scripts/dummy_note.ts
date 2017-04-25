@@ -1,7 +1,7 @@
 class DummyNote
 {
-dummy_html: HTMLElement;
-dummyText_ui: HTMLElement;
+private dummy_html: HTMLElement;
+private dummyText_ui: HTMLElement;
 
 
 constructor()

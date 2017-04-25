@@ -1,11 +1,11 @@
 class DragDrop
 {
     //has the object of the element that is being dragged
- static dragElement_class: Note | null = null;
+static dragElement_class: Note | null = null;
 
-dragElement_ui: HTMLElement;
-element_ui: HTMLElement;
-elementObject_obj: Note;
+private dragElement_ui: HTMLElement;
+private element_ui: HTMLElement;
+private elementObject_obj: Note;
 
 
 /*

@@ -12,11 +12,11 @@ interface NoteArgs
 class Note
 {
 position_int: number;
-dragDrop_obj: DragDrop;
-parentObject: MainContainer;
-noteEntry_obj: HTMLElement;
-noteContainer_ui: HTMLElement;
-backgroundColor_obj: Color;
+private dragDrop_obj: DragDrop;
+private parentObject: MainContainer;
+private noteEntry_obj: HTMLElement;
+private noteContainer_ui: HTMLElement;
+private backgroundColor_obj: Color;
 
 
 /*

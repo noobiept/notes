@@ -10,11 +10,11 @@ interface ColorComponents
 
 class Color
 {
-wasSetByUser_bool: boolean;
-red_int: number;
-green_int: number;
-blue_int: number;
-alpha_float: number;
+private wasSetByUser_bool: boolean;
+private red_int: number;
+private green_int: number;
+private blue_int: number;
+private alpha_float: number;
 
 
 /**

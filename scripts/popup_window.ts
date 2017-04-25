@@ -16,12 +16,12 @@ static allWindows_class: PopupWindow[] = [];
     //initial z-index
 static zIndex_class = 100;
 
-shortcut_obj: (event: KeyboardEvent) => void;
-onHide_f: (() => void) | undefined;
-onResize_f: (() => void) | undefined;
-windowOverlay_obj: HTMLElement;
-windowContainer_obj: HTMLElement;
-isOpened_obj: boolean;
+private shortcut_obj: (event: KeyboardEvent) => void;
+private onHide_f: (() => void) | undefined;
+private onResize_f: (() => void) | undefined;
+private windowOverlay_obj: HTMLElement;
+private windowContainer_obj: HTMLElement;
+private isOpened_obj: boolean;
 
 
 constructor( args: PopupWindowArgs )

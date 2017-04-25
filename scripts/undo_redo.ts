@@ -168,14 +168,7 @@ export function stuff( whichOne: 'undo' | 'redo' )
         {
         if (whichOne === 'undo')
             {
-            var colorComponents = {
-
-                    red          : element.colorObject!.red_int,
-                    green        : element.colorObject!.green_int,
-                    blue         : element.colorObject!.blue_int,
-                    alpha        : element.colorObject!.alpha_float,
-                    wasSetByUser : element.colorObject!.wasSetByUser_bool
-                };
+            var colorComponents = element.colorObject!.getColor();
 
             MAIN_CONTAINER.newNote({
                 container: MAIN_CONTAINER,
@@ -212,14 +205,7 @@ export function stuff( whichOne: 'undo' | 'redo' )
 
         else    // same as 'removedNote' and 'undo'
             {
-            var colorComponents2 = {
-
-                    red          : element.colorObject!.red_int,
-                    green        : element.colorObject!.green_int,
-                    blue         : element.colorObject!.blue_int,
-                    alpha        : element.colorObject!.alpha_float,
-                    wasSetByUser : element.colorObject!.wasSetByUser_bool
-                };
+            var colorComponents2 = element.colorObject!.getColor();
 
             MAIN_CONTAINER.newNote({
                 container: MAIN_CONTAINER,
