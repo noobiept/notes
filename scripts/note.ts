@@ -11,7 +11,7 @@ interface NoteArgs
 
 class Note
 {
-position_int: number;
+private position_int: number;
 private dragDrop_obj: DragDrop;
 private parentObject: MainContainer;
 private noteEntry_obj: HTMLElement;
@@ -314,6 +314,15 @@ removeFocusStyle()
 getPosition()
     {
     return this.position_int;
+    }
+
+
+/**
+ * Set the element's current position.
+ */
+setPosition( position: number )
+    {
+    this.position_int = position;
     }
 
 

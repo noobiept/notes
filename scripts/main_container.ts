@@ -40,7 +40,7 @@ newNote( args: NoteArgs )
         // update the position property
     for (var a = notePosition ; a < this.childrenObjects_array.length ; a++)
         {
-        this.childrenObjects_array[ a ].position_int = a;
+        this.childrenObjects_array[ a ].setPosition( a );
         }
 
     return noteObject;
@@ -70,7 +70,7 @@ removeNote( note: Note, saveToUndo?: boolean )
         // update the position property
     for (var a = position ; a < this.childrenObjects_array.length ; a++)
         {
-        this.childrenObjects_array[ a ].position_int = a;
+        this.childrenObjects_array[ a ].setPosition( a );
         }
     }
 
@@ -139,7 +139,7 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
         // update the position property
     for (var a = position ; a < this.childrenObjects_array.length ; a++)
         {
-        this.childrenObjects_array[ a ].position_int = a;
+        this.childrenObjects_array[ a ].setPosition( a );
         }
 
     if ( saveToUndo !== false )
