@@ -116,9 +116,6 @@ static hasOpenedWindows()
  */
 show( contentElement: HTMLElement, onStartFunction?: () => void )
     {
-        //when opening from the menu, the sub-menu still stays opened //HERE
-    //$('#subMenu ul').css('display', 'none');  // nao ah submenus por enquanto
-
     this.isOpened_obj = true;
 
     var container = this.getContainer();
@@ -192,6 +189,12 @@ show( contentElement: HTMLElement, onStartFunction?: () => void )
  */
 hide( effectTime?: number )
     {
+        // already was hidden
+    if ( !this.isOpened_obj )
+        {
+        return;
+        }
+
     if (typeof this.onHide_f !== 'undefined' && this.onHide_f !== null)
         {
         this.onHide_f();
@@ -201,7 +204,7 @@ hide( effectTime?: number )
 
     if (typeof effectTime === 'undefined')
         {
-        effectTime = 100;   //default value
+        effectTime = 50;   //default value
         }
 
     var windowContainer = this.getContainer();
@@ -210,11 +213,7 @@ hide( effectTime?: number )
         //remove the onresize event, since it uses polling (not a 'real' event)
     $( windowContainer ).unbind();
 
-        //if this is the only opened window, then hide the overlay ( //HERE o overlay nao eh global.. eh de cada objecto )
-    //if ( PopupWindow.allWindows_class.length === 1 )
-        //{ //HERE
-        $(overlay).hide('fade', effectTime.toString(), function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
-        //}
+    $( overlay ).hide( 'fade', null, effectTime, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
 
     this.isOpened_obj = false;
 
