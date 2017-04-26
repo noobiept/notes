@@ -105,7 +105,6 @@ a
 .noteContainer:hover, .noteContainer:focus, .dummyNote:hover, .dummyNote:focus, .NoteOnFocus
     {
     transform: scale(1.1);
-    z-index: 100;
     }
 
 .dummyNote
@@ -125,11 +124,8 @@ a
 .delNote, .openWindow, .NoteWindow-leftArrow, .NoteWindow-rightArrow, .NoteWindow-options
     {
     transition: all .1s ease-in-out;
-
     cursor: pointer;
     position: absolute;
-
-    z-index: 10;
     opacity: 0;
     }
 
@@ -147,8 +143,8 @@ a
 
 .NoteWindow-leftArrow, .NoteWindow-rightArrow
     {
+    position: fixed;
     opacity: 0.8;
-    z-index: 101;   /* has to be higher than the one used for NoteWindow's overlay (but not higher than the next PopupWindow that can be created (for example the NoteWindow's options)) */
     top: 50%;
     transform: translateY(-50%);
     }
@@ -190,7 +186,6 @@ a
     text-align: center;
     margin: 5px 6px;
     padding: 0;
-    z-index: 100;
     overflow: visible;
     min-height: 30px;
     position: relative;
@@ -234,7 +229,6 @@ a
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.3);
-    /*z-index: 100; is set with javascript*/
     }
 
 .windowContainer
@@ -256,8 +250,6 @@ a
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    /*z-index: 200; set with javascript as well (because of having several windows)*/
     }
 
 .windowContent

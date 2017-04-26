@@ -12,8 +12,6 @@ class PopupWindow
     //has all the PopupWindow objects of opened windows
 static allWindows_class: PopupWindow[] = [];
 
-    //initial z-index
-static zIndex_class = 100;
 static overlayEffectDuration = 50;  // duration of the show/hide overlay effect
 
 private shortcut_obj: (event: KeyboardEvent) => void;
@@ -42,17 +40,6 @@ constructor( args: PopupWindowArgs )
 
     var windowContainer = document.createElement('div');
     windowContainer.className = 'windowContainer';
-
-        // :: Setting up the overlay/container z-index :: //
-
-    var numberOfOpenedWindows = PopupWindow.allWindows_class.length;
-
-        //if we have several windows opened, the later windows have to have a bigger z-index, so that they
-        //appear over the others
-    $(windowOverlay).css( 'z-index', PopupWindow.zIndex_class + numberOfOpenedWindows );
-
-        //the +1 is because the container is over the overlay (in front of)
-    $(windowContainer).css( 'z-index', PopupWindow.zIndex_class + numberOfOpenedWindows + 1 );
 
         // :: setting up the events :: //
 

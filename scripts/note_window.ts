@@ -82,9 +82,6 @@ export function open( noteObject: Note )
     container.appendChild( menu );
     container.appendChild( text );
 
-    document.body.appendChild( left );
-    document.body.appendChild( right );
-
         // :: Other :: //
 
     TEXT = text;
@@ -104,12 +101,16 @@ export function open( noteObject: Note )
 
 
 /*
- * To be executed when the window is created
+ * To be executed when the window is created.
  *
- * Set focus on the title entry
+ * Set focus on the title entry and add the arrow elements.
  */
 function onStart()
     {
+        // append the arrows after the popup window was created, so that the elements are on top of the window/overlay (otherwise we couldn't click on them)
+    document.body.appendChild( LEFT_ARROW );
+    document.body.appendChild( RIGHT_ARROW );
+
     TEXT.focus();
     }
 
