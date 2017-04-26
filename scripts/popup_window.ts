@@ -114,16 +114,6 @@ show( contentElement: HTMLElement, onStartFunction?: () => void )
 
         //set the overlay to cover the whole page
     var overlay = this.getOverlay();
-    overlay.style.height = $(document).height() + 'px';
-
-        // :::::::::: set up the events :::::::::: //
-
-    window.addEventListener('resize',
-        function (event)
-            {
-            overlay.style.height = $(document).height() + 'px';
-            },
-        true);
 
         // :::::::: other :::::::: //
 
@@ -171,9 +161,6 @@ hide()
     var popupWindowObject = this;
     var windowContainer = this.getContainer();
     var overlay = this.getOverlay();
-
-        //remove the onresize event, since it uses polling (not a 'real' event)
-    $( windowContainer ).unbind();
 
     $( overlay ).hide( 'fade', null, PopupWindow.overlayEffectDuration, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
 

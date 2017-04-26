@@ -9,8 +9,6 @@ Dependencies
     - blind effect
     - fade effect
 
-- ba-resize -- 1.1
-
 
 Keyboard Shortcuts
 ==================

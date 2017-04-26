@@ -231,9 +231,9 @@ a
     position: fixed;
     top: 0;
     left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.3);
-    display: none; /* its going to be shown later with javascript */
-    width: 100%;
     /*z-index: 100; is set with javascript*/
     }
 
