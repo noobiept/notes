@@ -4,7 +4,6 @@
     clear: both;
     }
 
-
 body
     {
     background-color: black;
@@ -15,12 +14,10 @@ body
     letter-spacing: 1px;
     }
 
-
 a
     {
     color: rgb( 97, 164, 240 );
     }
-
 
 ::-webkit-scrollbar
     {
@@ -28,12 +25,10 @@ a
     background-color: rgba(255, 255, 255, 0.8);
     }
 
-
 ::-webkit-scrollbar:hover
     {
     background-color: rgba(255, 255, 255, 0.9);
     }
-
 
 ::-webkit-scrollbar-thumb
     {
@@ -62,11 +57,8 @@ a
     {
     position: relative;
     float: left;
-
-    -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
     }
-
 
     /* :: Dummy Note :: */
 
@@ -89,17 +81,8 @@ a
     {
     height: 80px;
     overflow: auto;
+    outline: none;
     }
-
-.noteEntry:focus
-    {
-    /*background-image: -webkit-linear-gradient(top, transparent 50%, rgba(130, 50, 0, 1));*/
-    /*background-color: white;
-    color: black;*/
-    outline:none;
-    }
-
-
 
 .noteControls
     {
@@ -112,26 +95,18 @@ a
     cursor: pointer;
     }
 
-
     /* The .noteEntry is the element that can be in focus, but we want to apply to the .noteContainer, so we add this
             class with javascript somewhere */
 .noteContainer.NoteOnFocus
     {
-    /*background-color: white !important;*/ /* the background-color is set with javascript on the element, so we need the !important to be able to overwrite it */
-    /*color: black;*/
-
     outline: 4px dashed white;
     }
 
-
-    /* //HERE qd a .noteEntry on focus, por o transform... n sei se da com css */
 .noteContainer:hover, .noteContainer:focus, .dummyNote:hover, .dummyNote:focus, .NoteOnFocus
     {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
     z-index: 100;
     }
-
 
 .dummyNote
     {
@@ -140,16 +115,15 @@ a
     }
 
 
-
 /* ************************************
  *
  *              Side buttons
  *
  * ************************************/
 
+
 .delNote, .openWindow, .NoteWindow-leftArrow, .NoteWindow-rightArrow, .NoteWindow-options
     {
-    -webkit-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
 
     cursor: pointer;
@@ -158,7 +132,6 @@ a
     z-index: 10;
     opacity: 0;
     }
-
 
 .noteContainer .delNote
     {
@@ -172,29 +145,22 @@ a
     left: 8px;
     }
 
-
 .NoteWindow-leftArrow, .NoteWindow-rightArrow
     {
     opacity: 0.8;
     z-index: 101;   /* has to be higher than the one used for NoteWindow's overlay (but not higher than the next PopupWindow that can be created (for example the NoteWindow's options)) */
     }
 
-
-
-
 .noteContainer:hover .delNote, .noteContainer:hover .openWindow,
 .noteContainer:focus .delNote, .noteContainer:focus .openWindow,
 .NoteOnFocus .delNote, .NoteOnFocus .openWindow
-
     {
     opacity: 0.2;
     }
 
-
 .noteContainer .delNote:hover, .NoteWindow .delNote:hover, .noteContainer .openWindow:hover, .NoteWindow-leftArrow:hover, .NoteWindow-rightArrow:hover
     {
     opacity: 1;
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
     }
 
@@ -204,6 +170,7 @@ a
  *              Menu
  *
  * ************************************/
+
 
 #menu
     {
@@ -216,7 +183,6 @@ a
     min-height: 30px;
     position: relative;
     }
-
 
 #menu li
     {
@@ -233,20 +199,13 @@ a
     color: black;
     }
 
-
 #menu #message
     {
-    -webkit-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
-    -moz-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
-    -o-transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
-
-    /*min-width: //HERE */
-
     margin-left: 40px;  /* separate a bit from the menu */
-
     opacity: 0;
     }
+
 
 /* ************************************
  *
@@ -266,7 +225,6 @@ a
     /*z-index: 100; is set with javascript*/
     }
 
-
 .windowContainer
     {
     position: fixed;
@@ -279,7 +237,6 @@ a
 
     max-width: 90%;
     max-height: 85%;
-
 
     background-color: #000;
     color: #fff;
@@ -296,18 +253,17 @@ a
     }
 
 
-
 /* ************************************
  *
  *        Note Window
  *
  * ************************************/
 
+
 .NoteWindow-menu
     {
     min-height: 15px;
     }
-
 
 .NoteWindow-text
     {
@@ -320,7 +276,6 @@ a
     outline: 2px solid rgba(229, 151, 0, 0.5);
     }
 
-
 .NoteWindow .delNote
     {
     opacity: 0.2;
@@ -328,16 +283,12 @@ a
     right: 15px;
     }
 
-
 .NoteWindow-options
     {
     top: 5px;
     left: 13px;
     opacity: 1;
-    /*cursor: pointer;
-    font-size: 80%;*/
     }
-
 
 .NoteWindow-selectBackgroundTypeContainer > *
     {
@@ -353,7 +304,7 @@ a
 .NoteWindow-selected
     {
     padding: 0 7px;
-    background-color: black;  /* #HERE */
+    background-color: black;
     border: 2px solid white;
     color: white;
     }
@@ -370,6 +321,7 @@ a
  *
  * ************************************/
 
+
     /* reduce the space occupied by the slider */
 
 .ColorPicker-slider.ui-slider .ui-slider-handle
@@ -377,7 +329,6 @@ a
     height: 0.8em;
     top: -0.2em;
     }
-
 
 .ColorPicker-slider.ui-slider-horizontal
     {
@@ -389,14 +340,12 @@ a
     margin: 0;
     }
 
-
 .ColorPicker-container
     {
     min-height: 90px;
     }
 
    /* force the container to occupy some space */
-
 .ColorPicker-colorContainer
     {
     min-height: 20px;
@@ -404,7 +353,6 @@ a
     }
 
     /* so that the value appears next to (to the left) the text */
-
 .ColorPicker-textValueContainer > *
     {
     float: left;
@@ -420,11 +368,13 @@ a
     margin-right: 3px;
     }
 
+
 /* ************************************
  *
  *        Options Page
  *
  * ************************************/
+
 
 #Options-documentation
     {
@@ -453,20 +403,9 @@ a
     clear: both;
     }
 
-
 .ui-slider
     {
     width: 60%;
     margin: 20px;
     float: right;
-    }
-
-
-    /* server only */
-
-#logout
-    {
-    position: absolute;
-    top: 0px;
-    right: 20px;
     }

@@ -331,14 +331,7 @@ setPosition( position: number )
  */
 getText()
     {
-    var text = this.noteEntry_obj.innerHTML;    //always returns a string?..    //HERE
-
-    if (text === null)
-        {
-        return "";
-        }
-
-    return text;
+    return this.noteEntry_obj.innerHTML;;
     }
 
 
