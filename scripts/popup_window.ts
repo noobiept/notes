@@ -15,6 +15,7 @@ static allWindows_class: PopupWindow[] = [];
 
     //initial z-index
 static zIndex_class = 100;
+static overlayEffectDuration = 50;  // duration of the show/hide overlay effect
 
 private shortcut_obj: (event: KeyboardEvent) => void;
 private onHide_f: (() => void) | undefined;
@@ -75,10 +76,6 @@ constructor( args: PopupWindowArgs )
     document.body.appendChild(windowOverlay);
     document.body.appendChild(windowContainer);
 
-        //not showing
-    $(windowContainer).css('display', 'none');
-    $(windowOverlay).css('display', 'none');
-
     this.onHide_f = args.onHide;
     this.onResize_f = args.onResize;
 
@@ -88,8 +85,6 @@ constructor( args: PopupWindowArgs )
     this.isOpened_obj = false;
 
     this.show( args.content, args.onStart );
-
-    return this;
     }
 
 
@@ -148,15 +143,7 @@ show( contentElement: HTMLElement, onStartFunction?: () => void )
 
         // :::::::: other :::::::: //
 
-        //no need to add another overlay when there's one there already
-    //if ( PopupWindow.allWindows_class.length === 0 )
-        //{//HERE .. uns erros...
-            //show the window and overlay
-        $(overlay).show('fade', 100);
-        //}
-
-    $(container).css('display', 'block');   //I'm not using something like $(container).show('blind', 100); since it then doesn't position the window correctly
-    $(container).css('opacity', 1);
+    $( overlay ).show( 'fade', null, PopupWindow.overlayEffectDuration );
 
         //see if it was provided an element to set focus
     if (typeof onStartFunction !== 'undefined' && onStartFunction !== null)
@@ -183,11 +170,8 @@ show( contentElement: HTMLElement, onStartFunction?: () => void )
 
 /*
  * hide the popup window
- *
- * Arguments:
- *      - effectTime: (default: 100ms)
  */
-hide( effectTime?: number )
+hide()
     {
         // already was hidden
     if ( !this.isOpened_obj )
@@ -201,19 +185,13 @@ hide( effectTime?: number )
         }
 
     var popupWindowObject = this;
-
-    if (typeof effectTime === 'undefined')
-        {
-        effectTime = 50;   //default value
-        }
-
     var windowContainer = this.getContainer();
     var overlay = this.getOverlay();
 
         //remove the onresize event, since it uses polling (not a 'real' event)
     $( windowContainer ).unbind();
 
-    $( overlay ).hide( 'fade', null, effectTime, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
+    $( overlay ).hide( 'fade', null, PopupWindow.overlayEffectDuration, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
 
     this.isOpened_obj = false;
 
