@@ -149,6 +149,18 @@ a
     {
     opacity: 0.8;
     z-index: 101;   /* has to be higher than the one used for NoteWindow's overlay (but not higher than the next PopupWindow that can be created (for example the NoteWindow's options)) */
+    top: 50%;
+    transform: translateY(-50%);
+    }
+
+.NoteWindow-leftArrow
+    {
+    left: 100px;
+    }
+
+.NoteWindow-rightArrow
+    {
+    right: 100px;
     }
 
 .noteContainer:hover .delNote, .noteContainer:hover .openWindow,
@@ -241,7 +253,10 @@ a
     background-color: #000;
     color: #fff;
 
-    /*resize: both; //HERE hmmmm */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     /*z-index: 200; set with javascript as well (because of having several windows)*/
     }
 

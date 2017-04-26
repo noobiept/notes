@@ -65,29 +65,11 @@ export function open( noteObject: Note )
         // :: Left arrow -- change to the note to the left :: //
 
     var left = Draw.create( 'NoteWindow-leftArrow' );
-
-    //var width = $(window).width();
-    var height = $(window).height();
-
-    var halfHeight = height / 2;
-
-
-    $( left ).css( 'left', '100px' );  //HERE  -- por a ficar a uma certa distancia sempre da NoteWindow
-    $( left ).css( 'top', halfHeight + 'px' );
-
-
     left.addEventListener( 'click', function() { goLeftNote(); }, false );
-
 
         // :: Right arrow -- change to the note to the right :: //
 
     var right = Draw.create( 'NoteWindow-rightArrow' );
-
-
-    $( right ).css( 'right', '100px' );//HERE
-    $( right ).css( 'top', halfHeight + 'px' );
-
-
     right.addEventListener( 'click', function() { goRightNote(); }, false );
 
         // :: Container :: //
@@ -116,8 +98,7 @@ export function open( noteObject: Note )
             content: container,
             onStart: onStart,
             onHide: onHide,
-            onKeyUp: shortcuts,
-            onResize: resize
+            onKeyUp: shortcuts
         });
     }
 
@@ -155,7 +136,6 @@ function updateContent( noteObject: Note )
     {
     TEXT.innerHTML = noteObject.getText();
 
-    POPUP_WINDOW.resize();
     CONTAINER.style.backgroundColor = noteObject.getColorObject().getCssRepresentation();
     NOTE = noteObject;
 
@@ -208,20 +188,6 @@ function goRightNote()
 
         updateContent( otherElement! );
         }
-    }
-
-
-/*
- * re-calculate the position of the left/right arrows
- */
-function resize()
-    {
-    var height = $( window ).height();
-    var halfHeight = height / 2;
-    var heightPx = halfHeight + 'px';
-
-    $( LEFT_ARROW ).css('top', heightPx);
-    $( RIGHT_ARROW ).css('top', heightPx);
     }
 
 

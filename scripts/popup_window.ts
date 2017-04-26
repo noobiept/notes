@@ -4,7 +4,6 @@ interface PopupWindowArgs
     onStart?: () => void;   // to be called when the window is created
     onHide?: () => void;    // to be called when the window is closed
     onKeyUp?: (event: KeyboardEvent) => void;   // to be called when keys are pressed
-    onResize?: () => void;  // to be called when the PopupWindow's resize is called
     }
 
 
@@ -19,7 +18,6 @@ static overlayEffectDuration = 50;  // duration of the show/hide overlay effect
 
 private shortcut_obj: (event: KeyboardEvent) => void;
 private onHide_f: (() => void) | undefined;
-private onResize_f: (() => void) | undefined;
 private windowOverlay_obj: HTMLElement;
 private windowContainer_obj: HTMLElement;
 private isOpened_obj: boolean;
@@ -77,11 +75,8 @@ constructor( args: PopupWindowArgs )
     document.body.appendChild(windowContainer);
 
     this.onHide_f = args.onHide;
-    this.onResize_f = args.onResize;
-
     this.windowOverlay_obj = windowOverlay;
     this.windowContainer_obj = windowContainer;
-
     this.isOpened_obj = false;
 
     this.show( args.content, args.onStart );
@@ -113,17 +108,13 @@ show( contentElement: HTMLElement, onStartFunction?: () => void )
     {
     this.isOpened_obj = true;
 
-    var container = this.getContainer();
-    var overlay = this.getOverlay();
-
     contentElement.classList.add( 'windowContent' );
 
     this.windowContainer_obj.appendChild( contentElement );
 
         //set the overlay to cover the whole page
+    var overlay = this.getOverlay();
     overlay.style.height = $(document).height() + 'px';
-
-    this.centerWindow();
 
         // :::::::::: set up the events :::::::::: //
 
@@ -133,13 +124,6 @@ show( contentElement: HTMLElement, onStartFunction?: () => void )
             overlay.style.height = $(document).height() + 'px';
             },
         true);
-
-    var popupWin = this;
-    $(container).resize(function ()
-        {
-            //re-center the window when the container is resized
-        popupWin.centerWindow();
-        });
 
         // :::::::: other :::::::: //
 
@@ -265,37 +249,6 @@ centerWindow()
         //position the window at the center of the page
     $(container).css('top', top + 'px');
     $(container).css('left', left + 'px');
-    }
-
-
-/*
- * Resizes a popup window
- */
-resize()
-    {
-    this.centerWindow();
-
-        // call the resize function of possible 'derived' classes
-    if ( this.onResize_f )
-        {
-        this.onResize_f();
-        }
-    }
-
-
-/*
- * Resizes and reposition the popup windows (all of them)
- */
-static resizeAll()
-    {
-    var all = PopupWindow.allWindows_class;
-
-    var i;
-
-    for (i = 0 ; i < all.length ; i++)
-        {
-        all[i].resize();
-        }
     }
 
 

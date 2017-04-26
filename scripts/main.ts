@@ -50,18 +50,6 @@ if (activeNotePosition >= 0)
     // add the dummy note at the end
 MAIN_CONTAINER.addDummyNote();
 
-var resize = function()
-    {
-    if (PopupWindow.hasOpenedWindows() === true)
-        {
-        PopupWindow.resizeAll();
-        }
-    };
-
-resize();
-
-    // resize/reposition the popup windows, according to the space available
-window.addEventListener( 'resize', resize, true );
 window.addEventListener( 'keyup', globalShortcuts, true );
 }
 
