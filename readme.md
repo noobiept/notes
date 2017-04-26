@@ -1,14 +1,14 @@
 Dependencies
 ============
 
-- jquery -- 2.2
-- jqueryui -- 1.11
+- jquery -- 3.2
+- jqueryui -- 1.12
     - position
     - start theme
     - slider
     - blind effect
     - fade effect
-    
+
 - ba-resize -- 1.1
 
 
