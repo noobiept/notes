@@ -82,9 +82,11 @@ constructor( args: NoteArgs )
     noteContainer.style.margin = noteMargin + 'px';
 
     var noteControlsHeight = 20;
+    var noteEntryPadding = 5;
 
-    noteEntry.style.width  = noteWidth + 'px';
-    noteEntry.style.height = (noteHeight - noteControlsHeight) + 'px';
+    noteEntry.style.padding = noteEntryPadding + 'px';
+    noteEntry.style.width  = (noteWidth - 2 * noteEntryPadding) + 'px';
+    noteEntry.style.height = (noteHeight - noteControlsHeight - 2 * noteEntryPadding) + 'px';
 
     noteContainer.appendChild( noteControls );
     noteContainer.appendChild( noteEntry );

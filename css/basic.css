@@ -286,6 +286,7 @@ a
     {
     cursor: text;
     min-height: 150px;
+    padding: 5px;
     }
 
 .NoteWindow-text:focus
@@ -338,6 +339,15 @@ a
  *
  * ************************************/
 
+#Options-backgroundColor, #Options-spellCheck
+    {
+    display: inline-block;
+    }
+
+#Options-backgroundColor:hover, #Options-spellCheck:hover
+    {
+    transform: scale(1.01);
+    }
 
     /* reduce the space occupied by the slider */
 
