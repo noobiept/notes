@@ -44,7 +44,6 @@ export function open( noteObject: Note )
 
     text.setAttribute( 'contenteditable', 'true' );
     text.className = "NoteWindow-text";
-    text.innerHTML = noteObject.getText();
     text.addEventListener( 'input', function()
         {
         var noteText = this.innerHTML;
@@ -77,7 +76,6 @@ export function open( noteObject: Note )
     var container = document.createElement( 'div' );
 
     container.className = "NoteWindow";
-    container.style.backgroundColor = noteObject.getColorObject().getCssRepresentation();
 
     container.appendChild( menu );
     container.appendChild( text );
@@ -97,6 +95,8 @@ export function open( noteObject: Note )
             onHide: onHide,
             onKeyUp: shortcuts
         });
+
+    updateContent( noteObject );
     }
 
 
@@ -110,8 +110,6 @@ function onStart()
         // append the arrows after the popup window was created, so that the elements are on top of the window/overlay (otherwise we couldn't click on them)
     document.body.appendChild( LEFT_ARROW );
     document.body.appendChild( RIGHT_ARROW );
-
-    TEXT.focus();
     }
 
 
@@ -138,7 +136,14 @@ function updateContent( noteObject: Note )
     TEXT.innerHTML = noteObject.getText();
 
     CONTAINER.style.backgroundColor = noteObject.getColorObject().getCssRepresentation();
+
+    if ( NOTE )
+        {
+        NOTE.removeFocusStyle();
+        }
+
     NOTE = noteObject;
+    NOTE.setFocusStyle();
 
     TEXT.focus();
     }
