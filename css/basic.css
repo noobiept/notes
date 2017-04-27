@@ -45,6 +45,11 @@ a
     display: none;
     }
 
+.transparent
+    {
+    opacity: 0;
+    }
+
 
 /* ************************************
  *
@@ -216,7 +221,6 @@ a
     {
     transition: opacity 1s cubic-bezier(0.1, 1, 0.1, 1);
     margin-left: 40px;  /* separate a bit from the menu */
-    opacity: 0;
     }
 
 

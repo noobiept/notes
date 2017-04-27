@@ -36,12 +36,6 @@ export function init()
 
     var redo = menu.querySelector( '#redo' )!;
     redo.addEventListener( 'click', function() { UndoRedo.stuff( 'redo' ); }, false );
-
-    var donate = menu.querySelector( '#donate' )!;
-    donate.addEventListener( 'click', function()
-        {
-        window.open( 'http://nbpt.eu/donate/', '_blank' );
-        }, false );
     }
 
 
@@ -53,7 +47,7 @@ export function showMessage( content: string )
     MESSAGE.innerHTML = content;
 
         // show the message
-    MESSAGE.style.opacity = '1';
+    MESSAGE.classList.remove( 'transparent' );
 
         // if there was a previous message being displayed before, we need to cancel its timeout (otherwise, this message will end sooner)
     if ( MESSAGE_TIMEOUT !== null)
@@ -65,7 +59,7 @@ export function showMessage( content: string )
     MESSAGE_TIMEOUT = setTimeout(
         function()
             {
-            MESSAGE.style.opacity = '0';
+            MESSAGE.classList.add( 'transparent' );
             MESSAGE_TIMEOUT = null;
             },
         1000);
