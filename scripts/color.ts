@@ -1,103 +1,87 @@
-interface ColorComponents
+interface ColorArgs
     {
     red: number;
     green: number;
     blue: number;
     alpha: number;
-    wasSetByUser: boolean;
+    wasSetByUser?: boolean;
     }
 
 
 class Color
 {
-private wasSetByUser_bool: boolean;
-private red_int: number;
-private green_int: number;
-private blue_int: number;
-private alpha_float: number;
+private values: ColorArgs;
 
 
 /**
  * Represents a color.
  */
-constructor( red: number, green: number, blue: number, alpha: number, wasSetByUser?: boolean )
+constructor( args: ColorArgs )
     {
-    if (typeof wasSetByUser === 'undefined')
+    if (typeof args.wasSetByUser === 'undefined')
         {
-        this.wasSetByUser_bool = false;
+        args.wasSetByUser = false;
         }
 
-    else
-        {
-        this.wasSetByUser_bool = wasSetByUser;
-        }
-
-    this.red_int = red;
-    this.green_int = green;
-    this.blue_int = blue;
-    this.alpha_float = alpha;
+    this.values = args;
     }
 
 
 getCssRepresentation()
     {
-    return "rgba(" + this.red_int + ", " + this.green_int + ", " + this.blue_int + ", " + this.alpha_float  + ")";
+    return "rgba(" + this.values.red + ", " + this.values.green + ", " + this.values.blue + ", " + this.values.alpha + ")";
     }
 
 
 getRed()
     {
-    return this.red_int;
+    return this.values.red;
     }
 
 
 setRed( red: number )
     {
-    this.red_int = red;
-
-    this.wasSetByUser_bool = true;
+    this.values.red = red;
+    this.values.wasSetByUser = true;
     }
 
 
 getGreen()
     {
-    return this.green_int;
+    return this.values.green;
     }
 
 
 setGreen( green: number )
     {
-    this.green_int = green;
-
-    this.wasSetByUser_bool = true;
+    this.values.green = green;
+    this.values.wasSetByUser = true;
     }
 
 
 getBlue()
     {
-    return this.blue_int;
+    return this.values.blue;
     }
 
 
 setBlue( blue: number )
     {
-    this.blue_int = blue;
-
-    this.wasSetByUser_bool = true;
+    this.values.blue = blue;
+    this.values.wasSetByUser = true;
     }
 
 
 getAlpha()
     {
-    return this.alpha_float;
+    return this.values.alpha;
     }
 
 
 setAlpha( alpha: number )
     {
-    this.alpha_float = alpha;
-
-    this.wasSetByUser_bool = true;
+    this.values.alpha = alpha;
+    this.values.wasSetByUser = true;
     }
 
 
@@ -105,15 +89,9 @@ setAlpha( alpha: number )
  * Returns a dictionary that has as keys, the components of the final color, red/green/blue/alpha
  *        (red/green/blue varies from 0 to 255, alpha from 0 to 1)
  */
-getColor()
+getColor(): ColorArgs
     {
-    return {
-        red   : this.red_int,
-        green : this.green_int,
-        blue  : this.blue_int,
-        alpha : this.alpha_float,
-        wasSetByUser : this.wasSetByUser_bool
-        };
+    return this.values;
     }
 
 
@@ -123,7 +101,7 @@ getColor()
  */
 wasSetByUser()
     {
-    return this.wasSetByUser_bool;
+    return this.values.wasSetByUser;
     }
 
 
@@ -132,6 +110,6 @@ wasSetByUser()
  */
 canBeGenerated( yesNo: boolean )
     {
-    this.wasSetByUser_bool = !yesNo;
+    this.values.wasSetByUser = !yesNo;
     }
 }

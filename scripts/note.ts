@@ -2,7 +2,7 @@ interface NoteArgs
     {
     container: MainContainer;
     text?: string;
-    colorComponents?: ColorComponents;
+    colorComponents?: ColorArgs;
     saveToUndo?: boolean;
     position?: number;
     fromLoad?: boolean;
@@ -100,7 +100,7 @@ constructor( args: NoteArgs )
         // otherwise, use the color that is set
     else
         {
-        colorObject = new Color( args.colorComponents.red, args.colorComponents.green, args.colorComponents.blue, args.colorComponents.alpha, args.colorComponents.wasSetByUser );
+        colorObject = new Color( args.colorComponents );
         }
 
     noteContainer.style.backgroundColor = colorObject.getCssRepresentation();
@@ -277,7 +277,7 @@ generateColor()
         alpha = 0.7;
         }
 
-    return new Color( red, green, blue, alpha );
+    return new Color({ red: red, green: green, blue: blue, alpha: alpha });
     }
 
 
