@@ -1,8 +1,8 @@
 class MainContainer
 {
-private htmlElement_obj: HTMLElement;
-private childrenObjects_array: Note[];
-private dummyNote_obj: DummyNote;
+private htmlElement: HTMLElement;
+private childrenObjects: Note[];
+private dummyNote: DummyNote;
 
 
 /*
@@ -11,8 +11,8 @@ private dummyNote_obj: DummyNote;
  */
 constructor()
     {
-    this.htmlElement_obj = <HTMLElement> document.querySelector( '#mainContainer' );
-    this.childrenObjects_array = [];
+    this.htmlElement = <HTMLElement> document.querySelector( '#mainContainer' );
+    this.childrenObjects = [];
     }
 
 
@@ -29,18 +29,18 @@ newNote( args: NoteArgs )
         // we're getting the position from the object and not from the argument, because the argument may not have an acceptable value
     var notePosition = noteObject.getPosition();
 
-    var container = this.htmlElement_obj;
+    var container = this.htmlElement;
 
         // add to the html container element
     container.insertBefore( noteObject.getHtmlElement(), container.childNodes[ notePosition ] );
 
         //add to the array
-    this.childrenObjects_array.splice( notePosition, 0, noteObject );
+    this.childrenObjects.splice( notePosition, 0, noteObject );
 
         // update the position property
-    for (var a = notePosition ; a < this.childrenObjects_array.length ; a++)
+    for (var a = notePosition ; a < this.childrenObjects.length ; a++)
         {
-        this.childrenObjects_array[ a ].setPosition( a );
+        this.childrenObjects[ a ].setPosition( a );
         }
 
     return noteObject;
@@ -62,15 +62,15 @@ removeNote( note: Note, saveToUndo?: boolean )
     var position = note.getPosition();
 
         // remove from the array
-    this.childrenObjects_array.splice( position, 1 );
+    this.childrenObjects.splice( position, 1 );
 
         // remove the html element
-    this.htmlElement_obj.removeChild( note.getHtmlElement() );
+    this.htmlElement.removeChild( note.getHtmlElement() );
 
         // update the position property
-    for (var a = position ; a < this.childrenObjects_array.length ; a++)
+    for (var a = position ; a < this.childrenObjects.length ; a++)
         {
-        this.childrenObjects_array[ a ].setPosition( a );
+        this.childrenObjects[ a ].setPosition( a );
         }
     }
 
@@ -131,15 +131,15 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
         }
 
         // remove from array
-    this.childrenObjects_array.splice( previousPosition, 1 );
+    this.childrenObjects.splice( previousPosition, 1 );
 
         // add in the new position
-    this.childrenObjects_array.splice( position, 0, note );
+    this.childrenObjects.splice( position, 0, note );
 
         // update the position property
-    for (var a = position ; a < this.childrenObjects_array.length ; a++)
+    for (var a = position ; a < this.childrenObjects.length ; a++)
         {
-        this.childrenObjects_array[ a ].setPosition( a );
+        this.childrenObjects[ a ].setPosition( a );
         }
 
     if ( saveToUndo !== false )
@@ -155,24 +155,24 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
 
 addDummyNote()
     {
-    this.dummyNote_obj = new DummyNote();
+    this.dummyNote = new DummyNote();
 
-    this.htmlElement_obj.appendChild( this.dummyNote_obj.getHtmlElement() );
+    this.htmlElement.appendChild( this.dummyNote.getHtmlElement() );
 
         // has to be called after it is appended, otherwise the calculations will give 'wrong' results
-    this.dummyNote_obj.centerText();
+    this.dummyNote.centerText();
     }
 
 
 getDummy()
     {
-    return this.dummyNote_obj;
+    return this.dummyNote;
     }
 
 
 getHtmlElement()
     {
-    return this.htmlElement_obj;
+    return this.htmlElement;
     }
 
 
@@ -181,9 +181,9 @@ getHtmlElement()
  */
 getFirstChild()
     {
-    if (this.childrenObjects_array.length !== 0)
+    if (this.childrenObjects.length !== 0)
         {
-        return this.childrenObjects_array[0];
+        return this.childrenObjects[0];
         }
 
     return null;
@@ -195,7 +195,7 @@ getFirstChild()
  */
 getLastChild()
     {
-    var children = this.childrenObjects_array;
+    var children = this.childrenObjects;
 
     if (children.length !== 0)
         {
@@ -217,7 +217,7 @@ getChild( position: number )
         return null;
         }
 
-    return this.childrenObjects_array[ position ];
+    return this.childrenObjects[ position ];
     }
 
 
@@ -226,7 +226,7 @@ getChild( position: number )
  */
 childrenCount()
     {
-    return this.childrenObjects_array.length;
+    return this.childrenObjects.length;
     }
 
 
@@ -235,7 +235,7 @@ childrenCount()
  */
 getTextList()
     {
-    var children = this.childrenObjects_array;
+    var children = this.childrenObjects;
     var textList = [];
 
     for (var a = 0 ; a < children.length ; a++)

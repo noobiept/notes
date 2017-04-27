@@ -1,7 +1,7 @@
 class DummyNote
 {
-private dummy_html: HTMLElement;
-private dummyText_ui: HTMLElement;
+private dummy: HTMLElement;
+private dummyText: HTMLElement;
 
 
 constructor()
@@ -35,8 +35,8 @@ constructor()
 
     dummy.appendChild( dummyText );
 
-    this.dummy_html = dummy;
-    this.dummyText_ui = dummyText;
+    this.dummy = dummy;
+    this.dummyText = dummyText;
 
     return this;
     }
@@ -100,8 +100,8 @@ keyboardEvents( event: KeyboardEvent )
  */
 centerText()
     {
-    var dummy = this.dummy_html;
-    var dummyText = this.dummyText_ui;
+    var dummy = this.dummy;
+    var dummyText = this.dummyText;
 
         //get the dummy note measures
     var dummyWidth = $( dummy ).outerWidth();
@@ -123,12 +123,12 @@ centerText()
 
 getHtmlElement()
     {
-    return this.dummy_html;
+    return this.dummy;
     }
 
 
 gainFocus()
     {
-    this.dummyText_ui.focus();
+    this.dummyText.focus();
     }
 }

@@ -1,11 +1,11 @@
 class DragDrop
 {
-    //has the object of the element that is being dragged
-static dragElement_class: Note | null = null;
+    //has the object of the note that is being dragged
+static currentDragNote: Note | null = null;
 
-private dragElement_ui: HTMLElement;
-private element_ui: HTMLElement;
-private elementObject_obj: Note;
+private dragHandler: HTMLElement;   // the element that starts the drag
+private dragElement: HTMLElement;   // the element that is dragged
+private noteObject: Note;           // the object that represents the element being dragged
 
 
 /*
@@ -13,26 +13,25 @@ private elementObject_obj: Note;
  *
  * Arguments:
  *
- *      element       : the html element that can be dragged (an entry, list or tab)
- *      dragElement   : the html element that is used to start the drag of the actual element
- *      elementObject : the object that represents the element
+ *     dragElement : the html element that can be dragged
+ *     dragHandler : the html element that is used to start the drag of the actual element
+ *     noteObject  : the object that represents the element
  */
-constructor( element: HTMLElement, dragElement: HTMLElement, elementObject: Note )
+constructor( dragElement: HTMLElement, dragHandler: HTMLElement, noteObject: Note )
     {
     var dragObject = this;
 
-    element.addEventListener( 'dragstart', function(event) { dragObject.onDragStart(event); }, false );
-    element.addEventListener( 'drop'     , function(event) { dragObject.onDrop(event);      }, false );
-    element.addEventListener( 'dragover' , function(event) { dragObject.onDragOver(event);  }, false );
-    element.addEventListener( 'dragleave', function(event) { dragObject.onDragLeave(event); }, false );
+    dragElement.addEventListener( 'dragstart', function(event) { dragObject.onDragStart(event); }, false );
+    dragElement.addEventListener( 'drop'     , function(event) { dragObject.onDrop(event);      }, false );
+    dragElement.addEventListener( 'dragover' , function(event) { dragObject.onDragOver(event);  }, false );
+    dragElement.addEventListener( 'dragleave', function(event) { dragObject.onDragLeave(event); }, false );
 
         //the drag handler
-    $( dragElement ).attr( 'draggable', 'true' );
-    //element.setAttribute( 'draggable', 'true' );
+    $( dragHandler ).attr( 'draggable', 'true' );
 
-    this.dragElement_ui = dragElement;
-    this.element_ui = element;
-    this.elementObject_obj = elementObject;
+    this.dragHandler = dragHandler;
+    this.dragElement = dragElement;
+    this.noteObject = noteObject;
     }
 
 
@@ -42,10 +41,10 @@ constructor( element: HTMLElement, dragElement: HTMLElement, elementObject: Note
 isValidDrop()
     {
         //the element of where we drop the drag one
-    var elementObject = this.elementObject_obj;
+    var elementObject = this.noteObject;
 
         //what we're dragging
-    var dragObject = DragDrop.dragElement_class;
+    var dragObject = DragDrop.currentDragNote;
 
         //see if we're not dropping on the same place
     if ( dragObject !== elementObject )
@@ -71,11 +70,11 @@ onDragStart( event: DragEvent )
         // not all browsers support this
     if ( dataTransfer.setDragImage )
         {
-        dataTransfer.setDragImage(this.element_ui, 0, 0);
+        dataTransfer.setDragImage(this.dragElement, 0, 0);
         }
 
         //the element that is been dragged
-    DragDrop.dragElement_class = this.elementObject_obj;
+    DragDrop.currentDragNote = this.noteObject;
 
     event.stopPropagation();
     }
@@ -88,13 +87,13 @@ onDragStart( event: DragEvent )
 onDrop( event: DragEvent )
     {
         //remove the css effect for valid drop places
-    this.element_ui.classList.remove( 'validDrop' );
+    this.dragElement.classList.remove( 'validDrop' );
 
         //the element of where we drop the drag one
-    var elementObject = this.elementObject_obj;
+    var elementObject = this.noteObject;
 
         //what we're dragging
-    var dragObject = DragDrop.dragElement_class!;
+    var dragObject = DragDrop.currentDragNote!;
 
         //see if we're not dropping on the same place
     if ( dragObject !== elementObject )
@@ -102,7 +101,7 @@ onDrop( event: DragEvent )
         MAIN_CONTAINER.moveNoteTo( dragObject, elementObject.getPosition() );
         }
 
-    DragDrop.dragElement_class = null;
+    DragDrop.currentDragNote = null;
 
     event.stopPropagation();
     return false;
@@ -118,7 +117,7 @@ onDragOver( event: DragEvent )
     if ( this.isValidDrop() === true )
         {
             //add the css effect for valid drop places (this is also added in the onDragEnter, but having it here helps)
-        this.element_ui.classList.add( 'validDrop' );
+        this.dragElement.classList.add( 'validDrop' );
 
             //to allow the drop to occur
         event.preventDefault();
@@ -141,7 +140,7 @@ onDragLeave( event: DragEvent )
     if ( this.isValidDrop() === true )
         {
             //remove the css effect for valid drop places
-        this.element_ui.classList.remove( 'validDrop' );
+        this.dragElement.classList.remove( 'validDrop' );
         }
 
     event.stopPropagation();

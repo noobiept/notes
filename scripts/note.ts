@@ -11,12 +11,12 @@ interface NoteArgs
 
 class Note
 {
-private position_int: number;
-private dragDrop_obj: DragDrop;
+private position: number;
+private dragDrop: DragDrop;
 private parentObject: MainContainer;
-private noteEntry_obj: HTMLElement;
-private noteContainer_ui: HTMLElement;
-private backgroundColor_obj: Color;
+private noteEntry: HTMLElement;
+private noteContainer: HTMLElement;
+private backgroundColor: Color;
 
 
 /*
@@ -34,7 +34,7 @@ constructor( args: NoteArgs )
         args.position = args.container.childrenCount();
         }
 
-    this.position_int = args.position;
+    this.position = args.position;
 
         // :: Note entry -- where you write the title :: //
 
@@ -144,12 +144,12 @@ constructor( args: NoteArgs )
         // :: Other :: //
 
         // make notes draggable
-    this.dragDrop_obj = new DragDrop( noteContainer, noteControls, this );
+    this.dragDrop = new DragDrop( noteContainer, noteControls, this );
 
     this.parentObject = args.container;
-    this.noteEntry_obj = noteEntry;
-    this.noteContainer_ui = noteContainer;
-    this.backgroundColor_obj = colorObject;
+    this.noteEntry = noteEntry;
+    this.noteContainer = noteContainer;
+    this.backgroundColor = colorObject;
 
     if ( args.saveToUndo !== false )
         {
@@ -286,7 +286,7 @@ generateColor()
  */
 gainFocus()
     {
-    this.noteEntry_obj.focus();
+    this.noteEntry.focus();
     }
 
 
@@ -295,7 +295,7 @@ gainFocus()
  */
 setFocusStyle()
     {
-    $( this.noteContainer_ui ).addClass( 'NoteOnFocus' );
+    $( this.noteContainer ).addClass( 'NoteOnFocus' );
     }
 
 
@@ -304,7 +304,7 @@ setFocusStyle()
  */
 removeFocusStyle()
     {
-    $( this.noteContainer_ui ).removeClass( 'NoteOnFocus' );
+    $( this.noteContainer ).removeClass( 'NoteOnFocus' );
     }
 
 
@@ -313,7 +313,7 @@ removeFocusStyle()
  */
 getPosition()
     {
-    return this.position_int;
+    return this.position;
     }
 
 
@@ -322,7 +322,7 @@ getPosition()
  */
 setPosition( position: number )
     {
-    this.position_int = position;
+    this.position = position;
     }
 
 
@@ -331,7 +331,7 @@ setPosition( position: number )
  */
 getText()
     {
-    return this.noteEntry_obj.innerHTML;;
+    return this.noteEntry.innerHTML;
     }
 
 
@@ -342,7 +342,7 @@ setText( text: string )
         text = "<br>";
         }
 
-    this.noteEntry_obj.innerHTML = text;
+    this.noteEntry.innerHTML = text;
     }
 
 
@@ -351,13 +351,13 @@ setText( text: string )
  */
 getColorObject()
     {
-    return this.backgroundColor_obj;
+    return this.backgroundColor;
     }
 
 
 updateBackgroundColor()
     {
-    this.noteContainer_ui.style.backgroundColor = this.backgroundColor_obj.getCssRepresentation();
+    this.noteContainer.style.backgroundColor = this.backgroundColor.getCssRepresentation();
     }
 
 
@@ -366,7 +366,7 @@ updateBackgroundColor()
  */
 isFirst()
     {
-    if (this.position_int === 0)
+    if (this.position === 0)
         {
         return true;
         }
@@ -380,7 +380,7 @@ isFirst()
  */
 isLast()
     {
-    if ( this.position_int + 1 === this.parentObject.childrenCount() )
+    if ( this.position + 1 === this.parentObject.childrenCount() )
         {
         return true;
         }
@@ -394,7 +394,7 @@ isLast()
  */
 next()
     {
-    return this.parentObject.getChild( this.position_int + 1 );
+    return this.parentObject.getChild( this.position + 1 );
     }
 
 
@@ -403,13 +403,13 @@ next()
  */
 previous()
     {
-    return this.parentObject.getChild( this.position_int - 1 );
+    return this.parentObject.getChild( this.position - 1 );
     }
 
 
 getHtmlElement()
     {
-    return this.noteContainer_ui;
+    return this.noteContainer;
     }
 
 

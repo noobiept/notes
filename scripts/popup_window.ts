@@ -10,15 +10,15 @@ interface PopupWindowArgs
 class PopupWindow
 {
     //has all the PopupWindow objects of opened windows
-static allWindows_class: PopupWindow[] = [];
+static allWindows: PopupWindow[] = [];
 
 static overlayEffectDuration = 50;  // duration of the show/hide overlay effect
 
-private shortcut_obj: (event: KeyboardEvent) => void;
-private onHide_f: (() => void) | undefined;
-private windowOverlay_obj: HTMLElement;
-private windowContainer_obj: HTMLElement;
-private isOpened_obj: boolean;
+private shortcut: (event: KeyboardEvent) => void;
+private onHide: (() => void) | undefined;
+private windowOverlay: HTMLElement;
+private windowContainer: HTMLElement;
+private opened: boolean;
 
 
 constructor( args: PopupWindowArgs )
@@ -47,7 +47,7 @@ constructor( args: PopupWindowArgs )
 
         //this is going to be set when we show the window, and cleared when the window is closed
         //we're saving this in the object, so that it can be accessed later in the respective functions
-    this.shortcut_obj = function (event)
+    this.shortcut = function (event)
         {
         popupWindowObject.shortcuts(event);
 
@@ -61,10 +61,10 @@ constructor( args: PopupWindowArgs )
     document.body.appendChild(windowOverlay);
     document.body.appendChild(windowContainer);
 
-    this.onHide_f = args.onHide;
-    this.windowOverlay_obj = windowOverlay;
-    this.windowContainer_obj = windowContainer;
-    this.isOpened_obj = false;
+    this.onHide = args.onHide;
+    this.windowOverlay = windowOverlay;
+    this.windowContainer = windowContainer;
+    this.opened = false;
 
     this.show( args.content, args.onStart );
     }
@@ -75,7 +75,7 @@ constructor( args: PopupWindowArgs )
  */
 static hasOpenedWindows()
     {
-    if ( PopupWindow.allWindows_class.length === 0 )
+    if ( PopupWindow.allWindows.length === 0 )
         {
         return false;
         }
@@ -93,11 +93,11 @@ static hasOpenedWindows()
  */
 show( contentElement: HTMLElement, onStartFunction?: () => void )
     {
-    this.isOpened_obj = true;
+    this.opened = true;
 
     contentElement.classList.add( 'windowContent' );
 
-    this.windowContainer_obj.appendChild( contentElement );
+    this.windowContainer.appendChild( contentElement );
 
         //set the overlay to cover the whole page
     var overlay = this.getOverlay();
@@ -113,19 +113,19 @@ show( contentElement: HTMLElement, onStartFunction?: () => void )
         setTimeout(function () { onStartFunction(); }, 120);
         }
 
-    var allWindows = PopupWindow.allWindows_class;
+    var allWindows = PopupWindow.allWindows;
 
         //if there another opened tab, deal with the keyboard shortcuts
     if (allWindows.length !== 0)
         {
-        document.removeEventListener('keyup', allWindows[ allWindows.length - 1 ].shortcut_obj, false);
+        document.removeEventListener('keyup', allWindows[ allWindows.length - 1 ].shortcut, false);
         }
 
         //add global keyboard shortcuts (that only work when the window is opened)
-    document.addEventListener('keyup', this.shortcut_obj, false);
+    document.addEventListener('keyup', this.shortcut, false);
 
         //one more opened window
-    PopupWindow.allWindows_class.push( this );
+    PopupWindow.allWindows.push( this );
     }
 
 
@@ -135,28 +135,28 @@ show( contentElement: HTMLElement, onStartFunction?: () => void )
 hide()
     {
         // already was hidden
-    if ( !this.isOpened_obj )
+    if ( !this.opened )
         {
         return;
         }
 
-    if (typeof this.onHide_f !== 'undefined' && this.onHide_f !== null)
+    if (typeof this.onHide !== 'undefined' && this.onHide !== null)
         {
-        this.onHide_f();
+        this.onHide();
         }
 
     var popupWindowObject = this;
     var windowContainer = this.getContainer();
     var overlay = this.getOverlay();
 
-    $( overlay ).hide( 'fade', null, PopupWindow.overlayEffectDuration, function() { document.body.removeChild( popupWindowObject.windowOverlay_obj ); } );
+    $( overlay ).hide( 'fade', null, PopupWindow.overlayEffectDuration, function() { document.body.removeChild( popupWindowObject.windowOverlay ); } );
 
-    this.isOpened_obj = false;
+    this.opened = false;
 
         //remove from body
     document.body.removeChild( windowContainer );
 
-    var allWindows = PopupWindow.allWindows_class;
+    var allWindows = PopupWindow.allWindows;
 
         //remove the last element (that corresponds to this PopupWindow)
         //one less opened window
@@ -166,11 +166,11 @@ hide()
     if (allWindows.length !== 0)
         {
             //we have to add back the shortcut events
-        document.addEventListener('keyup', allWindows[ allWindows.length - 1 ].shortcut_obj, false);
+        document.addEventListener('keyup', allWindows[ allWindows.length - 1 ].shortcut, false);
         }
 
         //remove from this PopupWindow
-    document.removeEventListener('keyup', this.shortcut_obj, false);
+    document.removeEventListener('keyup', this.shortcut, false);
     }
 
 
@@ -179,7 +179,7 @@ hide()
  */
 isOpened()
     {
-    return this.isOpened_obj;
+    return this.opened;
     }
 
 
@@ -188,7 +188,7 @@ isOpened()
  */
 getOverlay()
     {
-    return this.windowOverlay_obj;
+    return this.windowOverlay;
     }
 
 
@@ -197,7 +197,7 @@ getOverlay()
  */
 getContainer()
     {
-    return this.windowContainer_obj;
+    return this.windowContainer;
     }
 
 
