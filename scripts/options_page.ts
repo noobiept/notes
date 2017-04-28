@@ -1,6 +1,11 @@
 module OptionsPage
 {
 var CONTAINER: HTMLElement;
+var BACKGROUND_COLOR_VALUE: HTMLElement;
+var FIXED_COLOR1: HTMLElement;
+var FIXED_COLOR2: HTMLElement;
+var FIXED_COLOR3: HTMLElement;
+var COLOR_GRADIENT: HTMLElement;
 
 
 /*
@@ -73,14 +78,17 @@ export function init()
         // :: Generate background-color :: //
 
     var backgroundColor = document.getElementById( 'Options-backgroundColor' )!;
-    var backgroundColorValue = document.getElementById( 'Options-backgroundColorValue' )!;
+    BACKGROUND_COLOR_VALUE = document.getElementById( 'Options-backgroundColorValue' )!;
+    FIXED_COLOR1 = document.getElementById( 'Options-fixedColor1' )!;
+    FIXED_COLOR2 = document.getElementById( 'Options-fixedColor2' )!;
+    FIXED_COLOR3 = document.getElementById( 'Options-fixedColor3' )!;
+    COLOR_GRADIENT = document.getElementById( 'Options-colorGradient' )!;
 
-    backgroundColorValue.innerHTML = Options.getNext( 'generateColorType' );
-
-    backgroundColor.onclick = function( event )
+    backgroundColor.onclick = function()
         {
-        switchBackgroundColor( event, backgroundColorValue );
+        switchBackgroundColor();
         };
+    switchBackgroundColor( Options.getNext( 'generateColorType' ) );
 
         // :: SpellCheck :: //
 
@@ -158,34 +166,62 @@ function switchSpellCheck( event: MouseEvent, spellCheckValue: HTMLElement )
 
 
 /*
- * Arguments:
- *
- *      event : the on click event object
- *      backgroundColorValue : the html element to update the values (to show the user the new value)
+ * Update the background color elements with the specified type, or change to the next type.
  */
-function switchBackgroundColor( event: MouseEvent, backgroundColorValue: HTMLElement )
+function switchBackgroundColor( type?: BackgroundColorType )
     {
-    var next = '';
-
-    switch( Options.getNext( 'generateColorType' ) )
+        // switch to the next type
+    if ( typeof type === 'undefined' )
         {
-        case 'fixed_order':
+        switch( Options.getNext( 'generateColorType' ) )
+            {
+            case 'fixed_order':
 
-            next = 'random';
+                type = 'random';
+                break;
+
+            case 'random':
+
+                type = 'red_gradient';
+                break;
+
+            case 'red_gradient':
+
+                type = 'fixed_order';
+                break;
+
+            default:
+                throw Error( "Invalid background color type" );
+            }
+
+        Options.set( 'generateColorType', type );
+        }
+
+
+    switch( type )
+        {
+        case 'red_gradient':
+            COLOR_GRADIENT.classList.remove( 'hidden' );
+            FIXED_COLOR1.classList.add( 'hidden' );
+            FIXED_COLOR2.classList.add( 'hidden' );
+            FIXED_COLOR3.classList.add( 'hidden' );
+            break;
+
+        case 'fixed_order':
+            COLOR_GRADIENT.classList.add( 'hidden' );
+            FIXED_COLOR1.classList.remove( 'hidden' );
+            FIXED_COLOR2.classList.remove( 'hidden' );
+            FIXED_COLOR3.classList.remove( 'hidden' );
             break;
 
         case 'random':
-
-            next = 'red_gradient';
-            break;
-
-        case 'red_gradient':
-
-            next = 'fixed_order';
+            COLOR_GRADIENT.classList.add( 'hidden' );
+            FIXED_COLOR1.classList.add( 'hidden' );
+            FIXED_COLOR2.classList.add( 'hidden' );
+            FIXED_COLOR3.classList.add( 'hidden' );
             break;
         }
 
-    Options.set( 'generateColorType', next );
-    backgroundColorValue.innerHTML = next;
+    BACKGROUND_COLOR_VALUE.innerHTML = type;
     }
 }

@@ -6,7 +6,7 @@ interface OptionsData
     noteHeight: number;
     noteMargin: number;
     activeNotePosition: number;
-    generateColorType: string;
+    generateColorType: BackgroundColorType;
     spellCheck: boolean;
     }
 

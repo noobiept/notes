@@ -1,3 +1,6 @@
+type BackgroundColorType = 'fixed_order' | 'red_gradient' | 'random';
+
+
 var MAIN_CONTAINER: MainContainer;
 
 
