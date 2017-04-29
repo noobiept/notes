@@ -180,7 +180,7 @@ constructor( args: NoteArgs )
  *
  *      "fixed_order"  : switch between a number of known colors
  *      "random"       : generate a random color every time
- *      "red_gradient" : a gradient, starting at a darker color, then moving to a red color, then back to the darker color...
+ *      "color_gradient" : a gradient, starting at a darker color, then moving to a brighter color, then back to the darker color...
  */
 generateColor()
     {
@@ -241,41 +241,49 @@ generateColor()
         alpha = Math.random() * 0.5 + 0.5;
         }
 
-        // "red_gradient"
+        // "color_gradient"
     else
         {
-            // step of the red component from each note
-        var colorStep = 10;
-        var redUpperLimit = 255;
-        var redLowerLimit = 100;
+            // in hex format
+        var startColor = Options.get( 'colorGradientStart' );
+        var endColor = Options.get( 'colorGradientEnd' );
 
-            // redLowerLimit + numberOfNotesPerCycle * colorStep >= redUpperLimit --- smallest number that gets to 255 (red component upper limit), 100 + 16 * 10 = 260
-        var numberOfNotesPerCycle = 16;
+            // get the rgb components
+        var startRed = parseInt( startColor.substring(1, 3), 16 );
+        var startGreen = parseInt( startColor.substring(3, 5), 16 );
+        var startBlue = parseInt( startColor.substring(5, 7), 16 );
 
+        var endRed = parseInt( endColor.substring(1, 3), 16 );
+        var endGreen = parseInt( endColor.substring(3, 5), 16 );
+        var endBlue = parseInt( endColor.substring(5, 7), 16 );
+
+        var notesPerCycle = 10;
         var position = this.getPosition();
         var cycles = 0;
 
             // 'remove' the cycles from the position
-        while (position > numberOfNotesPerCycle)
+        while (position > notesPerCycle)
             {
             cycles++;
-            position -= numberOfNotesPerCycle;
+            position -= notesPerCycle;
             }
 
             // going up
         if ( (cycles % 2) === 0 )
             {
-            red = redLowerLimit + position * colorStep;
+            red = Math.round( startRed + position * (endRed - startRed) / notesPerCycle );
+            green = Math.round( startGreen + position * (endGreen - startGreen) / notesPerCycle );
+            blue = Math.round( startBlue + position * (endBlue - startBlue) / notesPerCycle );
             }
 
             // going down
         else
             {
-            red = redUpperLimit - position * colorStep;
+            red = Math.round( startRed + (notesPerCycle - position) * (endRed - startRed) / notesPerCycle );
+            green = Math.round( startGreen + (notesPerCycle - position) * (endGreen - startGreen) / notesPerCycle );
+            blue = Math.round( startBlue + (notesPerCycle - position) * (endBlue - startBlue) / notesPerCycle );
             }
 
-        green = 0;
-        blue  = 0;
         alpha = 0.7;
         }
 

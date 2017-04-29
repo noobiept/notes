@@ -7,6 +7,8 @@ interface OptionsData
     noteMargin: number;
     activeNotePosition: number;
     generateColorType: BackgroundColorType;
+    colorGradientStart: string;
+    colorGradientEnd: string;
     spellCheck: boolean;
     }
 
@@ -17,7 +19,9 @@ var LOADED_OPTIONS: OptionsData = {
     noteHeight : 125,
     noteMargin : 7,
     activeNotePosition : -1,               // which note to get focus on the beginning of the program (-1 means no one)
-    generateColorType  : 'red_gradient',   // how to generate the background-color of the notes
+    generateColorType  : 'color_gradient',   // how to generate the background-color of the notes
+    colorGradientStart: '#640000',    // red color -- rgb(100, 0, 0)
+    colorGradientEnd: '#ff0000',      // red color -- rgb(255, 0, 0)
     spellCheck : true
     };
 
@@ -59,6 +63,16 @@ export function load( options: OptionsData )
         if (typeof options.generateColorType !== 'undefined' && options.generateColorType !== null)
             {
             LOADED_OPTIONS.generateColorType  = options.generateColorType;
+            }
+
+        if ( typeof options.colorGradientStart !== 'undefined' )
+            {
+            LOADED_OPTIONS.colorGradientStart = options.colorGradientStart;
+            }
+
+        if ( typeof options.colorGradientEnd !== 'undefined' )
+            {
+            LOADED_OPTIONS.colorGradientEnd = options.colorGradientEnd;
             }
 
         if ( typeof options.spellCheck === 'boolean' )

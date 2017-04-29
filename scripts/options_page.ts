@@ -2,10 +2,15 @@ module OptionsPage
 {
 var CONTAINER: HTMLElement;
 var BACKGROUND_COLOR_VALUE: HTMLElement;
-var FIXED_COLOR1: HTMLElement;
-var FIXED_COLOR2: HTMLElement;
-var FIXED_COLOR3: HTMLElement;
-var COLOR_GRADIENT: HTMLElement;
+
+var FIXED_COLOR_CONTAINER: HTMLElement;
+var FIXED_COLOR1: HTMLInputElement;
+var FIXED_COLOR2: HTMLInputElement;
+var FIXED_COLOR3: HTMLInputElement;
+
+var COLOR_GRADIENT_CONTAINER: HTMLElement;
+var COLOR_GRADIENT1: HTMLInputElement;
+var COLOR_GRADIENT2: HTMLInputElement;
 
 
 /*
@@ -79,11 +84,25 @@ export function init()
 
     var backgroundColor = document.getElementById( 'Options-backgroundColor' )!;
     BACKGROUND_COLOR_VALUE = document.getElementById( 'Options-backgroundColorValue' )!;
-    FIXED_COLOR1 = document.getElementById( 'Options-fixedColor1' )!;
-    FIXED_COLOR2 = document.getElementById( 'Options-fixedColor2' )!;
-    FIXED_COLOR3 = document.getElementById( 'Options-fixedColor3' )!;
-    COLOR_GRADIENT = document.getElementById( 'Options-colorGradient' )!;
+    FIXED_COLOR_CONTAINER = document.getElementById( 'Options-fixedColorContainer' )!;
+    FIXED_COLOR1 = <HTMLInputElement> document.getElementById( 'Options-fixedColor1' );
+    FIXED_COLOR2 = <HTMLInputElement> document.getElementById( 'Options-fixedColor2' );
+    FIXED_COLOR3 = <HTMLInputElement> document.getElementById( 'Options-fixedColor3' );
+    COLOR_GRADIENT_CONTAINER = document.getElementById( 'Options-colorGradientContainer' )!;
+    COLOR_GRADIENT1 = <HTMLInputElement> document.getElementById( 'Options-colorGradient1' );
+    COLOR_GRADIENT2 = <HTMLInputElement> document.getElementById( 'Options-colorGradient2' );
 
+    COLOR_GRADIENT1.value = Options.get( 'colorGradientStart' );
+    COLOR_GRADIENT2.value = Options.get( 'colorGradientEnd' );
+
+    COLOR_GRADIENT1.onchange = function()
+        {
+        Options.set( 'colorGradientStart', COLOR_GRADIENT1.value );
+        }
+    COLOR_GRADIENT2.onchange = function()
+        {
+        Options.set( 'colorGradientEnd', COLOR_GRADIENT2.value );
+        };
     backgroundColor.onclick = function()
         {
         switchBackgroundColor();
@@ -182,10 +201,10 @@ function switchBackgroundColor( type?: BackgroundColorType )
 
             case 'random':
 
-                type = 'red_gradient';
+                type = 'color_gradient';
                 break;
 
-            case 'red_gradient':
+            case 'color_gradient':
 
                 type = 'fixed_order';
                 break;
@@ -200,25 +219,19 @@ function switchBackgroundColor( type?: BackgroundColorType )
 
     switch( type )
         {
-        case 'red_gradient':
-            COLOR_GRADIENT.classList.remove( 'hidden' );
-            FIXED_COLOR1.classList.add( 'hidden' );
-            FIXED_COLOR2.classList.add( 'hidden' );
-            FIXED_COLOR3.classList.add( 'hidden' );
+        case 'color_gradient':
+            COLOR_GRADIENT_CONTAINER.classList.remove( 'hidden' );
+            FIXED_COLOR_CONTAINER.classList.add( 'hidden' );
             break;
 
         case 'fixed_order':
-            COLOR_GRADIENT.classList.add( 'hidden' );
-            FIXED_COLOR1.classList.remove( 'hidden' );
-            FIXED_COLOR2.classList.remove( 'hidden' );
-            FIXED_COLOR3.classList.remove( 'hidden' );
+            COLOR_GRADIENT_CONTAINER.classList.add( 'hidden' );
+            FIXED_COLOR_CONTAINER.classList.remove( 'hidden' );
             break;
 
         case 'random':
-            COLOR_GRADIENT.classList.add( 'hidden' );
-            FIXED_COLOR1.classList.add( 'hidden' );
-            FIXED_COLOR2.classList.add( 'hidden' );
-            FIXED_COLOR3.classList.add( 'hidden' );
+            COLOR_GRADIENT_CONTAINER.classList.add( 'hidden' );
+            FIXED_COLOR_CONTAINER.classList.add( 'hidden' );
             break;
         }
 
