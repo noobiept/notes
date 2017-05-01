@@ -163,7 +163,6 @@ export function open()
             onHide: function()
                 {
                 CONTAINER.classList.add( 'hidden' );
-                Options.saveOptions();
                 }
         });
     }

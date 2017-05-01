@@ -53,15 +53,6 @@ export function load( options?: OptionsData )
 
 
 /**
- * Get a string of the options, to be saved to the localStorage/server.
- */
-export function getNextOptions()
-    {
-    return NEXT_OPTIONS;
-    }
-
-
-/**
  * Get an option value, off the options that were initially loaded.
  */
 export function get<K extends keyof OptionsData>( key: K )
@@ -85,11 +76,15 @@ export function getNext<K extends keyof OptionsData>( key: K )
 export function set<K extends keyof OptionsData>( key: K, value: OptionsData[K] )
     {
     NEXT_OPTIONS[ key ] = value;
+    saveOptions();
     }
 
 
-export function saveOptions()
+/**
+ * Save the options to the local storage.
+ */
+function saveOptions()
     {
-    Utilities.setData({ notes_options: Options.getNextOptions() });
+    Utilities.setData({ notes_options: NEXT_OPTIONS });
     }
 }
