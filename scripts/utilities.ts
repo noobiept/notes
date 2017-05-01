@@ -1,5 +1,19 @@
 module Utilities
 {
+/**
+ * Convert from the '#rrggbb' format to the 'rgb(r,g,b)'.
+ * In the first format, the numbers are in power of 16, and in the second in power of 10 (from 0 to 255).
+ */
+export function hexToRgb( str: string )
+    {
+    return {
+            red  : parseInt( str.substring( 1, 3 ), 16 ),
+            green: parseInt( str.substring( 3, 5 ), 16 ),
+            blue : parseInt( str.substring( 5, 7 ), 16 )
+        };
+    }
+
+
 export function capitalize( theString: string )
     {
     return theString.replace(/\b[a-z]/i, function(match) { return match.toUpperCase(); });

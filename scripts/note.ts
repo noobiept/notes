@@ -173,7 +173,6 @@ constructor( args: NoteArgs )
  *      With red/green/blue going from 0 to 255
  *          and alpha from 0 to 1
  *
- *
  * reads OPTIONS.generateColorType, to see in what way to generate the background colors
  *
  * There's 3 ways to generate the color:
@@ -188,7 +187,7 @@ generateColor()
     var generateColorType = Options.get( 'generateColorType' );
 
 
-    if (generateColorType === 'fixed_order')
+    if ( generateColorType === 'fixed_order' )
         {
         var color = this.getPosition() % 3;
 
@@ -196,32 +195,39 @@ generateColor()
             {
             case 0:
 
-                red = 255;
-                green = 0;
-                blue = 0;
-                alpha = 0.6;
+                let hexColor1 = Options.get( 'fixedColor1' );
+                let color1 = Utilities.hexToRgb( hexColor1 );
+
+                red = color1.red;
+                green = color1.green;
+                blue = color1.blue;;
                 break;
 
             case 1:
 
-                red = 0;
-                green = 255;
-                blue = 0;
-                alpha = 0.6;
+                let hexColor2 = Options.get( 'fixedColor2' );
+                let color2 = Utilities.hexToRgb( hexColor2 );
+
+                red = color2.red;
+                green = color2.green;
+                blue = color2.blue;
                 break;
 
             case 2:
 
-                red = 0;
-                green = 0;
-                blue = 255;
-                alpha = 0.6;
-                break;
+                let hexColor3 = Options.get( 'fixedColor3' );
+                let color3 = Utilities.hexToRgb( hexColor3 );
 
+                red = color3.red;
+                green = color3.green;
+                blue = color3.blue;
+                break;
             }
+
+        alpha = 0.6;
         }
 
-    else if (generateColorType === 'random')
+    else if ( generateColorType === 'random' )
         {
             // Math.random() --> returns a random number from 0 to 1 (not including 1)
             // Math.round()  --> to get an integer
@@ -245,17 +251,12 @@ generateColor()
     else
         {
             // in hex format
-        var startColor = Options.get( 'colorGradientStart' );
-        var endColor = Options.get( 'colorGradientEnd' );
+        var hexStartColor = Options.get( 'colorGradientStart' );
+        var hexEndColor = Options.get( 'colorGradientEnd' );
 
             // get the rgb components
-        var startRed = parseInt( startColor.substring(1, 3), 16 );
-        var startGreen = parseInt( startColor.substring(3, 5), 16 );
-        var startBlue = parseInt( startColor.substring(5, 7), 16 );
-
-        var endRed = parseInt( endColor.substring(1, 3), 16 );
-        var endGreen = parseInt( endColor.substring(3, 5), 16 );
-        var endBlue = parseInt( endColor.substring(5, 7), 16 );
+        let start = Utilities.hexToRgb( hexStartColor );
+        let end = Utilities.hexToRgb( hexEndColor );
 
         var notesPerCycle = 10;
         var position = this.getPosition();
@@ -271,17 +272,17 @@ generateColor()
             // going up
         if ( (cycles % 2) === 0 )
             {
-            red = Math.round( startRed + position * (endRed - startRed) / notesPerCycle );
-            green = Math.round( startGreen + position * (endGreen - startGreen) / notesPerCycle );
-            blue = Math.round( startBlue + position * (endBlue - startBlue) / notesPerCycle );
+            red = Math.round( start.red + position * (end.red - start.red) / notesPerCycle );
+            green = Math.round( start.green + position * (end.green - start.green) / notesPerCycle );
+            blue = Math.round( start.blue + position * (end.blue - start.blue) / notesPerCycle );
             }
 
             // going down
         else
             {
-            red = Math.round( startRed + (notesPerCycle - position) * (endRed - startRed) / notesPerCycle );
-            green = Math.round( startGreen + (notesPerCycle - position) * (endGreen - startGreen) / notesPerCycle );
-            blue = Math.round( startBlue + (notesPerCycle - position) * (endBlue - startBlue) / notesPerCycle );
+            red = Math.round( start.red + (notesPerCycle - position) * (end.red - start.red) / notesPerCycle );
+            green = Math.round( start.green + (notesPerCycle - position) * (end.green - start.green) / notesPerCycle );
+            blue = Math.round( start.blue + (notesPerCycle - position) * (end.blue - start.blue) / notesPerCycle );
             }
 
         alpha = 0.7;

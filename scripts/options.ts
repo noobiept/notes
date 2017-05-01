@@ -9,6 +9,9 @@ interface OptionsData
     generateColorType: BackgroundColorType;
     colorGradientStart: string;
     colorGradientEnd: string;
+    fixedColor1: string;
+    fixedColor2: string;
+    fixedColor3: string;
     spellCheck: boolean;
     }
 
@@ -20,8 +23,11 @@ var LOADED_OPTIONS: OptionsData = {
     noteMargin : 7,
     activeNotePosition : -1,               // which note to get focus on the beginning of the program (-1 means no one)
     generateColorType  : 'color_gradient',   // how to generate the background-color of the notes
-    colorGradientStart: '#640000',    // red color -- rgb(100, 0, 0)
-    colorGradientEnd: '#ff0000',      // red color -- rgb(255, 0, 0)
+    colorGradientStart: '#640000',      // red color -- rgb(100, 0, 0)
+    colorGradientEnd: '#ff0000',        // red color -- rgb(255, 0, 0)
+    fixedColor1: '#ff0000',
+    fixedColor2: '#00ff00',
+    fixedColor3: '#0000ff',
     spellCheck : true
     };
 
