@@ -39,56 +39,16 @@ var NEXT_OPTIONS: OptionsData;
 /**
  * Load the options, from the localStorage or from the server, to be used in the program.
  */
-export function load( options: OptionsData )
+export function load( options?: OptionsData )
     {
     if ( options )
         {
-            // I have to change each option, and not do something like OPTIONS = options, because otherwise when adding new
-            // options (to the OPTIONS object), it won't matter, since it will be overwritten with the old options
-            // by changing each one, if I add later another option, it will keep its default value
-        if ( isNaN( options.noteWidth ) === false )
-            {
-            LOADED_OPTIONS.noteWidth = options.noteWidth;
-            }
-
-        if ( isNaN( options.noteHeight ) === false )
-            {
-            LOADED_OPTIONS.noteHeight = options.noteHeight;
-            }
-
-        if ( isNaN( options.noteMargin ) === false )
-            {
-            LOADED_OPTIONS.noteMargin = options.noteMargin;
-            }
-
-        if ( isNaN( options.activeNotePosition ) === false )
-            {
-            LOADED_OPTIONS.activeNotePosition = options.activeNotePosition;
-            }
-
-        if (typeof options.generateColorType !== 'undefined' && options.generateColorType !== null)
-            {
-            LOADED_OPTIONS.generateColorType  = options.generateColorType;
-            }
-
-        if ( typeof options.colorGradientStart !== 'undefined' )
-            {
-            LOADED_OPTIONS.colorGradientStart = options.colorGradientStart;
-            }
-
-        if ( typeof options.colorGradientEnd !== 'undefined' )
-            {
-            LOADED_OPTIONS.colorGradientEnd = options.colorGradientEnd;
-            }
-
-        if ( typeof options.spellCheck === 'boolean' )
-            {
-            LOADED_OPTIONS.spellCheck = options.spellCheck;
-            }
+            // override the default options with the loaded options
+        Object.assign( LOADED_OPTIONS, options );
         }
 
         // the loaded options are the starting point for the next options, it can then be changed through the program
-    NEXT_OPTIONS = $.extend( true, {}, LOADED_OPTIONS );
+    NEXT_OPTIONS = Object.assign( {}, LOADED_OPTIONS );
     }
 
 

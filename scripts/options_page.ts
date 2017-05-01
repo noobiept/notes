@@ -92,17 +92,36 @@ export function init()
     COLOR_GRADIENT1 = <HTMLInputElement> document.getElementById( 'Options-colorGradient1' );
     COLOR_GRADIENT2 = <HTMLInputElement> document.getElementById( 'Options-colorGradient2' );
 
+        // color gradient elements
     COLOR_GRADIENT1.value = Options.get( 'colorGradientStart' );
     COLOR_GRADIENT2.value = Options.get( 'colorGradientEnd' );
-
     COLOR_GRADIENT1.onchange = function()
         {
         Options.set( 'colorGradientStart', COLOR_GRADIENT1.value );
-        }
+        };
     COLOR_GRADIENT2.onchange = function()
         {
         Options.set( 'colorGradientEnd', COLOR_GRADIENT2.value );
         };
+
+        // fixed color elements
+    FIXED_COLOR1.value = Options.get( 'fixedColor1' );
+    FIXED_COLOR2.value = Options.get( 'fixedColor2' );
+    FIXED_COLOR3.value = Options.get( 'fixedColor3' );
+    FIXED_COLOR1.onchange = function()
+        {
+        Options.set( 'fixedColor1', FIXED_COLOR1.value );
+        };
+    FIXED_COLOR2.onchange = function()
+        {
+        Options.set( 'fixedColor2', FIXED_COLOR2.value );
+        };
+    FIXED_COLOR3.onchange = function()
+        {
+        Options.set( 'fixedColor3', FIXED_COLOR3.value );
+        };
+
+        // switch between the different background color generation types
     backgroundColor.onclick = function()
         {
         switchBackgroundColor();
