@@ -141,7 +141,7 @@ constructor( args: NoteArgs )
 
     openWindow.addEventListener( 'click', function() { NoteWindow.open( noteObject ); }, false );
 
-    delNote.addEventListener( 'click', function() { MAIN_CONTAINER.removeNote( noteObject ); }, false );
+    delNote.addEventListener( 'click', function() { noteObject.parentObject.removeNote( noteObject ); }, false );
 
         // :: Other :: //
 
@@ -455,7 +455,7 @@ keyboardShortcuts( event: KeyboardEvent )
                 // means this is the first note, go to the .dummyNote
             else
                 {
-                MAIN_CONTAINER.getDummy().gainFocus();
+                this.parentObject.getDummy().gainFocus();
                 }
             }
 
@@ -472,15 +472,15 @@ keyboardShortcuts( event: KeyboardEvent )
                 // means this is the last element, go to .dummyNote
             else
                 {
-                MAIN_CONTAINER.getDummy().gainFocus();
+                this.parentObject.getDummy().gainFocus();
                 }
             }
 
             // create a new note in the next position
         else if ( event.ctrlKey && key === Utilities.EVENT_KEY.enter )
             {
-            otherNoteObject = MAIN_CONTAINER.newNote({
-                container: MAIN_CONTAINER,
+            otherNoteObject = this.parentObject.newNote({
+                container: this.parentObject,
                 text: "",
                 saveToUndo: true,
                 position: this.getPosition() + 1
@@ -507,11 +507,11 @@ keyboardShortcuts( event: KeyboardEvent )
 
                 if (otherNoteObject === null)
                     {
-                    otherNoteObject = MAIN_CONTAINER.getDummy();
+                    otherNoteObject = this.parentObject.getDummy();
                     }
                 }
 
-            MAIN_CONTAINER.removeNote( this );
+            this.parentObject.removeNote( this );
             otherNoteObject.gainFocus();
             }
 
