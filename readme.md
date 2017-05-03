@@ -1,3 +1,5 @@
+# [Try it out here!](http://nbpt.eu/app/notes/) #
+
 # Description #
 
 A simple program for quick notes.
