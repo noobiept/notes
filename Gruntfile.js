@@ -1,28 +1,31 @@
 module.exports = function( grunt )
 {
-var root = '../';
-var dest = '../release/<%= pkg.name %> <%= pkg.version %>/';
+var root = './';
+var dest = './release/<%= pkg.name %> <%= pkg.version %>/';
+var temp = './temp/';
+
 
 grunt.initConfig({
         pkg: grunt.file.readJSON( 'package.json' ),
 
-            // javascript linter
-        eslint: {
-            options: {
-                configFile: root + '.eslintrc.json'
-            },
-            target: [ root + 'js/**' ]
+        clean: {
+                // delete the destination folder
+            previousBuild: [
+                dest,
+            ],
+                // remove temporary files
+            afterBuild: [
+                temp,
+                '.tscache',
+            ]
         },
 
-            // remove the destination folder first
-        clean: {
-            options: {
-                force: true
-            },
-
-            release: [
-                dest
-            ]
+            // compile to javascript
+        ts: {
+            release: {
+                tsconfig: true,
+                dest: temp + 'code.js'
+            }
         },
 
             // copy the necessary files
@@ -31,12 +34,8 @@ grunt.initConfig({
                 expand: true,
                 cwd: root,
                 src: [
-                    'images/icon16.png',
-                    'images/icon128.png',
                     'libraries/**',
-                    'background.js',
-                    'manifest.json',
-                    'options.html'
+                    'package.json'
                 ],
                 dest: dest
             }
@@ -46,9 +45,7 @@ grunt.initConfig({
         uglify: {
             release: {
                 files: [{
-                    src: [
-                        root + 'js/*.js'
-                    ],
+                    src: temp + 'code.js',
                     dest: dest + 'min.js'
                 }]
             }
@@ -81,13 +78,13 @@ grunt.initConfig({
     });
 
     // load the plugins
-grunt.loadNpmTasks( 'grunt-eslint' );
 grunt.loadNpmTasks( 'grunt-contrib-clean' );
 grunt.loadNpmTasks( 'grunt-contrib-copy' );
 grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 grunt.loadNpmTasks( 'grunt-processhtml' );
+grunt.loadNpmTasks( 'grunt-ts' );
 
     // tasks
-grunt.registerTask( 'default', [ 'eslint', 'clean', 'copy', 'uglify', 'cssmin', 'processhtml' ] );
+grunt.registerTask( 'default', [ 'clean:previousBuild', 'ts', 'copy', 'uglify', 'cssmin', 'processhtml', 'clean:afterBuild' ] );
 };

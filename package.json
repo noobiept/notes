@@ -3,8 +3,17 @@
     "version": "1.5.0",
     "description": "A simple web based program for quick notes.",
     "devDependencies": {
-        "typescript": "~2.3.1",
-        "@types/jquery": "~2.0.41",
-        "@types/jqueryui": "~1.11.32"
+        "typescript": "~2.3.2",
+        "@types/jquery": "~2.0.42",
+        "@types/jqueryui": "~1.11.32",
+
+        "grunt": "~1.0.1",
+        "grunt-contrib-clean": "~1.1.0",
+        "grunt-contrib-copy": "~1.0.0",
+        "grunt-contrib-uglify": "~2.3.0",
+        "grunt-contrib-cssmin": "~2.1.0",
+        "grunt-processhtml": "~0.4.1",
+        "grunt-ts": "~6.0.0-beta.15",
+        "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
     }
 }
