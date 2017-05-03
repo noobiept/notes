@@ -22,9 +22,9 @@ constructor()
  *
  * Creates a note and adds it to the main container
  */
-newNote( args: NoteArgs )
+newNote( args?: NoteArgs )
     {
-    var noteObject = new Note( args );
+    var noteObject = new Note( this,  args );
 
         // we're getting the position from the object and not from the argument, because the argument may not have an acceptable value
     var notePosition = noteObject.getPosition();

@@ -1,6 +1,5 @@
 interface NoteArgs
     {
-    container: MainContainer;
     text?: string;
     colorComponents?: ColorArgs;
     saveToUndo?: boolean;
@@ -22,16 +21,21 @@ private backgroundColor: Color;
 /*
  * Note's class -- its called from a MainContainer object (not directly)
  */
-constructor( args: NoteArgs )
+constructor( container: MainContainer, args?: NoteArgs )
     {
     var noteObject = this;
+
+    if ( !args )
+        {
+        args = {};
+        }
 
         // :: Deal with the note's position :: //
 
         // add at the end (its not -1, since we still didn't add to the array)
     if ( typeof args.position === 'undefined' || isNaN( args.position ) === true || args.position < 0 )
         {
-        args.position = args.container.childrenCount();
+        args.position = container.childrenCount();
         }
 
     this.position = args.position;
@@ -148,7 +152,7 @@ constructor( args: NoteArgs )
         // make notes draggable
     this.dragDrop = new DragDrop( noteContainer, noteControls, this );
 
-    this.parentObject = args.container;
+    this.parentObject = container;
     this.noteEntry = noteEntry;
     this.noteContainer = noteContainer;
     this.backgroundColor = colorObject;
@@ -480,7 +484,6 @@ keyboardShortcuts( event: KeyboardEvent )
         else if ( event.ctrlKey && key === Utilities.EVENT_KEY.enter )
             {
             otherNoteObject = this.parentObject.newNote({
-                container: this.parentObject,
                 text: "",
                 saveToUndo: true,
                 position: this.getPosition() + 1

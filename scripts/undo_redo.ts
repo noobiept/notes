@@ -171,7 +171,6 @@ export function stuff( whichOne: 'undo' | 'redo' )
             var colorComponents = element.colorObject!.getColor();
 
             MAIN_CONTAINER.newNote({
-                container: MAIN_CONTAINER,
                 text: element.text,
                 colorComponents: colorComponents,
                 saveToUndo: false,
@@ -207,7 +206,6 @@ export function stuff( whichOne: 'undo' | 'redo' )
             var colorComponents2 = element.colorObject!.getColor();
 
             MAIN_CONTAINER.newNote({
-                container: MAIN_CONTAINER,
                 text: element.text,
                 colorComponents: colorComponents2,
                 saveToUndo: false,

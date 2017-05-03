@@ -30,7 +30,6 @@ if ( !notes )
 for (var i = 0 ; i < notes.length ; i++)
     {
     MAIN_CONTAINER.newNote({
-        container: MAIN_CONTAINER,
         text: notes[ i ].text,
         colorComponents: notes[ i ].backgroundColorComponents,
         saveToUndo: false,
@@ -105,10 +104,7 @@ if ( event.type === 'keyup' )
         // alt + n -- create a new (n)ote
     else if ( event.altKey && key === Utilities.EVENT_KEY.n )
         {
-        var noteObject = MAIN_CONTAINER.newNote({
-            container: MAIN_CONTAINER
-            });
-
+        var noteObject = MAIN_CONTAINER.newNote();
         noteObject.gainFocus();
 
         event.stopPropagation();
