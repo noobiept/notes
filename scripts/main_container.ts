@@ -104,30 +104,16 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
         lessPosition = previousPosition;
         }
 
-        //inserting at the end
-    if (position === this.childrenCount() - 1)
-        {
-        this.getHtmlElement().insertBefore(
-            note.getHtmlElement(),
-            this.getDummy().getHtmlElement()
-            );
-        }
 
-        //when the drag was from a higher position to a lower
-    else if (position > note.getPosition())
+        // insert the html element on the new position
+    if ( position > previousPosition )
         {
-        this.getHtmlElement().insertBefore(
-            note.getHtmlElement(),
-            this.getChild( position + 1 )!.getHtmlElement()
-            );
+        this.getChild( position )!.getHtmlElement().insertAdjacentElement( 'afterend', note.getHtmlElement() );
         }
 
     else
         {
-        this.getHtmlElement().insertBefore(
-            note.getHtmlElement(),
-            this.getChild( position )!.getHtmlElement()
-            );
+        this.getChild( position )!.getHtmlElement().insertAdjacentElement( 'beforebegin', note.getHtmlElement() );
         }
 
         // remove from array
@@ -137,7 +123,7 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
     this.childrenObjects.splice( position, 0, note );
 
         // update the position property
-    for (var a = position ; a < this.childrenObjects.length ; a++)
+    for (var a = lessPosition ; a < this.childrenObjects.length ; a++)
         {
         this.childrenObjects[ a ].setPosition( a );
         }
