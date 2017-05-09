@@ -4,7 +4,7 @@ interface NoteArgs
     colorComponents?: ColorArgs;
     saveToUndo?: boolean;
     position?: number;
-    fromLoad?: boolean;
+    saveToStorage?: boolean;
     }
 
 
@@ -162,7 +162,7 @@ constructor( container: MainContainer, args?: NoteArgs )
         UndoRedo.add( 'addedNote', this );
         }
 
-    if ( args.fromLoad !== true )
+    if ( args.saveToStorage !== false )
         {
         Data.newNote( this );
         }

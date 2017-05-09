@@ -170,12 +170,13 @@ export function stuff( whichOne: 'undo' | 'redo' )
             {
             var colorComponents = element.colorObject!.getColor();
 
-            MAIN_CONTAINER.newNote({
+            let note = MAIN_CONTAINER.newNote({
                 text: element.text,
                 colorComponents: colorComponents,
                 saveToUndo: false,
                 position: element.position
                 });
+            note.gainFocus();
             }
 
             //redo - we remove the previously added entry (by the undo)
@@ -205,12 +206,13 @@ export function stuff( whichOne: 'undo' | 'redo' )
             {
             var colorComponents2 = element.colorObject!.getColor();
 
-            MAIN_CONTAINER.newNote({
+            let note = MAIN_CONTAINER.newNote({
                 text: element.text,
                 colorComponents: colorComponents2,
                 saveToUndo: false,
                 position: element.position
                 });
+            note.gainFocus();
             }
         }
 

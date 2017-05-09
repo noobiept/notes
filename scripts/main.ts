@@ -32,9 +32,9 @@ for (var i = 0 ; i < notes.length ; i++)
     MAIN_CONTAINER.newNote({
         text: notes[ i ].text,
         colorComponents: notes[ i ].backgroundColorComponents,
-        saveToUndo: false,
         position: -1,
-        fromLoad: true
+        saveToUndo: false,
+        saveToStorage: false
         });
     }
 
