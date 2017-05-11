@@ -1,35 +1,51 @@
-- Adicionar notas
-- remover notas
+- add notes
+    - through menu
+    - dummy note
+    - keyboard shortcut
 
-- atalhos de teclado
+- remove notes
+    - top right button
+    - keyboard shortcut
+
+- keyboard shortcuts
     - global
     - notes
     - note window
 
-- drag de uma nota:
-    - para o inicio
-    - a meio
-    - para o fim
-    
-- opcoes
+- drag of a note
+    - to the beginning
+    - to the middle
+    - to the end
+
+- options
+    - note width
+    - note height
+    - how to generate the background color
+        - random
+        - fixed order
+        - color gradient
+    - note margin
+    - spellcheck
+    - documentation link
+    - export of the notes
 
 - undo/redo
-    - nota eliminada
-    - nota adicionada
-    - drag nota
-    
-    (se mantem o texto, a cor de background e a posicao)
-    
-    
+    - note removed
+    - note added
+    - note dragged
+
+    (if it maintains the text, the background color and its original position)
+
 - NoteWindow
-    - seta para a esquerda
-    - seta para a direita
-        - ao trocar de nota, ele actualiza o texto/cor de fundo
-        - ao mudar o texto e a cor de fundo, ele afecta a nota correspondente? ou a k eh afectada eh a k abrimos inicialmente a NoteWindow
-    - eliminar uma nota 
-        - se passa para a proxima nota
-        - o k acontece quando se elimina a ultima nota
-    - trocar a cor de fundo
-        - mudar entre gerada e fixa
-        - se as componentes da cor funcionam
-    - se ao fazer refresh com a NoteWindow aberta, ele grava alteracoes de texto/cor
+
+    - check if it saves the text
+    - arrow to the left/right
+        - check if it updates the text and the background color when switching
+        - check if the note below the window gets focus
+    - remove a note
+        - if it moves to the next note
+        - what happens when you remove the last note
+    - change background color
+        - switch between generated and fixed
+        - if color components work
+    - check if we do a refresh of the webpage with the note window opened, if its saved
