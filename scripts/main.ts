@@ -31,7 +31,7 @@ for (var i = 0 ; i < notes.length ; i++)
     {
     MAIN_CONTAINER.newNote({
         text: notes[ i ].text,
-        colorComponents: notes[ i ].backgroundColorComponents,
+        colorComponents: notes[ i ].backgroundColor,
         position: -1,
         saveToUndo: false,
         saveToStorage: false

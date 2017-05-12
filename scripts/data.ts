@@ -3,7 +3,7 @@ module Data
 interface NoteData
     {
     text: string;
-    backgroundColorComponents: ColorArgs
+    backgroundColor: ColorArgs
     }
 
 var NOTES: NoteData[] = [];
@@ -14,6 +14,7 @@ var ACTIVE_POSITION = -1;
     // will have to save manually at the end (can happen in the undo/redo for example)
     // don't forget to enable again
 var SAVE_ENABLED = true;
+let DB_REQUEST: IDBOpenDBRequest;
 
 
 export function saveToStorage( yesNo: boolean )
@@ -24,26 +25,37 @@ export function saveToStorage( yesNo: boolean )
 
 export function load( callback: () => void )
     {
-    Utilities.getData( [ 'notes', 'notes_options', 'notes_activeNotePosition' ], function( data )
+    DB_REQUEST = window.indexedDB.open( 'notes', 1 );
+
+    DB_REQUEST.onupgradeneeded = function( event )
         {
-        var notes = data[ 'notes' ];
-        var options = data[ 'notes_options' ];
-        var activePosition = data[ 'notes_activeNotePosition' ];
+        let db: IDBDatabase = (<IDBOpenDBRequest>event.target).result;
+        let store = db.createObjectStore( 'notes', { autoIncrement: true } );
 
-        Options.load( options );
+        store.createIndex( 'position', 'position' );
+        store.createIndex( 'text', 'text' );
+        store.createIndex( 'backgroundColor', ['color.red', 'color.green', 'color.blue', 'color.alpha', 'color.wasSetByUser'] );
+        };
 
-        if ( notes )
+    DB_REQUEST.onsuccess = function( event )
+        {
+        Options.load();
+
+        let db: IDBDatabase = (<IDBOpenDBRequest>event.target).result;
+        let tx = db.transaction( "notes", "readonly" );
+        let store = tx.objectStore( "notes" );
+
+            // sorts automatically by position
+        let notesIndex = store.index( 'position' );
+        let notes = notesIndex.getAll();
+
+        notes.onsuccess = function()
             {
-            NOTES = notes;
-            }
+            NOTES = notes.result;
 
-        if ( isNaN( activePosition ) === false )
-            {
-            ACTIVE_POSITION = activePosition;
+            callback();
             }
-
-        callback();
-        });
+        };
     };
 
 
@@ -81,15 +93,15 @@ export function setActiveNotePosition( position: number )
 
 export function newNote( note: Note )
     {
-    NOTES.splice( note.getPosition(), 0, {
-            text  : note.getText(),
-            backgroundColorComponents : note.getColorObject().getColor()
-        });
+    let db = DB_REQUEST.result;
+    let tx = db.transaction( 'notes', 'readwrite' );
+    let store = tx.objectStore( 'notes' );
 
-    if ( SAVE_ENABLED )
-        {
-        Data.saveNotes();
-        }
+    store.put({
+            position: note.getPosition(),
+            text: note.getText(),
+            backgroundColor: note.getColorObject().getColor()
+        });
     };
 
 
@@ -106,18 +118,18 @@ export function removeNote( note: Note )
 
 export function changeNoteText( note: Note )
     {
-    NOTES[ note.getPosition() ].text = note.getText();
+    /*NOTES[ note.getPosition() ].text = note.getText();
 
     if ( SAVE_ENABLED )
         {
         Data.saveNotes();
-        }
+        }*/
     }
 
 
 export function changeNoteBackgroundColor( note: Note )
     {
-    NOTES[ note.getPosition() ].backgroundColorComponents = note.getColorObject().getColor();
+    NOTES[ note.getPosition() ].backgroundColor = note.getColorObject().getColor();
 
     if ( SAVE_ENABLED )
         {
