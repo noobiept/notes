@@ -56,38 +56,6 @@ export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]
     };
 
 
-export function saveNotes()
-    {
-    Utilities.setData({ notes: NOTES });
-    }
-
-
-export function saveActivePosition()
-    {
-    Utilities.setData({ notes_activeNotePosition: ACTIVE_POSITION });
-    }
-
-
-export function getNotes()
-    {
-    return NOTES;
-    }
-
-
-export function getNoteActivePosition()
-    {
-    return ACTIVE_POSITION;
-    }
-
-
-export function setActiveNotePosition( position: number )
-    {
-    ACTIVE_POSITION = position;
-
-    Data.saveActivePosition();
-    }
-
-
 export function newNote( note: Note )
     {
     let db = DB_REQUEST.result;
@@ -150,7 +118,7 @@ export function changeNotePosition( note: Note, previousPosition: number )
 /**
  * Adds a new option to the database (overrides the previous value).
  */
-export function setOption( name: string, value: any )
+export function setOption<K extends keyof Options.OptionsData>( key: K, value: Options.OptionsData[K] )
     {
     let db = DB_REQUEST.result;
     let tx = db.transaction( 'options', 'readwrite' );

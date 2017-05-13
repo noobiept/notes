@@ -132,14 +132,14 @@ constructor( container: MainContainer, args?: NoteArgs )
         function()
         {
         noteObject.setFocusStyle();
-        Data.setActiveNotePosition( noteObject.getPosition() );
+        Options.set( 'activeNotePosition', noteObject.getPosition() )
         });
 
     $( noteEntry ).bind( 'blur',
         function()
         {
         noteObject.removeFocusStyle();
-        Data.setActiveNotePosition( -1 );
+        Options.set( 'activeNotePosition', -1 );
         });
 
 
