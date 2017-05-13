@@ -25,36 +25,55 @@ export function saveToStorage( yesNo: boolean )
 
 export function load( callback: () => void )
     {
-    DB_REQUEST = window.indexedDB.open( 'notes', 1 );
+    DB_REQUEST = window.indexedDB.open( 'notesDB', 1 );
 
     DB_REQUEST.onupgradeneeded = function( event )
         {
         let db: IDBDatabase = (<IDBOpenDBRequest>event.target).result;
-        let store = db.createObjectStore( 'notes', { autoIncrement: true } );
+        let notes = db.createObjectStore( 'notes', { autoIncrement: true } );
 
-        store.createIndex( 'position', 'position' );
-        store.createIndex( 'text', 'text' );
-        store.createIndex( 'backgroundColor', ['color.red', 'color.green', 'color.blue', 'color.alpha', 'color.wasSetByUser'] );
+        notes.createIndex( 'position', 'position' );
+        notes.createIndex( 'text', 'text' );
+        notes.createIndex( 'backgroundColor', ['color.red', 'color.green', 'color.blue', 'color.alpha', 'color.wasSetByUser'] );
+
+        let options = db.createObjectStore( 'options', { autoIncrement: true } );
+
+        options.createIndex( 'noteWidth', 'noteWidth' );
+        options.createIndex( 'noteHeight', 'noteHeight' );
+        options.createIndex( 'noteMargin', 'noteMargin' );
+        options.createIndex( 'activeNotePosition', 'activeNotePosition' );
+        options.createIndex( 'generateColorType', 'generateColorType' );
+        options.createIndex( 'colorGradientStart', 'colorGradientStart' );
+        options.createIndex( 'colorGradientEnd', 'colorGradientEnd' );
+        options.createIndex( 'fixedColor1', 'fixedColor1' );
+        options.createIndex( 'fixedColor2', 'fixedColor2' );
+        options.createIndex( 'fixedColor3', 'fixedColor3' );
+        options.createIndex( 'spellCheck', 'spellCheck' );
         };
 
     DB_REQUEST.onsuccess = function( event )
         {
-        Options.load();
-
         let db: IDBDatabase = (<IDBOpenDBRequest>event.target).result;
-        let tx = db.transaction( "notes", "readonly" );
-        let store = tx.objectStore( "notes" );
+        let tx = db.transaction( [ "notes", 'options' ], "readonly" );
+        let notesStore = tx.objectStore( "notes" );
 
             // sorts automatically by position
-        let notesIndex = store.index( 'position' );
+        let notesIndex = notesStore.index( 'position' );
         let notes = notesIndex.getAll();
 
-        notes.onsuccess = function()
+        let optionsStore = tx.objectStore( 'options' );
+        let options = optionsStore.getAll();
+
+        tx.oncomplete = function()
             {
+            console.log( notes.result );
+            console.log( options.result );
+
+            Options.load( options.result );
             NOTES = notes.result;
 
             callback();
-            }
+            };
         };
     };
 
