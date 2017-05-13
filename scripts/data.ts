@@ -13,43 +13,33 @@ export interface LoadedOptionsData
     }
 
 
-let DB_REQUEST: IDBOpenDBRequest;
+let DB: IDBDatabase;
 
 
 export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]) => void )
     {
-    DB_REQUEST = window.indexedDB.open( 'notesDB', 1 );
+    let request = window.indexedDB.open( 'notesDB', 1 );
 
-    DB_REQUEST.onupgradeneeded = function( event )
+    request.onupgradeneeded = function( event )
         {
         let db: IDBDatabase = (<IDBOpenDBRequest>event.target).result;
-        let notes = db.createObjectStore( 'notes', { autoIncrement: true } );
-
-        notes.createIndex( 'position', 'position' );
-        notes.createIndex( 'text', 'text' );
-        notes.createIndex( 'backgroundColor', ['color.red', 'color.green', 'color.blue', 'color.alpha', 'color.wasSetByUser'] );
-
+        db.createObjectStore( 'notes', { keyPath: 'position' } );
         db.createObjectStore( 'options', { keyPath: 'name' } );
         };
 
-    DB_REQUEST.onsuccess = function( event )
+    request.onsuccess = function( event )
         {
-        let db: IDBDatabase = (<IDBOpenDBRequest>event.target).result;
-        let tx = db.transaction( [ "notes", 'options' ], "readonly" );
-        let notesStore = tx.objectStore( "notes" );
+        DB = (<IDBOpenDBRequest>event.target).result;
+        let tx = DB.transaction( [ "notes", 'options' ], "readonly" );
 
-            // sorts automatically by position
-        let notesIndex = notesStore.index( 'position' );
-        let notes = notesIndex.getAll();
+        let notesStore = tx.objectStore( "notes" );
+        let notes = notesStore.getAll();
 
         let optionsStore = tx.objectStore( 'options' );
         let options = optionsStore.getAll();
 
         tx.oncomplete = function()
             {
-            console.log( notes.result );
-            console.log( options.result );
-
             callback( notes.result, options.result );
             };
         };
@@ -58,8 +48,7 @@ export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]
 
 export function newNote( note: Note )
     {
-    let db = DB_REQUEST.result;
-    let tx = db.transaction( 'notes', 'readwrite' );
+    let tx = DB.transaction( 'notes', 'readwrite' );
     let store = tx.objectStore( 'notes' );
 
     store.put({
@@ -83,12 +72,21 @@ export function removeNote( note: Note )
 
 export function changeNoteText( note: Note )
     {
-    /*NOTES[ note.getPosition() ].text = note.getText();
+    let tx = DB.transaction( 'notes', 'readwrite' );
 
-    if ( SAVE_ENABLED )
+    let store = tx.objectStore( 'notes' );
+    let noteRequest = store.get( note.getPosition() );
+
+    noteRequest.onsuccess = function()
         {
-        Data.saveNotes();
-        }*/
+        let result = noteRequest.result;
+
+        if ( result )
+            {
+            result.text = note.getText();
+            store.put( result );
+            }
+        };
     }
 
 
@@ -120,11 +118,11 @@ export function changeNotePosition( note: Note, previousPosition: number )
  */
 export function setOption<K extends keyof Options.OptionsData>( key: K, value: Options.OptionsData[K] )
     {
-    let db = DB_REQUEST.result;
-    let tx = db.transaction( 'options', 'readwrite' );
-    let store = tx.objectStore( 'options' );
+    let tx = DB.transaction( 'options', 'readwrite' );
 
+    let store = tx.objectStore( 'options' );
     let option = store.get( name );
+
     option.onsuccess = function()
         {
         let result = option.result;
