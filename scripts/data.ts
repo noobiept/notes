@@ -13,21 +13,7 @@ export interface LoadedOptionsData
     }
 
 
-var NOTES: NoteData[] = [];
-var ACTIVE_POSITION = -1;
-
-    // we can temporarily disable saving to the storage on every change
-    // useful when we're making lots of changes in one go
-    // will have to save manually at the end (can happen in the undo/redo for example)
-    // don't forget to enable again
-var SAVE_ENABLED = true;
 let DB_REQUEST: IDBOpenDBRequest;
-
-
-export function saveToStorage( yesNo: boolean )
-    {
-    SAVE_ENABLED = yesNo;
-    }
 
 
 export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]) => void )
@@ -63,8 +49,6 @@ export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]
             {
             console.log( notes.result );
             console.log( options.result );
-
-            NOTES = notes.result;
 
             callback( notes.result, options.result );
             };
@@ -120,12 +104,12 @@ export function newNote( note: Note )
 
 export function removeNote( note: Note )
     {
-    NOTES.splice( note.getPosition(), 1 );
+    /*NOTES.splice( note.getPosition(), 1 );
 
     if ( SAVE_ENABLED )
         {
         Data.saveNotes();
-        }
+        }*/
     }
 
 
@@ -142,24 +126,24 @@ export function changeNoteText( note: Note )
 
 export function changeNoteBackgroundColor( note: Note )
     {
-    NOTES[ note.getPosition() ].backgroundColor = note.getColorObject().getColor();
+    /*NOTES[ note.getPosition() ].backgroundColor = note.getColorObject().getColor();
 
     if ( SAVE_ENABLED )
         {
         Data.saveNotes();
-        }
+        }*/
     }
 
 
 export function changeNotePosition( note: Note, previousPosition: number )
     {
-    var data = NOTES.splice( previousPosition, 1 )[ 0 ];
+    /*var data = NOTES.splice( previousPosition, 1 )[ 0 ];
     NOTES.splice( note.getPosition(), 0, data );
 
     if ( SAVE_ENABLED )
         {
         Data.saveNotes();
-        }
+        }*/
     }
 
 
