@@ -10,16 +10,17 @@ Data.load( initApp );
 };
 
 
-function initApp()
+function initApp( notes: Data.NoteData[], options: Data.LoadedOptionsData[] )
 {
 MAIN_CONTAINER = new MainContainer();
+
+Options.load( options );
 
 Menu.init();
 OptionsPage.init();
 
     // load the notes
-var notes = Data.getNotes();
-var activeNotePosition = Data.getNoteActivePosition();
+var activeNotePosition = Options.get( 'activeNotePosition' );
 
     // first time the program runs
 if ( !notes )

@@ -1,6 +1,6 @@
 module Options
 {
-interface OptionsData
+export interface OptionsData
     {
     noteWidth: number;
     noteHeight: number;
@@ -13,6 +13,7 @@ interface OptionsData
     fixedColor2: string;
     fixedColor3: string;
     spellCheck: boolean;
+    [key: string]: any;
     }
 
 
@@ -39,12 +40,13 @@ var NEXT_OPTIONS: OptionsData;
 /**
  * Load the options, from the localStorage or from the server, to be used in the program.
  */
-export function load( options?: OptionsData )
+export function load( options: Data.LoadedOptionsData[] )
     {
-    if ( options )
+        // override the default options with the loaded options
+    for (var a = 0 ; a < options.length ; a++)
         {
-            // override the default options with the loaded options
-        Object.assign( LOADED_OPTIONS, options );
+        let option = options[ a ];
+        LOADED_OPTIONS[ option.name ] = option.value;
         }
 
         // the loaded options are the starting point for the next options, it can then be changed through the program
@@ -76,15 +78,6 @@ export function getNext<K extends keyof OptionsData>( key: K )
 export function set<K extends keyof OptionsData>( key: K, value: OptionsData[K] )
     {
     NEXT_OPTIONS[ key ] = value;
-    saveOptions();
-    }
-
-
-/**
- * Save the options to the local storage.
- */
-function saveOptions()
-    {
-    Utilities.setData({ notes_options: NEXT_OPTIONS });
+    Data.setOption( key, value );
     }
 }

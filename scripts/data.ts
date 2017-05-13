@@ -1,10 +1,17 @@
 module Data
 {
-interface NoteData
+export interface NoteData
     {
     text: string;
     backgroundColor: ColorArgs
     }
+
+export interface LoadedOptionsData
+    {
+    name: keyof Options.OptionsData;
+    value: any;
+    }
+
 
 var NOTES: NoteData[] = [];
 var ACTIVE_POSITION = -1;
@@ -23,7 +30,7 @@ export function saveToStorage( yesNo: boolean )
     }
 
 
-export function load( callback: () => void )
+export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]) => void )
     {
     DB_REQUEST = window.indexedDB.open( 'notesDB', 1 );
 
@@ -36,19 +43,7 @@ export function load( callback: () => void )
         notes.createIndex( 'text', 'text' );
         notes.createIndex( 'backgroundColor', ['color.red', 'color.green', 'color.blue', 'color.alpha', 'color.wasSetByUser'] );
 
-        let options = db.createObjectStore( 'options', { autoIncrement: true } );
-
-        options.createIndex( 'noteWidth', 'noteWidth' );
-        options.createIndex( 'noteHeight', 'noteHeight' );
-        options.createIndex( 'noteMargin', 'noteMargin' );
-        options.createIndex( 'activeNotePosition', 'activeNotePosition' );
-        options.createIndex( 'generateColorType', 'generateColorType' );
-        options.createIndex( 'colorGradientStart', 'colorGradientStart' );
-        options.createIndex( 'colorGradientEnd', 'colorGradientEnd' );
-        options.createIndex( 'fixedColor1', 'fixedColor1' );
-        options.createIndex( 'fixedColor2', 'fixedColor2' );
-        options.createIndex( 'fixedColor3', 'fixedColor3' );
-        options.createIndex( 'spellCheck', 'spellCheck' );
+        db.createObjectStore( 'options', { keyPath: 'name' } );
         };
 
     DB_REQUEST.onsuccess = function( event )
@@ -69,10 +64,9 @@ export function load( callback: () => void )
             console.log( notes.result );
             console.log( options.result );
 
-            Options.load( options.result );
             NOTES = notes.result;
 
-            callback();
+            callback( notes.result, options.result );
             };
         };
     };
@@ -166,5 +160,32 @@ export function changeNotePosition( note: Note, previousPosition: number )
         {
         Data.saveNotes();
         }
+    }
+
+
+/**
+ * Adds a new option to the database (overrides the previous value).
+ */
+export function setOption( name: string, value: any )
+    {
+    let db = DB_REQUEST.result;
+    let tx = db.transaction( 'options', 'readwrite' );
+    let store = tx.objectStore( 'options' );
+
+    let option = store.get( name );
+    option.onsuccess = function()
+        {
+        let result = option.result;
+
+        if ( !result )
+            {
+            result = {
+                    name: name
+                };
+            }
+
+        result.value = value;
+        store.put( result );
+        };
     }
 }
