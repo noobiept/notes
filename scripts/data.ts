@@ -141,7 +141,7 @@ export function updateNotesPosition( notes: Note[], startPosition: number )
 /**
  * Adds a new option to the database (overrides the previous value).
  */
-export function setOption<K extends keyof Options.OptionsData>( key: K, value: Options.OptionsData[K] )
+export function setOption<K extends keyof Options.OptionsData>( name: K, value: Options.OptionsData[K] )
     {
     let tx = DB.transaction( 'options', 'readwrite' );
 

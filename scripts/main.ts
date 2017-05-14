@@ -15,7 +15,6 @@ function initApp( notes: Data.NoteData[], options: Data.LoadedOptionsData[] )
 MAIN_CONTAINER = new MainContainer();
 
 Options.load( options );
-
 Menu.init();
 OptionsPage.init();
 
