@@ -2,6 +2,7 @@ module Data
 {
 export interface NoteData
     {
+    position: number;
     text: string;
     backgroundColor: ColorArgs
     }
@@ -50,12 +51,13 @@ export function newNote( note: Note )
     {
     let tx = DB.transaction( 'notes', 'readwrite' );
     let store = tx.objectStore( 'notes' );
-
-    store.put({
+    let noteData: NoteData = {
             position: note.getPosition(),
             text: note.getText(),
             backgroundColor: note.getColorObject().getColor()
-        });
+        };
+
+    store.put( noteData );
     };
 
 
@@ -79,7 +81,7 @@ export function changeNoteText( note: Note )
 
     noteRequest.onsuccess = function()
         {
-        let result = noteRequest.result;
+        let result: NoteData = noteRequest.result;
 
         if ( result )
             {
@@ -101,15 +103,38 @@ export function changeNoteBackgroundColor( note: Note )
     }
 
 
-export function changeNotePosition( note: Note, previousPosition: number )
+/**
+ * Update the notes position in order, from the start position.
+ * The notes array position doesn't match the value given by 'getPosition()'.
+ * This is due to a note changing position (from a drag operation).
+ */
+export function updateNotesPosition( notes: Note[], startPosition: number )
     {
-    /*var data = NOTES.splice( previousPosition, 1 )[ 0 ];
-    NOTES.splice( note.getPosition(), 0, data );
+    let tx = DB.transaction( 'notes', 'readwrite' );
+    let store = tx.objectStore( 'notes' );
 
-    if ( SAVE_ENABLED )
+    for (var a = startPosition ; a < notes.length ; a++)
         {
-        Data.saveNotes();
-        }*/
+        let note = notes[ a ];
+        let previousPosition = note.getPosition();
+        let request = store.get( previousPosition );
+        let nextPosition = a;
+
+            // update the note object
+        note.setPosition( nextPosition );
+
+            // update the database position as well
+        request.onsuccess = function()
+            {
+            let result: NoteData = request.result;
+
+            if ( result )
+                {
+                result.position = nextPosition;
+                store.put( result );
+                }
+            }
+        }
     }
 
 

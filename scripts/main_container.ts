@@ -123,10 +123,7 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
     this.childrenObjects.splice( position, 0, note );
 
         // update the position property
-    for (var a = lessPosition ; a < this.childrenObjects.length ; a++)
-        {
-        this.childrenObjects[ a ].setPosition( a );
-        }
+    Data.updateNotesPosition( this.childrenObjects, lessPosition );
 
     if ( saveToUndo !== false )
         {
@@ -135,7 +132,6 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
 
         //focus on the element that was dragged
     note.gainFocus();
-    Data.changeNotePosition( note, previousPosition );
     }
 
 
