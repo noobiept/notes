@@ -13,6 +13,12 @@ export interface LoadedOptionsData
     value: any;
     }
 
+    // add the missing 'getAll()' method to the store interface
+interface IDBObjectStoreExt extends IDBObjectStore
+    {
+    getAll( query?: string | IDBKeyRange, count?: number ): IDBRequest;
+    }
+
 
 let DB: IDBDatabase;
 
@@ -33,10 +39,10 @@ export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]
         DB = (<IDBOpenDBRequest>event.target).result;
         let tx = DB.transaction( [ "notes", 'options' ], "readonly" );
 
-        let notesStore = tx.objectStore( "notes" );
+        let notesStore = <IDBObjectStoreExt> tx.objectStore( "notes" );
         let notes = notesStore.getAll();
 
-        let optionsStore = tx.objectStore( 'options' );
+        let optionsStore = <IDBObjectStoreExt> tx.objectStore( 'options' );
         let options = optionsStore.getAll();
 
         tx.oncomplete = function()
