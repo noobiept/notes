@@ -153,6 +153,7 @@ a
     opacity: 0.8;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 300;   /* same as the note window */
     }
 
 .NoteWindow-leftArrow:hover, .NoteWindow-rightArrow:hover
@@ -240,6 +241,7 @@ a
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.3);
+    z-index: 200;   /* Stay on top of notes */
     }
 
 .windowContainer
@@ -248,6 +250,7 @@ a
     box-shadow: 1px 1px 10px 5px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
     overflow: auto;
+    z-index: 300;   /* stay on top of the window overlay */
 
     min-width: 200px;
     min-height: 100px;
