@@ -52,8 +52,6 @@ newNote( args?: NoteArgs )
  */
 removeNote( note: Note, saveToUndo?: boolean )
     {
-    Data.removeNote( note );
-
     if ( saveToUndo !== false )
         {
         UndoRedo.add( 'removedNote', note );
@@ -72,6 +70,8 @@ removeNote( note: Note, saveToUndo?: boolean )
         {
         this.childrenObjects[ a ].setPosition( a );
         }
+
+    Data.removeNote( position, this.childrenObjects.length );
     }
 
 

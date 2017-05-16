@@ -67,14 +67,32 @@ export function newNote( note: Note )
     };
 
 
-export function removeNote( note: Note )
+export function removeNote( position: number, notesCount: number )
     {
-    /*NOTES.splice( note.getPosition(), 1 );
+    let tx = DB.transaction( 'notes', 'readwrite' );
+    let store = tx.objectStore( 'notes' );
 
-    if ( SAVE_ENABLED )
+    store.delete( position );
+
+        // need to update the notes above, since their position is now 1 less
+    for (var a = position + 1 ; a < notesCount + 1 ; a++)
         {
-        Data.saveNotes();
-        }*/
+        let request = store.get( a );
+
+        request.onsuccess = function()
+            {
+            let result: NoteData = request.result;
+
+            if ( result )
+                {
+                result.position--;
+                store.put( result );
+                }
+            }
+        }
+
+        // remove the last repeated position
+    store.delete( notesCount );
     }
 
 
@@ -100,12 +118,20 @@ export function changeNoteText( note: Note )
 
 export function changeNoteBackgroundColor( note: Note )
     {
-    /*NOTES[ note.getPosition() ].backgroundColor = note.getColorObject().getColor();
+    let tx = DB.transaction( 'notes', 'readwrite' );
+    let store = tx.objectStore( 'notes' );
+    let request = store.get( note.getPosition() );
 
-    if ( SAVE_ENABLED )
+    request.onsuccess = function()
         {
-        Data.saveNotes();
-        }*/
+        let result: NoteData = request.result;
+
+        if ( result )
+            {
+            result.backgroundColor = note.getColorObject().getColor();
+            store.put( result );
+            }
+        }
     }
 
 
