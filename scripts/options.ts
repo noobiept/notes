@@ -1,4 +1,4 @@
-module Options
+namespace Options
 {
 export interface OptionsData
     {

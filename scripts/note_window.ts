@@ -1,4 +1,4 @@
-module NoteWindow
+namespace NoteWindow
 {
 var NOTE: Note;
 var TEXT: HTMLElement;

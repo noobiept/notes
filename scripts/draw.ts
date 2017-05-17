@@ -1,4 +1,4 @@
-module Draw
+namespace Draw
 {
 type DrawType = 'delNote' | 'openWindow' | 'NoteWindow-leftArrow' | 'NoteWindow-rightArrow';
 

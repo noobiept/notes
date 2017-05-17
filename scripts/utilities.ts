@@ -1,4 +1,4 @@
-module Utilities
+namespace Utilities
 {
 /**
  * Convert from the '#rrggbb' format to the 'rgb(r,g,b)'.

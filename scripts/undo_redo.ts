@@ -5,7 +5,7 @@
  *      - removed notes
  *      - dragged notes
  */
-module UndoRedo
+namespace UndoRedo
 {
 type ActionType = 'removedNote' | 'addedNote' | 'draggedNote';
 

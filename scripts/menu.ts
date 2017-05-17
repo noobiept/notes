@@ -1,4 +1,4 @@
-module Menu
+namespace Menu
 {
 var MESSAGE_TIMEOUT: number | null = null;
 var MESSAGE: HTMLElement;

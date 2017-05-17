@@ -1,4 +1,4 @@
-module OptionsPage
+namespace OptionsPage
 {
 var CONTAINER: HTMLElement;
 var BACKGROUND_COLOR_VALUE: HTMLElement;
