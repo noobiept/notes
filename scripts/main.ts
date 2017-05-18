@@ -32,6 +32,7 @@ for (var i = 0 ; i < notes.length ; i++)
     let noteData = notes[ i ];
 
     MAIN_CONTAINER.newNote({
+        id: noteData.id,
         text: noteData.text,
         colorComponents: noteData.backgroundColor,
         position: -1,

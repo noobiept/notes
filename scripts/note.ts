@@ -1,5 +1,6 @@
 interface NoteArgs
     {
+    id?: number;
     text?: string;
     colorComponents?: ColorArgs;
     saveToUndo?: boolean;
@@ -10,6 +11,7 @@ interface NoteArgs
 
 class Note
 {
+private id: number | undefined;
 private position: number;
 private dragDrop: DragDrop;
 private parentObject: MainContainer;
@@ -165,6 +167,11 @@ constructor( container: MainContainer, args?: NoteArgs )
     if ( args.saveToStorage !== false )
         {
         Data.newNote( this );
+        }
+
+    if ( typeof args.id !== 'undefined' )
+        {
+        this.id = args.id;
         }
 
     return this;
@@ -338,6 +345,38 @@ getPosition()
 setPosition( position: number )
     {
     this.position = position;
+    }
+
+
+/**
+ * Set the id that is used by the database to identify this note.
+ */
+setId( id: number )
+    {
+    this.id = id;
+    }
+
+
+/**
+ * Get the id that identifies this note in the database.
+ * The 'id' might not be set yet, and if so then we need to query the database for it.
+ */
+async getId()
+    {
+    if ( typeof this.id === 'undefined' )
+        {
+        return await Data.updateId( this );
+        }
+
+    else
+        {
+        let _this = this;
+
+        return new Promise( function( resolve, reject )
+            {
+            resolve( _this.id );
+            });
+        }
     }
 
 

@@ -84,10 +84,12 @@ export function newNote( note: Note )
         let tx = DB.transaction( 'notesInfo', 'readwrite' );
         let infoStore = tx.objectStore( 'notesInfo' );
         let notesPosition = infoStore.get( 'notesPosition' );
+        let id = putRequest.result;
+
+        note.setId( id );
 
         notesPosition.onsuccess = function()
             {
-            let id = putRequest.result;
             let notesInfo: NotesInfoData = notesPosition.result;
 
             notesInfo.value.splice( position, 0, id );
@@ -126,12 +128,14 @@ export function removeNote( position: number, notesCount: number )
     }
 
 
-export function changeNoteText( note: Note )
+export async function changeNoteText( note: Note )
     {
-    let tx = DB.transaction( 'notes', 'readwrite' );
+    let id = await note.getId();
 
+    let tx = DB.transaction( 'notes', 'readwrite' );
     let store = tx.objectStore( 'notes' );
-    let noteRequest = store.get( note.getPosition() );
+
+    let noteRequest = store.get( id );
 
     noteRequest.onsuccess = function()
         {
@@ -224,5 +228,32 @@ export function setOption<K extends keyof Options.OptionsData>( name: K, value: 
         result.value = value;
         store.put( result );
         };
+    }
+
+
+/**
+ * Get the id of the note that is on the given position.
+ */
+export async function updateId( note: Note )
+    {
+    let position = note.getPosition();
+
+    let promise = new Promise( function( resolve, reject )
+        {
+        let tx = DB.transaction( 'notesInfo', 'readwrite' );
+        let store = tx.objectStore( 'notesInfo' );
+        let notesPosition = store.get( 'notesPosition' );
+
+        notesPosition.onsuccess = function()
+            {
+            let notesInfo: NotesInfoData = notesPosition.result;
+
+            let id = notesInfo.value[ position ];
+            note.setId( id );
+            resolve( id );
+            };
+        });
+
+    return promise;
     }
 }
