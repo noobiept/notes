@@ -60,7 +60,7 @@ export function load( callback: (notes: NoteData[], notesPosition: number[], opt
 
         tx.oncomplete = function()
             {
-            callback( notes.result, notesPosition.result, options.result );
+            callback( notes.result, notesPosition.result.value, options.result );
             };
         };
     };

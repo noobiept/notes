@@ -21,15 +21,21 @@ OptionsPage.init();
     // load the notes
 var activeNotePosition = Options.get( 'activeNotePosition' );
 
-    // first time the program runs
-if ( !notes )
+var notesById: { [id: number]: Data.NoteData } = {};
+
+    // create a temporary dictionary to helps add the notes in the right position
+for (let a = 0 ; a < notes.length ; a++)
     {
-    return;
+    let noteData = notes[ a ];
+    notesById[ noteData.id ] = noteData;
     }
 
-for (var i = 0 ; i < notes.length ; i++)
+    // 'notesPosition' is sorted with the ids of the notes
+    // so we need to add the notes in that order
+for (let a = 0 ; a < notesPosition.length ; a++)
     {
-    let noteData = notes[ i ];
+    let id = notesPosition[ a ];
+    let noteData = notesById[ id ];
 
     MAIN_CONTAINER.newNote({
         id: noteData.id,
