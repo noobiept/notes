@@ -2,7 +2,7 @@ namespace Data
 {
 export interface NoteData
     {
-    position: number;
+    id: number;    // its added automatically by the database
     text: string;
     backgroundColor: ColorArgs
     }
@@ -11,6 +11,12 @@ export interface LoadedOptionsData
     {
     name: keyof Options.OptionsData;
     value: any;
+    }
+
+export interface NotesInfoData
+    {
+    key: 'notesArray';
+    value: number[];
     }
 
     // add the missing 'getAll()' method to the store interface
@@ -23,21 +29,25 @@ interface IDBObjectStoreExt extends IDBObjectStore
 let DB: IDBDatabase;
 
 
-export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]) => void )
+export function load( callback: (notes: NoteData[], notesPosition: number[], options: LoadedOptionsData[]) => void )
     {
     let request = window.indexedDB.open( 'notesDB', 1 );
 
     request.onupgradeneeded = function( event )
         {
         let db: IDBDatabase = (<IDBOpenDBRequest>event.target).result;
-        db.createObjectStore( 'notes', { keyPath: 'position' } );
+        db.createObjectStore( 'notes', { keyPath: 'id', autoIncrement: true } );
         db.createObjectStore( 'options', { keyPath: 'name' } );
+        let info = db.createObjectStore( 'notesInfo', { keyPath: 'key' } );
+
+            // has the ids of all the notes, sorted by position
+        info.put( { key: 'notesPosition', value: [] } );
         };
 
     request.onsuccess = function( event )
         {
         DB = (<IDBOpenDBRequest>event.target).result;
-        let tx = DB.transaction( [ "notes", 'options' ], "readonly" );
+        let tx = DB.transaction( [ "notes", 'notesInfo', 'options' ], "readonly" );
 
         let notesStore = <IDBObjectStoreExt> tx.objectStore( "notes" );
         let notes = notesStore.getAll();
@@ -45,9 +55,12 @@ export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]
         let optionsStore = <IDBObjectStoreExt> tx.objectStore( 'options' );
         let options = optionsStore.getAll();
 
+        let notesInfoStore = tx.objectStore( 'notesInfo' );
+        let notesPosition = notesInfoStore.get( 'notesPosition' );
+
         tx.oncomplete = function()
             {
-            callback( notes.result, options.result );
+            callback( notes.result, notesPosition.result, options.result );
             };
         };
     };
@@ -56,14 +69,31 @@ export function load( callback: (notes: NoteData[], options: LoadedOptionsData[]
 export function newNote( note: Note )
     {
     let tx = DB.transaction( 'notes', 'readwrite' );
-    let store = tx.objectStore( 'notes' );
+    let notesStore = tx.objectStore( 'notes' );
+
+    let position = note.getPosition();
     let noteData: NoteData = {
-            position: note.getPosition(),
             text: note.getText(),
             backgroundColor: note.getColorObject().getColor()
         };
 
-    store.put( noteData );
+    let putRequest = notesStore.put( noteData );
+
+    tx.oncomplete = function()
+        {
+        let tx = DB.transaction( 'notesInfo', 'readwrite' );
+        let infoStore = tx.objectStore( 'notesInfo' );
+        let notesPosition = infoStore.get( 'notesPosition' );
+
+        notesPosition.onsuccess = function()
+            {
+            let id = putRequest.result;
+            let notesInfo: NotesInfoData = notesPosition.result;
+
+            notesInfo.value.splice( position, 0, id );
+            infoStore.put( notesInfo );
+            }
+        };
     };
 
 

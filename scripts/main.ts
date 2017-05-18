@@ -10,7 +10,7 @@ Data.load( initApp );
 };
 
 
-function initApp( notes: Data.NoteData[], options: Data.LoadedOptionsData[] )
+function initApp( notes: Data.NoteData[], notesPosition: number[], options: Data.LoadedOptionsData[] )
 {
 MAIN_CONTAINER = new MainContainer();
 
@@ -29,9 +29,11 @@ if ( !notes )
 
 for (var i = 0 ; i < notes.length ; i++)
     {
+    let noteData = notes[ i ];
+
     MAIN_CONTAINER.newNote({
-        text: notes[ i ].text,
-        colorComponents: notes[ i ].backgroundColor,
+        text: noteData.text,
+        colorComponents: noteData.backgroundColor,
         position: -1,
         saveToUndo: false,
         saveToStorage: false
