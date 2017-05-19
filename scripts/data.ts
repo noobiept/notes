@@ -72,7 +72,7 @@ export function newNote( note: Note )
     let notesStore = tx.objectStore( 'notes' );
 
     let position = note.getPosition();
-    let noteData: NoteData = {
+    let noteData = {
             text: note.getText(),
             backgroundColor: note.getColorObject().getColor()
         };
@@ -165,37 +165,23 @@ export async function changeNoteBackgroundColor( note: Note )
 
 
 /**
- * Update the notes position in order, from the start position.
- * The notes array position doesn't match the value given by 'getPosition()'.
- * This is due to a note changing position (from a drag operation).
+ * A note was moved to a different position, update the database.
  */
-export function updateNotesPosition( notes: Note[], startPosition: number )
+export function updateNotesPosition( previousPosition: number, nextPosition: number )
     {
-    let tx = DB.transaction( 'notes', 'readwrite' );
-    let store = tx.objectStore( 'notes' );
+    let tx = DB.transaction( 'notesInfo', 'readwrite' );
+    let store = tx.objectStore( 'notesInfo' );
+    let notesPosition = store.get( 'notesPosition' );
 
-    for (var a = startPosition ; a < notes.length ; a++)
+    notesPosition.onsuccess = function()
         {
-        let note = notes[ a ];
-        let previousPosition = note.getPosition();
-        let request = store.get( previousPosition );
-        let nextPosition = a;
+        let notesInfo: NotesInfoData = notesPosition.result;
 
-            // update the note object
-        note.setPosition( nextPosition );
+        let id = notesInfo.value.splice( previousPosition, 1 )[ 0 ];
+        notesInfo.value.splice( nextPosition, 0, id );
 
-            // update the database position as well
-        request.onsuccess = function()
-            {
-            let result: NoteData = request.result;
-
-            if ( result )
-                {
-                result.position = nextPosition;
-                store.put( result );
-                }
-            }
-        }
+        store.put( notesInfo );
+        };
     }
 
 
