@@ -99,32 +99,26 @@ export function newNote( note: Note )
     };
 
 
-export function removeNote( position: number, notesCount: number )
+export async function removeNote( note: Note )
     {
-    let tx = DB.transaction( 'notes', 'readwrite' );
-    let store = tx.objectStore( 'notes' );
+    let id = await note.getId();
+    let position = note.getPosition();
+    let tx = DB.transaction( [ 'notes', 'notesInfo' ], 'readwrite' );
+    let notesStore = tx.objectStore( 'notes' );
+    let infoStore = tx.objectStore( 'notesInfo' );
+    let notesPosition = infoStore.get( 'notesPosition' );
 
-    store.delete( position );
+        // remove the note from the database
+    notesStore.delete( id );
 
-        // need to update the notes above, since their position is now 1 less
-    for (var a = position + 1 ; a < notesCount + 1 ; a++)
+        // also need to remove the id from the position array
+    notesPosition.onsuccess = function()
         {
-        let request = store.get( a );
+        let notesInfo: NotesInfoData = notesPosition.result;
 
-        request.onsuccess = function()
-            {
-            let result: NoteData = request.result;
-
-            if ( result )
-                {
-                result.position--;
-                store.put( result );
-                }
-            }
+        notesInfo.value.splice( position, 1 );
+        infoStore.put( notesInfo );
         }
-
-        // remove the last repeated position
-    store.delete( notesCount );
     }
 
 
@@ -150,11 +144,12 @@ export async function changeNoteText( note: Note )
     }
 
 
-export function changeNoteBackgroundColor( note: Note )
+export async function changeNoteBackgroundColor( note: Note )
     {
+    let id = await note.getId();
     let tx = DB.transaction( 'notes', 'readwrite' );
     let store = tx.objectStore( 'notes' );
-    let request = store.get( note.getPosition() );
+    let request = store.get( id );
 
     request.onsuccess = function()
         {
@@ -238,7 +233,7 @@ export async function updateId( note: Note )
     {
     let position = note.getPosition();
 
-    let promise = new Promise( function( resolve, reject )
+    let promise = new Promise<number>( function( resolve, reject )
         {
         let tx = DB.transaction( 'notesInfo', 'readwrite' );
         let store = tx.objectStore( 'notesInfo' );

@@ -372,7 +372,7 @@ async getId()
         {
         let _this = this;
 
-        return new Promise( function( resolve, reject )
+        return new Promise<number>( function( resolve, reject )
             {
             resolve( _this.id );
             });

@@ -71,7 +71,7 @@ removeNote( note: Note, saveToUndo?: boolean )
         this.childrenObjects[ a ].setPosition( a );
         }
 
-    Data.removeNote( position, this.childrenObjects.length );
+    Data.removeNote( note );
     }
 
 
