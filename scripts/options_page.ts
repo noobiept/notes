@@ -145,11 +145,12 @@ export function init()
 
     var exportNotes = <HTMLAnchorElement> document.getElementById( 'Options-export' )!;
 
+    exportNotes.setAttribute( 'download', 'notes.txt' );
     exportNotes.onclick = function()
         {
         var notesString = JSON.stringify( MAIN_CONTAINER.getTextList(), null, 4 );
 
-        exportNotes.href = "data:text/plain;base64," + Utilities.utf8_to_b64( notesString );
+        exportNotes.setAttribute( 'href', 'data:text/plain;charset=utf-8,' + encodeURIComponent( notesString ) );
         };
     }
 

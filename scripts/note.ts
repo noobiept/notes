@@ -385,7 +385,7 @@ async getId()
  */
 getText()
     {
-    return this.noteEntry.innerHTML;
+    return this.noteEntry.innerText;
     }
 
 
