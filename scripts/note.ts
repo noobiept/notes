@@ -381,9 +381,18 @@ async getId()
 
 
 /*
- * get the text of the note
+ * Get the text of the note (returns html).
  */
 getText()
+    {
+    return this.noteEntry.innerHTML;
+    }
+
+
+/**
+ * Returns the rendered text of the note (no html).
+ */
+getRenderedText()
     {
     return this.noteEntry.innerText;
     }

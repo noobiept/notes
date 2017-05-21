@@ -228,7 +228,7 @@ getTextList()
 
     for (var a = 0 ; a < children.length ; a++)
         {
-        textList.push( children[ a ].getText() );
+        textList.push( children[ a ].getRenderedText() );
         }
 
     return textList;
