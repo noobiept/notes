@@ -122,8 +122,11 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
         // add in the new position
     this.childrenObjects.splice( position, 0, note );
 
-        // update the note object
-    note.setPosition( position );
+        // update the notes object with the current position
+    for (var a = lessPosition ; a < this.childrenObjects.length ; a++)
+        {
+        this.childrenObjects[ a ].setPosition( a );
+        }
 
         // update the database
     Data.updateNotesPosition( previousPosition, position );
