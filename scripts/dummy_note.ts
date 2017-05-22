@@ -50,42 +50,39 @@ keyboardEvents( event: KeyboardEvent )
         return;
         }
 
-    if (event.type === 'keydown')
+        // add a new note
+    if ( key === Utilities.EVENT_KEY.enter || key === Utilities.EVENT_KEY.tab )
         {
-            // add a new note
-        if (key === Utilities.EVENT_KEY.enter || key === Utilities.EVENT_KEY.tab)
+        noteObject = MAIN_CONTAINER.newNote();
+        noteObject.gainFocus();
+        }
+
+        // focus to the last note
+    else if ( event.altKey && key === Utilities.EVENT_KEY.q )
+        {
+        noteObject = MAIN_CONTAINER.getLastChild();
+
+        if (noteObject !== null)
             {
-            noteObject = MAIN_CONTAINER.newNote();
             noteObject.gainFocus();
             }
-
-            // focus to the last note
-        else if (event.ctrlKey && key === Utilities.EVENT_KEY.leftArrow)
-            {
-            noteObject = MAIN_CONTAINER.getLastChild();
-
-            if (noteObject !== null)
-                {
-                noteObject.gainFocus();
-                }
-            }
-
-            // focus to the first note
-        else if (event.ctrlKey && key == Utilities.EVENT_KEY.rightArrow)
-            {
-            noteObject = MAIN_CONTAINER.getFirstChild();
-
-            if (noteObject !== null)
-                {
-                noteObject.gainFocus();
-                }
-            }
-
-            // else --> cancel other input
-
-        event.preventDefault();
-        event.stopPropagation();
         }
+
+        // focus to the first note
+    else if ( event.altKey && key == Utilities.EVENT_KEY.w )
+        {
+        noteObject = MAIN_CONTAINER.getFirstChild();
+
+        if (noteObject !== null)
+            {
+            noteObject.gainFocus();
+            }
+        }
+
+        // else --> cancel other input
+
+    event.preventDefault();
+    event.stopPropagation();
     }
 
 

@@ -248,7 +248,7 @@ function openOptions( noteObject: Note )
     fixedType.className = "NoteWindow-fixed";
     fixedType.innerHTML = "is fixed";
 
-    if (colorObject.wasSetByUser() === true)
+    if ( colorObject.wasSetByUser() === true )
         {
         fixedType.classList.add( "NoteWindow-selected" );
         }
@@ -316,26 +316,27 @@ function openOptions( noteObject: Note )
 
 
 /*
- * - ctrl + left arrow  : move to the note to the left (or if this is the first one, go to the last)
- * - ctrl + right arrow : move to the note to the right (or if this is the last one, go to the first)
+ * - alt + q : move to the note to the left (or if this is the first one, go to the last)
+ * - alt + w : move to the note to the right (or if this is the last one, go to the first)
  */
 function shortcuts( event: KeyboardEvent )
     {
-    var key = event.which;
-
-    if (event.type === 'keyup')
+    if ( event.altKey )
         {
-            // move to the note to the left (or if this is the first one, go to the last)
-        if (event.ctrlKey && key === Utilities.EVENT_KEY.leftArrow)
+        switch( event.keyCode )
             {
-            goLeftNote();
+                // move to the note to the left (or if this is the first one, go to the last)
+            case Utilities.EVENT_KEY.q:
+                goLeftNote();
+                break;
+
+                // move to the note to the right (or if this is the last one, go to the first)
+            case Utilities.EVENT_KEY.w:
+                goRightNote();
+                break;
             }
 
-            // move to the note to the right (or if this is the last one, go to the first)
-        else if (event.ctrlKey && key === Utilities.EVENT_KEY.rightArrow)
-            {
-            goRightNote();
-            }
+        event.stopPropagation();
         }
     }
 }

@@ -68,10 +68,10 @@ window.addEventListener( 'keyup', globalShortcuts, true );
 /*
     Keyboard shortcuts (don't work when a PopupWindow is opened)
 
-    - alt + u : call Undo
-    - alt + r : call Redo
-    - alt + o : open the options
-    - alt + n : create a new note
+    - alt + 1 : create a new note
+    - alt + 2 : undo the previous operation
+    - all + 3 : redo the previous undone operation
+    - alt + 4 : open the options window
  */
 function globalShortcuts( event: KeyboardEvent )
 {
@@ -82,41 +82,34 @@ if (PopupWindow.hasOpenedWindows() === true)
     return;
     }
 
-var key = event.which;
-
-if ( event.type === 'keyup' )
+if ( event.altKey )
     {
-        // alt + u -- (u)ndo
-    if ( event.altKey && key === Utilities.EVENT_KEY.u )
+    switch( event.keyCode )
         {
-        UndoRedo.stuff( 'undo' );
+        case Utilities.EVENT_KEY.one:
+            var noteObject = MAIN_CONTAINER.newNote();
+            noteObject.gainFocus();
 
-        event.stopPropagation();
-        }
+            event.stopPropagation();
+            break;
 
-        // alt + r -- (r)edo
-    else if ( event.altKey && key === Utilities.EVENT_KEY.r )
-        {
-        UndoRedo.stuff( 'redo' );
+        case Utilities.EVENT_KEY.two:
+            UndoRedo.stuff( 'undo' );
 
-        event.stopPropagation();
-        }
+            event.stopPropagation();
+            break;
 
-        // alt + o -- open the (o)ptions
-    else if ( event.altKey && key === Utilities.EVENT_KEY.o )
-        {
-        OptionsPage.open();
+        case Utilities.EVENT_KEY.three:
+            UndoRedo.stuff( 'redo' );
 
-        event.stopPropagation();
-        }
+            event.stopPropagation();
+            break;
 
-        // alt + n -- create a new (n)ote
-    else if ( event.altKey && key === Utilities.EVENT_KEY.n )
-        {
-        var noteObject = MAIN_CONTAINER.newNote();
-        noteObject.gainFocus();
+        case Utilities.EVENT_KEY.four:
+            OptionsPage.open();
 
-        event.stopPropagation();
+            event.stopPropagation();
+            break;
         }
     }
 }

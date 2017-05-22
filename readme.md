@@ -25,7 +25,7 @@ In the 'Options' window, you can set a fixed background color for this particula
 
 ## Note's width/height ##
 
-Change the note's dimensions (all of them).
+Change the note's dimensions (of all of them).
 
 
 ## How to generate the background color ##
@@ -47,24 +47,30 @@ If the spellcheck is activated or not.
 
 ## Global Shortcuts ##
 
-- `alt + n` : new `(n)`ote.
-- `alt + o` : open `(o)`ptions.
-- `alt + u` : `(u)`ndo of added/removed/dragged notes.
-- `alt + r` : `(r)`edo of added/removed/dragged notes.
+- `alt + 1` : new note.
+- `alt + 2` : undo of added/removed/dragged notes.
+- `alt + 3` : redo of added/removed/dragged notes.
+- `alt + 4` : open options.
 
 ## When focus on a Note ##
 
-- `ctrl + left arrow` : Focus to the note on the left.
-- `ctrl + right arrow` : Focus to the note on the right.
-- `ctrl + delete` : Delete the note.
-- `ctrl + enter` : Create a new note in the next position.
-- `alt + w` : Open the note's window.
+- `alt + q` : Focus to the note on the left.
+- `alt + w` : Focus to the note on the right.
+- `alt + e` : Open the note's window.
+- `alt + a` : Create a new note in the next position.
+- `alt + s` : Delete the note.
 
 ## When the note's window is opened ##
 
-- `ctrl + left arrow` : Focus to the note on the left.
-- `ctrl + right arrow` : Focus to the note on the right.
+- `alt + q` : Focus to the note on the left.
+- `alt + w` : Focus to the note on the right.
+- `esc` : Close the window.
 
+## When focus on the dummy note ##
+
+- `alt + q`: Go to the last note.
+- `alt + w`: Go to the first note.
+- `enter` or `tab`: Create a new note.
 
 # Dependencies #
 

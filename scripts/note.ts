@@ -477,12 +477,11 @@ getHtmlElement()
 
 
 /*
-    - ctrl + left arrow  : focus to the note to the left (or the dummy note, if its the first note)
-    - ctrl + right arrow : focus to the note to the right (or dummy note, if its the last one)
-    - ctrl + delete      : delete the note
-    - ctrl + enter       : create a new note in the next position
-    - alt + w            : open the NoteWindow
-
+    - alt + q : focus to the note to the left (or the dummy note, if its the first note)
+    - alt + w : focus to the note to the right (or dummy note, if its the last one)
+    - alt + e : open the NoteWindow
+    - alt + a : create a new note in the next position
+    - alt + s : delete the note
  */
 keyboardShortcuts( event: KeyboardEvent )
     {
@@ -492,84 +491,96 @@ keyboardShortcuts( event: KeyboardEvent )
         // used when we're selecting another element than this
     var otherNoteObject;
 
-    if (event.type === 'keydown')
+    if ( event.type === 'keydown' )
         {
-            // focus to the note to the left (or the dummy note, if its the first note)
-        if ( event.ctrlKey && key === Utilities.EVENT_KEY.leftArrow )
+        if ( event.altKey )
             {
-            otherNoteObject = noteObject.previous();
-
-            if (otherNoteObject !== null)
+            switch( key )
                 {
-                otherNoteObject.gainFocus();
+                    // focus to the note to the left (or the dummy note, if its the first note)
+                case Utilities.EVENT_KEY.q:
+                    otherNoteObject = noteObject.previous();
+
+                    if (otherNoteObject !== null)
+                        {
+                        otherNoteObject.gainFocus();
+                        }
+
+                        // means this is the first note, go to the .dummyNote
+                    else
+                        {
+                        this.parentObject.getDummy().gainFocus();
+                        }
+
+                    break;
+
+                    // focus to the note to the right (or dummy note, if its the last one)
+                case Utilities.EVENT_KEY.w:
+                    otherNoteObject = noteObject.next();
+
+                    if (otherNoteObject !== null)
+                        {
+                        otherNoteObject.gainFocus();
+                        }
+
+                        // means this is the last element, go to .dummyNote
+                    else
+                        {
+                        this.parentObject.getDummy().gainFocus();
+                        }
+
+                    break;
+
+                    // create a new note in the next position
+                case Utilities.EVENT_KEY.a:
+                    otherNoteObject = this.parentObject.newNote({
+                        text: "",
+                        saveToUndo: true,
+                        position: this.getPosition() + 1
+                        });
+
+                    otherNoteObject.gainFocus();
+                    break;
                 }
 
-                // means this is the first note, go to the .dummyNote
-            else
-                {
-                this.parentObject.getDummy().gainFocus();
-                }
+            event.stopPropagation();
             }
-
-            // focus to the note to the right (or dummy note, if its the last one)
-        else if ( event.ctrlKey && key === Utilities.EVENT_KEY.rightArrow )
-            {
-            otherNoteObject = noteObject.next();
-
-            if (otherNoteObject !== null)
-                {
-                otherNoteObject.gainFocus();
-                }
-
-                // means this is the last element, go to .dummyNote
-            else
-                {
-                this.parentObject.getDummy().gainFocus();
-                }
-            }
-
-            // create a new note in the next position
-        else if ( event.ctrlKey && key === Utilities.EVENT_KEY.enter )
-            {
-            otherNoteObject = this.parentObject.newNote({
-                text: "",
-                saveToUndo: true,
-                position: this.getPosition() + 1
-                });
-
-            otherNoteObject.gainFocus();
-            }
-
-        event.stopPropagation();
         }
 
-    else if (event.type === 'keyup')
+    else if ( event.type === 'keyup' )
         {
-                // remove the note
-        if ( event.ctrlKey && key === Utilities.EVENT_KEY.del )
+        if ( event.altKey )
             {
-                // we'll try to give focus to the next note, or the previous if this is the last note
-                // if this is the only note left, focus goes to the dummy note
-            otherNoteObject = this.next();
-
-            if (otherNoteObject === null)
+            switch( key )
                 {
-                otherNoteObject = this.previous();
+                    // remove the note
+                case Utilities.EVENT_KEY.s:
 
-                if (otherNoteObject === null)
-                    {
-                    otherNoteObject = this.parentObject.getDummy();
-                    }
+                        // we'll try to give focus to the next note, or the previous if this is the last note
+                        // if this is the only note left, focus goes to the dummy note
+                    otherNoteObject = this.next();
+
+                    if ( otherNoteObject === null )
+                        {
+                        otherNoteObject = this.previous();
+
+                        if ( otherNoteObject === null )
+                            {
+                            otherNoteObject = this.parentObject.getDummy();
+                            }
+                        }
+
+                    this.parentObject.removeNote( this );
+                    otherNoteObject.gainFocus();
+                    break;
+
+                    // open the NoteWindow
+                case Utilities.EVENT_KEY.e:
+                    NoteWindow.open( noteObject );
+                    break;
                 }
 
-            this.parentObject.removeNote( this );
-            otherNoteObject.gainFocus();
-            }
-
-            // open the NoteWindow
-        else if (event.altKey && key === Utilities.EVENT_KEY.w)
-            {
-            NoteWindow.open( noteObject );
+            event.stopPropagation();
             }
         }
     }
