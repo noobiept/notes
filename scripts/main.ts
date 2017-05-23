@@ -66,12 +66,8 @@ window.addEventListener( 'keyup', globalShortcuts, true );
 
 
 /*
-    Keyboard shortcuts (don't work when a PopupWindow is opened)
-
-    - alt + 1 : create a new note
-    - alt + 2 : undo the previous operation
-    - all + 3 : redo the previous undone operation
-    - alt + 4 : open the options window
+    Global keyboard shortcuts (don't work when a 'PopupWindow' is opened)
+    Check the readme for a list with all the keyboard shortcuts available.
  */
 function globalShortcuts( event: KeyboardEvent )
 {
@@ -107,6 +103,42 @@ if ( event.altKey )
 
         case Utilities.EVENT_KEY.four:
             OptionsPage.open();
+
+            event.stopPropagation();
+            break;
+
+        case Utilities.EVENT_KEY.q:
+            if ( document.activeElement === document.body )
+                {
+                let note = MAIN_CONTAINER.getLastChild();
+                if ( note )
+                    {
+                    note.gainFocus();
+                    }
+
+                else
+                    {
+                    MAIN_CONTAINER.getDummy().gainFocus();
+                    }
+                }
+
+            event.stopPropagation();
+            break;
+
+        case Utilities.EVENT_KEY.w:
+            if ( document.activeElement === document.body )
+                {
+                let note = MAIN_CONTAINER.getFirstChild();
+                if ( note )
+                    {
+                    note.gainFocus();
+                    }
+
+                else
+                    {
+                    MAIN_CONTAINER.getDummy().gainFocus();
+                    }
+                }
 
             event.stopPropagation();
             break;

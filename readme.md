@@ -45,20 +45,25 @@ If the spellcheck is activated or not.
 
 # Keyboard Shortcuts #
 
-## Global Shortcuts ##
+## Menu shortcuts ##
 
 - `alt + 1` : new note.
 - `alt + 2` : undo of added/removed/dragged notes.
 - `alt + 3` : redo of added/removed/dragged notes.
 - `alt + 4` : open options.
 
-## When focus on a Note ##
+## When a note is on focus ##
 
 - `alt + q` : Focus to the note on the left.
 - `alt + w` : Focus to the note on the right.
 - `alt + e` : Open the note's window.
 - `alt + a` : Create a new note in the next position.
 - `alt + s` : Delete the note.
+
+## When there isn't a note on focus ##
+
+- `alt + q` : Put focus on the last child, or on the dummy note (if there's no notes yet).
+- `alt + w` : Put focus on the first child, or on the dummy note (if there's no notes yet).
 
 ## When the note's window is opened ##
 
