@@ -35,7 +35,8 @@ grunt.initConfig({
                 cwd: root,
                 src: [
                     'libraries/**',
-                    'package.json'
+                    'package.json',
+                    'images/icon16.png'
                 ],
                 dest: dest
             }

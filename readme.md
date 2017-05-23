@@ -56,9 +56,9 @@ If the spellcheck is activated or not.
 
 - `alt + q` : Focus to the note on the left.
 - `alt + w` : Focus to the note on the right.
-- `alt + e` : Open the note's window.
 - `alt + a` : Create a new note in the next position.
 - `alt + s` : Delete the note.
+- `alt + z` : Open the note's window.
 
 ## When there isn't a note on focus ##
 

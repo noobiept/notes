@@ -477,11 +477,7 @@ getHtmlElement()
 
 
 /*
-    - alt + q : focus to the note to the left (or the dummy note, if its the first note)
-    - alt + w : focus to the note to the right (or dummy note, if its the last one)
-    - alt + e : open the NoteWindow
-    - alt + a : create a new note in the next position
-    - alt + s : delete the note
+    Check the readme for a list with all the available keyboard shortcuts.
  */
 keyboardShortcuts( event: KeyboardEvent )
     {
@@ -573,7 +569,7 @@ keyboardShortcuts( event: KeyboardEvent )
                     break;
 
                     // open the NoteWindow
-                case Utilities.EVENT_KEY.e:
+                case Utilities.EVENT_KEY.z:
                     NoteWindow.open( noteObject );
                     break;
                 }
