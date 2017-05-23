@@ -64,6 +64,7 @@ If the spellcheck is activated or not.
 
 - `alt + q` : Focus to the note on the left.
 - `alt + w` : Focus to the note on the right.
+- `alt + s` : Remove the selected note.
 - `esc` : Close the window.
 
 ## When focus on the dummy note ##

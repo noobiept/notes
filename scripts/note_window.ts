@@ -209,13 +209,16 @@ function removeNote()
     otherNoteObject = NOTE.next();
 
         // or maybe the previous
-    if (otherNoteObject === null)
+    if ( otherNoteObject === null )
         {
         otherNoteObject = NOTE.previous();
         }
 
+        // remove the selected note
+    MAIN_CONTAINER.removeNote( NOTE );
+
         // there's nothing left, hide the window
-    if (otherNoteObject === null)
+    if ( otherNoteObject === null )
         {
         POPUP_WINDOW.hide();
         }
@@ -225,8 +228,6 @@ function removeNote()
         {
         updateContent( otherNoteObject );
         }
-
-    MAIN_CONTAINER.removeNote( NOTE );
     }
 
 
@@ -316,8 +317,7 @@ function openOptions( noteObject: Note )
 
 
 /*
- * - alt + q : move to the note to the left (or if this is the first one, go to the last)
- * - alt + w : move to the note to the right (or if this is the last one, go to the first)
+ * Check the readme for a list with all the keyboard shortcuts.
  */
 function shortcuts( event: KeyboardEvent )
     {
@@ -333,6 +333,11 @@ function shortcuts( event: KeyboardEvent )
                 // move to the note to the right (or if this is the last one, go to the first)
             case Utilities.EVENT_KEY.w:
                 goRightNote();
+                break;
+
+                // remove the selected note
+            case Utilities.EVENT_KEY.s:
+                removeNote();
                 break;
             }
 
