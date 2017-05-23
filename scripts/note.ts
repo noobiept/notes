@@ -534,8 +534,6 @@ keyboardShortcuts( event: KeyboardEvent )
                     // create a new note in the next position
                 case Utilities.EVENT_KEY.a:
                     otherNoteObject = this.parentObject.newNote({
-                        text: "",
-                        saveToUndo: true,
                         position: this.getPosition() + 1
                         });
 

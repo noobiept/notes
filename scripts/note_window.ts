@@ -231,6 +231,18 @@ function removeNote()
     }
 
 
+/**
+ * Add a new note in the next position, and update the note window to focus on that.
+ */
+function addNote()
+    {
+    let note = MAIN_CONTAINER.newNote({
+            position: NOTE.getPosition() + 1
+        });
+    updateContent( note );
+    }
+
+
 /*
  * The options of the individual note (to change the background color)
  */
@@ -333,6 +345,11 @@ function shortcuts( event: KeyboardEvent )
                 // move to the note to the right (or if this is the last one, go to the first)
             case Utilities.EVENT_KEY.w:
                 goRightNote();
+                break;
+
+                // add a new note in the next position
+            case Utilities.EVENT_KEY.a:
+                addNote();
                 break;
 
                 // remove the selected note
