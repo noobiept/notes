@@ -1,16 +1,11 @@
 - add notes
     - through menu
     - dummy note
-    - keyboard shortcut
 
 - remove notes
     - top right button
-    - keyboard shortcut
 
-- keyboard shortcuts
-    - global
-    - notes
-    - note window
+- keyboard shortcuts (check readme)
 
 - drag of a note
     - to the beginning
@@ -42,6 +37,7 @@
     - arrow to the left/right
         - check if it updates the text and the background color when switching
         - check if the note below the window gets focus
+        - check when there's only one note
     - remove a note
         - if it moves to the next note
         - when the last note is removed, it should close the note window

@@ -1,6 +1,6 @@
 namespace NoteWindow
 {
-var NOTE: Note;
+var NOTE: Note | undefined;
 var TEXT: HTMLElement;
 var CONTAINER: HTMLElement;
 var LEFT_ARROW: HTMLElement;
@@ -35,7 +35,7 @@ export function open( noteObject: Note )
         {
             // open with the noteObject of the currently displayed note (it can change with the left/right arrows)
             // don't bind to the initial note
-        openOptions( NOTE );
+        openOptions( NOTE! );
         });
 
         // :: Text :: //
@@ -47,8 +47,8 @@ export function open( noteObject: Note )
     text.addEventListener( 'input', function()
         {
         var noteText = this.innerHTML;
-        NOTE.setText( noteText );
-        Data.changeNoteText( NOTE );
+        NOTE!.setText( noteText );
+        Data.changeNoteText( NOTE! );
         });
 
     if (Options.get( 'spellCheck' ) === false)
@@ -120,7 +120,10 @@ function onStart()
  */
 function onHide()
     {
-    NOTE.gainFocus();
+    if ( NOTE )
+        {
+        NOTE.gainFocus();
+        }
 
         // remove the left/right arrow
     document.body.removeChild( LEFT_ARROW );
@@ -160,7 +163,7 @@ function goLeftNote()
         // if there's only one, do nothing
     if ( MAIN_CONTAINER.childrenCount() > 1 )
         {
-        var otherElement = NOTE.previous();
+        var otherElement = NOTE!.previous();
 
             // this is the first one
         if ( otherElement === null )
@@ -184,7 +187,7 @@ function goRightNote()
         // if there's only one, do nothing
     if ( MAIN_CONTAINER.childrenCount() > 1 )
         {
-        var otherElement = NOTE.next();
+        var otherElement = NOTE!.next();
 
             // this is the first one
         if ( otherElement === null )
@@ -206,20 +209,21 @@ function removeNote()
     var otherNoteObject;
 
         // get the next note
-    otherNoteObject = NOTE.next();
+    otherNoteObject = NOTE!.next();
 
         // or maybe the previous
     if ( otherNoteObject === null )
         {
-        otherNoteObject = NOTE.previous();
+        otherNoteObject = NOTE!.previous();
         }
 
         // remove the selected note
-    MAIN_CONTAINER.removeNote( NOTE );
+    MAIN_CONTAINER.removeNote( NOTE! );
 
         // there's nothing left, hide the window
     if ( otherNoteObject === null )
         {
+        NOTE = undefined;
         POPUP_WINDOW.hide();
         }
 
@@ -237,7 +241,7 @@ function removeNote()
 function addNote()
     {
     let note = MAIN_CONTAINER.newNote({
-            position: NOTE.getPosition() + 1
+            position: NOTE!.getPosition() + 1
         });
     updateContent( note );
     }
