@@ -43,13 +43,8 @@ grunt.initConfig({
         },
 
             // minimize the javascript
-        uglify: {
-            release: {
-                files: [{
-                    src: temp + 'code.js',
-                    dest: dest + 'min.js'
-                }]
-            }
+        shell: {
+            uglify: `uglifyjs "${temp}code.js" --compressor --output "${dest}min.js"`
         },
 
             // minimize the css
@@ -81,11 +76,11 @@ grunt.initConfig({
     // load the plugins
 grunt.loadNpmTasks( 'grunt-contrib-clean' );
 grunt.loadNpmTasks( 'grunt-contrib-copy' );
-grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 grunt.loadNpmTasks( 'grunt-processhtml' );
 grunt.loadNpmTasks( 'grunt-ts' );
+grunt.loadNpmTasks( 'grunt-shell' );
 
     // tasks
-grunt.registerTask( 'default', [ 'clean:previousBuild', 'ts', 'copy', 'uglify', 'cssmin', 'processhtml', 'clean:afterBuild' ] );
+grunt.registerTask( 'default', [ 'clean:previousBuild', 'ts', 'copy', 'shell:uglify', 'cssmin', 'processhtml', 'clean:afterBuild' ] );
 };

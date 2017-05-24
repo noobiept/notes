@@ -5,6 +5,9 @@
 - remove notes
     - top right button
 
+- active note position
+    - when we refresh the page, it should select the same note as before (or none selected, if that was the case before)
+
 - keyboard shortcuts (check readme)
 
 - drag of a note
