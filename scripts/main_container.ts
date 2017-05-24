@@ -80,7 +80,7 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
         //if there's an active element (with focus), we need to remove the focus before starting moving stuff around
         //since there are events (blur) attached to the elements, which are triggered when we move the html elements
         //so we 'call' them now, while we haven't done anything yet
-    if (document.activeElement)
+    if ( document.activeElement )
         {
             //this will probably be always called, since there's always an element on focus, even if it is just the <body>
         (<HTMLElement>document.activeElement).blur();
@@ -138,6 +138,7 @@ moveNoteTo( note: Note, position: number, saveToUndo?: boolean )
 
         //focus on the element that was dragged
     note.gainFocus();
+    note.updateBackgroundColor();
     }
 
 

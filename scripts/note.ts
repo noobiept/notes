@@ -97,22 +97,6 @@ constructor( container: MainContainer, args?: NoteArgs )
     noteContainer.appendChild( noteControls );
     noteContainer.appendChild( noteEntry );
 
-    var colorObject;
-
-        // if a color is not given, we generate one
-    if ( !args.colorComponents || args.colorComponents.wasSetByUser === false || args.colorComponents.red < 0 )
-        {
-        colorObject = noteObject.generateColor();
-        }
-
-        // otherwise, use the color that is set
-    else
-        {
-        colorObject = new Color( args.colorComponents );
-        }
-
-    noteContainer.style.backgroundColor = colorObject.getCssRepresentation();
-
     if (Options.get( 'spellCheck' ) === false)
         {
         noteEntry.setAttribute('spellcheck', 'false');
@@ -157,7 +141,7 @@ constructor( container: MainContainer, args?: NoteArgs )
     this.parentObject = container;
     this.noteEntry = noteEntry;
     this.noteContainer = noteContainer;
-    this.backgroundColor = colorObject;
+    this.updateBackgroundColor( args.colorComponents );
 
     if ( args.saveToUndo !== false )
         {
@@ -196,7 +180,6 @@ generateColor()
     {
     var red = 0, green = 0, blue = 0, alpha = 1;
     var generateColorType = Options.get( 'generateColorType' );
-
 
     if ( generateColorType === 'fixed_order' )
         {
@@ -418,8 +401,43 @@ getColorObject()
     }
 
 
-updateBackgroundColor()
+/**
+ * Set or generate the note's background color. The color to set depends based on whether we received a color argument, or on if there's an existing color set by the user already.
+ */
+updateBackgroundColor( args?: ColorArgs )
     {
+    let color;
+
+    if ( this.backgroundColor )
+        {
+            // only need to update when its a generated color
+        if ( !this.backgroundColor.wasSetByUser() )
+            {
+            color = this.generateColor();
+            }
+
+        else
+            {
+            color = this.backgroundColor;
+            }
+        }
+
+    else
+        {
+            // if a color is not given, we generate one
+        if ( !args || !args.wasSetByUser || args.red < 0 )
+            {
+            color = this.generateColor();
+            }
+
+            // otherwise, use the color that is set
+        else
+            {
+            color = new Color( args );
+            }
+        }
+
+    this.backgroundColor = color;
     this.noteContainer.style.backgroundColor = this.backgroundColor.getCssRepresentation();
     }
 

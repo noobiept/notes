@@ -44,7 +44,7 @@
         - check if the note below the window gets focus
     - remove a note
         - if it moves to the next note
-        - what happens when you remove the last note
+        - when the last note is removed, it should close the note window
     - change background color
         - switch between generated and fixed
         - if color components work
